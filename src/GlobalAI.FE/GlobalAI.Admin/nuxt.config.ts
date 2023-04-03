@@ -4,6 +4,9 @@ export default defineNuxtConfig({
     modules: [
         '@nuxtjs/tailwindcss'
     ],
+    devServer: {
+        port: 8001
+    },
     plugins: [
         {
             src: '~/plugins/fontawesome.client.js',

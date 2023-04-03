@@ -1,5 +1,4 @@
 <template>
-  <auth>
     <div class="container mx-auto px-4 h-full">
       <div class="flex content-center items-center justify-center h-full">
         <div class="w-full flex flex-col lg:flex-row space-x-0 lg:space-x-4">
@@ -64,36 +63,14 @@
         </div>
       </div>
     </div>
-  </auth>
 </template>
-<script >
+<script setup>
 import github from "../../assets/img/github.svg";
 import google from "../../assets/img/google.svg";
-import Auth from "~~/layouts/Auth.vue";
+// import Auth from "~~/layouts/Auth.vue";
 
-export default {
-  data() {
-    return {
-      github,
-      google,
-      showModal: false,
-    };
-  },
-  components: {
-    auth: Auth,
-  },
-  methods: {
-    toggleTabs: function (tabNumber) {
-      this.openTab = tabNumber;
-    },
+definePageMeta({
+  layout: 'auth',
+});
 
-    seeMore: function (event) {
-      this.more = event;
-    },
-
-    toggleModal: function () {
-      this.showModal = !this.showModal;
-    },
-  },
-};
 </script>

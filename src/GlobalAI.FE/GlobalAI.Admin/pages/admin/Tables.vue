@@ -8,12 +8,7 @@
     </div>
   </div>
 </template>
-<script>
-import CardTable from "../../components/Cards/CardTable.vue";
 
-export default {
-  components: {
-    CardTable,
-  },
-};
+<script setup>
+import CardTable from '~~/components/Cards/CardTable.vue';
 </script>

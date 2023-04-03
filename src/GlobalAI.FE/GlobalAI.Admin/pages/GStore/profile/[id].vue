@@ -1,5 +1,4 @@
 <template>
-  <admin>
     <div class="bg-gray-100">
       <section class="text-gray-600 body-font">
         <div class="container mt-10">
@@ -123,15 +122,18 @@
         </li>
       </ul>
     </nav>
-  </admin>
 </template>    
 
 <script setup>
 // import CardListProductShort from "../../../../components/Cards/CardListProductShort.vue";
 import CardListProductShort from "~~/components/Cards/CardListProductShort.vue";
-import Admin from "~~/layouts/Admin.vue";
 // import { defineAsyncComponent } from 'vue';
 // const CardListProductShort = defineAsyncComponent('../../components/Cards/CardListProductShort.vue');
+
+definePageMeta({
+  layout: 'admin',
+});
+
 const products1 = [
   {
     name: "Viên uống bổ sung vitamin C DHC",

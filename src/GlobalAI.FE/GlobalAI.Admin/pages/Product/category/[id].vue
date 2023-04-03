@@ -1,5 +1,4 @@
 <template>
-  <admin>
     <div>
       <div class="flex flex-wrap">
         <card-list-product title="sản phẩm mới" :products="products1" />
@@ -89,12 +88,14 @@
         </nav>
       </div>
     </div>
-  </admin>
 </template>
 
 <script setup>
 import CardListProduct from "../../../components/Cards/CardListProduct.vue";
-import Admin from "~~/layouts/Admin.vue";
+
+definePageMeta({
+  layout: 'admin'
+});
 
 const products1 = [
   {
