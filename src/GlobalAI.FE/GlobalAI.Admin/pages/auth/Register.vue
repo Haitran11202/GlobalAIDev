@@ -1,5 +1,4 @@
 <template>
-  <auth>
     <div class="container mx-auto px-4 h-full">
       <div class="flex content-center items-center justify-center h-full">
         <div class="w-full lg:w-6/12 px-4">
@@ -107,11 +106,13 @@
         </div>
       </div>
     </div>
-
-  </auth>
 </template>
 <script setup>
 import github from "../../assets/img/github.svg";
 import google from "../../assets/img/google.svg";
-import Auth from "~~/layouts/Auth.vue";
+
+definePageMeta({
+  layout: 'auth',
+});
+
 </script>

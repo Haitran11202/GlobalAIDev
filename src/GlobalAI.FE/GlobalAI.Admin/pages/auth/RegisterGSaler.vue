@@ -1,5 +1,4 @@
 <template>
-  <auth>
     <div class="container mx-auto px-4 h-full">
       <div class="flex content-center items-center justify-center h-full">
         <div class="w-full lg:w-6/12 px-4">
@@ -158,15 +157,16 @@
         </div>
       </div>
     </div>
-  </auth>
 </template>
 <script setup>
-import Auth from "~~/layouts/Auth.vue";
-
 import { registerUser } from "~~/api/api.user";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 import { useToast } from "vue-toastification";
+
+definePageMeta({
+  layout: 'auth'
+});
 
 const router = useRouter();
 const toast = useToast();

@@ -1,5 +1,4 @@
 <template>
-  <auth>
     <div class="container mx-auto px-4 h-full">
       <div class="flex content-center items-center justify-center h-full">
         <div class="w-full md:w-6/12 lg:w-4/12 px-4">
@@ -96,7 +95,6 @@
         </div>
       </div>
     </div>
-  </auth>
 </template>
 
 <script setup>
@@ -108,6 +106,10 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 import { useToast } from "vue-toastification";
 import { apiLogin } from "~~/api/api.auth";
+
+definePageMeta({
+  layout: 'auth'
+});
 
 const toast = useToast();
 const router = useRouter();
