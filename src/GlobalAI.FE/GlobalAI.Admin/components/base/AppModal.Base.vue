@@ -9,7 +9,7 @@
         <span class="modal__title">{{ props.title }}</span>
         <hr class="my-2 h-px bg-gray-200 border-0 dark:bg-gray-700">
         <div class="modal__content overflow-y-scroll">
-            <slot name="content" />
+            <slot name="content"></slot>
         </div>
     </vue-final-modal>
 </template>
