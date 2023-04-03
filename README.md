@@ -3,7 +3,7 @@
 ## Tổng quan dự án
 - BE: .net 6
 - DB: Oracle 21c (innovation release)
-- FE: Dự kiến vue
+- FE: Nuxt 3 (vue 3)
 
 ### Các tool nên dùng khi dev
 #### SQL Developer
@@ -13,12 +13,21 @@
 #### Visual Studio 2022 Community
 - Để dev be. Bản community nào cũng được nhưng cài 2022 cho ngon
 #### Visual Studio Code 
-- Để Code fe
+- Để Code fe. 
+- Nên cài extension Tailwind CSS IntelliSense để được hỗ trợ làm việc với tailwind class
+- Nên cài extension vscode-icons để icon bên Folder worskpace trông đẹp hơn
+- Nên cài extension Vetur để hỗ trợ vue
+- Nên cài extension Auto Rename Tag để đổi tên thẻ tiện hơn
+#### Vue.js devtools
+- Là extension trên chrome.
+- Có thể cài để dev vue tiện hơn. 
+- Giống giống kiểu f12 rồi vào tab style nhưng đây là phục vụ riêng cho vue.
 #### Postman
 - Để call api, nếu ko thích dùng Swagger
 #### Git
 - Để thao tác vs source code
 
+## BACK END
 ### Kiến trúc microservices
 https://www.google.com/search?q=microservices&client=opera&bih=980&biw=1880&hl=vi&ei=T1keZN34MuWSseMPsqKMgA0&ved=0ahUKEwid3Kmygfb9AhVlSWwGHTIRA9AQ4dUDCA4&uact=5&oq=microservices&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIHCAAQigUQQzIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEMgUIABCABDoKCAAQRxDWBBCwAzoLCAAQgAQQsQMQgwE6CAguEIAEELEDOggIABCABBCxAzoRCC4QgAQQsQMQgwEQxwEQ0QM6CwguEIAEELEDEIMBOgoIABCKBRCxAxBDOgcIABANEIAESgQIQRgAUNkIWIwsYLIuaANwAXgAgAFgiAGNBpIBAjEwmAEAoAEByAEIwAEB&sclient=gws-wiz-serp
 ### Sử dụng package Ocelot làm API Gateway
