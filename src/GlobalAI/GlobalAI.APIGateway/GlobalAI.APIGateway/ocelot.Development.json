@@ -167,54 +167,108 @@
                 }
             ],
             "Key": "CoreHealth"
+        },
+        {
+            "DownstreamPathTemplate": "/api/file/{urlPath}",
+            "UpstreamPathTemplate": "/api/file/{urlPath}",
+            "UpstreamHttpMethod": [
+                "Get",
+                "Post",
+                "Put",
+                "Delete"
+            ],
+            "UpstreamHeaderTransform": {
+                "X-Forwarded-For": "{RemoteIpAddress}"
+            },
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5006
+                }
+            ],
+            "Key": "FileAPI",
+            "SwaggerKey": "FileAPI"
+        },
+        {
+            "DownstreamPathTemplate": "/health",
+            "UpstreamPathTemplate": "/file/health",
+            "UpstreamHttpMethod": [
+                "Get",
+                "Post",
+                "Put",
+                "Delete"
+            ],
+            "UpstreamHeaderTransform": {
+                "X-Forwarded-For": "{RemoteIpAddress}"
+            },
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5006
+                }
+            ],
+            "Key": "FileHealth"
         }
     ],
-  "SwaggerEndPoints": [
-    {
-      "Key": "IdentityServer",
-      "TransformByOcelotConfig": false,
-      "Config": [
+    "SwaggerEndPoints": [
         {
-          "Name": "IdentityServer",
-          "Version": "v1",
-          "Url": "http://localhost:5001/swagger/v1/swagger.json"
+            "Key": "IdentityServer",
+            "TransformByOcelotConfig": false,
+            "Config": [
+                {
+                    "Name": "IdentityServer",
+                    "Version": "v1",
+                    "Url": "http://localhost:5001/swagger/v1/swagger.json"
+                }
+            ]
+        },
+        {
+            "Key": "DemoAPI",
+            "TransformByOcelotConfig": false,
+            "Config": [
+                {
+                    "Name": "DemoAPI",
+                    "Version": "v1",
+                    "Url": "http://localhost:5002/swagger/v1/swagger.json"
+                }
+            ]
+        },
+        {
+            "Key": "ProductAPI",
+            "TransformByOcelotConfig": false,
+            "Config": [
+                {
+                    "Name": "ProductAPI",
+                    "Version": "v1",
+                    "Url": "http://localhost:5004/swagger/v1/swagger.json"
+                }
+            ]
+        },
+        {
+            "Key": "CoreAPI",
+            "TransformByOcelotConfig": false,
+            "Config": [
+                {
+                    "Name": "CoreAPI",
+                    "Version": "v1",
+                    "Url": "http://localhost:5005/swagger/v1/swagger.json"
+                }
+            ]
+        },
+        {
+            "Key": "FileAPI",
+            "TransformByOcelotConfig": false,
+            "Config": [
+                {
+                    "Name": "FileAPI",
+                    "Version": "v1",
+                    "Url": "http://localhost:5006/swagger/v1/swagger.json"
+                }
+            ]
         }
-      ]
-    },
-    {
-        "Key": "DemoAPI",
-        "TransformByOcelotConfig": false,
-        "Config": [
-            {
-                "Name": "DemoAPI",
-                "Version": "v1",
-                "Url": "http://localhost:5002/swagger/v1/swagger.json"
-            }
-        ]
-    },
-    {
-        "Key": "ProductAPI",
-        "TransformByOcelotConfig": false,
-        "Config": [
-            {
-                "Name": "ProductAPI",
-                "Version": "v1",
-                "Url": "http://localhost:5004/swagger/v1/swagger.json"
-            }
-        ]
-    },
-    {
-        "Key": "CoreAPI",
-        "TransformByOcelotConfig": false,
-        "Config": [
-            {
-                "Name": "CoreAPI",
-                "Version": "v1",
-                "Url": "http://localhost:5005/swagger/v1/swagger.json"
-            }
-        ]
-    }
-  ],
+    ],
   "Aggregates": [
   ]
 }
