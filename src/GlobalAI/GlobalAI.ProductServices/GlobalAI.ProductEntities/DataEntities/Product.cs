@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 //using Microsoft.EntityFrameworkCore;
 
-namespace GlobalAI.DemoEntities.DataEntities
+namespace GlobalAI.ProductEntities.DataEntities
 {
     [Table("DEMO_PRODUCT")]
     [Comment("Demo bảng sản phẩm")]

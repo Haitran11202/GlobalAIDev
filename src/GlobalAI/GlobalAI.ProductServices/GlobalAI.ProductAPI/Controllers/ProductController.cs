@@ -1,6 +1,6 @@
-﻿using GlobalAI.DemoDomain.Interfaces;
-using GlobalAI.DemoEntities.DataEntities;
-using GlobalAI.DemoEntities.Dto.DemoProduct;
+﻿using GlobalAI.ProductDomain.Interfaces;
+using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.DemoProduct;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
 using Microsoft.AspNetCore.Authorization;

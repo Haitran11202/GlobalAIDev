@@ -1,11 +1,12 @@
 ﻿using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
-using GlobalAI.DemoDomain.Interfaces;
-using GlobalAI.DemoEntities.DataEntities;
-using GlobalAI.DemoEntities.Dto.DemoProduct;
+using GlobalAI.ProductDomain.Interfaces;
+using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.DemoProduct;
 using GlobalAI.DemoRepositories;
 using GlobalAI.Entites;
 using GlobalAI.EntitiesBase.Dto;
+using GlobalAI.ProductDomain.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,7 +16,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace GlobalAI.DemoDomain.Implements
+namespace GlobalAI.ProductDomain.Implements
 {
     public class ProductServices : IProductServices
     {
@@ -42,38 +43,19 @@ namespace GlobalAI.DemoDomain.Implements
             _demoProductRepository = new DemoProductRepository(dbContext, logger);
         }
 
-        /// <summary>
-        /// Tạo demo product
-        /// </summary>
-        /// <param name="dto"></param>
-        /// <returns></returns>
-        public AddProductDto Add(AddDemoProductDto dto)
+        public Product Add(AddDemoProductDto dto)
         {
-            _logger.LogInformation($"{nameof(Add)}: input = {JsonSerializer.Serialize(dto)}");
-
-            var result = _demoProductRepository.Add(new AddProductDto
-            {
-                Description = dto.Description,
-                Manufacturer = dto.Manufacturer,
-                Price = dto.Price,
-                ProductName = dto.ProductName,
-                ProductId = "ssaf",
-            });
-
-            _dbContext.SaveChanges();
-            return result;
+            throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Get list demo product phân trang
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
         public PagingResult<AddProductDto> FindAll(FindDemoProductDto input)
         {
-            _logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
+            throw new NotImplementedException();
+        }
 
-            return _demoProductRepository.FindAll(input);
+        AddProductDto IProductServices.Add(AddDemoProductDto dto)
+        {
+            throw new NotImplementedException();
         }
     }
 }

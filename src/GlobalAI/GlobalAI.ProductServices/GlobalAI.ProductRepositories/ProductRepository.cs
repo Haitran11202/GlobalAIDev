@@ -1,36 +1,37 @@
 ﻿using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
-using GlobalAI.DemoEntities.DataEntities;
-using GlobalAI.DemoEntities.Dto.Product;
+using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductEntities.DataEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace GlobalAI.DemoRepositories
+namespace GlobalAI.ProductRepositories
 {
     public class ProductRepository : BaseEFRepository<Product>
     {
+        private GlobalAIDbContext _dbContext {  get; set; } 
         public ProductRepository(DbContext dbContext, ILogger logger, string seqName = null) : base(dbContext, logger, seqName)
         {
         }
 
-        /// <summary>
-        /// Tạo mới product
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public Product Add(Product input)
+        public List<SanPham> Add(SanPham product)
         {
-            _logger.LogInformation($"{nameof(ProductRepository)}-> {nameof(Add)}: input = {JsonSerializer.Serialize(input)}");
+            _dbContext.SanPhams.Add(product);
+            return(_dbContext.SanPhams.ToList());
+        }
+        public List<SanPham> Put(SanPham product)
+        {
             
-            return _dbSet.Add(input).Entity;
+            return (_dbContext.SanPhams.ToList());
+        }
+        public List<SanPham> Delete(SanPham product)
+        {
+            _dbContext.SanPhams.Add(product);
+            return (_dbContext.SanPhams.ToList());
         }
 
-        /// <summary>
-        /// Lấy demo product phân trang
-        /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
         public PagingResult<Product> FindAll(FindProductDto input)
         {
             _logger.LogInformation($"{nameof(ProductRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");

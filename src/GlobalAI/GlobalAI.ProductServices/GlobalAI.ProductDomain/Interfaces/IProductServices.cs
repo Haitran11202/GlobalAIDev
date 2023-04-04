@@ -1,6 +1,6 @@
 ﻿using GlobalAI.DataAccess.Models;
-using GlobalAI.DemoEntities.DataEntities;
-using GlobalAI.DemoEntities.Dto.DemoProduct;
+using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.DemoProduct;
 using GlobalAI.EntitiesBase.Dto;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GlobalAI.DemoDomain.Interfaces
+namespace GlobalAI.ProductDomain.Interfaces
 {
     public interface IProductServices
     {
