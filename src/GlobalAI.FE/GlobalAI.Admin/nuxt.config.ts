@@ -4,14 +4,8 @@ export default defineNuxtConfig({
     modules: [
         '@nuxtjs/tailwindcss',
         '@pinia/nuxt',
+        '@pinia-plugin-persistedstate/nuxt',
     ],
-    pinia: {
-        autoImports: [
-            // automatically imports `defineStore`
-            'defineStore', // import { defineStore } from 'pinia'
-            ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
-        ],
-    },
     devServer: {
         port: 8001
     },
@@ -24,5 +18,15 @@ export default defineNuxtConfig({
         //     src: '~/plugins/vee-validate.js',
         //     mode: 'client'
         // },
-    ]
+    ],
+    pinia: {
+        autoImports: [
+            // automatically imports `defineStore`
+            'defineStore', // import { defineStore } from 'pinia'
+            ['defineStore', 'definePiniaStore'], // import { defineStore as definePiniaStore } from 'pinia'
+        ],
+    },
+    piniaPersistedstate: {
+        storage: 'localStorage'
+    },
 })

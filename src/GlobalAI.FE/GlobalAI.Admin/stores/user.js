@@ -1,3 +1,5 @@
+import { defineStore } from 'pinia'
+
 export const useUserStorage = defineStore('user', {
     state: () => ({
         accessToken: null,
@@ -24,5 +26,6 @@ export const useUserStorage = defineStore('user', {
             //     state[key] = null;
             // })
         },
-    }
+    },
+    persist: true, 
 });
