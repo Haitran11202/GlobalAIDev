@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.DemoEntities.Dto.Product
 {
-    public class FindProductDto : PagingRequestBaseDto
+    public class FindSanPhamDto : PagingRequestBaseDto
     {
     }
 }

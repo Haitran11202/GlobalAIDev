@@ -1,16 +1,17 @@
 ﻿using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
-using GlobalAI.DemoEntities.DataEntities;
+using GlobalAI.DemoEntities.Dto;
 using GlobalAI.DemoEntities.Dto.Product;
+using GlobalAI.ProductEntities.DataEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
 namespace GlobalAI.DemoRepositories
 {
-    public class ProductRepository : BaseEFRepository<Product>
+    public class SanPhamRepository : BaseEFRepository<SanPham>
     {
-        public ProductRepository(DbContext dbContext, ILogger logger, string seqName = null) : base(dbContext, logger, seqName)
+        public SanPhamRepository(DbContext dbContext, ILogger logger, string seqName = null) : base(dbContext, logger, seqName)
         {
         }
 
@@ -19,9 +20,9 @@ namespace GlobalAI.DemoRepositories
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public Product Add(Product input)
+        public SanPham Add(SanPham input)
         {
-            _logger.LogInformation($"{nameof(ProductRepository)}-> {nameof(Add)}: input = {JsonSerializer.Serialize(input)}");
+            _logger.LogInformation($"{nameof(SanPhamRepository)}-> {nameof(Add)}: input = {JsonSerializer.Serialize(input)}");
             
             return _dbSet.Add(input).Entity;
         }
@@ -31,14 +32,14 @@ namespace GlobalAI.DemoRepositories
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public PagingResult<Product> FindAll(FindProductDto input)
+        public PagingResult<SanPham> FindAll(FindSanPhamDto input)
         {
-            _logger.LogInformation($"{nameof(ProductRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
+            _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
 
-            PagingResult<Product> result = new();
+            PagingResult<SanPham> result = new();
 
-            var projectQuery = _dbSet.OrderByDescending(p => p.ProductRecordId)
-                .Where(r => (input.Keyword == null || r.ProductName.Contains(input.Keyword)))
+            var projectQuery = _dbSet.OrderByDescending(p => p.MaSanPham)
+                .Where(r => (input.Keyword == null || r.TenSanPham.Contains(input.Keyword)))
                         ;
 
             if (input.PageSize != -1)
