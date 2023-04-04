@@ -18,10 +18,10 @@ namespace GlobalAI.DataAccess.Base
         #region danh mục
         public DbSet<DanhMuc> DanhMucs { get; set; }
         #endregion
-        #region sanpham
+        public DbSet<AddProductDto> Products { get; set; }
+        #region Sản phẩm
         public DbSet<SanPham> SanPhams { get; set; }
         #endregion
-        public DbSet<AddProductDto> Products { get; set; }
         public GlobalAIDbContext(DbContextOptions<GlobalAIDbContext> options) : base(options)
         {
         }

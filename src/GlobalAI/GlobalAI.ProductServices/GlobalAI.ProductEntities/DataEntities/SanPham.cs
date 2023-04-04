@@ -30,10 +30,10 @@ namespace GlobalAI.ProductEntities.DataEntities
         public string MoTa { get; set; } = String.Empty;
 
         [ColumnSnackCase(nameof(GiaBan))]
-        public int GiaBan { get; set; }
+        public decimal GiaBan { get; set; }
 
         [ColumnSnackCase(nameof(GiaChietKhau))]
-        public int GiaChietKhau { get; set; }
+        public decimal GiaChietKhau { get; set; }
 
         [ColumnSnackCase(nameof(MaDanhMuc))]
         public int MaDanhMuc { get; set; }
