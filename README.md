@@ -70,34 +70,23 @@ https://www.google.com/search?client=opera&hs=Rly&q=c%23+net+6+add+scope+and+sin
     - Nếu 1 class được Add Scope, thì trong cùng 1 request, nếu 1 class được khởi tạo nhiều hơn 1 lần, cũng vẫn chỉ có 1 instance được sinh ra. Request tiếp theo gửi tới thì app sẽ sinh instance khác cho request đó.
 - Đọc thêm: https://stackoverflow.com/questions/38138100/addtransient-addscoped-and-addsingleton-services-differences
 
-## Run project khi dev
-### BE
+### Run project khi dev
+#### BE
 - Vào src/GlobalAI, ấn GlobalAI.sln
-### Bật swagger
+#### Bật swagger
 - Run ở chế độ multi project (mỗi project tương ứng 1 service)
 https://davecallan.com/running-multiple-projects-visual-studio/
 - Vào địa chỉ http://localhost:5003/swagger/index.html
-### FE
-- Chưa có
-## Commit
-1. Tổng quan
-    - Tách riêng các commit fix bug và commit tính năng mới
-    - Nếu cần `pull` code mới về thì sử dụng lệnh `git stash` để cất code đi sau khi pull code từ _branch develop_ về thì dùng lệnh `git stash apply` để đưa code đang làm dở ra lại không mỗi lần `pull code` lại `commit` một lần tạo rất nhiều `commit` thừa
-        - Với lệnh `git stash apply` code thể dùng trong giao diện của visual studio
-        - Với trường hợp cần bỏ code đã cất đi dùng lênh `git stash drop` lưu ý cẩn thận khi dùng lệnh này sẽ xoá code đã cất đi _**Không thể khôi phục**_
-    - Không tự ý merge code phải tạo `merge request` để check lại
-    - `message commit` viết có ý nghĩa theo convetion sau:
-        - Bug: `[Bug] nguồn bug từ đâu - nội dung bug được fix`
-        - Tính năng mới: `Mô tả tính năng`
 
-## Comment code
+
+### Comment code
 1. Tổng quan
     - comment càng chi tiết càng tốt
     - các method giải thích đầu vào đầu ra, logic phức tạp
 2. Repositories
     - comment tại tất cả các method trong repo giải thích đầu vào đầu ra xử lý bên trong nếu join nhiều bảng
 
-## Coding convetion C#
+### Coding convetion C#
 1. Tổng quan
     - Tuân theo convetion **PascalCase** tức viết hoa chữ cái đầu tiên
     - Các biến sẽ viết theo convetion **CamelCase** viết thường chữ cái đầu
@@ -137,7 +126,7 @@ https://davecallan.com/running-multiple-projects-visual-studio/
     ```
 7. SignalR
     - test hub: https://gourav-d.github.io/SignalR-Web-Client/dist/
-## Coding convetion DB
+### Coding convetion DB
 1. Tổng quan
     - Đặt tên các bảng theo đúng ý nghĩa và liên quan đến mảng nghiệp vụ nào
 2. Error Code
@@ -154,7 +143,28 @@ https://davecallan.com/running-multiple-projects-visual-studio/
     - Lỗi OracleException: ORA-01950: no privileges on tablespace 'USERS' -> gõ lệnh sau vào script trong db:
         GRANT UNLIMITED TABLESPACE TO <Schema Name>;
 
-## Tìm code
+### Tìm code
 1. regex
     `_logger\.LogError\(.+\,\s{0,1}\$.+\;`
     
+## FRONT END
+### Tổng quan (Tới ngày 03/04/23)
+- Sử dụng framework Nuxtjs 3 (SSR)
+    - https://nuxt.com
+    - https://vuejs.org
+- CSS Framework: Sử dụng tailwind 
+    - https://tailwindcss.com
+- Validate form: Sử dụng vee-validate
+    - https://vee-validate.logaretm.com/v4/guide/overview/
+- Icon: Sử dụng font-awesome
+    - 
+## Commit
+1. Tổng quan
+    - Tách riêng các commit fix bug và commit tính năng mới
+    - Nếu cần `pull` code mới về thì sử dụng lệnh `git stash` để cất code đi sau khi pull code từ _branch develop_ về thì dùng lệnh `git stash apply` để đưa code đang làm dở ra lại không mỗi lần `pull code` lại `commit` một lần tạo rất nhiều `commit` thừa
+        - Với lệnh `git stash apply` code thể dùng trong giao diện của visual studio
+        - Với trường hợp cần bỏ code đã cất đi dùng lênh `git stash drop` lưu ý cẩn thận khi dùng lệnh này sẽ xoá code đã cất đi _**Không thể khôi phục**_
+    - Không tự ý merge code phải tạo `merge request` để check lại
+    - `message commit` viết có ý nghĩa theo convetion sau:
+        - Bug: `[Bug] nguồn bug từ đâu - nội dung bug được fix`
+        - Tính năng mới: `Mô tả tính năng`

@@ -35,6 +35,11 @@ namespace GlobalAI.Utils
         UserEmailDuplicated = 1002,
         UserPhoneDuplicated = 1003,
         UserLoginNotFound = 1004,
+
+        /// file
+        FileExtensionNoAllow = 5001,
+        FileUploadNoContent = 5002,
+        FileOverUploadLimit = 5003
     }
 
 }
