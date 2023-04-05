@@ -34,6 +34,8 @@ module.exports = {
 				'login': "url('assets/login-form-background.png')",
 				'footer': "url('assets/footer-background.png')",
 				'list-dichvu': "url('assets/bg/service-background.png')",
+				'login-green': "url(https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1951&amp;q=80)",
+				'user' : "url('assets/user.svg)"
 			},
 			fontSize: {
 				'32px': '32px',

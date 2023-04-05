@@ -36,8 +36,8 @@
                 <!-- link toi co the truyen vao param -->
                 <!-- <button @click="supplier" class="btn btn-link btn-xs">Thông tin nhà cung cấp</button> -->
                 <!-- link toi chua co cach truyen vao param -->
-                <router-link class="btn btn-link btn-xs" to="/gsaler/product/supplier/1">Thông tin nhà cung
-                  cấp</router-link>
+                <nuxt-link class="btn btn-link btn-xs" to="/gsaler/product/supplier/1">Thông tin nhà cung
+                  cấp</nuxt-link>
                 <!-- <a href="/gsaler/product/supplier/1" class="link link-primary">Thông tin nhà cung cấp</a> -->
               </a>
             </li>
@@ -51,7 +51,7 @@
         <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
             <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
-              v-on:click="toggleTabs(1)" v-bind:class="{
+              @click="toggleTabs(1)" :class="{
                 'text-green-600 bg-white': openTab !== 1,
                 'text-white bg-green-600': openTab === 1,
               }">
@@ -60,7 +60,7 @@
           </li>
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
             <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
-              v-on:click="toggleTabs(2)" v-bind:class="{
+              @click="toggleTabs(2)" :class="{
                 'text-green-600 bg-white': openTab !== 2,
                 'text-white bg-green-600': openTab === 2,
               }">
@@ -69,7 +69,7 @@
           </li>
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
             <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
-              v-on:click="toggleTabs(3)" v-bind:class="{
+              @click="toggleTabs(3)" :class="{
                 'text-green-600 bg-white': openTab !== 3,
                 'text-white bg-green-600': openTab === 3,
               }">
@@ -80,7 +80,7 @@
         <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
           <div class="px-4 py-5 flex-auto">
             <div class="tab-content tab-space">
-              <div v-bind:class="{ hidden: openTab !== 1, block: openTab === 1 }">
+              <div :class="{ hidden: openTab !== 1, block: openTab === 1 }">
                 <p>Ch&#7841;y b&#7897; &#273;&acirc;u c&#7847;n ph&#7843;i kh&oacute; ch&#7883;u? &#272;&ocirc;i
                   gi&agrave;y n&agrave;y mang l&#7841;i cho b&#7841;n c&#7843;m gi&aacute;c tho&#7843;i m&aacute;i trong
                   m&#7885;i bu&#7893;i ch&#7841;y, tr&ecirc;n m&#7885;i &#273;&#7883;a h&igrave;nh. T&#7915; s&#7921;
@@ -160,7 +160,7 @@
                   m&agrave; b&#7841;n kh&oacute; c&oacute; th&#7875; t&igrave;m &#273;&#432;&#7907;c s&#7843;n ph&#7849;m
                   thay th&#7871;.</p>
               </div>
-              <div v-bind:class="{ hidden: openTab !== 2, block: openTab === 2 }">
+              <div :class="{ hidden: openTab !== 2, block: openTab === 2 }">
                 <p>
                   Điều khoản dịch vụ là các thỏa thuận pháp lý giữa nhà cung cấp
                   dịch vụ và người muốn sử dụng dịch vụ đó. Người đó phải đồng ý
@@ -169,7 +169,7 @@
                   chối trách nhiệm, đặc biệt là về việc sử dụng các trang web
                 </p>
               </div>
-              <div v-bind:class="{ hidden: openTab !== 3, block: openTab === 3 }">
+              <div :class="{ hidden: openTab !== 3, block: openTab === 3 }">
                 <p>
                   Những câu đánh giá sản phẩm hay, nếu như bạn là người mua hàng
                   thường xuyên thì chắc hẳn đã nghĩ tới những câu đánh giá sản
@@ -200,12 +200,12 @@
           Thêm vào giỏ hàng
         </button>
         <div class="w-4"></div>
-        <RouterLink to="/Cart/manage-cart">
+        <nuxt-link to="/Cart/ManageCart">
           <button
             class="mr-3 bg-white hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded">
             Mua hàng
           </button>
-        </RouterLink>
+        </nuxt-link>
       </div>
     </div>
   </div>
@@ -235,13 +235,6 @@ const toggleTabs = function (tabNumber) {
   openTab.value = tabNumber;
 };
 
-const supplier = () => {
-  router.push({ name: "ProductSupplier", params: { id: "1" } });
-};
-
-const cart = () => {
-  router.push({ name: "ManageCart" });
-};
 </script>
     
     
