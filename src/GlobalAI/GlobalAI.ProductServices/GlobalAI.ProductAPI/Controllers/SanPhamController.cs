@@ -60,7 +60,7 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
         /// <summary>
-        /// lấy sản phẩm theo id
+        /// lấy sản phẩm theo danh mục
         /// </summary>
         [HttpGet("get-by-category")]
         [ProducesResponseType(typeof(APIResponse<List<SanPham>>), (int)HttpStatusCode.OK)]
