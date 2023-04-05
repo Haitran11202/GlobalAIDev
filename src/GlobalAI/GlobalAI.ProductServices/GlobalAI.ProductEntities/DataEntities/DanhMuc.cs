@@ -21,11 +21,11 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(MaDanhMuc))]
         public int MaDanhMuc { get; set; }
 
+        
 
         [StringLength(400)]
         [ColumnSnackCase(nameof(TenDanhMuc))]
         public string TenDanhMuc { get; set; } = String.Empty;
-
 
     }
 }

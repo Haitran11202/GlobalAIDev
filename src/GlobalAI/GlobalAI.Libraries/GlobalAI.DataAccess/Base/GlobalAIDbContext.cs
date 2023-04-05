@@ -1,6 +1,6 @@
 ﻿using GlobalAI.CoreEntities.DataEntities;
 using GlobalAI.ProductEntities.DataEntities;
-using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.Product;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -15,13 +15,9 @@ namespace GlobalAI.DataAccess.Base
         #region User
         public DbSet<User> Users { get; set; }
         #endregion
-        #region danh mục
-        public DbSet<DanhMuc> DanhMucs { get; set; }
-        #endregion
-        public DbSet<AddProductDto> Products { get; set; }
-        #region Sản phẩm
         public DbSet<SanPham> SanPhams { get; set; }
-        #endregion
+        public DbSet<DanhMuc> DanhMucs { get; set; }
+
         public GlobalAIDbContext(DbContextOptions<GlobalAIDbContext> options) : base(options)
         {
         }

@@ -2,6 +2,8 @@ using GlobalAI.DataAccess.Base;
 using GlobalAI.ProductDomain.Implements;
 using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.Entites;
+using GlobalAI.ProductDomain.Implements;
+using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.Utils.ConstantVariables.Shared;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 //using Microsoft.AspNetCore.Authentication.JwtBearer;
