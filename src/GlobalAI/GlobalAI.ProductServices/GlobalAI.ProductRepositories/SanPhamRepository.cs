@@ -22,7 +22,7 @@ namespace GlobalAI.DemoRepositories
         /// <returns></returns>
         public SanPham Add(SanPham sanPham)
         {
-            _dbSet.Add(sanPham); 
+            _dbSet.Add(sanPham);
             _dbContext.SaveChanges();
             return sanPham;
         }
@@ -30,10 +30,22 @@ namespace GlobalAI.DemoRepositories
         {
             return _dbSet.SingleOrDefault(sp => sp.MaSanPham == id);
         }
-        
+        public SanPham EditSanPham(AddSanPhamDto newSanPham, SanPham oldSanPham)
+        {
+            oldSanPham.TenSanPham = newSanPham.TenSanPham;
+            oldSanPham.MaDanhMuc = newSanPham.MaDanhMuc;
+            oldSanPham.MoTa = newSanPham.MoTa;
+            oldSanPham.MaGStore = newSanPham.MaGStore;
+            oldSanPham.GiaBan = newSanPham.GiaBan;
+            oldSanPham.GiaChietKhau = newSanPham.GiaChietKhau;
+            oldSanPham.NgayDangKi = newSanPham.NgayDangKi;
+            oldSanPham.NgayDuyet = newSanPham.NgayDuyet;
+            _dbContext.SaveChanges();
+            return oldSanPham;
+        }
         public void Delete(SanPham sanPham)
         {
-            _dbSet.Remove(sanPham);
+            sanPham.Deleted = true;
             _dbContext.SaveChanges();
         }
         /// <summary>

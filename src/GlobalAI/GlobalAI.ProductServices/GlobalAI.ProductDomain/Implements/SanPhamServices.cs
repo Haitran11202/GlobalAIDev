@@ -49,6 +49,7 @@ namespace GlobalAI.ProductDomain.Implements
                 NgayDuyet = sanPham.NgayDuyet,
                 Deleted = false
             };
+
             return _repositorySanPham.Add(newSanPham);
         }
         /// <summary>
@@ -61,9 +62,8 @@ namespace GlobalAI.ProductDomain.Implements
             var findSanPham = _repositorySanPham.FindById(id);
             if (findSanPham != null)
             {
-                findSanPham.Deleted = true;
+                _repositorySanPham.Delete(findSanPham);
             }
-            _dbContext.SaveChanges();
             return findSanPham;
         }
         /// <summary>
@@ -72,21 +72,13 @@ namespace GlobalAI.ProductDomain.Implements
         /// <param name="id"></param>
         /// <param name="newSanPham"></param>
         /// <returns>Trả về sản phẩm đã được sửa</returns>
-        public SanPham PutSanPham(int id, AddSanPhamDto newSanPham)
+        public SanPham EditSanPham(int id, AddSanPhamDto newSanPham)
         {
             var findSanPham = _repositorySanPham.FindById(id);
             if (findSanPham != null)
             {
-                findSanPham.TenSanPham = newSanPham.TenSanPham;
-                findSanPham.MaDanhMuc = newSanPham.MaDanhMuc;
-                findSanPham.MoTa = newSanPham.MoTa;
-                findSanPham.MaGStore = newSanPham.MaGStore;
-                findSanPham.GiaBan = newSanPham.GiaBan;
-                findSanPham.GiaChietKhau = newSanPham.GiaChietKhau;
-                findSanPham.NgayDangKi = newSanPham.NgayDangKi;
-                findSanPham.NgayDuyet = newSanPham.NgayDuyet;
+                _repositorySanPham.EditSanPham(newSanPham, findSanPham);
             }
-            _dbContext.SaveChanges();
             return findSanPham;
 
 

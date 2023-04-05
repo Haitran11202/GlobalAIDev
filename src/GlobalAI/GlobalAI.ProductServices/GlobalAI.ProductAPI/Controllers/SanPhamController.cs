@@ -11,6 +11,7 @@ using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
+    [Authorize] 
     [Route("api/product")]
     [ApiController]
     public class SanPhamController : BaseController
@@ -51,7 +52,7 @@ namespace GlobalAI.ProductAPI.Controllers
         {
             try
             {
-                var result = _sanPhamServices.PutSanPham(id, input);
+                var result = _sanPhamServices.EditSanPham(id, input);
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)
