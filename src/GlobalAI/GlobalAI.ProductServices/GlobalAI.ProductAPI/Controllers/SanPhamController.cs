@@ -12,7 +12,7 @@ using System.Net;
 namespace GlobalAI.ProductAPI.Controllers
 {
 
-    [Route("api/san-pham")]
+    [Route("api/product")]
     [ApiController]
     public class SanPhamController : BaseController
     {
@@ -42,7 +42,15 @@ namespace GlobalAI.ProductAPI.Controllers
             try
             {
                 var result = _sanPhamServices.PutSanPham(id, input);
-                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+                if (result != null)
+                {
+                    return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+                }
+                else
+                {
+                    return new APIResponse(Utils.StatusCode.Error, result, 404, "Not Found");
+                }
+                
             }
             catch (Exception ex)
             {

@@ -6,9 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\GlobalAI.DemoServices\GlobalAI.DemoDomain\GlobalAI.DemoDomain.csproj" />
+  <ItemGroup>    
+	<ProjectReference Include="..\..\GlobalAI.Libraries\GlobalAI.DataAccess\GlobalAI.DataAccess.csproj" />
+    <ProjectReference Include="..\..\GlobalAI.Libraries\GlobalAI.Entites\GlobalAI.Entites.csproj" />
+    <ProjectReference Include="..\GlobalAI.ProductEntities\GlobalAI.ProductEntities.csproj" />
     <ProjectReference Include="..\GlobalAI.ProductRepositories\GlobalAI.ProductRepositories.csproj" />
+	  
   </ItemGroup>
 
 </Project>
