@@ -10,17 +10,15 @@
         <h2 class="card-title">Giày chạy bộ Supernova Adidas</h2>
         <div class="rating rating-md rating-half">
           <input :disabled="true" type="radio" name="rating-10" class="rating-hidden" />
-          <input :disabled="true" type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-1" />
-          <input :disabled="true" type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-2" />
-          <input :disabled="true" type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-1" />
-          <input :disabled="true" type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-2" />
-          <input :disabled="true" type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-1" />
-          <input :disabled="true" type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-2" />
-          <input :disabled="true" type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-1" />
-          <input :disabled="true" type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-2" />
-          <input :disabled="true" type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2 mask-half-1"
-            checked />
-          <input :disabled="true" type="radio" name="rating-10" class="bg-green-500 mask mask-star-2 mask-half-2" />
+
+  <!-- Sử dụng vòng lặp for để tạo ra các input với các thuộc tính tương tự nhau -->
+      <div v-for="(i, idx) in 9" :key="idx">
+            <input :disabled="true" type="radio" name="rating-10" class="bg-yellow-400 mask mask-star-2" :class="{
+              'mask-half-1': i % 2 == 1,
+              'mask-half-2': i % 2 == 0,
+            }" />
+      </div>
+         
         </div>
         <p class="mt-3">
           <span class="text-red-500 font-bold">$</span>&nbsp;Giá bán: <span class="italic">250.000</span>
