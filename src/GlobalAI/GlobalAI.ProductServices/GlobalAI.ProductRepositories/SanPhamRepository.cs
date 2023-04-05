@@ -2,6 +2,7 @@
 using GlobalAI.DataAccess.Models;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductEntities.DataEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
@@ -13,36 +14,52 @@ namespace GlobalAI.DemoRepositories
         public SanPhamRepository(DbContext dbContext, ILogger logger, string seqName = null) : base(dbContext, logger, seqName)
         {
         }
+
         /// <summary>
         /// Tạo mới product
         /// </summary>
-        /// <param name="sanPham"></param>
-        /// <returns> trả về SanPham được thêm vào  </returns>
-        public SanPham Add(SanPham sanPham)
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public SanPham Add(AddSanPhamDto sanPham)
         {
-            return _dbSet.Add(sanPham).Entity;
-        }
+            var newSanPham = new SanPham
+            {
+                TenSanPham = sanPham.TenSanPham,
+                MaDanhMuc = sanPham.MaDanhMuc,
+                MoTa = sanPham.MoTa,
+                MaGStore = sanPham.MaGStore,
+                GiaBan = sanPham.GiaBan,
+                GiaChietKhau = sanPham.GiaChietKhau,
+                NgayDangKi = sanPham.NgayDangKi,
+                NgayDuyet = sanPham.NgayDuyet
 
-        /// <summary>
-        /// Tìm sản phầm
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns> trả về SanPham tìm được theo id</returns>
+            };
+            _dbSet.Add(newSanPham); 
+            _dbContext.SaveChanges();
+            return newSanPham;
+        }
         public SanPham FindById(int id)
         {
             return _dbSet.SingleOrDefault(sp => sp.MaSanPham == id);
         }
-
-        /// <summary>
-        /// Xóa sản phầm
-        /// </summary>
-        /// <param name="sanPham"></param>
-        /// <returns></returns>
-        /*public void Delete(SanPham sanPham)
+        public SanPham Put(AddSanPhamDto newSanPham, SanPham oldSanPham)
+        {
+            oldSanPham.TenSanPham = newSanPham.TenSanPham;
+            oldSanPham.MaDanhMuc = newSanPham.MaDanhMuc;
+            oldSanPham.MoTa = newSanPham.MoTa;
+            oldSanPham.MaGStore = newSanPham.MaGStore;
+            oldSanPham.GiaBan = newSanPham.GiaBan;
+            oldSanPham.GiaChietKhau = newSanPham.GiaChietKhau;
+            oldSanPham.NgayDangKi = newSanPham.NgayDangKi;
+            oldSanPham.NgayDuyet = newSanPham.NgayDuyet;
+            _dbContext.SaveChanges();
+            return oldSanPham;
+        }
+        public void Delete(SanPham sanPham)
         {
             _dbSet.Remove(sanPham);
             _dbContext.SaveChanges();
-        }*/
+        }
         /// <summary>
         /// Lấy demo product phân trang
         /// </summary>
