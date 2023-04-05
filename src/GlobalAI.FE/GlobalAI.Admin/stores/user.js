@@ -10,6 +10,7 @@ export const useUserStorage = defineStore('user', {
         getAccessToken: (state) => state.accessToken,
         getRefreshToken: (state) => state.refreshToken,
         getPpermissions: (state) => state.permissions,
+        isLoggedIn: state => !!state.accessToken,
     },
     actions: {
         login(payload) {
