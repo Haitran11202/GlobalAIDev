@@ -43,6 +43,17 @@
                   Quên mật khẩu?
                 </a>
               </div>
+              
+            </div>
+            <div class="flex items-center justify-end">
+              <label class="text-gray-800 text-sm">
+                  Chưa có tài khoản bấm
+                  <nuxt-link
+                    to="/auth/registermaster"
+                    class="text-emerald-500 underline"
+                    >đăng ký</nuxt-link
+                  >
+                </label>
             </div>
             <div>
               <button type="submit" @click='logInFunc()'
