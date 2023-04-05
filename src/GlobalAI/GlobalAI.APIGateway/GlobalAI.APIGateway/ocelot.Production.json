@@ -104,24 +104,24 @@
             "Key": "FileAPI",
             "SwaggerKey": "FileAPI"
         },
-      {
-        "DownstreamPathTemplate": "/health",
-        "UpstreamPathTemplate": "/file/health",
-        "UpstreamHttpMethod": [
-          "Get"
-        ],
-        "UpstreamHeaderTransform": {
-          "X-Forwarded-For": "{RemoteIpAddress}"
-        },
-        "DownstreamScheme": "http",
-        "DownstreamHostAndPorts": [
-          {
-            "Host": "localhost",
-            "Port": 5006
-          }
-        ],
-        "Key": "ImageHealth"
-      }
+        {
+            "DownstreamPathTemplate": "/health",
+            "UpstreamPathTemplate": "/file/health",
+            "UpstreamHttpMethod": [
+                "Get"
+            ],
+            "UpstreamHeaderTransform": {
+                "X-Forwarded-For": "{RemoteIpAddress}"
+            },
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 5006
+                }
+            ],
+            "Key": "ImageHealth"
+        }
     ],
     "SwaggerEndPoints": [
         {

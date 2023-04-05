@@ -26,6 +26,7 @@ namespace GlobalAI.DemoRepositories
             
             return _dbSet.Add(input).Entity;
         }
+
         /// <summary>
         /// Lấy demo product phân trang
         /// </summary>

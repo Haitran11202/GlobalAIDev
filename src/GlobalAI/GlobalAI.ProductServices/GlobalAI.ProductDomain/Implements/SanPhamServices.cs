@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GlobalAI.ProductDomain.Implements
@@ -31,67 +30,22 @@ namespace GlobalAI.ProductDomain.Implements
             _httpContext = httpContext;
 
         }
-        /// <summary>
-        /// Services thêm sản phẩm
-        /// </summary>
-        /// <param name="sanPham"></param>
-        /// <returns></returns>
         public SanPham AddSanPham(AddSanPhamDto sanPham)
         {
-            _logger.LogInformation($"{nameof(AddSanPham)}: input = {JsonSerializer.Serialize(sanPham)}");
-
-            // Convert từ AddSanPhamDto to SanPham
-            var newSanPham = new SanPham
-            {
-                TenSanPham = sanPham.TenSanPham,
-                MoTa = sanPham.MoTa,
-                GiaBan = sanPham.GiaBan,
-                GiaChietKhau = sanPham.GiaChietKhau,
-                MaDanhMuc = sanPham.MaDanhMuc,
-                MaGStore = sanPham.MaGStore,
-                NgayDangKi = sanPham.NgayDangKi,
-                NgayDuyet = sanPham.NgayDuyet
-            };
-            _repositorySanPham.Add(newSanPham);
-            _dbContext.SaveChanges();
-            return newSanPham;
+            return _repositorySanPham.Add(sanPham);
         }
-        
+
         public AddSanPhamDto DeleteSanPham(int id)
         {
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Sửa sản phẩm
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="newSanPham"></param>
-        /// <returns></returns>
         public SanPham PutSanPham(int id, AddSanPhamDto newSanPham)
         {
-            _logger.LogInformation($"{nameof(PutSanPham)}: input = {JsonSerializer.Serialize(newSanPham)}");
-
-            // Tìm sản phẩm theo id
             var findSanPham = _repositorySanPham.FindById(id);
-            if (findSanPham == null)
-            {
-                return findSanPham;
-            }
-            else
-            {
-                // Gán các property của findSanPham bằng property của newSanPham
-                findSanPham.TenSanPham = newSanPham.TenSanPham;
-                findSanPham.MaDanhMuc = newSanPham.MaDanhMuc;
-                findSanPham.MoTa = newSanPham.MoTa;
-                findSanPham.MaGStore = newSanPham.MaGStore;
-                findSanPham.GiaBan = newSanPham.GiaBan;
-                findSanPham.GiaChietKhau = newSanPham.GiaChietKhau;
-                findSanPham.NgayDangKi = newSanPham.NgayDangKi;
-                findSanPham.NgayDuyet = newSanPham.NgayDuyet;
-            }
-            _dbContext.SaveChanges();
-            return findSanPham;
+            return _repositorySanPham.Put(newSanPham, findSanPham);
+            
+
         }
     }
 }
