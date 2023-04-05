@@ -201,7 +201,7 @@
           Thêm vào giỏ hàng
         </button>
         <div class="w-4"></div>
-        <RouterLink to="/gsaler/cart">
+        <RouterLink to="/Cart/manage-cart">
           <button
             class="mr-3 bg-white hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
           >

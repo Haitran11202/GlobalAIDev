@@ -1,12 +1,57 @@
 <template>
-  <div class="h-screen bg-gray-100 mt-40">
+ 
+  <div class="h-screen bg-gray-100 mt-28">
+
     <div
-      class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0"
+      class="mx-auto max-w-9xl justify-center px-6 md:flex md:space-x-6 xl:px-0"
     >
+    <div
+        class="mt-40 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3"
+      >
+        <div class="avatar mb-2 flex ">
+          <div class="w-24 rounded-xl">
+            <img src="https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" />
+          </div>
+          <h2 class="card-title ml-2">Nguyễn Bằng A</h2>
+        </div>
+        <aside class="z-20 hidden w-80 overflow-y-auto  md:block flex-shrink-0">
+
+          <div class=" my-2 p-2 flex ">
+            <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+            <span class="inline-flex  items-center ml-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+            </span>
+            <span class="ml-2 text-sm tracking-wide truncate">Tài khoản</span>
+          </a>
+        </div>
+
+        <div class=" my-2 p-2 flex ">
+            <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none bg-gray-50  text-gray-800 border-l-4 border-transparent border-indigo-500 pr-6">
+            <span class="inline-flex  items-center ml-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+            </span>
+            <span class="ml-2 text-sm tracking-wide truncate">Giỏ hàng</span>
+            <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">(2)</span>
+          </a>
+        </div>
+
+         <div class=" my-2 p-2 flex ">
+            <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+            <span class="inline-flex  items-center ml-4">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
+            </span>
+            <span class="ml-2 text-sm tracking-wide truncate">Đơn mua</span>
+            <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">1.2k</span>
+          </a>
+        </div>
+
+      </aside>
+       
+      </div>
       <div class="rounded-lg md:w-2/3">
         <section class="bg-gray-100 text-gray-600" x-data="app">
           <div class="flex flex-col justify-center h-full">
-            <!-- Table -->
+        
             <div
               class="w-full bg-white shadow-lg rounded-sm border border-gray-200"
             >
@@ -44,7 +89,7 @@
                   </thead>
 
                   <tbody class="text-sm divide-y divide-gray-100">
-                    <!-- record 1 -->
+                
                     <tr>
                       <td class="p-2">
                         <input
@@ -115,7 +160,6 @@
                       </td>
                     </tr>
 
-                    <!-- record 2 -->
                     <tr>
                       <td class="p-2">
                         <input
@@ -192,7 +236,7 @@
           </div>
         </section>
       </div>
-      <!-- Sub total -->
+
       <div
         class="mt-40 h-full rounded-lg border bg-white p-6 shadow-md md:mt-0 md:w-1/3"
       >
@@ -283,7 +327,7 @@
     
 <script setup>
 definePageMeta({
-  layout: "admin",
+  layout: "layout-admin-footer",
 });
 </script>
     
