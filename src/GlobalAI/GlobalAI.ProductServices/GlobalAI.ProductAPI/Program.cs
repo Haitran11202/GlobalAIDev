@@ -1,6 +1,6 @@
 using GlobalAI.DataAccess.Base;
-using GlobalAI.DemoDomain.Implements;
-using GlobalAI.DemoDomain.Interfaces;
+using GlobalAI.ProductDomain.Implements;
+using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.Entites;
 using GlobalAI.Utils.ConstantVariables.Shared;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -122,7 +122,7 @@ services.AddSwaggerGen(option =>
 #endregion
 
 #region Add services
-services.AddScoped<IDemoProductServices, DemoProductServices>();
+services.AddScoped<ISanPhamServices, SanPhamServices>();
 #endregion
 
 services.AddHttpContextAccessor();

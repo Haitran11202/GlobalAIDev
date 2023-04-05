@@ -3,6 +3,7 @@ using System;
 using GlobalAI.DataAccess.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    partial class GlobalAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230404034331_create-table-san-pham")]
+    partial class createtablesanpham
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -237,12 +240,12 @@ namespace GlobalAI.HostConsole.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaSanPham"));
 
-                    b.Property<decimal>("GiaBan")
-                        .HasColumnType("DECIMAL(18, 2)")
+                    b.Property<int>("GiaBan")
+                        .HasColumnType("NUMBER(10)")
                         .HasColumnName("GIA_BAN");
 
-                    b.Property<decimal>("GiaChietKhau")
-                        .HasColumnType("DECIMAL(18, 2)")
+                    b.Property<int>("GiaChietKhau")
+                        .HasColumnType("NUMBER(10)")
                         .HasColumnName("GIA_CHIET_KHAU");
 
                     b.Property<int>("MaDanhMuc")

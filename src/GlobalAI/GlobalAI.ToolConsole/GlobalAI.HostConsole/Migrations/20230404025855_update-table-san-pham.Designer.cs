@@ -3,6 +3,7 @@ using System;
 using GlobalAI.DataAccess.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    partial class GlobalAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230404025855_update-table-san-pham")]
+    partial class updatetablesanpham
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,7 +163,7 @@ namespace GlobalAI.HostConsole.Migrations
                         });
                 });
 
-            modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.AddProductDto", b =>
+            modelBuilder.Entity("GlobalAI.DemoEntities.DataEntities.AddProductDto", b =>
                 {
                     b.Property<int>("ProductRecordId")
                         .ValueGeneratedOnAdd()
@@ -202,82 +205,6 @@ namespace GlobalAI.HostConsole.Migrations
                     b.ToTable("DEMO_PRODUCT", t =>
                         {
                             t.HasComment("Demo bảng sản phẩm");
-                        });
-                });
-
-            modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.DanhMuc", b =>
-                {
-                    b.Property<int>("MaDanhMuc")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("MA_DANH_MUC");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaDanhMuc"));
-
-                    b.Property<string>("TenDanhMuc")
-                        .IsRequired()
-                        .HasMaxLength(400)
-                        .HasColumnType("NVARCHAR2(400)")
-                        .HasColumnName("TEN_DANH_MUC");
-
-                    b.HasKey("MaDanhMuc");
-
-                    b.ToTable("P_DanhMuc", t =>
-                        {
-                            t.HasComment("Demo bảng danh mục sản phẩm");
-                        });
-                });
-
-            modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.SanPham", b =>
-                {
-                    b.Property<int>("MaSanPham")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("MA_SAN_PHAM");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaSanPham"));
-
-                    b.Property<decimal>("GiaBan")
-                        .HasColumnType("DECIMAL(18, 2)")
-                        .HasColumnName("GIA_BAN");
-
-                    b.Property<decimal>("GiaChietKhau")
-                        .HasColumnType("DECIMAL(18, 2)")
-                        .HasColumnName("GIA_CHIET_KHAU");
-
-                    b.Property<int>("MaDanhMuc")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("MA_DANH_MUC");
-
-                    b.Property<int>("MaGStore")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("MA_G_STORE");
-
-                    b.Property<string>("MoTa")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("NVARCHAR2(1000)")
-                        .HasColumnName("MO_TA");
-
-                    b.Property<DateTime>("NgayDangKi")
-                        .HasColumnType("TIMESTAMP(7)")
-                        .HasColumnName("NGAY_DANG_KI");
-
-                    b.Property<DateTime>("NgayDuyet")
-                        .HasColumnType("TIMESTAMP(7)")
-                        .HasColumnName("NGAY_DUYET");
-
-                    b.Property<string>("TenSanPham")
-                        .IsRequired()
-                        .HasMaxLength(400)
-                        .HasColumnType("NVARCHAR2(400)")
-                        .HasColumnName("TEN_SAN_PHAM");
-
-                    b.HasKey("MaSanPham");
-
-                    b.ToTable("P_SanPham", t =>
-                        {
-                            t.HasComment("bảng sản phẩm");
                         });
                 });
 #pragma warning restore 612, 618
