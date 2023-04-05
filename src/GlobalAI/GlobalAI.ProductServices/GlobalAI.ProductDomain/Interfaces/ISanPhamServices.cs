@@ -1,4 +1,8 @@
-﻿using GlobalAI.ProductEntities.DataEntities;
+
+﻿using GlobalAI.DataAccess.Models;
+using GlobalAI.DemoEntities.Dto.Product;
+using GlobalAI.ProductEntities.DataEntities;
+
 using GlobalAI.ProductEntities.Dto.Product;
 using System;
 using System.Collections.Generic;
@@ -10,8 +14,8 @@ namespace GlobalAI.ProductDomain.Interfaces
 {
     public interface ISanPhamServices
     {
-        public SanPham AddSanPham(AddSanPhamDto newSanPham);
-        public SanPham EditSanPham(int id, AddSanPhamDto newSanPham);
-        public SanPham DeleteSanPham(int id);
+        public PagingResult<SanPham> FindAll(FindSanPhamDto input);
+        public SanPham GetById(int input);
+        public List<SanPham> GetByCategory(int id);
     }
 }
