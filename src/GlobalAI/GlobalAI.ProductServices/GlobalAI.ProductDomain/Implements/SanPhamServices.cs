@@ -30,21 +30,65 @@ namespace GlobalAI.ProductDomain.Implements
             _httpContext = httpContext;
 
         }
+        /// <summary>
+        /// Thêm sản phẩm
+        /// </summary>
+        /// <param name="sanPham"></param>
+        /// <returns>Sản phẩm vừa thêm vào</returns>
         public SanPham AddSanPham(AddSanPhamDto sanPham)
         {
-            return _repositorySanPham.Add(sanPham);
+            var newSanPham = new SanPham
+            {
+                TenSanPham = sanPham.TenSanPham,
+                MaDanhMuc = sanPham.MaDanhMuc,
+                MoTa = sanPham.MoTa,
+                MaGStore = sanPham.MaGStore,
+                GiaBan = sanPham.GiaBan,
+                GiaChietKhau = sanPham.GiaChietKhau,
+                NgayDangKi = sanPham.NgayDangKi,
+                NgayDuyet = sanPham.NgayDuyet,
+                Deleted = false
+            };
+            return _repositorySanPham.Add(newSanPham);
         }
-
-        public AddSanPhamDto DeleteSanPham(int id)
+        /// <summary>
+        /// Xóa sản phẩm
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Trả về sản phẩm vừa xóa(Trường deleted = true)</returns>
+        public SanPham DeleteSanPham(int id)
         {
-            throw new NotImplementedException();
+            var findSanPham = _repositorySanPham.FindById(id);
+            if (findSanPham != null)
+            {
+                findSanPham.Deleted = true;
+            }
+            _dbContext.SaveChanges();
+            return findSanPham;
         }
-
+        /// <summary>
+        /// Sửa sản phẩm
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="newSanPham"></param>
+        /// <returns>Trả về sản phẩm đã được sửa</returns>
         public SanPham PutSanPham(int id, AddSanPhamDto newSanPham)
         {
             var findSanPham = _repositorySanPham.FindById(id);
-            return _repositorySanPham.Put(newSanPham, findSanPham);
-            
+            if (findSanPham != null)
+            {
+                findSanPham.TenSanPham = newSanPham.TenSanPham;
+                findSanPham.MaDanhMuc = newSanPham.MaDanhMuc;
+                findSanPham.MoTa = newSanPham.MoTa;
+                findSanPham.MaGStore = newSanPham.MaGStore;
+                findSanPham.GiaBan = newSanPham.GiaBan;
+                findSanPham.GiaChietKhau = newSanPham.GiaChietKhau;
+                findSanPham.NgayDangKi = newSanPham.NgayDangKi;
+                findSanPham.NgayDuyet = newSanPham.NgayDuyet;
+            }
+            _dbContext.SaveChanges();
+            return findSanPham;
+
 
         }
     }

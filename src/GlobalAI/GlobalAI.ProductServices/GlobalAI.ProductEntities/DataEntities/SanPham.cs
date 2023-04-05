@@ -46,5 +46,9 @@ namespace GlobalAI.ProductEntities.DataEntities
 
         [ColumnSnackCase(nameof(NgayDuyet))]
         public DateTime NgayDuyet { get; set; }
+
+        [ColumnSnackCase(nameof(Deleted))]
+        public bool Deleted { get; set; }
+
     }
 }

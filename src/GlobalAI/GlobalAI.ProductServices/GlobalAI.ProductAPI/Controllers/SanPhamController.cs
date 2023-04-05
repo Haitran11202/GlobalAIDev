@@ -11,8 +11,7 @@ using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-
-    [Route("api/san-pham")]
+    [Route("api/product")]
     [ApiController]
     public class SanPhamController : BaseController
     {
@@ -21,6 +20,11 @@ namespace GlobalAI.ProductAPI.Controllers
         {
             _sanPhamServices = sanPhamServices;
         }
+        /// <summary>
+        /// Thêm sản phẩm
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost("them-san-pham")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
         public APIResponse Add([FromBody] AddSanPhamDto input)
@@ -35,6 +39,12 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+        /// <summary>
+        /// Sửa sản phẩm
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPut("sua-san-pham/{id}")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
         public APIResponse Put(int id,[FromBody] AddSanPhamDto input)
@@ -42,6 +52,25 @@ namespace GlobalAI.ProductAPI.Controllers
             try
             {
                 var result = _sanPhamServices.PutSanPham(id, input);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+        /// <summary>
+        /// Xóa sản phẩm
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("xoa-san-pham/{id}")]
+        [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
+        public APIResponse Delete(int id)
+        {
+            try
+            {
+                var result = _sanPhamServices.DeleteSanPham(id);
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)

@@ -12,6 +12,6 @@ namespace GlobalAI.ProductDomain.Interfaces
     {
         public SanPham AddSanPham(AddSanPhamDto newSanPham);
         public SanPham PutSanPham(int id, AddSanPhamDto newSanPham);
-        public AddSanPhamDto DeleteSanPham(int id);
+        public SanPham DeleteSanPham(int id);
     }
 }

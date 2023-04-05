@@ -20,41 +20,17 @@ namespace GlobalAI.DemoRepositories
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public SanPham Add(AddSanPhamDto sanPham)
+        public SanPham Add(SanPham sanPham)
         {
-            var newSanPham = new SanPham
-            {
-                TenSanPham = sanPham.TenSanPham,
-                MaDanhMuc = sanPham.MaDanhMuc,
-                MoTa = sanPham.MoTa,
-                MaGStore = sanPham.MaGStore,
-                GiaBan = sanPham.GiaBan,
-                GiaChietKhau = sanPham.GiaChietKhau,
-                NgayDangKi = sanPham.NgayDangKi,
-                NgayDuyet = sanPham.NgayDuyet
-
-            };
-            _dbSet.Add(newSanPham); 
+            _dbSet.Add(sanPham); 
             _dbContext.SaveChanges();
-            return newSanPham;
+            return sanPham;
         }
         public SanPham FindById(int id)
         {
             return _dbSet.SingleOrDefault(sp => sp.MaSanPham == id);
         }
-        public SanPham Put(AddSanPhamDto newSanPham, SanPham oldSanPham)
-        {
-            oldSanPham.TenSanPham = newSanPham.TenSanPham;
-            oldSanPham.MaDanhMuc = newSanPham.MaDanhMuc;
-            oldSanPham.MoTa = newSanPham.MoTa;
-            oldSanPham.MaGStore = newSanPham.MaGStore;
-            oldSanPham.GiaBan = newSanPham.GiaBan;
-            oldSanPham.GiaChietKhau = newSanPham.GiaChietKhau;
-            oldSanPham.NgayDangKi = newSanPham.NgayDangKi;
-            oldSanPham.NgayDuyet = newSanPham.NgayDuyet;
-            _dbContext.SaveChanges();
-            return oldSanPham;
-        }
+        
         public void Delete(SanPham sanPham)
         {
             _dbSet.Remove(sanPham);
