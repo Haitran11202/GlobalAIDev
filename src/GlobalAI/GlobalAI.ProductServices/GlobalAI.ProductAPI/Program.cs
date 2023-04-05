@@ -124,7 +124,6 @@ services.AddSwaggerGen(option =>
 #endregion
 
 #region Add services
-services.AddScoped<IDemoProductServices, DemoProductServices>();
 services.AddScoped<ISanPhamServices, SanPhamServices>();
 #endregion
 

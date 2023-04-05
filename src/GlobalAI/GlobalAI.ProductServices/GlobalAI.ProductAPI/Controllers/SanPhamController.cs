@@ -1,15 +1,11 @@
 ﻿
-using GlobalAI.DemoEntities.DataEntities;
-using GlobalAI.DemoEntities.Dto.DemoProduct;
 using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
@@ -45,13 +41,13 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <summary>
         /// lấy sản phẩm theo id
         /// </summary>
-        [HttpGet("get-by-id")]
+        [HttpGet("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<GetSanPhamDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse GetById([FromQuery] int input)
+        public APIResponse GetById(int id)
         {
             try
             {
-                var result = _sanPhamServices.GetById(input);
+                var result = _sanPhamServices.GetById(id);
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)
@@ -62,13 +58,13 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <summary>
         /// lấy sản phẩm theo danh mục
         /// </summary>
-        [HttpGet("get-by-category")]
+        [HttpGet("category/{id}")]
         [ProducesResponseType(typeof(APIResponse<List<SanPham>>), (int)HttpStatusCode.OK)]
-        public APIResponse GetByCategory([FromQuery] int input)
+        public APIResponse GetByCategory(int id)
         {
             try
             {
-                var result = _sanPhamServices.GetByCategory(input);
+                var result = _sanPhamServices.GetByCategory(id);
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)

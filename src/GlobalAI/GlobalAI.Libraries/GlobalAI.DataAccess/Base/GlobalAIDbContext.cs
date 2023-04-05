@@ -1,5 +1,4 @@
 ﻿using GlobalAI.CoreEntities.DataEntities;
-using GlobalAI.DemoEntities.DataEntities;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.Product;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +16,6 @@ namespace GlobalAI.DataAccess.Base
         public DbSet<User> Users { get; set; }
         #endregion
 
-        public DbSet<AddProductDto> Products { get; set; }
         public DbSet<SanPham> SanPhams { get; set; }
         public DbSet<DanhMuc> DanhMucs { get; set; }
         public GlobalAIDbContext(DbContextOptions<GlobalAIDbContext> options) : base(options)
