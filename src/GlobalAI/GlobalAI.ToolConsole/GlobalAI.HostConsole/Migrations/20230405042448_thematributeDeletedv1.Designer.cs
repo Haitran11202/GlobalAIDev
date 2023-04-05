@@ -3,6 +3,7 @@ using System;
 using GlobalAI.DataAccess.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    partial class GlobalAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230405042448_thematributeDeletedv1")]
+    partial class thematributeDeletedv1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,7 +157,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("USER", null, t =>
+                    b.ToTable("USER", t =>
                         {
                             t.HasComment("User");
                         });
@@ -199,7 +202,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("ProductRecordId");
 
-                    b.ToTable("DEMO_PRODUCT", null, t =>
+                    b.ToTable("DEMO_PRODUCT", t =>
                         {
                             t.HasComment("Demo bảng sản phẩm");
                         });
@@ -222,7 +225,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("MaDanhMuc");
 
-                    b.ToTable("P_DanhMuc", null, t =>
+                    b.ToTable("P_DanhMuc", t =>
                         {
                             t.HasComment("Demo bảng danh mục sản phẩm");
                         });
@@ -279,7 +282,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("MaSanPham");
 
-                    b.ToTable("P_SanPham", null, t =>
+                    b.ToTable("P_SanPham", t =>
                         {
                             t.HasComment("bảng sản phẩm");
                         });

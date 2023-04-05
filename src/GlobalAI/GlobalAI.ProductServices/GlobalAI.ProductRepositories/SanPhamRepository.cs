@@ -70,9 +70,8 @@ namespace GlobalAI.DemoRepositories
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
             PagingResult<SanPham> result = new();
-            var projectQuery = _dbSet.OrderByDescending(p => p.MaSanPham)
-                .Where(r => (input.Keyword == null || r.TenSanPham.Contains(input.Keyword)))
-                        ;
+            var projectQuery = _dbSet.OrderByDescending(p => p.MaSanPham).Where(p => !p.Deleted)
+                .Where(r => (input.Keyword == null || r.TenSanPham.Contains(input.Keyword)));
             if (input.PageSize != -1)
             {
                 projectQuery = projectQuery.Skip(input.Skip).Take(input.PageSize);
