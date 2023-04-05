@@ -45,7 +45,15 @@
               </div>
               
             </div>
-            <div class="flex items-center justify-end">
+            
+            <div>
+              <button type="submit" @click='logInFunc()'
+                class="w-full flex justify-center bg-green-400  hover:bg-green-500 text-gray-100 p-3  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
+                Đăng nhập
+              </button>
+            </div>
+          </div>
+          <div class="flex items-center justify-end mt-3">
               <label class="text-gray-800 text-sm">
                   Chưa có tài khoản bấm
                   <nuxt-link
@@ -55,13 +63,6 @@
                   >
                 </label>
             </div>
-            <div>
-              <button type="submit" @click='logInFunc()'
-                class="w-full flex justify-center bg-green-400  hover:bg-green-500 text-gray-100 p-3  rounded-full tracking-wide font-semibold  shadow-lg cursor-pointer transition ease-in duration-500">
-                Đăng nhập
-              </button>
-            </div>
-          </div>
           <div class="pt-5 text-center text-gray-400 text-xs">
             <span>
               Bản quyền thuộc <a href="http://localhost:8001/auth/login" rel="" target="_blank" title="Global AI"
