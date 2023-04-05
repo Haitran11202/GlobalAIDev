@@ -1,8 +1,10 @@
 ﻿using GlobalAI.DataAccess.Base;
+
 using GlobalAI.DataAccess.Models;
 using GlobalAI.DemoEntities.DataEntities;
 using GlobalAI.DemoEntities.Dto.DemoProduct;
 using GlobalAI.DemoEntities.Dto.Product;
+
 using GlobalAI.DemoRepositories;
 using GlobalAI.Entites;
 using GlobalAI.ProductDomain.Interfaces;
@@ -10,6 +12,7 @@ using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.Product;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -26,11 +29,13 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
         private readonly SanPhamRepository _repositorySanPham;
+
         public SanPhamServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger)
         {
             _repositorySanPham = new SanPhamRepository(dbContext, logger);
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
+
             _dbContext = dbContext;
             _httpContext = httpContext;
 

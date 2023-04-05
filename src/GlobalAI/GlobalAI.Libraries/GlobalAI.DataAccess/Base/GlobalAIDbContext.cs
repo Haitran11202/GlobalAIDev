@@ -15,9 +15,9 @@ namespace GlobalAI.DataAccess.Base
         #region User
         public DbSet<User> Users { get; set; }
         #endregion
-
         public DbSet<SanPham> SanPhams { get; set; }
         public DbSet<DanhMuc> DanhMucs { get; set; }
+
         public GlobalAIDbContext(DbContextOptions<GlobalAIDbContext> options) : base(options)
         {
         }

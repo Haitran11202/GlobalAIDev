@@ -24,6 +24,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
     <PackageReference Include="Oracle.EntityFrameworkCore" Version="7.21.9" />
@@ -32,6 +36,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\GlobalAI.Libraries\GlobalAI.DataAccess\GlobalAI.DataAccess.csproj" />
     <ProjectReference Include="..\..\GlobalAI.Libraries\GlobalAI.Entites\GlobalAI.Entites.csproj" />
+    <ProjectReference Include="..\..\GlobalAI.ProductServices\GlobalAI.ProductEntities\GlobalAI.ProductEntities.csproj" />
   </ItemGroup>
 
 </Project>

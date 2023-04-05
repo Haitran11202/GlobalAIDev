@@ -1,12 +1,15 @@
 ﻿using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
 using GlobalAI.ProductEntities.DataEntities;
+
 using GlobalAI.ProductEntities.DataEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
+
 using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductEntities.Dto.Product;
+
 
 namespace GlobalAI.DemoRepositories
 {
@@ -15,6 +18,7 @@ namespace GlobalAI.DemoRepositories
         public SanPhamRepository(DbContext dbContext, ILogger logger, string seqName = null) : base(dbContext, logger, seqName)
         {
         }
+
         /// <summary>
         /// Lấy demo product phân trang
         /// </summary>
@@ -56,5 +60,6 @@ namespace GlobalAI.DemoRepositories
             var danhmucs = _dbSet.Where(sp => sp.MaDanhMuc == id).AsNoTracking().ToList();
             return danhmucs;
         }
+
     }
 }

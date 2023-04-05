@@ -1,3 +1,4 @@
+
 ﻿
 using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductDomain.Interfaces;
@@ -5,11 +6,13 @@ using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
+
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
+
 
     [Route("api/product")]
     [ApiController]
@@ -31,6 +34,7 @@ namespace GlobalAI.ProductAPI.Controllers
             try
             {
                 var result = _sanPhamServices.FindAll(input);
+
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)
@@ -48,6 +52,7 @@ namespace GlobalAI.ProductAPI.Controllers
             try
             {
                 var result = _sanPhamServices.GetById(id);
+
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)
@@ -65,6 +70,7 @@ namespace GlobalAI.ProductAPI.Controllers
             try
             {
                 var result = _sanPhamServices.GetByCategory(id);
+
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)

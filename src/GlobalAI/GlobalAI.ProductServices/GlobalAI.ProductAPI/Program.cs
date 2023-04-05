@@ -1,6 +1,6 @@
 using GlobalAI.DataAccess.Base;
-using GlobalAI.DemoDomain.Implements;
-using GlobalAI.DemoDomain.Interfaces;
+using GlobalAI.ProductDomain.Implements;
+using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.Entites;
 using GlobalAI.ProductDomain.Implements;
 using GlobalAI.ProductDomain.Interfaces;
