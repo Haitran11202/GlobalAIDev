@@ -1,8 +1,8 @@
 ﻿using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
-using GlobalAI.DemoDomain.Interfaces;
-using GlobalAI.DemoEntities.DataEntities;
-using GlobalAI.DemoEntities.Dto.DemoProduct;
+using GlobalAI.ProductDomain.Interfaces;
+using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.DemoProduct;
 using GlobalAI.DemoRepositories;
 using GlobalAI.Entites;
 using GlobalAI.EntitiesBase.Dto;
@@ -15,7 +15,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace GlobalAI.DemoDomain.Implements
+namespace GlobalAI.ProductDomain.Implements
 {
     public class DemoProductServices : IDemoProductServices
     {
