@@ -19,8 +19,7 @@
           <div class=" my-2 p-2 flex ">
             <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
             <span class="inline-flex  items-center ml-4">
-              <!-- <img src="../../assets/user.svg" alt="icon" /> -->
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+              <img class="w-5 h-5" src="~/assets/user.svg" alt="icon" />
             </span>
             <span class="ml-2 text-sm tracking-wide truncate">Tài khoản</span>
           </a>
@@ -29,7 +28,7 @@
         <div class=" my-2 p-2 flex ">
             <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none bg-gray-50  text-gray-800 border-l-4 border-transparent border-indigo-500 pr-6">
             <span class="inline-flex  items-center ml-4">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+              <img class="w-5 h-5" src="~/assets/cart.svg" alt="icon" />
             </span>
             <span class="ml-2 text-sm tracking-wide truncate">Giỏ hàng</span>
             <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">(2)</span>
@@ -39,7 +38,7 @@
          <div class=" my-2 p-2 flex ">
             <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
             <span class="inline-flex  items-center ml-4">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
+              <img class="w-5 h-5" src="~/assets/order.svg" alt="icon" />
             </span>
             <span class="ml-2 text-sm tracking-wide truncate">Đơn mua</span>
             <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-red-500 bg-red-50 rounded-full">1.2k</span>
@@ -327,6 +326,8 @@
 </template>
     
 <script setup>
+import svgtest from '../../assets/user.svg';
+
 definePageMeta({
   layout: "layout-admin-footer",
 });
