@@ -160,7 +160,7 @@
 </template>
 <script setup>
 import { registerUser } from "~~/api/api.user";
-import { Form, Field, ErrorMessage } from "vee-validate";
+import { Form, Field, ErrorMessage  } from "vee-validate";
 import * as yup from "yup";
 import { useToast } from "vue-toastification";
 
@@ -182,7 +182,7 @@ const initValues = {
 
 const validateSchema = yup.object({
   username: yup.string().required("Tên đăng nhập không được bỏ trống").trim(),
-  password: yup.string().required("Mật khẩu không được bỏ trống").min(6).trim(),
+  password: yup.string().min(6,'Mật khẩu không được ngắn hơn 6 ký tự').required("Mật khẩu không được bỏ trống").trim(),
   confirmPassword: yup
     .string()
     .required("Phải nhập lại mật khẩu một lần nữa")
