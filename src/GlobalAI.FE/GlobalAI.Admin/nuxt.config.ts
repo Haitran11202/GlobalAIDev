@@ -6,6 +6,8 @@ export default defineNuxtConfig({
         '@pinia/nuxt',
         '@pinia-plugin-persistedstate/nuxt',
     ],
+    target: 'static',
+    mode: 'universal',
     devServer: {
         port: 8001
     },

@@ -162,14 +162,13 @@
 import { registerUser } from "~~/api/api.user";
 import { Form, Field, ErrorMessage  } from "vee-validate";
 import * as yup from "yup";
-import { useToast } from "vue-toastification";
 
 definePageMeta({
   layout: 'auth'
 });
 
 const router = useRouter();
-const toast = useToast();
+const { $toast } = useNuxtApp();
 const initValues = {
   username: "",
   password: "",
@@ -207,14 +206,14 @@ const onRegister = (data) => {
   registerUser(body)
     .then((res) => {
       if (res.status === 200 && res.data.code === 200) {
-        toast.success("Đăng ký tài khoản saler thành công");
+        $toast.success("Đăng ký tài khoản saler thành công");
         router.push("/auth/login");
       }
     })
     .catch((err) => {
       const msg =
         err?.response?.data?.message || "Có sự cố xảy ra khi đăng nhập";
-      toast.error(msg);
+      $toast.error(msg);
     });
 };
 </script>

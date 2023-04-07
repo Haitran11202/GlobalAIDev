@@ -90,7 +90,6 @@ import google from "../../assets/img/google.svg";
 import Auth from "~~/layouts/Auth.vue";
 import { Form, Field, ErrorMessage  } from "vee-validate";
 import * as yup from "yup";
-import { useToast } from "vue-toastification";
 import { apiLogin } from "~~/api/api.auth";
 import { useUserStorage } from "~~/stores/user";
 
@@ -99,7 +98,7 @@ definePageMeta({
 });
 
 const userStorage = useUserStorage();
-const toast = useToast();
+const { $toast } = useNuxtApp();
 const router = useRouter();
 
 const loginBody = yup.object({
@@ -116,7 +115,7 @@ const logInFunc = (data) => {
     apiLogin(body)
       .then((res) => {
         if (res.status === 200) {
-          toast.success("Đăng nhập thành công");
+          $toast.success("Đăng nhập thành công");
 
           userStorage.login({
             accessToken: res.data.access_token,
@@ -129,7 +128,7 @@ const logInFunc = (data) => {
       .catch((err) => {
         const msg =
           err?.response?.data?.message || "Có sự cố xảy ra khi đăng nhập";
-        toast.error(msg);
+        $toast.error(msg);
       });
 
 };

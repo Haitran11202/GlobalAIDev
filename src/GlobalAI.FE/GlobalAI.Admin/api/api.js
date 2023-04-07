@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { useToast } from 'vue-toastification';
 // import store from '../store';
 import { apiRefreshToken } from './api.auth';
 
-const toast = useToast();
+// const toast = useToast();
 const baseURL = import.meta.env?.VITE_API_ENDPOINT || '';
 
 const instance = axios.create({
@@ -17,7 +16,7 @@ instance.interceptors.response.use(function (response) {
     // Any status code within the range of 2xx cause this function to trigger
     // Do something with response data
     if (response.status === 200 && response.data.code !== 200 && response?.data?.message) {
-        toast.error(response?.data?.message);
+        toast.error
         return response;
     }
 
