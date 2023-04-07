@@ -4,6 +4,7 @@ using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.Entites;
 using GlobalAI.ProductDomain.Implements;
 using GlobalAI.ProductDomain.Interfaces;
+using Microsoft.IdentityModel.Logging;
 using GlobalAI.Utils.ConstantVariables.Shared;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 //using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -55,7 +56,7 @@ builder.Services.AddOpenIddict()
         // Note: the validation handler uses OpenID Connect discovery
         // to retrieve the address of the introspection endpoint.
         options.SetIssuer("http://localhost:5001/");
-        options.AddAudiences("http://localhost:5002");
+        options.AddAudiences("http://localhost:5004");
         options.AddEncryptionKey(key);
 
         // Register the System.Net.Http integration.

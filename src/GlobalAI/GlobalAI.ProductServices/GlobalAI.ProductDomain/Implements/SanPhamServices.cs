@@ -1,8 +1,8 @@
 ﻿using GlobalAI.DataAccess.Base;
 
 using GlobalAI.DataAccess.Models;
-using GlobalAI.DemoEntities.DataEntities;
-using GlobalAI.DemoEntities.Dto.DemoProduct;
+using GlobalAI.DemoEntities;
+using GlobalAI.DemoEntities.Dto;
 using GlobalAI.DemoEntities.Dto.Product;
 
 using GlobalAI.DemoRepositories;
@@ -40,7 +40,59 @@ namespace GlobalAI.ProductDomain.Implements
             _httpContext = httpContext;
 
         }
+        /// <summary>
+        /// Thêm sản phẩm
+        /// </summary>
+        /// <param name="sanPham"></param>
+        /// <returns>Sản phẩm vừa thêm vào</returns>
+        public SanPham AddSanPham(AddSanPhamDto sanPham)
+        {
+            var newSanPham = new SanPham
+            {
+                TenSanPham = sanPham.TenSanPham,
+                MaDanhMuc = sanPham.MaDanhMuc,
+                MoTa = sanPham.MoTa,
+                MaGStore = sanPham.MaGStore,
+                GiaBan = sanPham.GiaBan,
+                GiaChietKhau = sanPham.GiaChietKhau,
+                NgayDangKi = sanPham.NgayDangKi,
+                NgayDuyet = sanPham.NgayDuyet,
+                Deleted = false
+            };
 
+            return _repositorySanPham.Add(newSanPham);
+        }
+        /// <summary>
+        /// Xóa sản phẩm
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Trả về sản phẩm vừa xóa(Trường deleted = true)</returns>
+        public SanPham DeleteSanPham(int id)
+        {
+            var findSanPham = _repositorySanPham.FindById(id);
+            if (findSanPham != null)
+            {
+                _repositorySanPham.Delete(findSanPham);
+            }
+            return findSanPham;
+        }
+        /// <summary>
+        /// Sửa sản phẩm
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="newSanPham"></param>
+        /// <returns>Trả về sản phẩm đã được sửa</returns>
+        public SanPham EditSanPham(int id, AddSanPhamDto newSanPham)
+        {
+            var findSanPham = _repositorySanPham.FindById(id);
+            if (findSanPham != null)
+            {
+                _repositorySanPham.EditSanPham(newSanPham, findSanPham);
+            }
+            return findSanPham;
+
+
+        }
         /// <summary>
         /// Get list demo product phân trang
         /// </summary>
