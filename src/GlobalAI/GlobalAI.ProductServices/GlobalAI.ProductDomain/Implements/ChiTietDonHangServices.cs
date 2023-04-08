@@ -1,15 +1,17 @@
+﻿using AutoMapper;
 using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
+using GlobalAI.DemoEntities.DataEntities;
+using GlobalAI.DemoEntities.Dto.DemoProduct;
 using GlobalAI.DemoEntities.Dto.Product;
-
 using GlobalAI.DemoRepositories;
 using GlobalAI.Entites;
 using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -19,20 +21,19 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.ProductDomain.Implements
 {
-    public class SanPhamServices : ISanPhamServices
+    public class ChiTietDonHangServices : IChiTietDonHangServices
     {
         private readonly GlobalAIDbContext _dbContext;
         private readonly ILogger<SanPhamServices> _logger;
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
-        private readonly SanPhamRepository _repositorySanPham;
+        private readonly ChiTietDonHangRepository _repositoryChiTietDonHang;
 
-        public SanPhamServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger)
+        public ChiTietDonHangServices( GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger)
         {
-            _repositorySanPham = new SanPhamRepository(dbContext, logger);
+            _repositoryChiTietDonHang = new ChiTietDonHangRepository(dbContext, logger);
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
-
             _dbContext = dbContext;
             _httpContext = httpContext;
 
@@ -41,13 +42,13 @@ namespace GlobalAI.ProductDomain.Implements
         /// <summary>
         /// Get list demo product phân trang
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        public PagingResult<GetSanPhamDto> FindAll(FindSanPhamDto input)
+        /// <param name = "input" ></ param >
+        /// < returns ></ returns >
+   
+        public void CreateChiTietDonhang(AddChiTietDonHangDto input)
         {
-            //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
-
-            return _repositorySanPham.FindAll(input);
+            _repositoryChiTietDonHang.CreateChiTietDonHang(input);
+            _dbContext.SaveChanges();
         }
 
         /// <summary>
@@ -55,23 +56,23 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public SanPham GetById(int id)
-        {
-            //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
+        //public SanPham GetById(int id)
+        //{
+        //    //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
 
-            return _repositorySanPham.GetById(id);
-        }
+        //    return _repositorySanPham.GetById(id);
+        //}
         /// <summary>
         /// Lấy sản phẩm theo danh mục
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<SanPham> GetByCategory(int id)
-        {
-            //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(id)}");
+        //public List<SanPham> GetByCategory(int id)
+        //{
+        //    //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(id)}");
 
-            return _repositorySanPham.GetByCategory(id);
-        }
+        //    return _repositorySanPham.GetByCategory(id);
+        //}
 
 
 

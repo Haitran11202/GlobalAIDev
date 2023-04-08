@@ -1,8 +1,6 @@
-
 ﻿using GlobalAI.DataAccess.Models;
 using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductEntities.DataEntities;
-
 using GlobalAI.ProductEntities.Dto.Product;
 using System;
 using System.Collections.Generic;
@@ -12,10 +10,9 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.ProductDomain.Interfaces
 {
-    public interface ISanPhamServices
+    public interface IDonHangServices
     {
-        public PagingResult<GetSanPhamDto> FindAll(FindSanPhamDto input);
-        public SanPham GetById(int input);
-        public List<SanPham> GetByCategory(int id);
+        public PagingResult<GetDonHangDto> FindAll(FindDonHangDto input);
+        public void CreateDonhang(AddDonHangDto input);
     }
 }

@@ -1,8 +1,7 @@
-
 ﻿using GlobalAI.DataAccess.Models;
 using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductEntities.DataEntities;
-
+using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using System;
 using System.Collections.Generic;
@@ -12,10 +11,8 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.ProductDomain.Interfaces
 {
-    public interface ISanPhamServices
+    public interface IChiTietDonHangServices
     {
-        public PagingResult<GetSanPhamDto> FindAll(FindSanPhamDto input);
-        public SanPham GetById(int input);
-        public List<SanPham> GetByCategory(int id);
+        public void CreateChiTietDonhang(AddChiTietDonHangDto input);
     }
 }

@@ -13,13 +13,13 @@ namespace GlobalAI.EntitiesBase.Dto
         [FromQuery(Name = "pageNumber")]
         public int PageNumber { get; set; }
 
-        private string _keyword { get; set; }
+        private string _keyword { get; set; } = String.Empty;
         [FromQuery(Name = "keyword")]
         public string Keyword
         {
             get => _keyword;
             set => _keyword = value?.Trim();
-        }
+        } 
 
         [NotMapped]
         public int Skip

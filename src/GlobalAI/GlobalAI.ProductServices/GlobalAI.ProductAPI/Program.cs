@@ -125,8 +125,12 @@ services.AddSwaggerGen(option =>
 
 #region Add services
 services.AddScoped<ISanPhamServices, SanPhamServices>();
+services.AddScoped<IDonHangServices, DonHangServices>();
+services.AddScoped<IChiTietDonHangServices, ChiTietDonHangServices>();
 #endregion
-
+#region Add Auto Mapper
+// services.AddAutoMapper(typeof(Program).Assembly);
+#endregion
 services.AddHttpContextAccessor();
 services.AddAuthorization();
 
@@ -142,9 +146,6 @@ if (!builder.Environment.IsProduction())
         options.DocExpansion(DocExpansion.None);
     });
 }
-
-
-
 // Configure the HTTP request pipeline.
 app.UseRouting();
 

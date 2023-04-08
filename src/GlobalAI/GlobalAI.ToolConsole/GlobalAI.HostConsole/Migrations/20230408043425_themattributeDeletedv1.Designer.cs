@@ -3,6 +3,7 @@ using System;
 using GlobalAI.DataAccess.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    partial class GlobalAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230408043425_themattributeDeletedv1")]
+    partial class themattributeDeletedv1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,22 +173,14 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_SAN_PHAM");
 
-                    b.Property<int>("SoLuong")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("SO_LUONG");
-
                     b.HasKey("MaDonHang");
 
                     b.HasIndex("MaSanPham");
 
-                    b.ToTable("P_ChiTietDonHang", t =>
-                        {
-                            t.HasComment("bảng chi tiết đơn hàng");
-                        });
+                    b.ToTable("ChiTietDonHangs");
                 });
 
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.DanhMuc", b =>
-
                 {
                     b.Property<int>("MaDanhMuc")
                         .ValueGeneratedOnAdd()
@@ -244,10 +239,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("MaDonHang");
 
-                    b.ToTable("P_DonHang", t =>
-                        {
-                            t.HasComment("bảng đơn hàng");
-                        });
+                    b.ToTable("DonHangs");
                 });
 
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.SanPham", b =>
@@ -332,6 +324,25 @@ namespace GlobalAI.HostConsole.Migrations
                         {
                             t.HasComment("bảng sản phẩm");
                         });
+                });
+
+            modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.ChiTietDonHang", b =>
+                {
+                    b.HasOne("GlobalAI.ProductEntities.DataEntities.DonHang", "DonHang")
+                        .WithMany()
+                        .HasForeignKey("MaDonHang")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GlobalAI.ProductEntities.DataEntities.SanPham", "SanPham")
+                        .WithMany()
+                        .HasForeignKey("MaSanPham")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DonHang");
+
+                    b.Navigation("SanPham");
                 });
 #pragma warning restore 612, 618
         }
