@@ -25,7 +25,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost("them-san-pham")]
+        [HttpPost("them")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
         public APIResponse Add([FromBody] AddSanPhamDto input)
         {
@@ -45,7 +45,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPut("sua-san-pham/{id}")]
+        [HttpPut("sua/{id}")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
         public APIResponse Put(int id, [FromBody] AddSanPhamDto input)
         {
@@ -68,7 +68,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("xoa-san-pham/{id}")]
+        [HttpDelete("xoa/{id}")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
         public APIResponse Delete(int id)
         {
@@ -89,7 +89,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <summary>
         /// lấy danh sách sản phẩm có phân trang
         /// </summary>
-        [HttpGet("find-all")]
+        [HttpGet("")]
         [ProducesResponseType(typeof(APIResponse<List<FindSanPhamDto>>), (int)HttpStatusCode.OK)]
         public APIResponse FindAll([FromQuery] FindSanPhamDto input)
         {
@@ -125,7 +125,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <summary>
         /// lấy sản phẩm theo danh mục
         /// </summary>
-        [HttpGet("category/{id}")]
+        [HttpGet("danh-muc/{id}")]
         [ProducesResponseType(typeof(APIResponse<List<SanPham>>), (int)HttpStatusCode.OK)]
         public APIResponse GetByCategory(int id)
         {
