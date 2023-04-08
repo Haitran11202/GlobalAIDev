@@ -42,37 +42,20 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public List<GetDonHangDto> FindAll()
+        public PagingResult<GetDonHangDto> FindAll(FindDonHangDto input)
         {
-            //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
-
-            return _repositoryDonHang.FindAll();
+            return _repositoryDonHang.FindAll(input);
         }
 
         /// <summary>
-        /// Lấy sản phẩm theo id
+        /// tạo đơn hàng
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        //public SanPham GetById(int id)
-        //{
-        //    //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
-
-        //    return _repositorySanPham.GetById(id);
-        //}
-        /// <summary>
-        /// Lấy sản phẩm theo danh mục
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        //public List<SanPham> GetByCategory(int id)
-        //{
-        //    //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(id)}");
-
-        //    return _repositorySanPham.GetByCategory(id);
-        //}
-
-
-
+        public void CreateDonhang(AddDonHangDto input)
+        {
+            _repositoryDonHang.CreateDonHang(input);
+            _dbContext.SaveChanges();
+        }
     }
 }

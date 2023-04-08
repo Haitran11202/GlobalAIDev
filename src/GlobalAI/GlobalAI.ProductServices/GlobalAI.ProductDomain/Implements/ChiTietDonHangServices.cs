@@ -8,6 +8,7 @@ using GlobalAI.DemoRepositories;
 using GlobalAI.Entites;
 using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -41,14 +42,14 @@ namespace GlobalAI.ProductDomain.Implements
         /// <summary>
         /// Get list demo product phân trang
         /// </summary>
-        /// <param name="input"></param>
-        /// <returns></returns>
-        //public PagingResult<GetSanPhamDto> FindAll(FindSanPhamDto input)
-        //{
-        //    //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
-
-        //    return _repositorySanPham.FindAll(input);
-        //}
+        /// <param name = "input" ></ param >
+        /// < returns ></ returns >
+   
+        public void CreateChiTietDonhang(AddChiTietDonHangDto input)
+        {
+            _repositoryChiTietDonHang.CreateChiTietDonHang(input);
+            _dbContext.SaveChanges();
+        }
 
         /// <summary>
         /// Lấy sản phẩm theo id

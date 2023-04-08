@@ -26,7 +26,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         [HttpGet("lay-san-pham")]
         [ProducesResponseType(typeof(APIResponse<List<FindSanPhamDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse FindAll([FromQuery] FindSanPhamDto input)
+        public APIResponse FindAll1([FromQuery] FindSanPhamDto input)
         {
             try
             {

@@ -13,6 +13,12 @@ namespace GlobalAI.ProductEntities.Dto.Product
     public class AddDonHangDto
     {
         
+        public DateTime NgayHoanThanh { get; set; }
+        public int MaGStore { get; set; }
+        public int MaGSaler { get; set; }
+        public decimal SoTien { get; set; }
+        public string HinhThucThanhToan { get; set; }
+
 
     }
 }

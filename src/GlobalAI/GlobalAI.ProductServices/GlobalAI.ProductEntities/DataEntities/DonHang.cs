@@ -1,13 +1,17 @@
 ﻿using GlobalAI.Utils.Attributes;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace GlobalAI.ProductEntities.DataEntities
 {
+    [Table("P_DonHang")]
+    [Comment("bảng đơn hàng")]
     public class DonHang
     {
         [Key]
@@ -30,5 +34,9 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(HinhThucThanhToan))]
 
         public string HinhThucThanhToan { get; set; }
+        [ColumnSnackCase(nameof(Deleted))]
+
+        public bool Deleted { get; set; }
+
     }
 }

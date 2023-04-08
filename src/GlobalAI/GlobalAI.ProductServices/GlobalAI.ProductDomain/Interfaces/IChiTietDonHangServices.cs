@@ -1,6 +1,7 @@
 ﻿using GlobalAI.DataAccess.Models;
 using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,6 @@ namespace GlobalAI.ProductDomain.Interfaces
 {
     public interface IChiTietDonHangServices
     {
-        
+        public void CreateChiTietDonhang(AddChiTietDonHangDto input);
     }
 }

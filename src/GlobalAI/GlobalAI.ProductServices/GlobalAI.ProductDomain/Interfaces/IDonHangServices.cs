@@ -12,6 +12,7 @@ namespace GlobalAI.ProductDomain.Interfaces
 {
     public interface IDonHangServices
     {
-        public List<GetDonHangDto> FindAll();
+        public PagingResult<GetDonHangDto> FindAll(FindDonHangDto input);
+        public void CreateDonhang(AddDonHangDto input);
     }
 }

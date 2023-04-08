@@ -10,15 +10,20 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.ProductEntities.DataEntities
 {
+    [Table("P_ChiTietDonHang")]
+    [Comment("bảng chi tiết đơn hàng")]
     public class ChiTietDonHang
     {
 
         [Key]
         [ColumnSnackCase(nameof(MaDonHang))]
         public int MaDonHang { get; set; }
-        
+
         [ColumnSnackCase(nameof(MaSanPham))]
         public int MaSanPham { get; set; }
+
+        [ColumnSnackCase(nameof(SoLuong))]
+        public int SoLuong { get; set; }
 
         [ForeignKey("MaDonHang")]
         public DonHang DonHang { get; set; }
