@@ -1,17 +1,19 @@
 ﻿using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
 using GlobalAI.ProductEntities.DataEntities;
-using GlobalAI.ProductEntities.DataEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductEntities.Dto.Product;
+using AutoMapper;
+using Microsoft.AspNetCore.Http.Internal;
 
 namespace GlobalAI.DemoRepositories
 {
     public class SanPhamRepository : BaseEFRepository<SanPham>
     {
+        private readonly IMapper _mapper;
         public SanPhamRepository(DbContext dbContext, ILogger logger, string seqName = null) : base(dbContext, logger, seqName)
         {
         }
@@ -20,10 +22,10 @@ namespace GlobalAI.DemoRepositories
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public PagingResult<SanPham> FindAll(FindSanPhamDto input)
+        public PagingResult<GetSanPhamDto> FindAll(FindSanPhamDto input)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
-            PagingResult<SanPham> result = new();
+            PagingResult<GetSanPhamDto> result = new();
             var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.MaSanPham).Where(p => !p.Deleted)
                 .Where(r => (input.Keyword == null || r.TenSanPham.Contains(input.Keyword)));
             if (input.PageSize != -1)
@@ -31,7 +33,22 @@ namespace GlobalAI.DemoRepositories
                 projectQuery = projectQuery.Skip(input.Skip).Take(input.PageSize);
             }
             result.TotalItems = projectQuery.Count();
-            result.Items = projectQuery.ToList();
+            var sanphams = projectQuery;
+            var sanphamDtos = new List<GetSanPhamDto>();
+            foreach ( var item in sanphams ) {
+                var getSpDto = new GetSanPhamDto
+                {
+                    TenSanPham = item.TenSanPham,
+                    MaDanhMuc = item.MaDanhMuc,
+                    MaGStore = item.MaGStore,
+                    GiaBan = item.GiaBan,
+                    GiaChietKhau = item.GiaChietKhau,
+                    NgayDangKi = item.NgayDangKi,
+                    NgayDuyet = item.NgayDuyet,
+                };
+                sanphamDtos.Add(getSpDto);
+            }
+            result.Items = sanphamDtos;
             return result;
         }
         /// <summary>
@@ -42,7 +59,7 @@ namespace GlobalAI.DemoRepositories
         public SanPham GetById(int id)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(id)}");
-            var sanpham = _dbSet.AsNoTracking().FirstOrDefault(sp => sp.MaSanPham == id);
+            var sanpham = _dbSet.AsNoTracking().Where(sp => !sp.Deleted).FirstOrDefault(sp => sp.MaSanPham == id);
             return sanpham;
         }
         /// <summary>

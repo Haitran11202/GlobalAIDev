@@ -10,10 +10,8 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.ProductDomain.Interfaces
 {
-    public interface ISanPhamServices
+    public interface IDonHangServices
     {
-        public PagingResult<GetSanPhamDto> FindAll(FindSanPhamDto input);
-        public SanPham GetById(int input);
-        public List<SanPham> GetByCategory(int id);
+        public List<GetDonHangDto> FindAll();
     }
 }
