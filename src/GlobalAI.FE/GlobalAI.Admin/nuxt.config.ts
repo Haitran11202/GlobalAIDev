@@ -11,16 +11,20 @@ export default defineNuxtConfig({
     devServer: {
         port: 8001
     },
+    runtimeConfig: {
+        public: {
+            apiEndpoint: process.env.API_ENDPOINT,
+            authEndpoit: process.env.AUTH_ENDPOINT,
+            apiGrantType: process.env.API_GRANT_TYPE,
+        }
+    },
     plugins: [
         {
             src: '~/plugins/fontawesome.client.js',
             mode: 'client'
         },
-        // {
-        //     src: '~/plugins/vee-validate.js',
-        //     mode: 'client'
-        // },
     ],
+
     pinia: {
         autoImports: [
             // automatically imports `defineStore`

@@ -1,8 +1,10 @@
 import axios from 'axios';
 import store from '../store';
-import { apiRefreshToken } from './api.auth';
+import { apiRefreshToken } from './useApiAuth';
 
-const baseURL = import.meta.env?.VITE_AUTH_ENDPOINT || '';
+const env = useRuntimeConfig();
+
+const baseURL = env.public.apiEndpoint || '';
 
 const instance = axios.create({
     baseURL,
