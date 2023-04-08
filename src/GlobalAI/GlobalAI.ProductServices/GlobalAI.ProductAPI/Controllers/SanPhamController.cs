@@ -52,6 +52,10 @@ namespace GlobalAI.ProductAPI.Controllers
             try
             {
                 var result = _sanPhamServices.EditSanPham(id, input);
+                if (result == null)
+                {
+                    return new APIResponse(Utils.StatusCode.Error, result, 404, "NotFound");
+                }
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)
@@ -70,7 +74,11 @@ namespace GlobalAI.ProductAPI.Controllers
         {
             try
             {
-                var result = _sanPhamServices.DeleteSanPham(id);
+                var result = _sanPhamServices.DeleteSanPham(id);  
+                if(result == null)
+                {
+                    return new APIResponse(Utils.StatusCode.Error, result, 404, "NotFound");
+                }    
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)

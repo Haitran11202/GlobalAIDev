@@ -94,7 +94,12 @@ namespace GlobalAI.DemoRepositories
         /// <returns></returns>
         public SanPham FindById(int id)
         {
-            return _dbSet.SingleOrDefault(sp => sp.MaSanPham == id);
+            var result = _dbSet.SingleOrDefault(sp => sp.MaSanPham == id);
+            if(result != null && result.Deleted == true) 
+            {
+                return null;
+            }
+            return result;
         }
 
     }
