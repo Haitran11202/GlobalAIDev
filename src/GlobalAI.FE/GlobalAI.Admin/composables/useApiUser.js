@@ -1,5 +1,5 @@
-import http from './api';
-import { API_ENDPOINT } from './api.endpoint';
+import http from './useApi';
+import { API_ENDPOINT } from '~~/api/api.endpoint';
 
 export const registerUser = async (body) => {
     const res = await http.post(API_ENDPOINT.userRegister, body);

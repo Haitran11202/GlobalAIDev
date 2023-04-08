@@ -374,7 +374,7 @@
 .bg-custom-1 {
   background-color: #f2f1f2;
 }
-</style>
+</style> 
 <script setup>
 import IndexNavbar from "../components/Navbars/IndexNavbar.vue";
 import FooterComponent from "../components/Footers/Footer.vue";
