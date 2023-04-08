@@ -117,7 +117,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <summary>
         /// lấy sản phẩm theo danh mục
         /// </summary>
-        [HttpGet("category/{id}")]
+        [HttpGet("danh-muc/{id}")]
         [ProducesResponseType(typeof(APIResponse<List<SanPham>>), (int)HttpStatusCode.OK)]
         public APIResponse GetByCategory(int id)
         {
