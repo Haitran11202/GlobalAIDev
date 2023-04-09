@@ -9,7 +9,7 @@ using GlobalAI.ProductEntities.Dto.Product;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.Internal;
 
-namespace GlobalAI.DemoRepositories
+namespace GlobalAI.ProductRepositories
 {
     public class DonHangRepository : BaseEFRepository<DonHang>
     {

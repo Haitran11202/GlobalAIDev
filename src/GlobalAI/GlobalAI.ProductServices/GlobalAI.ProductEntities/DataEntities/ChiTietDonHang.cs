@@ -25,11 +25,6 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(SoLuong))]
         public int SoLuong { get; set; }
 
-        [ForeignKey("MaDonHang")]
-        public DonHang DonHang { get; set; }
-
-        [ForeignKey("MaSanPham")]
-        public SanPham SanPham { get; set; }
 
     }
 }

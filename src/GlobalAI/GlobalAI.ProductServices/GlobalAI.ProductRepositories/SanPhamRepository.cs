@@ -9,7 +9,7 @@ using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductEntities.Dto.Product;
 
 
-namespace GlobalAI.DemoRepositories
+namespace GlobalAI.ProductRepositories
 {
     public class SanPhamRepository : BaseEFRepository<SanPham>
     {
