@@ -20,12 +20,12 @@ namespace GlobalAI.ProductEntities.DataEntities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [ColumnSnackCase(nameof(MaDanhMuc))]
         public int MaDanhMuc { get; set; }
+
         
 
         [StringLength(400)]
         [ColumnSnackCase(nameof(TenDanhMuc))]
         public string TenDanhMuc { get; set; } = String.Empty;
 
-        
     }
 }
