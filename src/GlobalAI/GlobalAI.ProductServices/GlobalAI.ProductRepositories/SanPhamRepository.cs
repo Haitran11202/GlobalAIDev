@@ -7,16 +7,47 @@ using System.Text.Json;
 
 using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductEntities.Dto.Product;
+using AutoMapper;
+using Microsoft.AspNetCore.Http.Internal;
 
 
 namespace GlobalAI.ProductRepositories
 {
     public class SanPhamRepository : BaseEFRepository<SanPham>
     {
+        private readonly IMapper _mapper;
         public SanPhamRepository(DbContext dbContext, ILogger logger, string seqName = null) : base(dbContext, logger, seqName)
         {
         }
-
+        /// <summary>
+        /// Tạo mới product
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public SanPham Add(SanPham sanPham)
+        {
+            _dbSet.Add(sanPham);
+            _dbContext.SaveChanges();
+            return sanPham;
+        }
+        public SanPham EditSanPham(AddSanPhamDto newSanPham, SanPham oldSanPham)
+        {
+            oldSanPham.TenSanPham = newSanPham.TenSanPham;
+            oldSanPham.MaDanhMuc = newSanPham.MaDanhMuc;
+            oldSanPham.MoTa = newSanPham.MoTa;
+            oldSanPham.MaGStore = newSanPham.MaGStore;
+            oldSanPham.GiaBan = newSanPham.GiaBan;
+            oldSanPham.GiaChietKhau = newSanPham.GiaChietKhau;
+            oldSanPham.NgayDangKi = newSanPham.NgayDangKi;
+            oldSanPham.NgayDuyet = newSanPham.NgayDuyet;
+            _dbContext.SaveChanges();
+            return oldSanPham;
+        }
+        public void Delete(SanPham sanPham)
+        {
+            sanPham.Deleted = true;
+            _dbContext.SaveChanges();
+        }
         /// <summary>
         /// Lấy demo product phân trang
         /// </summary>
@@ -72,6 +103,20 @@ namespace GlobalAI.ProductRepositories
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(GetByCategory)}: input = {JsonSerializer.Serialize(id)}");
             var danhmucs = _dbSet.Where(sp => sp.MaDanhMuc == id).AsNoTracking().ToList();
             return danhmucs;
+        }
+        /// <summary>
+        /// Tìm sản phầm cần sửa, xóa
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public SanPham FindById(int id)
+        {
+            var result = _dbSet.SingleOrDefault(sp => sp.MaSanPham == id);
+            if(result != null && result.Deleted == true) 
+            {
+                return null;
+            }
+            return result;
         }
 
     }

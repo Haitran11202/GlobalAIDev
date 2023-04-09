@@ -9,6 +9,7 @@ using GlobalAI.ProductEntities.Dto.Product;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.Internal;
 using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
+
 using System.Net.Mail;
 
 namespace GlobalAI.ProductRepositories
@@ -36,6 +37,7 @@ namespace GlobalAI.ProductRepositories
             }
 
         }
+
 
     }
 }

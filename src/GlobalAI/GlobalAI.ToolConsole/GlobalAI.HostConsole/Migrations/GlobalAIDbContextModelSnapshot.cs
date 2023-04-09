@@ -160,6 +160,7 @@ namespace GlobalAI.HostConsole.Migrations
                         });
                 });
 
+
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.ChiTietDonHang", b =>
                 {
                     b.Property<int>("MaDonHang")
@@ -311,6 +312,102 @@ namespace GlobalAI.HostConsole.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATE")
                         .HasColumnName("MODIFIED_DATE");
+
+                    b.Property<DateTime>("NgayDangKi")
+                        .HasColumnType("TIMESTAMP(7)")
+                        .HasColumnName("NGAY_DANG_KI");
+
+                    b.Property<DateTime>("NgayDuyet")
+                        .HasColumnType("TIMESTAMP(7)")
+                        .HasColumnName("NGAY_DUYET");
+
+                    b.Property<string>("TenSanPham")
+                        .IsRequired()
+                        .HasMaxLength(400)
+                        .HasColumnType("NVARCHAR2(400)")
+                        .HasColumnName("TEN_SAN_PHAM");
+
+                    b.HasKey("MaSanPham");
+
+                    b.ToTable("P_SanPham", t =>
+                        {
+                            t.HasComment("bảng sản phẩm");
+                        });
+                });
+
+
+            modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.ChiTietDonHang", b =>
+                {
+                    b.HasOne("GlobalAI.ProductEntities.DataEntities.DonHang", "DonHang")
+                        .WithMany()
+                        .HasForeignKey("MaDonHang")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GlobalAI.ProductEntities.DataEntities.SanPham", "SanPham")
+                        .WithMany()
+                        .HasForeignKey("MaSanPham")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("DonHang");
+
+                    b.Navigation("SanPham");
+                });
+
+            modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.DanhMuc", b =>
+                {
+                    b.Property<int>("MaDanhMuc")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("MA_DANH_MUC");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaDanhMuc"));
+
+                    b.Property<string>("TenDanhMuc")
+                        .IsRequired()
+                        .HasMaxLength(400)
+                        .HasColumnType("NVARCHAR2(400)")
+                        .HasColumnName("TEN_DANH_MUC");
+
+                    b.HasKey("MaDanhMuc");
+
+                    b.ToTable("P_DanhMuc", t =>
+                        {
+                            t.HasComment("Demo bảng danh mục sản phẩm");
+                        });
+                });
+
+            modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.SanPham", b =>
+                {
+                    b.Property<int>("MaSanPham")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("MA_SAN_PHAM");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaSanPham"));
+
+                    b.Property<decimal>("GiaBan")
+                        .HasColumnType("DECIMAL(18, 2)")
+                        .HasColumnName("GIA_BAN");
+
+                    b.Property<decimal>("GiaChietKhau")
+                        .HasColumnType("DECIMAL(18, 2)")
+                        .HasColumnName("GIA_CHIET_KHAU");
+
+                    b.Property<int>("MaDanhMuc")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("MA_DANH_MUC");
+
+                    b.Property<int>("MaGStore")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("MA_G_STORE");
+
+                    b.Property<string>("MoTa")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("NVARCHAR2(1000)")
+                        .HasColumnName("MO_TA");
 
                     b.Property<DateTime>("NgayDangKi")
                         .HasColumnType("TIMESTAMP(7)")
