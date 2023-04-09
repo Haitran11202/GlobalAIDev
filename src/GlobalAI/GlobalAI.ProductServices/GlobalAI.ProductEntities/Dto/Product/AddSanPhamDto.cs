@@ -26,3 +26,4 @@ namespace GlobalAI.ProductEntities.Dto.Product
 
     }
 }
+

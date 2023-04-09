@@ -50,7 +50,7 @@ namespace GlobalAI.IdentityServer.Controllers
                     // Add the claims that will be persisted in the tokens.
                     identity.SetClaim(Claims.Username, user.Username)
                             .SetClaim(Claims.Subject, user.Username)
-                            .SetAudiences(new string[] { "http://localhost:5002" })
+                            .SetAudiences(new string[] { "http://localhost:5002", "http://localhost:5004" })
                             .SetClaim(Claims.Email, user.Email)
                             .SetClaim(Claims.Name, $"{user.FirstName} {user.LastName}")
                             .SetClaims(Claims.Role, (new List<string> { user.UserType }).ToImmutableArray());
