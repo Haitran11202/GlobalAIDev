@@ -1,3 +1,4 @@
+
 ﻿using AutoMapper;
 using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
@@ -17,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace GlobalAI.ProductDomain.Implements
 {

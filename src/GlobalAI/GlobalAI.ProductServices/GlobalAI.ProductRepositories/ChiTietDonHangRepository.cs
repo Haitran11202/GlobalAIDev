@@ -10,25 +10,34 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http.Internal;
 using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 
-namespace GlobalAI.DemoRepositories
+using System.Net.Mail;
+
+namespace GlobalAI.ProductRepositories
 {
     public class ChiTietDonHangRepository : BaseEFRepository<ChiTietDonHang>
     {
-        
+
         public ChiTietDonHangRepository(DbContext dbContext, ILogger logger, string seqName = null) : base(dbContext, logger, seqName)
         {
         }
         public void CreateChiTietDonHang(AddChiTietDonHangDto input)
         {
-            var chitiet = new ChiTietDonHang
+            var madonhangcheck = _globalAIDbContext.DonHangs.Find(input.MaDonHang);
+            var masanpham = _globalAIDbContext.SanPhams.Find(input.MaSanPham);
+            if (madonhangcheck != null && masanpham != null)
             {
-                MaDonHang = input.MaDonHang,
-                MaSanPham = input.MaSanPham,
-                SoLuong = input.SoLuong,
-            };
-            _dbSet.Add(chitiet);
+
+                var chitiet = new ChiTietDonHang
+                {
+                    MaDonHang = input.MaDonHang,
+                    MaSanPham = input.MaSanPham,
+                    SoLuong = input.SoLuong,
+                };
+                _dbSet.Add(chitiet);
+            }
 
         }
-        
+
+
     }
 }

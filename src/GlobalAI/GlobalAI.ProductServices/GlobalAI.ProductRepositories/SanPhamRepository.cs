@@ -11,7 +11,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http.Internal;
 
 
-namespace GlobalAI.DemoRepositories
+namespace GlobalAI.ProductRepositories
 {
     public class SanPhamRepository : BaseEFRepository<SanPham>
     {

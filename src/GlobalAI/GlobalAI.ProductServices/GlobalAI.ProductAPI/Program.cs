@@ -130,6 +130,7 @@ services.AddScoped<IDonHangServices, DonHangServices>();
 services.AddScoped<IChiTietDonHangServices, ChiTietDonHangServices>();
 #endregion
 #region Add Auto Mapper
+
 services.AddAutoMapper(typeof(Program).Assembly);
 #endregion
 services.AddHttpContextAccessor();
