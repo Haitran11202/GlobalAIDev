@@ -1,8 +1,6 @@
-using AutoMapper;
+﻿using AutoMapper;
 using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
-using GlobalAI.DemoEntities.DataEntities;
-using GlobalAI.DemoEntities.Dto.DemoProduct;
 using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.DemoRepositories;
 using GlobalAI.Entites;
@@ -10,6 +8,7 @@ using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductRepositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
