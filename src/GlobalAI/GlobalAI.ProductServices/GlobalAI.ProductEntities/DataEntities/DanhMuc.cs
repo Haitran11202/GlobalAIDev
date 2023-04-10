@@ -18,8 +18,10 @@ namespace GlobalAI.ProductEntities.DataEntities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
         [ColumnSnackCase(nameof(MaDanhMuc))]
-        public int MaDanhMuc { get; set; }
+        public string MaDanhMuc { get; set; }
 
         
 

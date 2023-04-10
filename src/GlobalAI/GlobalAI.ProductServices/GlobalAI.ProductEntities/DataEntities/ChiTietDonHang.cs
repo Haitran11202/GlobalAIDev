@@ -16,11 +16,13 @@ namespace GlobalAI.ProductEntities.DataEntities
     {
 
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
         [ColumnSnackCase(nameof(MaDonHang))]
-        public int MaDonHang { get; set; }
-        [Key]
+        public string MaDonHang { get; set; }
+       
         [ColumnSnackCase(nameof(MaSanPham))]
-        public int MaSanPham { get; set; }
+        public string MaSanPham { get; set; }
 
         [ColumnSnackCase(nameof(SoLuong))]
         public int SoLuong { get; set; }

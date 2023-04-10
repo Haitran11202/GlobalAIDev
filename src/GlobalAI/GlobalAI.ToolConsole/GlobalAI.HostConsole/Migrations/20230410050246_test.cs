@@ -5,7 +5,7 @@
 namespace GlobalAI.HostConsole.Migrations
 {
     /// <inheritdoc />
-    public partial class themtruongdeletectdonhang : Migration
+    public partial class test : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -39,13 +39,14 @@ namespace GlobalAI.HostConsole.Migrations
                 name: "SO_TIEN",
                 table: "P_DonHang",
                 type: "DECIMAL(18, 2)",
-                nullable: false,
+                nullable: true,
                 oldClrType: typeof(decimal),
-                oldType: "DECIMAL(18,2)");
+                oldType: "DECIMAL(18,2)",
+                oldNullable: true);
 
             migrationBuilder.AddColumn<int>(
-                name: "DELETED",
-                table: "P_ChiTietDonHang",
+                name: "Test",
+                table: "P_DonHang",
                 type: "NUMBER(10)",
                 nullable: false,
                 defaultValue: 0);
@@ -55,8 +56,8 @@ namespace GlobalAI.HostConsole.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "DELETED",
-                table: "P_ChiTietDonHang");
+                name: "Test",
+                table: "P_DonHang");
 
             migrationBuilder.AlterColumn<decimal>(
                 name: "FAIL_ATTEMP",
@@ -87,9 +88,10 @@ namespace GlobalAI.HostConsole.Migrations
                 name: "SO_TIEN",
                 table: "P_DonHang",
                 type: "DECIMAL(18,2)",
-                nullable: false,
+                nullable: true,
                 oldClrType: typeof(decimal),
-                oldType: "DECIMAL(18, 2)");
+                oldType: "DECIMAL(18, 2)",
+                oldNullable: true);
         }
     }
 }

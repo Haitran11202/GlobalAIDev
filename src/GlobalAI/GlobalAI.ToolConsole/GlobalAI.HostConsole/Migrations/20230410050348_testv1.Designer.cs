@@ -12,8 +12,8 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    [Migration("20230408060635_themattributeSoluong")]
-    partial class themattributeSoluong
+    [Migration("20230410050348_testv1")]
+    partial class testv1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -165,21 +165,29 @@ namespace GlobalAI.HostConsole.Migrations
 
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.ChiTietDonHang", b =>
                 {
-                    b.Property<int>("MaDonHang")
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<int>("Deleted")
                         .HasColumnType("NUMBER(10)")
+                        .HasColumnName("DELETED");
+
+                    b.Property<string>("MaDonHang")
+                        .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_DON_HANG");
 
-                    b.Property<int>("MaSanPham")
-                        .HasColumnType("NUMBER(10)")
+                    b.Property<string>("MaSanPham")
+                        .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_SAN_PHAM");
 
                     b.Property<int>("SoLuong")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("SO_LUONG");
 
-                    b.HasKey("MaDonHang");
-
-                    b.HasIndex("MaSanPham");
+                    b.HasKey("ID");
 
                     b.ToTable("P_ChiTietDonHang", t =>
                         {
@@ -189,20 +197,22 @@ namespace GlobalAI.HostConsole.Migrations
 
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.DanhMuc", b =>
                 {
-                    b.Property<int>("MaDanhMuc")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)")
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("MaDanhMuc")
+                        .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_DANH_MUC");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaDanhMuc"));
-
                     b.Property<string>("TenDanhMuc")
-                        .IsRequired()
                         .HasMaxLength(400)
                         .HasColumnType("NVARCHAR2(400)")
                         .HasColumnName("TEN_DANH_MUC");
 
-                    b.HasKey("MaDanhMuc");
+                    b.HasKey("ID");
 
                     b.ToTable("P_DanhMuc", t =>
                         {
@@ -212,27 +222,29 @@ namespace GlobalAI.HostConsole.Migrations
 
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.DonHang", b =>
                 {
-                    b.Property<int>("MaDonHang")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("MA_DON_HANG");
+                        .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaDonHang"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<bool>("Deleted")
                         .HasColumnType("NUMBER(1)")
                         .HasColumnName("DELETED");
 
                     b.Property<string>("HinhThucThanhToan")
-                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("HINH_THUC_THANH_TOAN");
 
-                    b.Property<int>("MaGSaler")
+                    b.Property<string>("MaDonHang")
+                        .HasColumnType("NVARCHAR2(2000)")
+                        .HasColumnName("MA_DON_HANG");
+
+                    b.Property<int?>("MaGSaler")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_G_SALER");
 
-                    b.Property<int>("MaGStore")
+                    b.Property<int?>("MaGStore")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_G_STORE");
 
@@ -240,11 +252,11 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("TIMESTAMP(7)")
                         .HasColumnName("NGAY_HOAN_THANH");
 
-                    b.Property<decimal>("SoTien")
+                    b.Property<decimal?>("SoTien")
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("SO_TIEN");
 
-                    b.HasKey("MaDonHang");
+                    b.HasKey("ID");
 
                     b.ToTable("P_DonHang", t =>
                         {
@@ -254,12 +266,11 @@ namespace GlobalAI.HostConsole.Migrations
 
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.SanPham", b =>
                 {
-                    b.Property<int>("MaSanPham")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("MA_SAN_PHAM");
+                        .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaSanPham"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(50)
@@ -291,16 +302,19 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("GIA_CHIET_KHAU");
 
-                    b.Property<int>("MaDanhMuc")
-                        .HasColumnType("NUMBER(10)")
+                    b.Property<string>("MaDanhMuc")
+                        .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_DANH_MUC");
 
                     b.Property<int>("MaGStore")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_G_STORE");
 
+                    b.Property<string>("MaSanPham")
+                        .HasColumnType("NVARCHAR2(2000)")
+                        .HasColumnName("MA_SAN_PHAM");
+
                     b.Property<string>("MoTa")
-                        .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("NVARCHAR2(1000)")
                         .HasColumnName("MO_TA");
@@ -323,36 +337,16 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnName("NGAY_DUYET");
 
                     b.Property<string>("TenSanPham")
-                        .IsRequired()
                         .HasMaxLength(400)
                         .HasColumnType("NVARCHAR2(400)")
                         .HasColumnName("TEN_SAN_PHAM");
 
-                    b.HasKey("MaSanPham");
+                    b.HasKey("ID");
 
                     b.ToTable("P_SanPham", t =>
                         {
                             t.HasComment("bảng sản phẩm");
                         });
-                });
-
-            modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.ChiTietDonHang", b =>
-                {
-                    b.HasOne("GlobalAI.ProductEntities.DataEntities.DonHang", "DonHang")
-                        .WithMany()
-                        .HasForeignKey("MaDonHang")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("GlobalAI.ProductEntities.DataEntities.SanPham", "SanPham")
-                        .WithMany()
-                        .HasForeignKey("MaSanPham")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("DonHang");
-
-                    b.Navigation("SanPham");
                 });
 #pragma warning restore 612, 618
         }

@@ -15,20 +15,22 @@ namespace GlobalAI.ProductEntities.DataEntities
     public class DonHang
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
         [ColumnSnackCase(nameof(MaDonHang))]
-        public int MaDonHang { get; set; }
+        public string MaDonHang { get; set; }
 
         [ColumnSnackCase(nameof(NgayHoanThanh))]
         public DateTime NgayHoanThanh { get; set; }
 
         [ColumnSnackCase(nameof(MaGStore))]
-        public int MaGStore { get; set; }
+        public int? MaGStore { get; set; }
 
         [ColumnSnackCase(nameof(MaGSaler))]
-        public int MaGSaler { get; set; }
+        public int? MaGSaler { get; set; }
 
         [ColumnSnackCase(nameof(SoTien))]
-        public decimal SoTien { get; set; }
+        public decimal? SoTien { get; set; }
 
 
         [ColumnSnackCase(nameof(HinhThucThanhToan))]
@@ -37,6 +39,5 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(Deleted))]
 
         public bool Deleted { get; set; }
-
     }
 }

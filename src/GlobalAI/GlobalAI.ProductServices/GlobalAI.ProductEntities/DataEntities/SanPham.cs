@@ -18,8 +18,9 @@ namespace GlobalAI.ProductEntities.DataEntities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
         [ColumnSnackCase(nameof(MaSanPham))]
-        public int MaSanPham { get; set; }
+        public string MaSanPham { get; set; }
 
         [StringLength(400)]
         [ColumnSnackCase(nameof(TenSanPham))]
@@ -36,7 +37,7 @@ namespace GlobalAI.ProductEntities.DataEntities
         public decimal GiaChietKhau { get; set; }
 
         [ColumnSnackCase(nameof(MaDanhMuc))]
-        public int MaDanhMuc { get; set; }
+        public string MaDanhMuc { get; set; }
 
         [ColumnSnackCase(nameof(MaGStore))]
         public int MaGStore { get; set; }

@@ -5,11 +5,15 @@
 namespace GlobalAI.HostConsole.Migrations
 {
     /// <inheritdoc />
-    public partial class _changetypesanphamtable : Migration
+    public partial class testv1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropColumn(
+                name: "Test",
+                table: "P_DonHang");
+
             migrationBuilder.AlterColumn<decimal>(
                 name: "FAIL_ATTEMP",
                 table: "USER",
@@ -24,16 +28,25 @@ namespace GlobalAI.HostConsole.Migrations
                 table: "P_SanPham",
                 type: "DECIMAL(18, 2)",
                 nullable: false,
-                oldClrType: typeof(int),
-                oldType: "NUMBER(10)");
+                oldClrType: typeof(decimal),
+                oldType: "DECIMAL(18,2)");
 
             migrationBuilder.AlterColumn<decimal>(
                 name: "GIA_BAN",
                 table: "P_SanPham",
                 type: "DECIMAL(18, 2)",
                 nullable: false,
-                oldClrType: typeof(int),
-                oldType: "NUMBER(10)");
+                oldClrType: typeof(decimal),
+                oldType: "DECIMAL(18,2)");
+
+            migrationBuilder.AlterColumn<decimal>(
+                name: "SO_TIEN",
+                table: "P_DonHang",
+                type: "DECIMAL(18, 2)",
+                nullable: true,
+                oldClrType: typeof(decimal),
+                oldType: "DECIMAL(18,2)",
+                oldNullable: true);
         }
 
         /// <inheritdoc />
@@ -48,21 +61,37 @@ namespace GlobalAI.HostConsole.Migrations
                 oldType: "DECIMAL(18, 2)",
                 oldNullable: true);
 
-            migrationBuilder.AlterColumn<int>(
+            migrationBuilder.AlterColumn<decimal>(
                 name: "GIA_CHIET_KHAU",
                 table: "P_SanPham",
-                type: "NUMBER(10)",
+                type: "DECIMAL(18,2)",
                 nullable: false,
                 oldClrType: typeof(decimal),
                 oldType: "DECIMAL(18, 2)");
 
-            migrationBuilder.AlterColumn<int>(
+            migrationBuilder.AlterColumn<decimal>(
                 name: "GIA_BAN",
                 table: "P_SanPham",
-                type: "NUMBER(10)",
+                type: "DECIMAL(18,2)",
                 nullable: false,
                 oldClrType: typeof(decimal),
                 oldType: "DECIMAL(18, 2)");
+
+            migrationBuilder.AlterColumn<decimal>(
+                name: "SO_TIEN",
+                table: "P_DonHang",
+                type: "DECIMAL(18,2)",
+                nullable: true,
+                oldClrType: typeof(decimal),
+                oldType: "DECIMAL(18, 2)",
+                oldNullable: true);
+
+            migrationBuilder.AddColumn<int>(
+                name: "Test",
+                table: "P_DonHang",
+                type: "NUMBER(10)",
+                nullable: false,
+                defaultValue: 0);
         }
     }
 }
