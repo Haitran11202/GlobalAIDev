@@ -1,12 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace GlobalAI.HostConsole.Migrations
 {
     /// <inheritdoc />
-    public partial class createTableDonHangandChiTietDonHang : Migration
+    public partial class taotablegiohangtragia : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -36,61 +35,59 @@ namespace GlobalAI.HostConsole.Migrations
                 oldClrType: typeof(decimal),
                 oldType: "DECIMAL(18,2)");
 
+            migrationBuilder.AlterColumn<decimal>(
+                name: "SO_TIEN",
+                table: "P_DonHang",
+                type: "DECIMAL(18, 2)",
+                nullable: true,
+                oldClrType: typeof(decimal),
+                oldType: "DECIMAL(18,2)",
+                oldNullable: true);
+
             migrationBuilder.CreateTable(
-                name: "DonHangs",
+                name: "P_GioHang",
                 columns: table => new
                 {
-                    MA_DON_HANG = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    ID = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    NGAY_HOAN_THANH = table.Column<DateTime>(type: "TIMESTAMP(7)", nullable: false),
-                    MA_G_STORE = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    MA_GIO_HANG = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     MA_G_SALER = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    SO_TIEN = table.Column<decimal>(type: "DECIMAL(18, 2)", nullable: false),
-                    HINH_THUC_THANH_TOAN = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                    MA_SAN_PHAM = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    STATUS = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    DELETED = table.Column<bool>(type: "NUMBER(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DonHangs", x => x.MA_DON_HANG);
+                    table.PrimaryKey("PK_P_GioHang", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "ChiTietDonHangs",
+                name: "P_TraGia",
                 columns: table => new
                 {
-                    MA_DON_HANG = table.Column<int>(type: "NUMBER(10)", nullable: false),
-                    MA_SAN_PHAM = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    I_D = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    MA_TRA_GIA = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    MA_G_SALER = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    MA_SAN_PHAM = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    GIA_TIEN = table.Column<decimal>(type: "DECIMAL(18, 2)", nullable: false),
+                    STATUS = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    DELETED = table.Column<bool>(type: "NUMBER(1)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ChiTietDonHangs", x => x.MA_DON_HANG);
-                    table.ForeignKey(
-                        name: "FK_ChiTietDonHangs_DonHangs_MA_DON_HANG",
-                        column: x => x.MA_DON_HANG,
-                        principalTable: "DonHangs",
-                        principalColumn: "MA_DON_HANG",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ChiTietDonHangs_P_SanPham_MA_SAN_PHAM",
-                        column: x => x.MA_SAN_PHAM,
-                        principalTable: "P_SanPham",
-                        principalColumn: "MA_SAN_PHAM",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_P_TraGia", x => x.I_D);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ChiTietDonHangs_MA_SAN_PHAM",
-                table: "ChiTietDonHangs",
-                column: "MA_SAN_PHAM");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ChiTietDonHangs");
+                name: "P_GioHang");
 
             migrationBuilder.DropTable(
-                name: "DonHangs");
+                name: "P_TraGia");
 
             migrationBuilder.AlterColumn<decimal>(
                 name: "FAIL_ATTEMP",
@@ -116,6 +113,15 @@ namespace GlobalAI.HostConsole.Migrations
                 nullable: false,
                 oldClrType: typeof(decimal),
                 oldType: "DECIMAL(18, 2)");
+
+            migrationBuilder.AlterColumn<decimal>(
+                name: "SO_TIEN",
+                table: "P_DonHang",
+                type: "DECIMAL(18,2)",
+                nullable: true,
+                oldClrType: typeof(decimal),
+                oldType: "DECIMAL(18, 2)",
+                oldNullable: true);
         }
     }
 }

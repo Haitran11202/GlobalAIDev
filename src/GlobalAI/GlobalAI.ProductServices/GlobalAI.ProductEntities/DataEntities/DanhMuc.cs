@@ -14,18 +14,23 @@ namespace GlobalAI.ProductEntities.DataEntities
     [Comment("Demo bảng danh mục sản phẩm")]
     public class DanhMuc
     {
-        //public static string SEQ { get; } = $"SEQ_{nameof(DemoProduct).ToSnakeUpperCase()}";
-
+        /// <summary>
+        /// Index
+        /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+
         [ColumnSnackCase(nameof(MaDanhMuc))]
-        public int MaDanhMuc { get; set; }
+        public string MaDanhMuc { get; set; }
 
         
 
         [StringLength(400)]
         [ColumnSnackCase(nameof(TenDanhMuc))]
         public string TenDanhMuc { get; set; } = String.Empty;
+        [ColumnSnackCase(nameof(Status))]
+        public int Status { get; set; }
 
     }
 }
