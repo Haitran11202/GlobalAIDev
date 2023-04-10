@@ -15,9 +15,9 @@ namespace GlobalAI.ProductEntities.Dto.Product
         
         public string MaDonHang { get; set; }
         public DateTime NgayHoanThanh { get; set; }
-        public int MaGStore { get; set; }
-        public int MaGSaler { get; set; }
-        public decimal SoTien { get; set; }
+        public int? MaGStore { get; set; }
+        public int? MaGSaler { get; set; }
+        public decimal? SoTien { get; set; }
         public int Status { get; set; }
         public string HinhThucThanhToan { get; set; }
 
