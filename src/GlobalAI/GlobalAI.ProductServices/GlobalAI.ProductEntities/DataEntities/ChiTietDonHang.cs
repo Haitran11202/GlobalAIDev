@@ -25,6 +25,11 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(SoLuong))]
         public int SoLuong { get; set; }
 
+        [ColumnSnackCase(nameof(Deleted))]
+        public int Deleted { get; set; }
+
+
+
 
     }
 }
