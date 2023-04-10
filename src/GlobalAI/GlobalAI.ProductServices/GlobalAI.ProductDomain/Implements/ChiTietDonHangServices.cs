@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
-using GlobalAI.DemoEntities.DataEntities;
-using GlobalAI.DemoEntities.Dto.DemoProduct;
 using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.DemoRepositories;
 using GlobalAI.Entites;
@@ -28,10 +26,11 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
         private readonly ChiTietDonHangRepository _repositoryChiTietDonHang;
-
-        public ChiTietDonHangServices( GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger)
+        private readonly IMapper _mapper;
+        public ChiTietDonHangServices( GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
         {
-            _repositoryChiTietDonHang = new ChiTietDonHangRepository(dbContext, logger);
+            _mapper = mapper;
+            _repositoryChiTietDonHang = new ChiTietDonHangRepository(dbContext, logger, mapper);
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
             _dbContext = dbContext;
@@ -49,6 +48,23 @@ namespace GlobalAI.ProductDomain.Implements
         {
             _repositoryChiTietDonHang.CreateChiTietDonHang(input);
             _dbContext.SaveChanges();
+        }
+        /// <summary>
+        /// Edit chi tiết đơn hàng
+        /// </summary>
+        /// <param name="maDonHang"></param>
+        /// <param name="maSanPham"></param>
+        /// <param name="newDonHang"></param>
+        /// <returns></returns>
+        public ChiTietDonHang EditChiTietDonhang(int maDonHang, int maSanPham, EditChiTietDonHangDto newDonHang)
+        {
+            var result = _repositoryChiTietDonHang.FindChiTietDonHang(maDonHang, maSanPham);
+            if (result != null)
+            {
+                _repositoryChiTietDonHang.EditChiTietDonHang(result, newDonHang);
+                _dbContext.SaveChanges();
+            }
+            return result;
         }
 
         /// <summary>

@@ -14,5 +14,7 @@ namespace GlobalAI.ProductDomain.Interfaces
     public interface IChiTietDonHangServices
     {
         public void CreateChiTietDonhang(AddChiTietDonHangDto input);
+
+        public ChiTietDonHang EditChiTietDonhang(int maDonHang, int maSanPham, EditChiTietDonHangDto newDonHang);
     }
 }

@@ -63,11 +63,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalAI.CoreRepositories",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileServices", "FileServices", "{54301957-38DE-4B72-9BB4-0B311611B333}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalAI.FileAPI", "GlobalAI.FileServices\GlobalAI.FileAPI\GlobalAI.FileAPI.csproj", "{5E33B0FC-C445-4E83-80EF-CB910C8A3627}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalAI.FileAPI", "GlobalAI.FileServices\GlobalAI.FileAPI\GlobalAI.FileAPI.csproj", "{5E33B0FC-C445-4E83-80EF-CB910C8A3627}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalAI.FileDomain", "GlobalAI.FileServices\GlobalAI.FileDomain\GlobalAI.FileDomain.csproj", "{69C4DD77-606A-4A60-9B57-4D43367F682C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalAI.FileDomain", "GlobalAI.FileServices\GlobalAI.FileDomain\GlobalAI.FileDomain.csproj", "{69C4DD77-606A-4A60-9B57-4D43367F682C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalAI.FileEntities", "GlobalAI.FileServices\GlobalAI.FileEntities\GlobalAI.FileEntities.csproj", "{2AE43BD1-00EF-4A64-A7EF-23794A5CFCA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GlobalAI.FileEntities", "GlobalAI.FileServices\GlobalAI.FileEntities\GlobalAI.FileEntities.csproj", "{2AE43BD1-00EF-4A64-A7EF-23794A5CFCA2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

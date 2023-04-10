@@ -30,12 +30,13 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
         private readonly SanPhamRepository _repositorySanPham;
-        public SanPhamServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger)
+        private readonly IMapper _mapper;
+        public SanPhamServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
         {
-            _repositorySanPham = new SanPhamRepository(dbContext, logger);
+            _repositorySanPham = new SanPhamRepository(dbContext, logger, mapper);
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
-
+            _mapper = mapper;
             _dbContext = dbContext;
             _httpContext = httpContext;
 
@@ -47,19 +48,8 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns>Sản phẩm vừa thêm vào</returns>
         public SanPham AddSanPham(AddSanPhamDto sanPham)
         {
-            var newSanPham = new SanPham
-            {
-                TenSanPham = sanPham.TenSanPham,
-                MaDanhMuc = sanPham.MaDanhMuc,
-                MoTa = sanPham.MoTa,
-                MaGStore = sanPham.MaGStore,
-                GiaBan = sanPham.GiaBan,
-                GiaChietKhau = sanPham.GiaChietKhau,
-                NgayDangKi = sanPham.NgayDangKi,
-                NgayDuyet = sanPham.NgayDuyet,
-                Deleted = false
-            };
-
+            var newSanPham = _mapper.Map<SanPham>(sanPham);
+            newSanPham.Deleted = false;
             return _repositorySanPham.Add(newSanPham);
         }
         /// <summary>

@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
 using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
-using GlobalAI.DemoEntities.DataEntities;
-using GlobalAI.DemoEntities.Dto.DemoProduct;
 using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.DemoRepositories;
 using GlobalAI.Entites;
@@ -27,13 +25,15 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
         private readonly DonHangRepository _repositoryDonHang;
-        public DonHangServices( GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger)
+        private readonly IMapper _mapper;
+        public DonHangServices( GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
         {
-            _repositoryDonHang = new DonHangRepository(dbContext, logger);
+            _repositoryDonHang = new DonHangRepository(dbContext, logger, mapper);
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
             _dbContext = dbContext;
             _httpContext = httpContext;
+            _mapper = mapper;
 
         }
 
@@ -56,6 +56,21 @@ namespace GlobalAI.ProductDomain.Implements
         {
             _repositoryDonHang.CreateDonHang(input);
             _dbContext.SaveChanges();
+        }
+        /// <summary>
+        /// Sửa đơn hàng
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public DonHang EditDonhang(int id, AddDonHangDto newDonHang)
+        {
+            var donHang = _repositoryDonHang.FindById(id);
+            if (donHang != null)
+            {
+                _repositoryDonHang.EditDonHang(donHang, newDonHang);
+            }
+            _dbContext.SaveChanges();
+            return donHang;
         }
     }
 }
