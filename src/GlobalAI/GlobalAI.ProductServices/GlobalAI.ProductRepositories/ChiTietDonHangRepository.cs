@@ -29,11 +29,15 @@ namespace GlobalAI.ProductRepositories
             var masanpham = _globalAIDbContext.SanPhams.Find(input.MaSanPham);
             if (madonhangcheck != null && masanpham != null)
             {
-                MaDonHang = input.MaDonHang,
-                MaSanPham = input.MaSanPham,
-                SoLuong = input.SoLuong,
+                var chitiet = new ChiTietDonHang
+                {
+                    MaDonHang = input.MaDonHang,
+                    MaSanPham = input.MaSanPham,
+                    SoLuong = input.SoLuong,
             };
-            _dbSet.Add(chitiet);
+                _dbSet.Add(chitiet);
+            };
+            
         }
         /// <summary>
         /// Tìm sản phẩm cần sửa, xóa

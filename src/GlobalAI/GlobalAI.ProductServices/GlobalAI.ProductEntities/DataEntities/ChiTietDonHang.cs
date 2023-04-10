@@ -17,16 +17,19 @@ namespace GlobalAI.ProductEntities.DataEntities
 
         [Key]
         [ColumnSnackCase(nameof(MaDonHang))]
-        public int MaDonHang { get; set; }
-        [Key]
+        public int Id { get; set; }
+
+        [ColumnSnackCase(nameof(MaDonHang))]
+        public string MaDonHang { get; set; }
+
         [ColumnSnackCase(nameof(MaSanPham))]
-        public int MaSanPham { get; set; }
+        public string MaSanPham { get; set; }
 
         [ColumnSnackCase(nameof(SoLuong))]
         public int SoLuong { get; set; }
       
         [ColumnSnackCase(nameof(Deleted))]
-        public int Deleted { get; set; }
+        public bool Deleted { get; set; }
 
     }
 }
