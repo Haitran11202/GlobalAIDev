@@ -24,7 +24,7 @@ import img9 from "~/assets/img/product/sg-11134201-22120-ol6w530xclkv13.jpg";
 import img10 from "~/assets/img/product/8c37010c4421b7eed56fc3b5e6fbf414.jpg";
 
 definePageMeta({
-  layout: "admin",
+  layout: "layout-default",
 });
 
 const products1 = [
