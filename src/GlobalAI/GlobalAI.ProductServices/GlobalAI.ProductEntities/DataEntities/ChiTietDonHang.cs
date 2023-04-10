@@ -40,7 +40,7 @@ namespace GlobalAI.ProductEntities.DataEntities
         /// Biến xóa
         /// </summary>
         [ColumnSnackCase(nameof(Deleted))]
-        public int Deleted { get; set; }
+        public bool Deleted { get; set; }
         /// <summary>
         /// Trạng thái
         /// </summary>

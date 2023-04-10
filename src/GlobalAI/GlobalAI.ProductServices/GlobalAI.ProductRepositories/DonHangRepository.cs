@@ -65,7 +65,7 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="maDonHang"></param>
         /// <returns></returns>
-        public DonHang FindById(int maDonHang)
+        public DonHang FindById(string maDonHang)
         {
             var result = _dbSet.FirstOrDefault(donhang => donhang.MaDonHang == maDonHang);
             if (result != null && result.Deleted == true)

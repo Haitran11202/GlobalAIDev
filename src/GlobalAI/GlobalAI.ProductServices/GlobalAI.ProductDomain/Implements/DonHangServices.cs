@@ -63,7 +63,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public DonHang EditDonhang(int id, AddDonHangDto newDonHang)
+        public DonHang EditDonhang(string id, AddDonHangDto newDonHang)
         {
             var donHang = _repositoryDonHang.FindById(id);
             if (donHang != null)

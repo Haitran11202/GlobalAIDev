@@ -51,7 +51,7 @@ namespace GlobalAI.ProductAPI.Controllers
         }
         [HttpPut("sua/{id}")]
         [ProducesResponseType(typeof(APIResponse<List<AddDonHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateDonHang([FromRoute]int id, AddDonHangDto newDonHang )
+        public APIResponse CreateDonHang([FromRoute]string id, AddDonHangDto newDonHang )
         {
             try
             {

@@ -58,7 +58,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Trả về sản phẩm vừa xóa(Trường deleted = true)</returns>
-        public SanPham DeleteSanPham(int id)
+        public SanPham DeleteSanPham(string id)
         {
             var findSanPham = _repositorySanPham.FindById(id);
             if (findSanPham != null)
@@ -73,7 +73,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <param name="id"></param>
         /// <param name="newSanPham"></param>
         /// <returns>Trả về sản phẩm đã được sửa</returns>
-        public SanPham EditSanPham(int id, AddSanPhamDto newSanPham)
+        public SanPham EditSanPham(string id, AddSanPhamDto newSanPham)
         {
             var findSanPham = _repositorySanPham.FindById(id);
             if (findSanPham != null)
@@ -101,7 +101,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public SanPham GetById(int id)
+        public SanPham GetById(string id)
         {
             //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
 
@@ -112,7 +112,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<SanPham> GetByCategory(int id)
+        public List<SanPham> GetByCategory(string id)
         {
             //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(id)}");
 
