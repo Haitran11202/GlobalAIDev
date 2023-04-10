@@ -3,6 +3,7 @@ using System;
 using GlobalAI.DataAccess.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    partial class GlobalAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230409054034_xoakhoachinhct-donhang")]
+    partial class xoakhoachinhctdonhang
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -163,15 +166,8 @@ namespace GlobalAI.HostConsole.Migrations
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.ChiTietDonHang", b =>
                 {
                     b.Property<int>("MaDonHang")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_DON_HANG");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MaDonHang"));
-
-                    b.Property<int>("Deleted")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("DELETED");
 
                     b.Property<int>("MaSanPham")
                         .HasColumnType("NUMBER(10)")
@@ -180,8 +176,6 @@ namespace GlobalAI.HostConsole.Migrations
                     b.Property<int>("SoLuong")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("SO_LUONG");
-
-                    b.HasKey("MaDonHang");
 
                     b.ToTable("P_ChiTietDonHang", t =>
                         {

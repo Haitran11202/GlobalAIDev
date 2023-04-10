@@ -12,7 +12,9 @@ using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.DemoEntities.Dto.ChiTietDonHang;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GlobalAI.DemoRepositories
+using System.Net.Mail;
+
+namespace GlobalAI.ProductRepositories
 {
     public class ChiTietDonHangRepository : BaseEFRepository<ChiTietDonHang>
     {
@@ -23,7 +25,9 @@ namespace GlobalAI.DemoRepositories
         }
         public void CreateChiTietDonHang(AddChiTietDonHangDto input)
         {
-            var chitiet = new ChiTietDonHang
+            var madonhangcheck = _globalAIDbContext.DonHangs.Find(input.MaDonHang);
+            var masanpham = _globalAIDbContext.SanPhams.Find(input.MaSanPham);
+            if (madonhangcheck != null && masanpham != null)
             {
                 MaDonHang = input.MaDonHang,
                 MaSanPham = input.MaSanPham,
@@ -49,5 +53,6 @@ namespace GlobalAI.DemoRepositories
             _mapper.Map(newDonHang,oldDonHang);
             return oldDonHang;
         }
+
     }
 }
