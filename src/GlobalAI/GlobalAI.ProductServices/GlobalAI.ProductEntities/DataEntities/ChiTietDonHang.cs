@@ -20,10 +20,10 @@ namespace GlobalAI.ProductEntities.DataEntities
         /// Mã đơn hàng
         /// </summary>
         [ColumnSnackCase(nameof(MaDonHang))]
-        public int MaDonHang { get; set; }
-        [Key]
+        public string MaDonHang { get; set; }
+
         [ColumnSnackCase(nameof(MaSanPham))]
-        public int MaSanPham { get; set; }
+        public string MaSanPham { get; set; }
 
         [ColumnSnackCase(nameof(SoLuong))]
         public int SoLuong { get; set; }
@@ -31,7 +31,7 @@ namespace GlobalAI.ProductEntities.DataEntities
         /// Biến xóa
         /// </summary>
         [ColumnSnackCase(nameof(Deleted))]
-        public int Deleted { get; set; }
+        public bool Deleted { get; set; }
 
     }
 }

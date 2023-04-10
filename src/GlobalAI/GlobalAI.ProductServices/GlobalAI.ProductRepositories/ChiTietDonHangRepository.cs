@@ -25,15 +25,8 @@ namespace GlobalAI.ProductRepositories
         }
         public ChiTietDonHang CreateChiTietDonHang(ChiTietDonHang input)
         {
-            var madonhangcheck = _globalAIDbContext.DonHangs.Find(input.MaDonHang);
-            var masanpham = _globalAIDbContext.SanPhams.Find(input.MaSanPham);
-            if (madonhangcheck != null && masanpham != null)
-            {
-                MaDonHang = input.MaDonHang,
-                MaSanPham = input.MaSanPham,
-                SoLuong = input.SoLuong,
-            };
-            _dbSet.Add(chitiet);
+            _dbSet.Add(input);
+            return input;
         }
         /// <summary>
         /// Tìm sản phẩm cần sửa, xóa
