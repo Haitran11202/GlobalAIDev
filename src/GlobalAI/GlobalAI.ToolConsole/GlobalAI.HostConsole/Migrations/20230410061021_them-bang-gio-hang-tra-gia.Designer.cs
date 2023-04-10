@@ -3,6 +3,7 @@ using System;
 using GlobalAI.DataAccess.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    partial class GlobalAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230410061021_them-bang-gio-hang-tra-gia")]
+    partial class thembanggiohangtragia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -274,40 +277,6 @@ namespace GlobalAI.HostConsole.Migrations
                         });
                 });
 
-            modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.GioHang", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("ID");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("NUMBER(1)")
-                        .HasColumnName("DELETED");
-
-                    b.Property<int>("MaGSaler")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("MA_G_SALER");
-
-                    b.Property<string>("MaGioHang")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("MA_GIO_HANG");
-
-                    b.Property<string>("MaSanPham")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("MA_SAN_PHAM");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("STATUS");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("P_GioHang");
-                });
-
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.SanPham", b =>
                 {
                     b.Property<int>("ID")
@@ -395,44 +364,6 @@ namespace GlobalAI.HostConsole.Migrations
                         {
                             t.HasComment("bảng sản phẩm");
                         });
-                });
-
-            modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.TraGia", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("I_D");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("NUMBER(1)")
-                        .HasColumnName("DELETED");
-
-                    b.Property<decimal>("GiaTien")
-                        .HasColumnType("DECIMAL(18, 2)")
-                        .HasColumnName("GIA_TIEN");
-
-                    b.Property<int>("MaGSaler")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("MA_G_SALER");
-
-                    b.Property<string>("MaSanPham")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("MA_SAN_PHAM");
-
-                    b.Property<string>("MaTraGia")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("MA_TRA_GIA");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("STATUS");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("P_TraGia");
                 });
 #pragma warning restore 612, 618
         }
