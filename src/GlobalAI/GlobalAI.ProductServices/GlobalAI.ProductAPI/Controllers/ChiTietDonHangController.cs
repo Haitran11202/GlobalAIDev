@@ -26,16 +26,16 @@ namespace GlobalAI.ProductAPI.Controllers
         //[ProducesResponseType(typeof(APIResponse<List<FindDonHangDto>>), (int)HttpStatusCode.OK)]
         //public APIResponse FindAll([FromQuery] FindDonHangDto input)
         //{
-           
+
         //}
         [HttpPost("them")]
         [ProducesResponseType(typeof(APIResponse<List<AddChiTietDonHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateDonHang([FromQuery] AddChiTietDonHangDto input)
+        public APIResponse CreateChiTietDonHang([FromQuery] AddChiTietDonHangDto input)
         {
             try
             {
                 _chiTietDonHangServices.CreateChiTietDonhang(input);
-                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
+                return new APIResponse(Utils.StatusCode.Success, input, 200, "Ok");
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpPut("sua/{id}")]
         [ProducesResponseType(typeof(APIResponse<List<AddChiTietDonHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse EditChiTietDonHang([FromRoute]int id, int maSanPham, EditChiTietDonHangDto newDonHang)
+        public APIResponse EditChiTietDonHang([FromRoute]string id, string maSanPham, EditChiTietDonHangDto newDonHang)
         {
             try
             {

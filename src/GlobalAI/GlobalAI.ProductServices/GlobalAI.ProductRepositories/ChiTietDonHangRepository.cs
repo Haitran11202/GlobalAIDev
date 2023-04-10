@@ -19,26 +19,21 @@ namespace GlobalAI.ProductRepositories
     public class ChiTietDonHangRepository : BaseEFRepository<ChiTietDonHang>
     {
         private readonly IMapper _mapper;
-        public ChiTietDonHangRepository(DbContext dbContext, ILogger logger,IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
+        public ChiTietDonHangRepository(DbContext dbContext, ILogger logger, IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
         {
             _mapper = mapper;
         }
-        public void CreateChiTietDonHang(AddChiTietDonHangDto input)
+        public ChiTietDonHang CreateChiTietDonHang(ChiTietDonHang input)
         {
-            var madonhangcheck = _globalAIDbContext.DonHangs.Find(input.MaDonHang);
-            var masanpham = _globalAIDbContext.SanPhams.Find(input.MaSanPham);
-            if (madonhangcheck != null && masanpham != null)
-            {
-                MaDonHang = input.MaDonHang,
-                MaSanPham = input.MaSanPham,
-                SoLuong = input.SoLuong,
-            };
-            _dbSet.Add(chitiet);
+            _dbSet.Add(input);
+
+            return input;
+
         }
         /// <summary>
         /// Tìm sản phẩm cần sửa, xóa
         /// </summary>
-        public ChiTietDonHang FindChiTietDonHang(int maDonHang, int maSanPham)
+        public ChiTietDonHang FindChiTietDonHang(string maDonHang, string maSanPham)
         {
             var donHang = _dbSet.FirstOrDefault(sp => sp.MaDonHang == maDonHang && sp.MaSanPham == maSanPham);
             if (donHang != null && donHang.Deleted == true)
@@ -50,7 +45,7 @@ namespace GlobalAI.ProductRepositories
         }
         public ChiTietDonHang EditChiTietDonHang(ChiTietDonHang oldDonHang, EditChiTietDonHangDto newDonHang)
         {
-            _mapper.Map(newDonHang,oldDonHang);
+            _mapper.Map(newDonHang, oldDonHang);
             return oldDonHang;
         }
 

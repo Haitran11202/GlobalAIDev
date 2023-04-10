@@ -51,7 +51,7 @@ namespace GlobalAI.ProductRepositories
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
             PagingResult<GetSanPhamDto> result = new();
-            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.MaSanPham).Where(p => !p.Deleted)
+            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.ID).Where(p => !p.Deleted)
                 .Where(r => (input.Keyword == null || r.TenSanPham.Contains(input.Keyword)));
             if (input.PageSize != -1)
             {
@@ -63,6 +63,7 @@ namespace GlobalAI.ProductRepositories
             foreach ( var item in sanphams ) {
                 var getSpDto = new GetSanPhamDto
                 {
+                    MaSanPham  = item.MaSanPham,
                     TenSanPham = item.TenSanPham,
                     MaDanhMuc = item.MaDanhMuc,
                     MaGStore = item.MaGStore,
@@ -81,7 +82,7 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public SanPham GetById(int id)
+        public SanPham GetById(string id)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(id)}");
             var sanpham = _dbSet.AsNoTracking().Where(sp => !sp.Deleted).FirstOrDefault(sp => sp.MaSanPham == id);
@@ -92,7 +93,7 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public List<SanPham> GetByCategory(int id)
+        public List<SanPham> GetByCategory(string id)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(GetByCategory)}: input = {JsonSerializer.Serialize(id)}");
             var danhmucs = _dbSet.Where(sp => sp.MaDanhMuc == id).AsNoTracking().ToList();
@@ -103,7 +104,7 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public SanPham FindById(int id)
+        public SanPham FindById(string id)
         {
             var result = _dbSet.SingleOrDefault(sp => sp.MaSanPham == id);
             if(result != null && result.Deleted == true) 
