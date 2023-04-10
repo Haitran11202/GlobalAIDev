@@ -14,6 +14,8 @@ namespace GlobalAI.ProductAPI.Mapper
             // Đưa hết các cấu hình bạn muốn map giữa các object vào đây
             // Thuộc tính FullName trong UserViewModel được kết hợp từ FirstName và LastName trong User
             CreateMap<SanPham, AddSanPhamDto>().ReverseMap();
+            CreateMap<SanPham, GetSanPhamDto>().ReverseMap();
+            CreateMap<GetSanPhamDto, SanPham>().ReverseMap();
             CreateMap<DonHang, AddDonHangDto>().ReverseMap();
             CreateMap<DonHang, AddDonHangDto>().ReverseMap();
             CreateMap<ChiTietDonHang, AddChiTietDonHangDto>().ReverseMap();

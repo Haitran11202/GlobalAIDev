@@ -12,7 +12,7 @@ using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    [Route("api/ct-donhang")]
+    [Route("api/gio-hang")]
     [ApiController]
     public class GioHangController : BaseController
     {
@@ -23,26 +23,21 @@ namespace GlobalAI.ProductAPI.Controllers
             _gioHangServices = gioHangServices;
         }
 
-        //[HttpGet("lay-chi-tiet-don-hang")]
-        //[ProducesResponseType(typeof(APIResponse<List<FindDonHangDto>>), (int)HttpStatusCode.OK)]
-        //public APIResponse FindAll([FromQuery] FindDonHangDto input)
-        //{
 
-        //}
-        /*[HttpPost("them")]
-        [ProducesResponseType(typeof(APIResponse<List<AddChiTietDonHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateChiTietDonHang([FromQuery] AddChiTietDonHangDto input)
+        [HttpPost("them")]
+        [ProducesResponseType(typeof(APIResponse<List<AddGioHangDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse CreateGioHang([FromQuery] AddGioHangDto input)
         {
             try
             {
-                _gioHangServices.CreateChiTietDonhang(input);
+                _gioHangServices.CreateGiohang(input);
                 return new APIResponse(Utils.StatusCode.Success, input, 200, "Ok");
             }
             catch (Exception ex)
             {
                 return OkException(ex);
             }
-        }*/
+        }
         /// <summary>
         /// Sửa đơn hàng
         /// </summary>
@@ -62,6 +57,20 @@ namespace GlobalAI.ProductAPI.Controllers
                     return new APIResponse(Utils.StatusCode.Success, null, 404, "Not Found");
                 }    
                 return new APIResponse(Utils.StatusCode.Success, gioHang, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+        [HttpDelete("xoa")]
+        [ProducesResponseType(typeof(APIResponse<List<AddGioHangDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse DeleteGioHang([FromQuery] int maGSaler, string maSanPham )
+        {
+            try
+            {
+                var result = _gioHangServices.DeleteGiohang(maGSaler,maSanPham);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)
             {

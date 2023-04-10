@@ -24,6 +24,12 @@ namespace GlobalAI.ProductRepositories
         {
             _mapper = mapper;
         }
+
+        public GioHang AddGioHang(GioHang dto)
+        {
+            _dbSet.Add(dto);
+            return dto;
+        }
         /// <summary>
         /// Tìm sản phẩm cần sửa, xóa
         /// </summary>
@@ -43,5 +49,16 @@ namespace GlobalAI.ProductRepositories
             return oldGioHang;
         }
 
+        public GioHang DeleteGioHang(int maGSaler, string maSanPham)
+        {
+            var sanPhamEdit = FindGioHang(maGSaler, maSanPham);
+            if (sanPhamEdit != null)
+            {
+                sanPhamEdit.Deleted = true;
+                return sanPhamEdit;
+            }
+            return null;
+
+        }
     }
 }

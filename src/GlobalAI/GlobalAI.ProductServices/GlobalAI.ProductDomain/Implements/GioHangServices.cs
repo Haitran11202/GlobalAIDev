@@ -40,12 +40,18 @@ namespace GlobalAI.ProductDomain.Implements
 
         public GioHang CreateGiohang(AddGioHangDto input)
         {
-            throw new NotImplementedException();
+            var gioHang = _mapper.Map<GioHang>(input);
+            _repositoryGioHang.AddGioHang(gioHang);
+            _dbContext.SaveChanges();
+            return gioHang;
         }
 
-        public GioHang DeleteGiohang(string id)
+
+        public GioHang DeleteGiohang(int maGSaler, string maSanPham)
         {
-            throw new NotImplementedException();
+            var result = _repositoryGioHang.DeleteGioHang(maGSaler, maSanPham);
+            _dbContext.SaveChanges();
+            return result;
         }
 
         public GioHang EditGiohang(int maGSaler, string maSanPham, EditGioHangDto newGioHang)

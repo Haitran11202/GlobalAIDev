@@ -61,17 +61,18 @@ namespace GlobalAI.ProductRepositories
             var sanphams = projectQuery;
             var sanphamDtos = new List<GetSanPhamDto>();
             foreach ( var item in sanphams ) {
-                var getSpDto = new GetSanPhamDto
-                {
-                    MaSanPham  = item.MaSanPham,
-                    TenSanPham = item.TenSanPham,
-                    MaDanhMuc = item.MaDanhMuc,
-                    MaGStore = item.MaGStore,
-                    GiaBan = item.GiaBan,
-                    GiaChietKhau = item.GiaChietKhau,
-                    NgayDangKi = item.NgayDangKi,
-                    NgayDuyet = item.NgayDuyet,
-                };
+                var getSpDto = _mapper.Map<GetSanPhamDto>(item);
+                //var getSpDto = new GetSanPhamDto
+                //{
+                //    MaSanPham  = item.MaSanPham,
+                //    TenSanPham = item.TenSanPham,
+                //    MaDanhMuc = item.MaDanhMuc,
+                //    MaGStore = item.MaGStore,
+                //    GiaBan = item.GiaBan,
+                //    GiaChietKhau = item.GiaChietKhau,
+                //    NgayDangKi = item.NgayDangKi,
+                //    NgayDuyet = item.NgayDuyet,
+                //};
                 sanphamDtos.Add(getSpDto);
             }
             result.Items = sanphamDtos;

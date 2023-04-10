@@ -150,6 +150,29 @@
       "Key": "ProductAPI",
       "SwaggerKey": "ProductAPI"
     },
+    //gio-hang
+    {
+      "DownstreamPathTemplate": "/api/gio-hang/{urlPath}",
+      "UpstreamPathTemplate": "/api/gio-hang/{urlPath}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-For": "{RemoteIpAddress}"
+      },
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "Key": "ProductAPI",
+      "SwaggerKey": "ProductAPI"
+    },
     {
       "DownstreamPathTemplate": "/health",
       "UpstreamPathTemplate": "/product/health",

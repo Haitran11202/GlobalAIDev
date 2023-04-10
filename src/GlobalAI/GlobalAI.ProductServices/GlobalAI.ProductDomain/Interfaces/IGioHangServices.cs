@@ -13,6 +13,6 @@ namespace GlobalAI.ProductDomain.Interfaces
     {
         public GioHang CreateGiohang(AddGioHangDto input);
         public GioHang EditGiohang(int maGSaler, string maSanPham, EditGioHangDto newGioHang);
-        public GioHang DeleteGiohang(string id);
+        public GioHang DeleteGiohang(int maGSaler,string maSanPham);
     }
 }
