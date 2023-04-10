@@ -1,12 +1,7 @@
 ﻿using GlobalAI.Utils.Attributes;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GlobalAI.ProductEntities.DataEntities
 {
@@ -14,22 +9,29 @@ namespace GlobalAI.ProductEntities.DataEntities
     [Comment("bảng chi tiết đơn hàng")]
     public class ChiTietDonHang
     {
-
+        /// <summary>
+        /// Mã chi tiết đơn hàng
+        /// </summary>
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [ColumnSnackCase(nameof(ID))]
+        public int ID {get; set;}
+        /// <summary>
+        /// Mã đơn hàng
+        /// </summary>
         [ColumnSnackCase(nameof(MaDonHang))]
-        public int Id { get; set; }
-
-        [ColumnSnackCase(nameof(MaDonHang))]
-        public string MaDonHang { get; set; }
-
+        public int MaDonHang { get; set; }
+        [Key]
         [ColumnSnackCase(nameof(MaSanPham))]
-        public string MaSanPham { get; set; }
+        public int MaSanPham { get; set; }
 
         [ColumnSnackCase(nameof(SoLuong))]
         public int SoLuong { get; set; }
-      
+        /// <summary>
+        /// Biến xóa
+        /// </summary>
         [ColumnSnackCase(nameof(Deleted))]
-        public bool Deleted { get; set; }
+        public int Deleted { get; set; }
 
     }
 }

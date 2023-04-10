@@ -13,8 +13,8 @@ namespace GlobalAI.ProductDomain.Interfaces
 {
     public interface IChiTietDonHangServices
     {
-        public void CreateChiTietDonhang(AddChiTietDonHangDto input);
+        public ChiTietDonHang CreateChiTietDonhang(AddChiTietDonHangDto input);
 
-        public ChiTietDonHang EditChiTietDonhang(int maDonHang, int maSanPham, EditChiTietDonHangDto newDonHang);
+        public ChiTietDonHang EditChiTietDonhang(string maDonHang, string maSanPham, EditChiTietDonHangDto newDonHang);
     }
 }

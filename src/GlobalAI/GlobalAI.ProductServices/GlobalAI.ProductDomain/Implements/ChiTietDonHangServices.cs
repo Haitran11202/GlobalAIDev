@@ -45,10 +45,18 @@ namespace GlobalAI.ProductDomain.Implements
         /// <param name = "input" ></ param >
         /// < returns ></ returns >
    
-        public void CreateChiTietDonhang(AddChiTietDonHangDto input)
+        public ChiTietDonHang CreateChiTietDonhang(AddChiTietDonHangDto input)
         {
-            _repositoryChiTietDonHang.CreateChiTietDonHang(input);
+            var chiTietDonHang = new ChiTietDonHang
+            {
+                MaDonHang = input.MaDonHang,
+                MaSanPham = input.MaSanPham,
+                SoLuong = input.SoLuong
+            };
+            _repositoryChiTietDonHang.CreateChiTietDonHang(chiTietDonHang);
+
             _dbContext.SaveChanges();
+            return chiTietDonHang;
         }
         /// <summary>
         /// Edit chi tiết đơn hàng
@@ -57,7 +65,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <param name="maSanPham"></param>
         /// <param name="newDonHang"></param>
         /// <returns></returns>
-        public ChiTietDonHang EditChiTietDonhang(int maDonHang, int maSanPham, EditChiTietDonHangDto newDonHang)
+        public ChiTietDonHang EditChiTietDonhang(string maDonHang, string maSanPham, EditChiTietDonHangDto newDonHang)
         {
             var result = _repositoryChiTietDonHang.FindChiTietDonHang(maDonHang, maSanPham);
             if (result != null)

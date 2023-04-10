@@ -21,6 +21,8 @@ namespace GlobalAI.DataAccess.Base
         public DbSet<DanhMuc> DanhMucs { get; set; }
         public DbSet<DonHang> DonHangs { get; set; }
         public DbSet<ChiTietDonHang> ChiTietDonHangs { get; set; }
+        public DbSet<GioHang> GioHangs { get; set; }
+        public DbSet<TraGia> TraGias { get; set; }
         #endregion
 
         public GlobalAIDbContext(DbContextOptions<GlobalAIDbContext> options) : base(options)

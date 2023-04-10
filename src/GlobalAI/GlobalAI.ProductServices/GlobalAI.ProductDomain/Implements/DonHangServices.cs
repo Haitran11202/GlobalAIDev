@@ -53,17 +53,27 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public void CreateDonhang(AddDonHangDto input)
+        public DonHang CreateDonhang(AddDonHangDto input)
         {
-            _repositoryDonHang.CreateDonHang(input);
+            var donHang = new DonHang
+            {
+                MaDonHang = input.MaDonHang,
+                NgayHoanThanh = input.NgayHoanThanh,
+                Status = input.Status,
+                MaGSaler = input.MaGSaler,
+                MaGStore = input.MaGStore,
+                HinhThucThanhToan = input.HinhThucThanhToan
+            };
+            _repositoryDonHang.CreateDonHang(donHang);
             _dbContext.SaveChanges();
+            return donHang;
         }
         /// <summary>
         /// Sửa đơn hàng
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public DonHang EditDonhang(int id, AddDonHangDto newDonHang)
+        public DonHang EditDonhang(string id, AddDonHangDto newDonHang)
         {
             var donHang = _repositoryDonHang.FindById(id);
             if (donHang != null)
