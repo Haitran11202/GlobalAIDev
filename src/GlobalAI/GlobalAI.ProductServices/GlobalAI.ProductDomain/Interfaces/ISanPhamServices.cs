@@ -17,5 +17,8 @@ namespace GlobalAI.ProductDomain.Interfaces
         public PagingResult<SanPham> FindAll(FindSanPhamDto input);
         public SanPham GetById(int input);
         public List<SanPham> GetByCategory(int id);
+        public SanPham AddSanPham(AddSanPhamDto newSanPham);
+        public SanPham EditSanPham(int id, AddSanPhamDto newSanPham);
+        public SanPham DeleteSanPham(int id);
     }
 }
