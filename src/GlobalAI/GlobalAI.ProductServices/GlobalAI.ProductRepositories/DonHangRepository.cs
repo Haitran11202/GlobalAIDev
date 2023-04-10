@@ -55,17 +55,18 @@ namespace GlobalAI.ProductRepositories
         }
         //summary
         // thêm đơn hàng
-        public void CreateDonHang(AddDonHangDto input)
+        public DonHang CreateDonHang(DonHang input)
         {
-            var donHang = _mapper.Map<DonHang>(input);
-            _dbSet.Add(donHang);
+            
+            _dbSet.Add(input);
+            return input;
         }
         /// <summary>
         /// Tìm đơn hàng cần sửa, xóa
         /// </summary>
         /// <param name="maDonHang"></param>
         /// <returns></returns>
-        public DonHang FindById(int maDonHang)
+        public DonHang FindById(string maDonHang)
         {
             var result = _dbSet.FirstOrDefault(donhang => donhang.MaDonHang == maDonHang);
             if (result != null && result.Deleted == true)

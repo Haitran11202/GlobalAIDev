@@ -21,7 +21,7 @@ namespace GlobalAI.ProductAPI.Controllers
             _donHangServices = donHangServices;
         }
 
-        [HttpGet("")]
+        [HttpGet("find-all")]
         [ProducesResponseType(typeof(APIResponse<List<FindDonHangDto>>), (int)HttpStatusCode.OK)]
         public APIResponse FindAll([FromQuery] FindDonHangDto input)
         {
@@ -42,7 +42,7 @@ namespace GlobalAI.ProductAPI.Controllers
             try
             {
                 _donHangServices.CreateDonhang(input);
-                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
+                return new APIResponse(Utils.StatusCode.Success, input, 200, "Ok");
             }
             catch (Exception ex)
             {
@@ -51,7 +51,7 @@ namespace GlobalAI.ProductAPI.Controllers
         }
         [HttpPut("sua/{id}")]
         [ProducesResponseType(typeof(APIResponse<List<AddDonHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateDonHang([FromRoute]int id, AddDonHangDto newDonHang )
+        public APIResponse CreateDonHang([FromRoute]string id, AddDonHangDto newDonHang )
         {
             try
             {
