@@ -89,7 +89,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <summary>
         /// lấy danh sách sản phẩm có phân trang
         /// </summary>
-        [HttpGet("lay-san-pham")]
+        [HttpGet("")]
         [ProducesResponseType(typeof(APIResponse<List<FindSanPhamDto>>), (int)HttpStatusCode.OK)]
         public APIResponse FindAll1([FromQuery] FindSanPhamDto input)
         {
@@ -108,7 +108,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// lấy sản phẩm theo id
         /// </summary>s
         [HttpGet("{id}")]
-        /*[ProducesResponseType(typeof(APIResponse<List<GetSanPhamDto>>), (int)HttpStatusCode.OK)]*/
+        [ProducesResponseType(typeof(APIResponse<List<GetSanPhamDto>>), (int)HttpStatusCode.OK)]
         public APIResponse GetById(int id)
         {
             try

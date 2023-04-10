@@ -17,6 +17,8 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Reflection;
 using ThirdParty.BouncyCastle.OpenSsl;
 using PemReader = PemUtils.PemReader;
+using AutoMapper;
+using GlobalAI.ProductAPI.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 var Configuration = builder.Configuration;
@@ -130,8 +132,9 @@ services.AddScoped<IDonHangServices, DonHangServices>();
 services.AddScoped<IChiTietDonHangServices, ChiTietDonHangServices>();
 #endregion
 #region Add Auto Mapper
-services.AddAutoMapper(typeof(Program).Assembly);
+services.AddAutoMapper(typeof(Program));
 #endregion
+
 services.AddHttpContextAccessor();
 services.AddAuthorization();
 

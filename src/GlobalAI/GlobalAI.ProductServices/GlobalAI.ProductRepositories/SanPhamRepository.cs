@@ -16,8 +16,9 @@ namespace GlobalAI.ProductRepositories
     public class SanPhamRepository : BaseEFRepository<SanPham>
     {
         private readonly IMapper _mapper;
-        public SanPhamRepository(DbContext dbContext, ILogger logger, string seqName = null) : base(dbContext, logger, seqName)
+        public SanPhamRepository(DbContext dbContext, ILogger logger,IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
         {
+            _mapper = mapper;
         }
         /// <summary>
         /// Tạo mới product
@@ -32,14 +33,7 @@ namespace GlobalAI.ProductRepositories
         }
         public SanPham EditSanPham(AddSanPhamDto newSanPham, SanPham oldSanPham)
         {
-            oldSanPham.TenSanPham = newSanPham.TenSanPham;
-            oldSanPham.MaDanhMuc = newSanPham.MaDanhMuc;
-            oldSanPham.MoTa = newSanPham.MoTa;
-            oldSanPham.MaGStore = newSanPham.MaGStore;
-            oldSanPham.GiaBan = newSanPham.GiaBan;
-            oldSanPham.GiaChietKhau = newSanPham.GiaChietKhau;
-            oldSanPham.NgayDangKi = newSanPham.NgayDangKi;
-            oldSanPham.NgayDuyet = newSanPham.NgayDuyet;
+            _mapper.Map(newSanPham, oldSanPham);
             _dbContext.SaveChanges();
             return oldSanPham;
         }

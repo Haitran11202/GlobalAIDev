@@ -15,9 +15,10 @@ namespace GlobalAI.ProductRepositories
 {
     public class DonHangRepository : BaseEFRepository<DonHang>
     {
-        public DonHangRepository(DbContext dbContext, ILogger logger, string seqName = null) : base(dbContext, logger, seqName)
+        private readonly IMapper _mapper;
+        public DonHangRepository(DbContext dbContext, ILogger logger,IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
         {
-
+            _mapper = mapper;
         }
 
         //Summary
@@ -56,15 +57,34 @@ namespace GlobalAI.ProductRepositories
         // thêm đơn hàng
         public void CreateDonHang(AddDonHangDto input)
         {
-            var donhang = new DonHang
+            var donHang = _mapper.Map<DonHang>(input);
+            _dbSet.Add(donHang);
+        }
+        /// <summary>
+        /// Tìm đơn hàng cần sửa, xóa
+        /// </summary>
+        /// <param name="maDonHang"></param>
+        /// <returns></returns>
+        public DonHang FindById(int maDonHang)
+        {
+            var result = _dbSet.FirstOrDefault(donhang => donhang.MaDonHang == maDonHang);
+            if (result != null && result.Deleted == true)
             {
-                MaGSaler = input.MaGSaler,
-                MaGStore = input.MaGStore,
-                NgayHoanThanh = input.NgayHoanThanh,
-                SoTien = input.SoTien,
-                HinhThucThanhToan = input.HinhThucThanhToan,
-            };
-            _dbSet.Add(donhang);
+                return null;
+            }
+            return result;
+        }
+        /// <summary>
+        /// Sửa đơn hàng
+        /// </summary>
+        /// <param name="oldDonHang"></param>
+        /// <param name="newDonHang"></param>
+        /// <returns></returns>
+        public DonHang EditDonHang(DonHang oldDonHang, AddDonHangDto newDonHang)
+        {
+            _mapper.Map(newDonHang, oldDonHang);
+            _dbContext.SaveChanges();
+            return oldDonHang;
         }
     }
 }

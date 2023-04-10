@@ -28,7 +28,7 @@ namespace GlobalAI.ProductAPI.Controllers
         //{
            
         //}
-        [HttpPost("tao-chi-tiet-don-hang")]
+        [HttpPost("them")]
         [ProducesResponseType(typeof(APIResponse<List<AddChiTietDonHangDto>>), (int)HttpStatusCode.OK)]
         public APIResponse CreateDonHang([FromQuery] AddChiTietDonHangDto input)
         {
@@ -36,6 +36,31 @@ namespace GlobalAI.ProductAPI.Controllers
             {
                 _chiTietDonHangServices.CreateChiTietDonhang(input);
                 return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+        /// <summary>
+        /// Sửa đơn hàng
+        /// </summary>
+        /// <param name="maDonHang"></param>
+        /// <param name="maSanPham"></param>
+        /// <param name="newDonHang"></param>
+        /// <returns></returns>
+        [HttpPut("sua/{id}")]
+        [ProducesResponseType(typeof(APIResponse<List<AddChiTietDonHangDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse EditChiTietDonHang([FromRoute]int id, int maSanPham, EditChiTietDonHangDto newDonHang)
+        {
+            try
+            {
+                var donHang = _chiTietDonHangServices.EditChiTietDonhang(id, maSanPham, newDonHang);
+                if (donHang == null)
+                {
+                    return new APIResponse(Utils.StatusCode.Success, null, 404, "Not Found");
+                }    
+                return new APIResponse(Utils.StatusCode.Success, donHang, 200, "Ok");
             }
             catch (Exception ex)
             {
