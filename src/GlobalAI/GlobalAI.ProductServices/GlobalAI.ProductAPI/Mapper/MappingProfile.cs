@@ -2,6 +2,7 @@
 using GlobalAI.CoreEntities.DataEntities;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
+using GlobalAI.ProductEntities.Dto.GioHang;
 using GlobalAI.ProductEntities.Dto.Product;
 
 namespace GlobalAI.ProductAPI.Mapper
@@ -14,10 +15,12 @@ namespace GlobalAI.ProductAPI.Mapper
             // Thuộc tính FullName trong UserViewModel được kết hợp từ FirstName và LastName trong User
             CreateMap<SanPham, AddSanPhamDto>().ReverseMap();
             CreateMap<DonHang, AddDonHangDto>().ReverseMap();
-            CreateMap<ChiTietDonHang, AddChiTietDonHangDto>().ReverseMap();
             CreateMap<DonHang, AddDonHangDto>().ReverseMap();
             CreateMap<ChiTietDonHang, AddChiTietDonHangDto>().ReverseMap();
             CreateMap<ChiTietDonHang, EditChiTietDonHangDto>().ReverseMap();
+            CreateMap<GioHang, EditGioHangDto>().ReverseMap();
+            CreateMap<GioHang, AddGioHangDto>().ReverseMap();
+            CreateMap<GioHang, GetGioHangDto>().ReverseMap();
 
         }
     }

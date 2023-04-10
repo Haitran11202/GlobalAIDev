@@ -26,9 +26,7 @@ namespace GlobalAI.ProductRepositories
         public ChiTietDonHang CreateChiTietDonHang(ChiTietDonHang input)
         {
             _dbSet.Add(input);
-
             return input;
-
         }
         /// <summary>
         /// Tìm sản phẩm cần sửa, xóa

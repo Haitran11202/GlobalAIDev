@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GlobalAI.ProductEntities.Dto.ChiTietDonHang
+namespace GlobalAI.ProductEntities.Dto.GioHang
 {
-    public class EditChiTietDonHangDto
+    public class EditGioHangDto
     {
-        public string MaDonHang { get; set; }
+        public string MaGioHang { get; set; }
+        public int MaGSaler { get; set; }
         public string MaSanPham { get; set; }
-        public int SoLuong { get; set; }
     }
 }

@@ -9,14 +9,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GlobalAI.ProductEntities.Dto.ChiTietDonHang
+namespace GlobalAI.ProductEntities.Dto.GioHang
 {
-    public class GetChiTietDonHangDto
+    public class GetGioHangDto
     {
-
-        public string MaDonHang { get; set; }
-        public string MaSanPham { get; set; }
-        public int SoLuong { get; set; }
 
     }
 }

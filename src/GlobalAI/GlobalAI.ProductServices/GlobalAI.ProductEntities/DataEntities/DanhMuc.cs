@@ -22,7 +22,7 @@ namespace GlobalAI.ProductEntities.DataEntities
         public int ID { get; set; }
 
         [ColumnSnackCase(nameof(MaDanhMuc))]
-        public string MaDanhMuc { get; set; }
+        public int MaDanhMuc { get; set; }
 
         
 
