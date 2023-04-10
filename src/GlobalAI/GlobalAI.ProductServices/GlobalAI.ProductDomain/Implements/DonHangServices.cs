@@ -83,5 +83,10 @@ namespace GlobalAI.ProductDomain.Implements
             _dbContext.SaveChanges();
             return donHang;
         }
+
+        public void DeleteDonHangById(int id)
+        {
+            _repositoryDonHang.DeleteDonHangById(id);
+        }
     }
 }

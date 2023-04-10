@@ -16,5 +16,7 @@ namespace GlobalAI.ProductDomain.Interfaces
         public ChiTietDonHang CreateChiTietDonhang(AddChiTietDonHangDto input);
 
         public ChiTietDonHang EditChiTietDonhang(string maDonHang, string maSanPham, EditChiTietDonHangDto newDonHang);
+
+        public void DeleteChiTietDonhangById(int id);
     }
 }

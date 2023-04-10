@@ -49,5 +49,15 @@ namespace GlobalAI.ProductRepositories
             return oldDonHang;
         }
 
+        public void DeleteChiTietDonHangById(int id)
+        {
+            var Result = _dbSet.FirstOrDefault((Order) => Order.ID == id);
+            if (Result != null)
+            {
+                Result.Deleted = true;
+                _dbContext.SaveChanges();
+            }
+        }
+
     }
 }

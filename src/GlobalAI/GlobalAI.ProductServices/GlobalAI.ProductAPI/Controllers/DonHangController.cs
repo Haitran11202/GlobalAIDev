@@ -70,5 +70,11 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+
+        [HttpDelete("xoa/{id}")]
+        public void DeleteDonHangById(int id) 
+        {
+            _donHangServices.DeleteDonHangById(id);
+        }
     }
 }

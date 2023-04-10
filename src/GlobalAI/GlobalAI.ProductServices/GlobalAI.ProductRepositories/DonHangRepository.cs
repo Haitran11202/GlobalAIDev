@@ -87,5 +87,15 @@ namespace GlobalAI.ProductRepositories
             _dbContext.SaveChanges();
             return oldDonHang;
         }
+
+        public void DeleteDonHangById(int id)
+        {
+            var Result = _dbSet.FirstOrDefault((Order) => Order.ID == id);
+            if (Result != null)
+            {
+                Result.Deleted = true;
+                _dbContext.SaveChanges();
+            }
+        }
     }
 }
