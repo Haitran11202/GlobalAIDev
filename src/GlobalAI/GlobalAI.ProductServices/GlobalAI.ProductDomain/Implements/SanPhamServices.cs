@@ -1,8 +1,6 @@
 ﻿using GlobalAI.DataAccess.Base;
 
 using GlobalAI.DataAccess.Models;
-using GlobalAI.DemoEntities.DataEntities;
-using GlobalAI.DemoEntities.Dto.DemoProduct;
 using GlobalAI.DemoEntities.Dto.Product;
 
 using GlobalAI.DemoRepositories;
