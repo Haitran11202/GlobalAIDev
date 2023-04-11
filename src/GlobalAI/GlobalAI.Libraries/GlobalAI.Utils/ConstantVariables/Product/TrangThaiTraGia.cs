@@ -12,12 +12,12 @@ namespace GlobalAI.Utils.ConstantVariables.Product
     public static class TrangThaiTraGia
     {
         /// <summary>
-        /// Người mua đề nghị giá với người bán
+        /// Người mua đề nghị giá với người bán (Đang mặc cả)
         /// </summary>
-        public const int NGUOI_MUA_DE_NGHI = 1;
+        public const int DANG_TRA_GIA = 1;
         /// <summary>
-        /// Người bán đồng ý giá người mua đề xuất
+        /// Người bán đồng ý giá người mua đề xuất (Đã trả giá xong)
         /// </summary>
-        public const int NGUOI_BAN_DONG_Y = 2;
+        public const int DA_TRA_GIA = 2;
     }
 }

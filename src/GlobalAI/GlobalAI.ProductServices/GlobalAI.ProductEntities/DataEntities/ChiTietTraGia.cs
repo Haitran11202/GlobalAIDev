@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.ProductEntities.DataEntities
 {
-    [Table("P_TraGia")]
-    [Comment("Trả giá")]
-    public class TraGia
+    [Table("P_ChiTietTraGia")]
+    [Comment("Chi tiết trả giá")]
+    public class ChiTietTraGia
     {
         /// <summary>
-        /// Id trả giá
+        /// Id chi tiết trả giá
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -24,32 +24,28 @@ namespace GlobalAI.ProductEntities.DataEntities
         public int Id { get; set; }
 
         /// <summary>
-        /// Id người bán (lấy userid bán sản phẩm để insert vào)
+        /// Id trả giá
         /// </summary>
-        [ColumnSnackCase(nameof(IdNguoiBan))]
-        public int IdNguoiBan { get; set; }
+        [ColumnSnackCase(nameof(IdTraGia))]
+        public int IdTraGia { get; set; }
 
         /// <summary>
-        /// Id người mua (gstore hoặc gsaler đều mua được)
+        /// Giá tiền mặc cả
         /// </summary>
-        [ColumnSnackCase(nameof(IdNguoiMua))]
-        public int IdNguoiMua { get; set; }
+        [ColumnSnackCase(nameof(GiaTien))]
+        public decimal? GiaTien { get; set; }
 
         /// <summary>
-        /// Id sản phẩm
+        /// Loại user (GStore hay GSaler)
+        /// <see cref="TraGiaUsertypes"/>
         /// </summary>
-        [ColumnSnackCase(nameof(IdSanPham))]
-        public int IdSanPham { get; set; }
-
-        /// <summary>
-        /// Giá tiền cuối cùng sau khi cả người mua và bán đã đồng ý
-        /// </summary>
-        [ColumnSnackCase(nameof(GiaCuoi))]
-        public decimal? GiaCuoi { get; set; }
+        [MaxLength(20)]
+        [ColumnSnackCase(nameof(Usertype), TypeName = "VARCHAR2")]
+        public string Usertype { get; set; }
 
         /// <summary>
         /// Trạng thái của đợt trả giá
-        /// <see cref="TrangThaiTraGia"/>
+        /// <see cref="TrangThaiChiTietTraGia"/>
         /// </summary>
         [ColumnSnackCase(nameof(Status))]
         public int Status { get; set; }
