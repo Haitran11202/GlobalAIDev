@@ -2,21 +2,17 @@ using GlobalAI.DataAccess.Base;
 using GlobalAI.ProductDomain.Implements;
 using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.Entites;
-using GlobalAI.ProductDomain.Implements;
-using GlobalAI.ProductDomain.Interfaces;
-using Microsoft.IdentityModel.Logging;
-using GlobalAI.Utils.ConstantVariables.Shared;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 //using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
-using PemUtils;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Reflection;
-using ThirdParty.BouncyCastle.OpenSsl;
 using PemReader = PemUtils.PemReader;
+using AutoMapper;
+using GlobalAI.ProductAPI.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
 var Configuration = builder.Configuration;
@@ -126,6 +122,12 @@ services.AddSwaggerGen(option =>
 
 #region Add services
 services.AddScoped<ISanPhamServices, SanPhamServices>();
+services.AddScoped<IDonHangServices, DonHangServices>();
+services.AddScoped<IChiTietDonHangServices, ChiTietDonHangServices>();
+services.AddScoped<IGioHangServices, GioHangServices>();
+#endregion
+#region Add Auto Mapper
+services.AddAutoMapper(typeof(Program));
 #endregion
 
 services.AddHttpContextAccessor();
@@ -143,9 +145,6 @@ if (!builder.Environment.IsProduction())
         options.DocExpansion(DocExpansion.None);
     });
 }
-
-
-
 // Configure the HTTP request pipeline.
 app.UseRouting();
 

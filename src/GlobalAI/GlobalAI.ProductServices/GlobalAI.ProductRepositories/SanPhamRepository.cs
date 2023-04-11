@@ -1,21 +1,24 @@
 ﻿using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
 using GlobalAI.ProductEntities.DataEntities;
-using GlobalAI.ProductEntities.DataEntities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
 using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductEntities.Dto.Product;
+using AutoMapper;
+using Microsoft.AspNetCore.Http.Internal;
 
 
-namespace GlobalAI.DemoRepositories
+namespace GlobalAI.ProductRepositories
 {
     public class SanPhamRepository : BaseEFRepository<SanPham>
     {
-        public SanPhamRepository(DbContext dbContext, ILogger logger, string seqName = null) : base(dbContext, logger, seqName)
+        private readonly IMapper _mapper;
+        public SanPhamRepository(DbContext dbContext, ILogger logger,IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
         {
+            _mapper = mapper;
         }
         /// <summary>
         /// Tạo mới product
@@ -30,14 +33,7 @@ namespace GlobalAI.DemoRepositories
         }
         public SanPham EditSanPham(AddSanPhamDto newSanPham, SanPham oldSanPham)
         {
-            oldSanPham.TenSanPham = newSanPham.TenSanPham;
-            oldSanPham.MaDanhMuc = newSanPham.MaDanhMuc;
-            oldSanPham.MoTa = newSanPham.MoTa;
-            oldSanPham.MaGStore = newSanPham.MaGStore;
-            oldSanPham.GiaBan = newSanPham.GiaBan;
-            oldSanPham.GiaChietKhau = newSanPham.GiaChietKhau;
-            oldSanPham.NgayDangKi = newSanPham.NgayDangKi;
-            oldSanPham.NgayDuyet = newSanPham.NgayDuyet;
+            _mapper.Map(newSanPham, oldSanPham);
             _dbContext.SaveChanges();
             return oldSanPham;
         }
@@ -51,18 +47,35 @@ namespace GlobalAI.DemoRepositories
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public PagingResult<SanPham> FindAll(FindSanPhamDto input)
+        public PagingResult<GetSanPhamDto> FindAll(FindSanPhamDto input)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
-            PagingResult<SanPham> result = new();
-            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.MaSanPham).Where(p => !p.Deleted)
+            PagingResult<GetSanPhamDto> result = new();
+            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.ID).Where(p => !p.Deleted)
                 .Where(r => (input.Keyword == null || r.TenSanPham.Contains(input.Keyword)));
             if (input.PageSize != -1)
             {
                 projectQuery = projectQuery.Skip(input.Skip).Take(input.PageSize);
             }
             result.TotalItems = projectQuery.Count();
-            result.Items = projectQuery.ToList();
+            var sanphams = projectQuery;
+            var sanphamDtos = new List<GetSanPhamDto>();
+            foreach ( var item in sanphams ) {
+                var getSpDto = _mapper.Map<GetSanPhamDto>(item);
+                //var getSpDto = new GetSanPhamDto
+                //{
+                //    Id_san_pham  = item.Id_san_pham,
+                //    TenSanPham = item.TenSanPham,
+                //    Id_danh_muc = item.Id_danh_muc,
+                //    Id_gstore = item.Id_gstore,
+                //    GiaBan = item.GiaBan,
+                //    GiaChietKhau = item.GiaChietKhau,
+                //    NgayDangKi = item.NgayDangKi,
+                //    NgayDuyet = item.NgayDuyet,
+                //};
+                sanphamDtos.Add(getSpDto);
+            }
+            result.Items = sanphamDtos;
             return result;
         }
         /// <summary>
@@ -70,10 +83,10 @@ namespace GlobalAI.DemoRepositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public SanPham GetById(int id)
+        public SanPham GetById(string id)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(id)}");
-            var sanpham = _dbSet.AsNoTracking().FirstOrDefault(sp => sp.MaSanPham == id);
+            var sanpham = _dbSet.AsNoTracking().Where(sp => !sp.Deleted).FirstOrDefault(sp => sp.Id_san_pham == id);
             return sanpham;
         }
         /// <summary>
@@ -81,10 +94,10 @@ namespace GlobalAI.DemoRepositories
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public List<SanPham> GetByCategory(int id)
+        public List<SanPham> GetByCategory(string id)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(GetByCategory)}: input = {JsonSerializer.Serialize(id)}");
-            var danhmucs = _dbSet.Where(sp => sp.MaDanhMuc == id).AsNoTracking().ToList();
+            var danhmucs = _dbSet.Where(sp => sp.Id_danh_muc == id).AsNoTracking().ToList();
             return danhmucs;
         }
         /// <summary>
@@ -92,9 +105,9 @@ namespace GlobalAI.DemoRepositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public SanPham FindById(int id)
+        public SanPham FindById(string id)
         {
-            var result = _dbSet.SingleOrDefault(sp => sp.MaSanPham == id);
+            var result = _dbSet.SingleOrDefault(sp => sp.Id_san_pham == id);
             if(result != null && result.Deleted == true) 
             {
                 return null;

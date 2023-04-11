@@ -1,6 +1,9 @@
-﻿using GlobalAI.DataAccess.Base;
 
+using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
+
+﻿using AutoMapper;
+
 using GlobalAI.DemoEntities.Dto.Product;
 
 using GlobalAI.DemoRepositories;
@@ -8,6 +11,7 @@ using GlobalAI.Entites;
 using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductRepositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
@@ -27,13 +31,13 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
         private readonly SanPhamRepository _repositorySanPham;
-
-        public SanPhamServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger)
+        private readonly IMapper _mapper;
+        public SanPhamServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
         {
-            _repositorySanPham = new SanPhamRepository(dbContext, logger);
+            _repositorySanPham = new SanPhamRepository(dbContext, logger, mapper);
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
-
+            _mapper = mapper;
             _dbContext = dbContext;
             _httpContext = httpContext;
 
@@ -45,19 +49,8 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns>Sản phẩm vừa thêm vào</returns>
         public SanPham AddSanPham(AddSanPhamDto sanPham)
         {
-            var newSanPham = new SanPham
-            {
-                TenSanPham = sanPham.TenSanPham,
-                MaDanhMuc = sanPham.MaDanhMuc,
-                MoTa = sanPham.MoTa,
-                MaGStore = sanPham.MaGStore,
-                GiaBan = sanPham.GiaBan,
-                GiaChietKhau = sanPham.GiaChietKhau,
-                NgayDangKi = sanPham.NgayDangKi,
-                NgayDuyet = sanPham.NgayDuyet,
-                Deleted = false
-            };
-
+            var newSanPham = _mapper.Map<SanPham>(sanPham);
+            newSanPham.Deleted = false;
             return _repositorySanPham.Add(newSanPham);
         }
         /// <summary>
@@ -65,7 +58,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Trả về sản phẩm vừa xóa(Trường deleted = true)</returns>
-        public SanPham DeleteSanPham(int id)
+        public SanPham DeleteSanPham(string id)
         {
             var findSanPham = _repositorySanPham.FindById(id);
             if (findSanPham != null)
@@ -80,7 +73,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <param name="id"></param>
         /// <param name="newSanPham"></param>
         /// <returns>Trả về sản phẩm đã được sửa</returns>
-        public SanPham EditSanPham(int id, AddSanPhamDto newSanPham)
+        public SanPham EditSanPham(string id, AddSanPhamDto newSanPham)
         {
             var findSanPham = _repositorySanPham.FindById(id);
             if (findSanPham != null)
@@ -96,7 +89,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public PagingResult<SanPham> FindAll(FindSanPhamDto input)
+        public PagingResult<GetSanPhamDto> FindAll(FindSanPhamDto input)
         {
             //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
 
@@ -108,7 +101,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public SanPham GetById(int id)
+        public SanPham GetById(string id)
         {
             //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
 
@@ -119,7 +112,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<SanPham> GetByCategory(int id)
+        public List<SanPham> GetByCategory(string id)
         {
             //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(id)}");
 
