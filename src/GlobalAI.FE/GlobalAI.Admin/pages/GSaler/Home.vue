@@ -1,14 +1,13 @@
 <template>
   <div>
     <div class="flex flex-wrap">
-      <h1>{{ props.category }}</h1>
       <card-list-product-short
         title="sản phẩm mới"
-        :products="products1"
+        :products="filterProducts1"
       />
       <card-list-product-short
         title="sản phẩm bán chạy"
-        :products="products2"
+        :products="filterProducts2"
       />
     </div>
   </div>
@@ -163,22 +162,20 @@ const props = defineProps({
   },
 });
 
-console.log(props)
-
-// computed: {
-//       filteredProducts() {
-//           if (this.category) {
-//               return this.products1.filter((product) => product.categoryId === this.category);
-//           } else {
-//               return this.products1;
-//           }
-//       },
-//       filteredProductsSeller() {
-//           if (this.category) {
-//               return this.products2.filter((product) => product.categoryId === this.category);
-//           } else {
-//               return this.products2;
-//           }
-//       },
-//   },
+  const filterProducts1 = computed(() => {
+     if(props.category){
+        return products1.filter(product => product.categoryId === props.category)
+     }
+     else {
+      return products1
+     }
+  })
+  const filterProducts2 = computed(() => {
+    if(props.category){
+      return products2.filter(product => product.categoryId === props.category)
+    }
+    else{
+      return products2;
+    }
+  })
 </script>

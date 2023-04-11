@@ -6,15 +6,14 @@
         <sidebar v-on:category-clicked="handleCategoryClick" />
       </div>
       <div class="pl-2">
-        <slot :category="selectedCategory.value"></slot>
-    
+        <!-- <slot :category="selectedCategory"></slot> -->
+        <NuxtPage :category="selectedCategory"/>
       </div>
     </div>
     <footer-admin />
   </div>
 </template>
 <script setup>
-import AdminNavbar from "../components/Navbars/AdminNavbar.vue";
 import Sidebar from "../components/Sidebar/Sidebar.vue";
 import HeaderStats from "../components/Headers/HeaderStats.vue";
 import FooterAdmin from "../components/Footers/FooterAdmin.vue";
