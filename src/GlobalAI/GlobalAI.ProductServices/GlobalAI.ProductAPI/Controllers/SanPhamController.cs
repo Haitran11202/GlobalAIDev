@@ -25,7 +25,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost("them")]
+        [HttpPost("add")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
         public APIResponse Add([FromBody] AddSanPhamDto input)
         {
@@ -47,7 +47,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpPut("sua/{id}")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
-        public APIResponse Put(int id, [FromBody] AddSanPhamDto input)
+        public APIResponse Put(string id, [FromBody] AddSanPhamDto input)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpDelete("xoa/{id}")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
-        public APIResponse Delete(int id)
+        public APIResponse Delete(string id)
         {
             try
             {
@@ -89,9 +89,9 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <summary>
         /// lấy danh sách sản phẩm có phân trang
         /// </summary>
-        [HttpGet("")]
+        [HttpGet("find")]
         [ProducesResponseType(typeof(APIResponse<List<FindSanPhamDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse FindAll([FromQuery] FindSanPhamDto input)
+        public APIResponse FindAll1([FromQuery] FindSanPhamDto input)
         {
             try
             {
@@ -106,10 +106,10 @@ namespace GlobalAI.ProductAPI.Controllers
         }
         /// <summary>
         /// lấy sản phẩm theo id
-        /// </summary>
+        /// </summary>s
         [HttpGet("{id}")]
-        /*[ProducesResponseType(typeof(APIResponse<List<GetSanPhamDto>>), (int)HttpStatusCode.OK)]*/
-        public APIResponse GetById(int id)
+        [ProducesResponseType(typeof(APIResponse<List<GetSanPhamDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse GetById(string id)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         [HttpGet("danh-muc/{id}")]
         [ProducesResponseType(typeof(APIResponse<List<SanPham>>), (int)HttpStatusCode.OK)]
-        public APIResponse GetByCategory(int id)
+        public APIResponse GetByCategory(string id)
         {
             try
             {
