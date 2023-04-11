@@ -1,14 +1,16 @@
 <template>
     <div>
-        <sidebar />
-        <div class="relative md:ml-64 bg-slate-100">
-            <admin-navbar />
-            <header-stats />
-            <div class="px-4 md:px-10 mx-auto w-full -m-24">
-                <slot></slot>
-                <footer-admin />
+        <header-stats />
+        <div class="container mx-auto lg:flex bg-slate-100">
+            <div class="">
+            <sidebar />
+            </div>
+            <div class="pl-2">
+             <slot></slot>
             </div>
         </div>
+        <footer-admin />
+
     </div>
 </template>
 <script setup>

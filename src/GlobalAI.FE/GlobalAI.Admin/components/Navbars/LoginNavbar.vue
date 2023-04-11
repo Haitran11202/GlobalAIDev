@@ -35,6 +35,9 @@
             </a> -->
           </li>
         </ul>
+        <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
+                <user-dropdown />
+            </ul> 
         <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
           <li class="flex items-center">
             <a
@@ -52,7 +55,7 @@
               href="#"
             >
               <i class="text-slate-400 fab fa-twitter text-lg leading-lg" />
-              <span class="lg:hidden inline-block ml-2">Tweet</span>
+              <img class="lg:w-3 lg:h-2" :src="UserSvg">
             </a>
           </li>
 
@@ -82,6 +85,7 @@
 
 <script setup>
 import IndexDropdown from "../Dropdowns/IndexDropdown.vue";
+import UserSvg from "../../assets/svg/user.svg"
 import { ref } from "vue";
 
 let navbarOpen = ref(false);

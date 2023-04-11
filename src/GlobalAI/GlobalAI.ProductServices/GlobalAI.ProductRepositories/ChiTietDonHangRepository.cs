@@ -33,7 +33,7 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         public ChiTietDonHang FindChiTietDonHang(string maDonHang, string maSanPham)
         {
-            var donHang = _dbSet.FirstOrDefault(sp => sp.MaDonHang == maDonHang && sp.MaSanPham == maSanPham);
+            var donHang = _dbSet.FirstOrDefault(sp => sp.MaDonHang == maDonHang && sp.IdSanPham == maSanPham);
             if (donHang != null && donHang.Deleted == true)
             {
                 return null;

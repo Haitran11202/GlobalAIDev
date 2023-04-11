@@ -162,34 +162,44 @@ namespace GlobalAI.HostConsole.Migrations
 
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.ChiTietDonHang", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("I_D");
+                        .HasColumnName("ID");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Deleted")
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("CREATED_DATE");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("DELETED_BY");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("DELETED_DATE");
+
+                    b.Property<int>("IdDonHang")
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("DELETED");
+                        .HasColumnName("ID_DON_HANG");
 
-                    b.Property<string>("MaDonHang")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("MA_DON_HANG");
-
-                    b.Property<string>("MaSanPham")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("MA_SAN_PHAM");
+                    b.Property<int>("IdSanPham")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("ID_SAN_PHAM");
 
                     b.Property<int>("SoLuong")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("SO_LUONG");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("STATUS");
-
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("P_ChiTietDonHang", t =>
                         {
@@ -199,26 +209,49 @@ namespace GlobalAI.HostConsole.Migrations
 
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.DanhMuc", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("CREATED_DATE");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("DELETED_BY");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("DELETED_DATE");
 
                     b.Property<string>("MaDanhMuc")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_DANH_MUC");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("STATUS");
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("MODIFIED_BY");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("MODIFIED_DATE");
 
                     b.Property<string>("TenDanhMuc")
                         .HasMaxLength(400)
                         .HasColumnType("NVARCHAR2(400)")
                         .HasColumnName("TEN_DANH_MUC");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("P_DanhMuc", t =>
                         {
@@ -228,33 +261,57 @@ namespace GlobalAI.HostConsole.Migrations
 
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.DonHang", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("NUMBER(1)")
-                        .HasColumnName("DELETED");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("CREATED_DATE");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("DELETED_BY");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("DELETED_DATE");
 
                     b.Property<string>("HinhThucThanhToan")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("HINH_THUC_THANH_TOAN");
 
+                    b.Property<int?>("IdGStore")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("ID_G_STORE");
+
+                    b.Property<int?>("IdNguoiMua")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("ID_NGUOI_MUA");
+
                     b.Property<string>("MaDonHang")
-                        .HasColumnType("NVARCHAR2(2000)")
+                        .HasMaxLength(50)
+                        .HasColumnType("NVARCHAR2(50)")
                         .HasColumnName("MA_DON_HANG");
 
-                    b.Property<int?>("MaGSaler")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("MA_G_SALER");
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("MODIFIED_BY");
 
-                    b.Property<int?>("MaGStore")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("MA_G_STORE");
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("MODIFIED_DATE");
 
-                    b.Property<DateTime>("NgayHoanThanh")
+                    b.Property<DateTime?>("NgayHoanThanh")
                         .HasColumnType("TIMESTAMP(7)")
                         .HasColumnName("NGAY_HOAN_THANH");
 
@@ -262,15 +319,11 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("SO_TIEN");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("STATUS");
-
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("P_DonHang", t =>
                         {
-                            t.HasComment("bảng đơn hàng");
+                            t.HasComment("Đơn hàng");
                         });
                 });
 
@@ -283,29 +336,55 @@ namespace GlobalAI.HostConsole.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("NUMBER(1)")
-                        .HasColumnName("DELETED");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("CREATED_BY");
 
-                    b.Property<int>("MaGSaler")
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("CREATED_DATE");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("DELETED_BY");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("DELETED_DATE");
+
+                    b.Property<int>("IdNguoiMua")
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("MA_G_SALER");
+                        .HasColumnName("ID_NGUOI_MUA");
 
-                    b.Property<string>("MaGioHang")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("MA_GIO_HANG");
+                    b.Property<int?>("IdSanPham")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("ID_SAN_PHAM");
 
-                    b.Property<string>("MaSanPham")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("MA_SAN_PHAM");
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("MODIFIED_BY");
 
-                    b.Property<int>("Status")
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("MODIFIED_DATE");
+
+                    b.Property<int>("SoLuong")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("SO_LUONG");
+
+                    b.Property<int?>("Status")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("STATUS");
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_GioHang");
+                    b.ToTable("P_GioHang", t =>
+                        {
+                            t.HasComment("Giỏ hàng");
+                        });
                 });
 
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.SanPham", b =>
@@ -399,40 +478,70 @@ namespace GlobalAI.HostConsole.Migrations
 
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.TraGia", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("I_D");
+                        .HasColumnName("ID");
 
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("NUMBER(1)")
-                        .HasColumnName("DELETED");
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("CREATED_BY");
 
-                    b.Property<decimal>("GiaTien")
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("CREATED_DATE");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("DELETED_BY");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("DELETED_DATE");
+
+                    b.Property<decimal?>("GiaTien")
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("GIA_TIEN");
 
-                    b.Property<int>("MaGSaler")
+                    b.Property<int>("IdNguoiBan")
                         .HasColumnType("NUMBER(10)")
-                        .HasColumnName("MA_G_SALER");
+                        .HasColumnName("ID_NGUOI_BAN");
 
-                    b.Property<string>("MaSanPham")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("MA_SAN_PHAM");
+                    b.Property<int>("IdNguoiMua")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("ID_NGUOI_MUA");
 
-                    b.Property<string>("MaTraGia")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("MA_TRA_GIA");
+                    b.Property<int>("IdSanPham")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("ID_SAN_PHAM");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("MODIFIED_BY");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("MODIFIED_DATE");
 
                     b.Property<int>("Status")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("STATUS");
 
-                    b.HasKey("ID");
+                    b.Property<string>("Usertype")
+                        .HasColumnType("NVARCHAR2(2000)")
+                        .HasColumnName("USERTYPE");
 
-                    b.ToTable("P_TraGia");
+                    b.HasKey("Id");
+
+                    b.ToTable("P_TraGia", t =>
+                        {
+                            t.HasComment("Trả giá");
+                        });
                 });
 #pragma warning restore 612, 618
         }
