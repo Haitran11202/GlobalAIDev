@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="flex flex-wrap">
-      <card-list-product-short title="sản phẩm mới" :products="products1" />
+      <h1>{{ props.category }}</h1>
+      <card-list-product-short
+        title="sản phẩm mới"
+        :products="products1"
+      />
       <card-list-product-short
         title="sản phẩm bán chạy"
         :products="products2"
@@ -22,71 +26,60 @@ import img8 from "~/assets/img/product/sg-11134201-22120-un5b5kp9xskvd0.jpg";
 import img7 from "~/assets/img/product/vn-11134201-23020-tjtl9dace3nv28.jpg";
 import img9 from "~/assets/img/product/sg-11134201-22120-ol6w530xclkv13.jpg";
 import img10 from "~/assets/img/product/8c37010c4421b7eed56fc3b5e6fbf414.jpg";
+import { defineProps } from 'vue';
 
 definePageMeta({
   layout: "layout-default",
 });
-
 const products1 = [
   {
-    name: "Viên uống bổ sung vitamin C DHC",
+    name: "Viên bổ sung vitamin C DHC",
     imgUrl: img1,
     price: "170,000",
     discount: "150,000",
+    categoryId: "1",
   },
   {
     name: "Kính râm phân cực Kateluo",
     imgUrl: img2,
     price: "340,000",
     discount: "300,000",
+    categoryId: "2",
   },
   {
     name: "Camera ip wifi Ezviz",
     imgUrl: img3,
     price: "1,689,000",
     discount: "1,400,000",
+    categoryId: "3",
   },
   {
     name: "Nồi inox cao cấp 3 lớp đáy",
     imgUrl: img4,
     price: "645,000",
     discount: "600,000",
+    categoryId: "4",
   },
   {
     name: "Son kem lì 3CE Cloud lip tint",
     imgUrl: img5,
     price: "363,000",
     discount: "350,000",
+    categoryId: "5",
   },
   {
     name: "Mũ bảo hiểm nửa đầu",
     imgUrl: img6,
     price: "219,000",
     discount: "250,000",
+    categoryId: "6",
   },
   {
     name: "Áo khoác Paradox",
     imgUrl: img7,
     price: "379,000",
     discount: "320,000",
-  },
-  {
-    name: "Serum cho da nhờn mụn Garnier",
-    imgUrl: img8,
-    price: "289,000",
-    discount: "250,000",
-  },
-  {
-    name: "Giày chạy bộ Supernova Adidas",
-    imgUrl: img9,
-    price: "2,400,000",
-    discount: "2,000,000",
-  },
-  {
-    name: "Chảo chống dính cao cấp",
-    imgUrl: img10,
-    price: "209,000",
-    discount: "190,000",
+    categoryId: "7",
   },
 ];
 
@@ -96,60 +89,96 @@ const products2 = [
     imgUrl: img1,
     price: "170,000",
     discount: "150,000",
+    categoryId: "1",
   },
   {
     name: "Kính râm phân cực Kateluo",
     imgUrl: img2,
     price: "340,000",
     discount: "300,000",
+    categoryId: "2",
   },
   {
     name: "Camera ip wifi Ezviz",
     imgUrl: img3,
     price: "1,689,000",
     discount: "1,400,000",
+    categoryId: "3",
   },
   {
     name: "Nồi inox cao cấp 3 lớp đáy",
     imgUrl: img4,
     price: "645,000",
     discount: "600,000",
+    categoryId: "4",
   },
   {
     name: "Son kem lì 3CE Cloud lip tint",
     imgUrl: img5,
     price: "363,000",
     discount: "350,000",
+    categoryId: "5",
   },
   {
     name: "Mũ bảo hiểm nửa đầu",
     imgUrl: img6,
     price: "219,000",
     discount: "250,000",
+    categoryId: "6",
   },
   {
     name: "Áo khoác Paradox",
     imgUrl: img7,
     price: "379,000",
     discount: "320,000",
+    categoryId: "7",
   },
   {
     name: "Serum cho da nhờn mụn Garnier",
     imgUrl: img8,
     price: "289,000",
     discount: "250,000",
+    categoryId: "8",
   },
   {
     name: "Giày chạy bộ Supernova Adidas",
     imgUrl: img9,
     price: "2,400,000",
     discount: "2,000,000",
+    categoryId: "9",
   },
   {
     name: "Chảo chống dính cao cấp",
     imgUrl: img10,
     price: "209,000",
     discount: "190,000",
+    categoryId: "10",
   },
 ];
+
+const props = defineProps({
+  category: {
+    type: String,
+    required: true,
+  },
+});
+
+console.log(props)
+
+// computed: {
+//       filteredProducts() {
+//           if (this.category) {
+//               return this.products1.filter((product) => product.categoryId === this.category);
+//           } else {
+//               return this.products1;
+//           }
+//       },
+//       filteredProductsSeller() {
+//           if (this.category) {
+//               return this.products2.filter((product) => product.categoryId === this.category);
+//           } else {
+//               return this.products2;
+//           }
+//       },
+//   },
 </script>
