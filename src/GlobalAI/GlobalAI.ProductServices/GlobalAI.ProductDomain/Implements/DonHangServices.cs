@@ -32,7 +32,7 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly DonHangRepository _repositoryDonHang;
         private readonly ChiTietDonHangRepository _repositoryChiTietDonHang;
         private readonly IMapper _mapper;
-        public DonHangServices( GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
+        public DonHangServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
         {
             _repositoryDonHang = new DonHangRepository(dbContext, logger, mapper);
             _repositoryChiTietDonHang = new ChiTietDonHangRepository(dbContext, logger, mapper);
@@ -88,30 +88,18 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns></returns>
         public DonHangFullDto GetDonHangFull(int maDonHang)
         {
-            
-            var DonhangFull = new DonHangFullDto();
-            using (IDbContextTransaction transaction = _dbContext.Database.BeginTransaction())
-            {
-                try
-                {
-                    // Save DonHang
-                    var resultDh = _repositoryDonHang.GetDonHang(maDonHang);
-                    
-                    // Save ChiTietDonHang
-                    var resultChiTiet = _repositoryChiTietDonHang.GetListChiTietDonHang(maDonHang);
-                    
-                    DonhangFull.ChiTietDonHangFullDtos = _mapper.Map<List<GetChiTietDonHangDto>>(resultChiTiet);
-                    DonhangFull.donHang = _mapper.Map<GetDonHangDto>(resultDh);
 
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                }
-          
-                
-            }    
+            var DonhangFull = new DonHangFullDto();
+
+            // Save DonHang
+            var resultDh = _repositoryDonHang.GetDonHang(maDonHang);
+
+            // Save ChiTietDonHang
+            var resultChiTiet = _repositoryChiTietDonHang.GetListChiTietDonHang(maDonHang);
+
+            DonhangFull.ChiTietDonHangFullDtos = _mapper.Map<List<GetChiTietDonHangDto>>(resultChiTiet);
+            DonhangFull.donHang = _mapper.Map<GetDonHangDto>(resultDh);
+
             return DonhangFull;
         }
         /// <summary>
