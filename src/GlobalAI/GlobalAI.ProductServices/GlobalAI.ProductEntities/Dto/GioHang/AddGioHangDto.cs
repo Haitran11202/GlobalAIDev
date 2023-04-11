@@ -13,8 +13,27 @@ namespace GlobalAI.ProductEntities.Dto.GioHang
 {
     public class AddGioHangDto
     {
-        public string MaGioHang { get; set; }
-        public int MaGSaler { get; set; }
-        public string MaSanPham { get; set; }
+       
+        /// <summary>
+        /// Id Người mua (Vì gstore và gsaler đều có thể mua hàng)
+        /// (Lấy giá trị từ id trong bảng user)
+        /// </summary>
+        public int IdNguoiMua { get; set; }
+
+        /// <summary>
+        /// Id Sản phẩm (Có thể trùng nhau)
+        /// </summary>
+        public int? IdSanPham { get; set; }
+
+        /// <summary>
+        /// Số lượng sp
+        /// </summary>
+        public int SoLuong { get; set; }
+
+        /// <summary>
+        /// Trạng thái
+        /// <see cref="TrangThaiGioHang"/>
+        /// </summary>
+        public int? Status { get; set; }
     }
 }

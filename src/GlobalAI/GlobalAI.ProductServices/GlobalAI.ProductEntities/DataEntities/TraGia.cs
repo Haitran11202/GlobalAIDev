@@ -80,5 +80,6 @@ namespace GlobalAI.ProductEntities.DataEntities
         public DateTime ModifiedDate { get; set; }
         #endregion
 
+
     }
 }

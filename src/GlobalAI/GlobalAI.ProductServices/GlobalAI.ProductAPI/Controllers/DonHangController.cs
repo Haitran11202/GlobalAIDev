@@ -1,6 +1,8 @@
 ﻿using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductDomain.Implements;
 using GlobalAI.ProductDomain.Interfaces;
+using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
@@ -10,7 +12,7 @@ using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    [Route("api/donhang")]
+    [Route("api/product/donhang")]
     [ApiController]
     public class DonHangController : BaseController
     {
@@ -64,6 +66,35 @@ namespace GlobalAI.ProductAPI.Controllers
                 {
                     return new APIResponse(Utils.StatusCode.Error, donHang, 200, "Not Found");
                 }
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+        [HttpGet("full")]
+        [ProducesResponseType(typeof(APIResponse<int>), (int)HttpStatusCode.OK)]
+        public APIResponse CreateDonHangFull( [FromQuery] int maDonHang)
+        {
+            try
+            {
+                var input = _donHangServices.GetDonHangFull(maDonHang);
+                return new APIResponse(Utils.StatusCode.Success, input, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+        [HttpPost("createfull")]
+        [ProducesResponseType(typeof(APIResponse<AddChiTietDonHangDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(APIResponse<AddDonHangDto>), (int)HttpStatusCode.OK)]
+        public APIResponse CreateDonHangFull([FromQuery] AddDonHangDto donhangDto,[FromQuery] AddChiTietDonHangDto AddchiTietDonHangDto)
+        {
+            try
+            {
+                _donHangServices.CreateDonHangFull(donhangDto, AddchiTietDonHangDto);
+                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
             }
             catch (Exception ex)
             {

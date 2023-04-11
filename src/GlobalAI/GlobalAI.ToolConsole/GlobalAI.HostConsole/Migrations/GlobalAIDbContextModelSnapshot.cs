@@ -154,7 +154,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("USER", t =>
+                    b.ToTable("USER", null, t =>
                         {
                             t.HasComment("User");
                         });
@@ -326,7 +326,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_DanhMuc", t =>
+                    b.ToTable("P_DanhMuc", null, t =>
                         {
                             t.HasComment("Demo bảng danh mục sản phẩm");
                         });
@@ -398,7 +398,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_DonHang", t =>
+                    b.ToTable("P_DonHang", null, t =>
                         {
                             t.HasComment("Đơn hàng");
                         });
@@ -506,15 +506,15 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("GIA_CHIET_KHAU");
 
-                    b.Property<string>("MaDanhMuc")
+                    b.Property<string>("Id_danh_muc")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_DANH_MUC");
 
-                    b.Property<int>("MaGStore")
+                    b.Property<int>("Id_gstore")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_G_STORE");
 
-                    b.Property<string>("MaSanPham")
+                    b.Property<string>("Id_san_pham")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_SAN_PHAM");
 
@@ -551,7 +551,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("P_SanPham", t =>
+                    b.ToTable("P_SanPham", null, t =>
                         {
                             t.HasComment("bảng sản phẩm");
                         });
