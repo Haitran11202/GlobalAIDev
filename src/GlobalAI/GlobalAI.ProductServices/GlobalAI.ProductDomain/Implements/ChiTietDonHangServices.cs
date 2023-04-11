@@ -49,7 +49,7 @@ namespace GlobalAI.ProductDomain.Implements
         {
             var chiTietDonHang = new ChiTietDonHang
             {
-                MaDonHang = input.MaDonHang,
+                IdDonHang = input.MaDonHang,
                 IdSanPham = input.MaSanPham,
                 SoLuong = input.SoLuong
             };

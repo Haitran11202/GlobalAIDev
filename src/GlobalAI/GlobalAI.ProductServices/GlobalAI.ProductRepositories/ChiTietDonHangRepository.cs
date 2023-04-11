@@ -38,7 +38,7 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         public ChiTietDonHang FindChiTietDonHang(string maDonHang, string maSanPham)
         {
-            var donHang = _dbSet.FirstOrDefault(sp => sp.MaDonHang == maDonHang && sp.IdSanPham == maSanPham);
+            var donHang = _dbSet.FirstOrDefault(sp => sp.IdDonHang == maDonHang && sp.IdSanPham == maSanPham);
             if (donHang != null && donHang.Deleted == true)
             {
                 return null;
@@ -53,7 +53,7 @@ namespace GlobalAI.ProductRepositories
         }
         public List<ChiTietDonHang> GetListChiTietDonHang(string maDonHang)
         {
-            return _dbSet.Where(dh => dh.Id_don_hang == maDonHang).ToList();
+            return _dbSet.Where(dh => dh.IdDonHang == maDonHang).ToList();
         }
 
     }

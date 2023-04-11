@@ -13,7 +13,7 @@ namespace GlobalAI.ProductEntities.Dto.Product
     {
        
         public string Id_don_hang { get; set; }
-        public DateTime NgayHoanThanh { get; set; }
+        public DateTime? NgayHoanThanh { get; set; }
         public int? Id_gstore { get; set; }
         public int? Id_gsaler { get; set; }
         public decimal? SoTien { get; set; }

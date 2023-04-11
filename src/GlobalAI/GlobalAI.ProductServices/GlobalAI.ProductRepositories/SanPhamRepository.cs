@@ -83,10 +83,10 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public SanPham GetById(string id)
+        public SanPham GetById(string idSanPham)
         {
-            _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(id)}");
-            var sanpham = _dbSet.AsNoTracking().Where(sp => !sp.Deleted).FirstOrDefault(sp => sp.Id_san_pham == id);
+            _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(idSanPham)}");
+            var sanpham = _dbSet.AsNoTracking().Where(sp => !sp.Deleted).FirstOrDefault(sp => sp.IdSanPham == idSanPham);
             return sanpham;
         }
         /// <summary>
@@ -94,10 +94,10 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public List<SanPham> GetByCategory(string id)
+        public List<SanPham> GetByCategory(string idDanhMuc)
         {
-            _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(GetByCategory)}: input = {JsonSerializer.Serialize(id)}");
-            var danhmucs = _dbSet.Where(sp => sp.Id_danh_muc == id).AsNoTracking().ToList();
+            _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(GetByCategory)}: input = {JsonSerializer.Serialize(idDanhMuc)}");
+            var danhmucs = _dbSet.Where(sp => sp.IdDanhMuc == idDanhMuc).AsNoTracking().ToList();
             return danhmucs;
         }
         /// <summary>
@@ -105,9 +105,9 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public SanPham FindById(string id)
+        public SanPham FindById(string idSanPham)
         {
-            var result = _dbSet.SingleOrDefault(sp => sp.Id_san_pham == id);
+            var result = _dbSet.SingleOrDefault(sp => sp.IdSanPham == idSanPham);
             if(result != null && result.Deleted == true) 
             {
                 return null;

@@ -58,9 +58,9 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Trả về sản phẩm vừa xóa(Trường deleted = true)</returns>
-        public SanPham DeleteSanPham(string id)
+        public SanPham DeleteSanPham(string idSanPham)
         {
-            var findSanPham = _repositorySanPham.FindById(id);
+            var findSanPham = _repositorySanPham.FindById(idSanPham);
             if (findSanPham != null)
             {
                 _repositorySanPham.Delete(findSanPham);
@@ -101,22 +101,22 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public SanPham GetById(string id)
+        public SanPham GetById(string idSanPham)
         {
             //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
 
-            return _repositorySanPham.GetById(id);
+            return _repositorySanPham.GetById(idSanPham);
         }
         /// <summary>
         /// Lấy sản phẩm theo danh mục
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<SanPham> GetByCategory(string id)
+        public List<SanPham> GetByCategory(string idDanhMuc)
         {
             //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(id)}");
 
-            return _repositorySanPham.GetByCategory(id);
+            return _repositorySanPham.GetByCategory(idDanhMuc);
         }
 
 

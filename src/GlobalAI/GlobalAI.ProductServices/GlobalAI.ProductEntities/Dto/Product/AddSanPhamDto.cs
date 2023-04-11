@@ -12,19 +12,18 @@ namespace GlobalAI.ProductEntities.Dto.Product
 {
     public class AddSanPhamDto
     {
-        public string MaSanPham { get; set; }
         private string _tenSP { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Tên sản phẩm không được bỏ trống")]
+        [StringLength(400)]
         public string TenSanPham { get => _tenSP; set => _tenSP = value?.Trim(); }
+        public string IdSanPham { get; set; }
+        [StringLength(1000)]
         public string MoTa { get; set; } = String.Empty;
         public decimal GiaBan { get; set; }
         public decimal GiaChietKhau { get; set; }
-        public string MaDanhMuc { get; set; }
-        public int MaGStore { get; set; }
-        public DateTime NgayDangKi { get; set; }
-        public DateTime NgayDuyet { get; set; }
-
+        public string IdDanhMuc { get; set; }
+        public int IdGStore { get; set; }
     }
 }
 
