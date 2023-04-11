@@ -6,12 +6,15 @@ using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.TraGia;
 using GlobalAI.ProductRepositories;
 using GlobalAI.Utils;
+using GlobalAI.Utils.ConstantVariables.Core;
+using GlobalAI.Utils.ConstantVariables.Product;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GlobalAI.ProductDomain.Implements
@@ -24,33 +27,89 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
         private readonly TraGiaRepository _traGiaRepository;
+        private readonly SanPhamRepository _sanPhamRepository;
         private readonly IMapper _mapper;
         public TraGiaServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<TraGiaServices> logger, IMapper mapper)
         {
             _mapper = mapper;
             _traGiaRepository = new TraGiaRepository(dbContext, logger, mapper);
+            _sanPhamRepository = new SanPhamRepository(dbContext, logger, mapper);
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
             _dbContext = dbContext;
             _httpContext = httpContext;
 
         }
-       /* public TraGia Add(AddTraGiaDto addTraGiaDto, IHttpContextAccessor httpContextAccessor)*/
-        public TraGia Add(AddTraGiaDto addTraGiaDto)
+        
+        /// <summary>
+        /// thêm bản ghi trả giá
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public TraGia Add(AddTraGiaDto input)
         {
-            var traGia = new TraGia
-            {
-                MaTraGia = addTraGiaDto.MaTraGia,
-               /* MaGSaler = CommonUtils.GetCurrentUserId(httpContextAccessor),*/
-                MaGSaler = 1,
-                MaSanPham = addTraGiaDto.MaSanPham,
-                GiaTien = addTraGiaDto.GiaTien,
-                Status = 1,
-                Deleted = false
-            };
+            var userType = CommonUtils.GetCurrentUserType(_httpContext);
+            var userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+            _logger.LogInformation($"{nameof(Add)}: input = {JsonSerializer.Serialize(input)},  userId = {userId}, username = {username}");
 
-            _traGiaRepository.Add(traGia);
-            return traGia;
+            var inputInsert = _mapper.Map<TraGia>(input);
+
+            //Lay id cua nguoi ban san pham nhung chua dung duoc api cua san pham
+            //var productFind = _sanPhamRepository.GetById(input.IdSanPham).ThrowIfNull(_dbContext, 400);
+            //inputInsert.IdNguoiBan = productFind.IdGsaler;
+            if(userType == UserTypes.GSaler)
+            {
+                inputInsert.Usertype = userType;
+            } if(userType == UserTypes.GStore)
+            {
+                inputInsert.Usertype = userType;
+            }
+            inputInsert.IdNguoiMua = userId;
+            inputInsert.CreatedBy = username;
+            inputInsert.Status = TrangThaiTraGia.NGUOI_MUA_DE_NGHI;
+            inputInsert = _traGiaRepository.Add(inputInsert);
+            _dbContext.SaveChanges();
+            return inputInsert;
+        }
+
+        /// <summary>
+        /// cập nhật trả giá
+        /// </summary>
+        /// <param name="input"></param>
+        public void Update(UpdateTraGiaDto input)
+        {
+            var userType = CommonUtils.GetCurrentUserType(_httpContext);
+            var userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+            //var productFind = _sanPhamRepository.GetById(input.IdSanPham).ThrowIfNull(_dbContext, 400);
+            var inputUpdate = _mapper.Map<TraGia>(input);
+            if (userType == UserTypes.GSaler)
+            {
+                inputUpdate.Usertype = userType;
+            }
+            if (userType == UserTypes.GStore)
+            {
+                inputUpdate.Usertype = userType;
+            }
+            inputUpdate.IdNguoiMua = userId;
+            inputUpdate.ModifiedBy = username;
+            _traGiaRepository.Update(inputUpdate);
+            _dbContext.SaveChanges();
+        }
+
+        /// <summary>
+        /// Xác nhận trả giá thành công
+        /// </summary>
+        /// <param name="input"></param>
+        public void Approve(ApproveTraGiaDto input)
+        {
+            var username = CommonUtils.GetCurrentUsername(_httpContext);   
+            var inputUpdate = _mapper.Map<TraGia>(input);
+            inputUpdate.ModifiedBy = username;
+            inputUpdate.Status = TrangThaiTraGia.NGUOI_BAN_DONG_Y;
+            _traGiaRepository.Approve(inputUpdate);
+            _dbContext.SaveChanges();
         }
     }
 }

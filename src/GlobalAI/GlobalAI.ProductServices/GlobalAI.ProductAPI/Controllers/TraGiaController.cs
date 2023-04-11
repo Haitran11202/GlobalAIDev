@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    [Route("api/tragia")]
+    [Route("api/product/tra-gia")]
     [ApiController]
     public class TraGiaController : BaseController
     {
@@ -18,14 +18,42 @@ namespace GlobalAI.ProductAPI.Controllers
         }
 
         [HttpPost("add")]
-        /*public APIResponse CreateTraGia([FromQuery] AddTraGiaDto addTraGiaDto, IHttpContextAccessor httpContextAccessor)*/
-        public APIResponse CreateTraGia([FromQuery] AddTraGiaDto addTraGiaDto)
+        public APIResponse Add([FromBody] AddTraGiaDto input)
         {
             try
             {
-                _traGiaServices.Add(addTraGiaDto);
-                return new APIResponse(Utils.StatusCode.Success, addTraGiaDto, 200, "Ok");
-            } catch (Exception ex)
+                var result = _traGiaServices.Add(input);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
+        [HttpPut("update")]
+        public APIResponse Update([FromBody] UpdateTraGiaDto input)
+        {
+            try
+            {
+                _traGiaServices.Update(input);
+                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
+        [HttpPut("approve")]
+        public APIResponse Approve([FromBody] ApproveTraGiaDto input)
+        {
+            try
+            {
+                _traGiaServices.Approve(input);
+                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
+            }
+            catch (Exception ex)
             {
                 return OkException(ex);
             }

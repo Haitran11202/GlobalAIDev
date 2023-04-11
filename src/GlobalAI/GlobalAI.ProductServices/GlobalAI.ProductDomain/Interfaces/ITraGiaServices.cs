@@ -11,8 +11,9 @@ namespace GlobalAI.ProductDomain.Interfaces
 {
     public interface ITraGiaServices
     {
+        TraGia Add(AddTraGiaDto addTraGiaDto);
+        void Update(UpdateTraGiaDto input);
 
-        /*public TraGia Add(AddTraGiaDto addTraGiaDto, IHttpContextAccessor httpContextAccessor);*/
-        public TraGia Add(AddTraGiaDto addTraGiaDto);
+        void Approve(ApproveTraGiaDto input);
     }
 }

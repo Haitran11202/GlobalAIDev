@@ -11,8 +11,15 @@ namespace GlobalAI.ProductEntities.Dto.TraGia
 {
     public class AddTraGiaDto
     {
-        public string MaTraGia { get; set; }
-        public string MaSanPham { get; set; }
-        public decimal GiaTien { get; set; }
+        //be tu lay
+        public int IdNguoiBan { get; set; }
+        //be tu lay
+        //public int IdNguoiMua { get; set; }
+        public int IdSanPham { get; set; }
+        //be tu lay
+        //public string Usertype { get; set; }
+        //be tu lay
+        //public int Status { get; set; }
+        public decimal? GiaTien { get; set; }
     }
 }

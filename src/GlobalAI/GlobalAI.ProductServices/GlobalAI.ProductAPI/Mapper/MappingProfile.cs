@@ -4,6 +4,7 @@ using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.GioHang;
 using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductEntities.Dto.TraGia;
 
 namespace GlobalAI.ProductAPI.Mapper
 {
@@ -23,7 +24,9 @@ namespace GlobalAI.ProductAPI.Mapper
             CreateMap<GioHang, EditGioHangDto>().ReverseMap();
             CreateMap<GioHang, AddGioHangDto>().ReverseMap();
             CreateMap<GioHang, GetGioHangDto>().ReverseMap();
-
+            CreateMap<TraGia, AddTraGiaDto>().ReverseMap();
+            CreateMap<TraGia, UpdateTraGiaDto>().ReverseMap();
+            CreateMap<TraGia, ApproveTraGiaDto>().ReverseMap();
         }
     }
 }
