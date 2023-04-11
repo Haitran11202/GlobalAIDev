@@ -104,6 +104,28 @@
       "Key": "ProductAPI",
       "SwaggerKey": "ProductAPI"
     },
+    {
+      "DownstreamPathTemplate": "/api/giohang/{urlPath}",
+      "UpstreamPathTemplate": "/api/giohang/{urlPath}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-For": "{RemoteIpAddress}"
+      },
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "Key": "ProductAPI",
+      "SwaggerKey": "ProductAPI"
+    },
     //test api
     {
       "DownstreamPathTemplate": "/api/donhang/{urlPath}",

@@ -23,6 +23,11 @@ namespace GlobalAI.ProductRepositories
         {
             _mapper = mapper;
         }
+        /// <summary>
+        /// Tạo chi tiết đơn hàng
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public ChiTietDonHang CreateChiTietDonHang(ChiTietDonHang input)
         {
             _dbSet.Add(input);
@@ -45,6 +50,10 @@ namespace GlobalAI.ProductRepositories
         {
             _mapper.Map(newDonHang, oldDonHang);
             return oldDonHang;
+        }
+        public List<ChiTietDonHang> GetListChiTietDonHang(int maDonHang)
+        {
+            return _dbSet.Where(dh => dh.IdDonHang == maDonHang).ToList();
         }
 
     }
