@@ -38,7 +38,15 @@ namespace GlobalAI.ProductRepositories
             var sanphamDtos = new List<GetDonHangDto>();
             foreach (var item in sanphams)
             {
-                var getSpDto = _mapper.Map<GetDonHangDto>(item);
+                var getSpDto = new GetDonHangDto
+                {
+                    MaDonHang = item.MaDonHang,
+                    MaGSaler = item.IdGSaler,
+                    MaGStore = item.IdGStore,
+                    NgayHoanThanh = item.NgayHoanThanh,
+                    SoTien = item.SoTien,
+                    HinhThucThanhToan = item.HinhThucThanhToan,
+                };
                 sanphamDtos.Add(getSpDto);
             }
             result.Items = sanphamDtos;
