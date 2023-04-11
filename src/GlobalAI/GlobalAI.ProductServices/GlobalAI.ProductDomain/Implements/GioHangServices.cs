@@ -47,16 +47,16 @@ namespace GlobalAI.ProductDomain.Implements
         }
 
 
-        public GioHang DeleteGiohang(int maGSaler, string maSanPham)
+        public GioHang DeleteGiohang(int maGSaler, int maSanPham)
         {
             var result = _repositoryGioHang.DeleteGioHang(maGSaler, maSanPham);
             _dbContext.SaveChanges();
             return result;
         }
 
-        public GioHang EditGiohang(int maGSaler, string maSanPham, EditGioHangDto newGioHang)
+        public GioHang EditGiohang(int IdNguoiMua, int IdSanPham, EditGioHangDto newGioHang)
         {
-            var gioHang = _repositoryGioHang.FindGioHang(maGSaler, maSanPham);
+            var gioHang = _repositoryGioHang.FindGioHang(IdNguoiMua, IdSanPham);
             if(gioHang != null)
             {
                 _repositoryGioHang.EditGioHang(gioHang, newGioHang);

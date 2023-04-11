@@ -20,7 +20,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
         client: process.client,
     });
 
-    if (process.server || from.fullPath === to.fullPath) return;
+    if (process.server) return;
 
     const userStorage = useUserStorage();
 

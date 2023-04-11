@@ -12,13 +12,36 @@ namespace GlobalAI.ProductEntities.Dto.Product
 {
     public class AddDonHangDto
     {
-        
+        /// <summary>
+        /// Mã đơn hàng
+        /// </summary>
+       
         public string MaDonHang { get; set; }
-        public DateTime NgayHoanThanh { get; set; }
-        public int? MaGStore { get; set; }
-        public int? MaGSaler { get; set; }
+
+        /// <summary>
+        /// Ngày người mua nhận được hàng trên thực tế
+        /// (vd: ngày nhận được đồ ship tới)
+        /// </summary>
+        public DateTime? NgayHoanThanh { get; set; }
+
+        /// <summary>
+        /// Id người bán (Id trong bảng User)
+        /// </summary>
+        public int? IdGStore { get; set; }
+
+        /// <summary>
+        /// Id người mua (Id trong bảng User)
+        /// </summary>
+        public int? IdNguoiMua { get; set; }
+
+        /// <summary>
+        /// Số tiền của đơn hàng
+        /// </summary>
         public decimal? SoTien { get; set; }
-        public int Status { get; set; }
+
+        /// <summary>
+        /// Hình thức thanh toán
+        /// </summary>
         public string HinhThucThanhToan { get; set; }
 
 

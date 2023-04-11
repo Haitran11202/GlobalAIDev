@@ -49,8 +49,8 @@ namespace GlobalAI.ProductDomain.Implements
         {
             var chiTietDonHang = new ChiTietDonHang
             {
-                Id_don_hang = input.MaDonHang,
-                Id_san_pham = input.MaSanPham,
+                IdDonHang = input.IdDonHang,
+                IdSanPham = input.IdSanPham,
                 SoLuong = input.SoLuong
             };
             _repositoryChiTietDonHang.CreateChiTietDonHang(chiTietDonHang);
@@ -65,7 +65,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <param name="maSanPham"></param>
         /// <param name="newDonHang"></param>
         /// <returns></returns>
-        public ChiTietDonHang EditChiTietDonhang(string maDonHang, string maSanPham, EditChiTietDonHangDto newDonHang)
+        public ChiTietDonHang EditChiTietDonhang(int maDonHang, int maSanPham, EditChiTietDonHangDto newDonHang)
         {
             var result = _repositoryChiTietDonHang.FindChiTietDonHang(maDonHang, maSanPham);
             if (result != null)

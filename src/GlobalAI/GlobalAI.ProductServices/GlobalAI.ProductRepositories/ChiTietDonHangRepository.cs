@@ -31,10 +31,10 @@ namespace GlobalAI.ProductRepositories
         /// <summary>
         /// Tìm sản phẩm cần sửa, xóa
         /// </summary>
-        public ChiTietDonHang FindChiTietDonHang(string maDonHang, string maSanPham)
+        public ChiTietDonHang FindChiTietDonHang(int maDonHang, int maSanPham)
         {
-            var donHang = _dbSet.FirstOrDefault(sp => sp.Id_don_hang == maDonHang && sp.Id_san_pham == maSanPham);
-            if (donHang != null && donHang.Deleted == true)
+            var donHang = _dbSet.FirstOrDefault(sp => sp.IdDonHang == maDonHang && sp.IdSanPham == maSanPham);
+            if (donHang != null)
             {
                 return null;
             }

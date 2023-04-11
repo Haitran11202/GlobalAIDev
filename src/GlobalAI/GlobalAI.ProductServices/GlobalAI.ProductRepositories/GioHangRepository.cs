@@ -33,10 +33,10 @@ namespace GlobalAI.ProductRepositories
         /// <summary>
         /// Tìm sản phẩm cần sửa, xóa
         /// </summary>
-        public GioHang FindGioHang(int maGSaler, string maSanPham)
+        public GioHang FindGioHang(int maGSaler, int maSanPham)
         {
-            var gioHang = _dbSet.FirstOrDefault(sp => sp.Id_gsaler == maGSaler && sp.Id_san_pham == maSanPham);
-            if (gioHang != null && gioHang.Deleted == true)
+            var gioHang = _dbSet.FirstOrDefault(sp => sp.IdNguoiMua == maGSaler && sp.IdSanPham == maSanPham);
+            if (gioHang == null)
             {
                 return null;
             }
@@ -49,13 +49,13 @@ namespace GlobalAI.ProductRepositories
             return oldGioHang;
         }
 
-        public GioHang DeleteGioHang(int maGSaler, string maSanPham)
+        public GioHang DeleteGioHang(int idGsaler, int idSanPham)
         {
-            var sanPhamEdit = FindGioHang(maGSaler, maSanPham);
-            if (sanPhamEdit != null)
+            var sanPhamXoa = FindGioHang(idGsaler, idSanPham);
+            if (sanPhamXoa != null)
             {
-                sanPhamEdit.Deleted = true;
-                return sanPhamEdit;
+               
+                return sanPhamXoa;
             }
             return null;
 

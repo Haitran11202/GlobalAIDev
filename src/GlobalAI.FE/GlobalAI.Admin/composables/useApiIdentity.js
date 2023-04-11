@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { useToast } from 'vue-toastification';
 import store from '../store';
-import { apiRefreshToken } from './api.auth';
+import { apiRefreshToken } from './useApiAuth';
 
-const toast = useToast();
-const baseURL = import.meta.env?.VITE_AUTH_ENDPOINT || '';
+const env = useRuntimeConfig();
+
+const baseURL = env.public.apiEndpoint || '';
 
 const instance = axios.create({
     baseURL,

@@ -27,11 +27,12 @@ namespace GlobalAI.ProductRepositories
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
             PagingResult<GetDonHangDto> result = new();
-            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.Id_don_hang).Where(p => !p.Deleted);
- 
+            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.MaDonHang);
+
+
             if (input.PageSize != -1)
             {
-                projectQuery = projectQuery.Skip(input.Skip).Take(input.PageSize);
+                projectQuery = (IOrderedQueryable<DonHang>)projectQuery.Skip(input.Skip).Take(input.PageSize);
             }
             result.TotalItems = projectQuery.Count();
             var sanphams = projectQuery;
@@ -60,8 +61,8 @@ namespace GlobalAI.ProductRepositories
         /// <returns></returns>
         public DonHang FindById(string maDonHang)
         {
-            var result = _dbSet.FirstOrDefault(donhang => donhang.Id_don_hang == maDonHang);
-            if (result != null && result.Deleted == true)
+            var result = _dbSet.FirstOrDefault(donhang => donhang.MaDonHang == maDonHang);
+            if (result != null)
             {
                 return null;
             }

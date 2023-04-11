@@ -10,30 +10,46 @@ namespace GlobalAI.ProductEntities.DataEntities
     public class ChiTietDonHang
     {
         /// <summary>
-        /// Mã chi tiết đơn hàng
+        /// Id chi tiết đơn hàng
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [ColumnSnackCase(nameof(ID))]
-        public int ID {get; set;}
+        [ColumnSnackCase(nameof(Id))]
+        public int Id {get; set;}
+
         /// <summary>
-        /// Mã đơn hàng
+        /// Id đơn hàng
         /// </summary>
-        [ColumnSnackCase(nameof(Id_don_hang))]
-        public string Id_don_hang { get; set; }
+        [ColumnSnackCase(nameof(IdDonHang))]
+        public int IdDonHang { get; set; }
 
-        [ColumnSnackCase(nameof(Id_san_pham))]
-        public string Id_san_pham { get; set; }
+        /// <summary>
+        /// Id sản phẩm
+        /// </summary>
+        [ColumnSnackCase(nameof(IdSanPham))]
+        public int IdSanPham { get; set; }
 
+        /// <summary>
+        /// Số lượng sản phẩm
+        /// </summary>
         [ColumnSnackCase(nameof(SoLuong))]
         public int SoLuong { get; set; }
-        /// <summary>
-        /// Biến xóa
-        /// </summary>
-        [ColumnSnackCase(nameof(Deleted))]
-        public bool Deleted { get; set; }
-        [ColumnSnackCase(nameof(Status))]
-        public int Status { get; set; }
+
+        #region audit
+        [MaxLength(50)]
+        [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]
+        public string CreatedBy { get; set; } = String.Empty;
+
+        [ColumnSnackCase(nameof(CreatedDate), TypeName = "DATE")]
+        public DateTime? CreatedDate { get; set; }
+
+        [MaxLength(50)]
+        [ColumnSnackCase(nameof(DeletedBy), TypeName = "VARCHAR2")]
+        public string DeletedBy { get; set; } = String.Empty;
+
+        [ColumnSnackCase(nameof(DeletedDate), TypeName = "DATE")]
+        public DateTime? DeletedDate { get; set; }
+        #endregion
 
     }
 }

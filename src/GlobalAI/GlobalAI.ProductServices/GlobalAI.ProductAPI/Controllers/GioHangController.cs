@@ -47,7 +47,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpPut("sua/{id}")]
         [ProducesResponseType(typeof(APIResponse<List<EditGioHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse EditGioHang([FromRoute]int id, string maSanPham, EditGioHangDto newGioHang)
+        public APIResponse EditGioHang([FromRoute]int id, int maSanPham, EditGioHangDto newGioHang)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace GlobalAI.ProductAPI.Controllers
         }
         [HttpDelete("xoa")]
         [ProducesResponseType(typeof(APIResponse<List<AddGioHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse DeleteGioHang([FromQuery] int maGSaler, string maSanPham )
+        public APIResponse DeleteGioHang([FromQuery] int maGSaler, int maSanPham )
         {
             try
             {
