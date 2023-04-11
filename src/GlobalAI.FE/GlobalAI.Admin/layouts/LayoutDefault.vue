@@ -6,8 +6,8 @@
         <sidebar v-on:category-clicked="handleCategoryClick" />
       </div>
       <div class="pl-2">
-        <slot :category="selectedCategory.value"></slot>
-    
+        <!-- <slot :category="selectedCategory.value"></slot> -->
+        <NuxtPage :category="2222" />
       </div>
     </div>
     <footer-admin />
