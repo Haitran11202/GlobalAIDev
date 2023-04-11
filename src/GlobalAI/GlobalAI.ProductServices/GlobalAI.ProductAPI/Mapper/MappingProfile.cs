@@ -23,6 +23,7 @@ namespace GlobalAI.ProductAPI.Mapper
             CreateMap<GioHang, EditGioHangDto>().ReverseMap();
             CreateMap<GioHang, AddGioHangDto>().ReverseMap();
             CreateMap<GioHang, GetGioHangDto>().ReverseMap();
+            CreateMap<GetDonHangDto, DonHang>().ReverseMap();
 
         }
     }

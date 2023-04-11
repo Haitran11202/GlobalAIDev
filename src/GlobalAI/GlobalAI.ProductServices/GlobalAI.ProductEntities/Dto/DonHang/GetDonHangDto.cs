@@ -12,10 +12,10 @@ namespace GlobalAI.ProductEntities.Dto.Product
     public class GetDonHangDto
     {
        
-        public string MaDonHang { get; set; }
+        public string Id_don_hang { get; set; }
         public DateTime NgayHoanThanh { get; set; }
-        public int? MaGStore { get; set; }
-        public int? MaGSaler { get; set; }
+        public int? Id_gstore { get; set; }
+        public int? Id_gsaler { get; set; }
         public decimal? SoTien { get; set; }
         public string HinhThucThanhToan { get; set; }
 

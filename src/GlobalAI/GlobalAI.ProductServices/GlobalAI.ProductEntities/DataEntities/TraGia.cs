@@ -16,14 +16,14 @@ namespace GlobalAI.ProductEntities.DataEntities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [ColumnSnackCase(nameof(ID))]
         public int ID { get; set; }
-        [ColumnSnackCase(nameof(MaTraGia))]
-        public string MaTraGia { get; set; }
-        [ColumnSnackCase(nameof(MaGSaler))]
+        [ColumnSnackCase(nameof(Id_tra_gia))]
+        public string Id_tra_gia { get; set; }
+        [ColumnSnackCase(nameof(Id_gsaler))]
 
-        public int MaGSaler { get; set; }
-        [ColumnSnackCase(nameof(MaSanPham))]
+        public int Id_gsaler { get; set; }
+        [ColumnSnackCase(nameof(Id_san_pham))]
 
-        public string MaSanPham { get; set; }
+        public string Id_san_pham { get; set; }
         [ColumnSnackCase(nameof(GiaTien))]
 
         public decimal GiaTien { get; set; }
@@ -33,6 +33,7 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(Deleted))]
 
         public bool Deleted { get; set; }
+        
 
 
     }

@@ -27,7 +27,7 @@ namespace GlobalAI.ProductRepositories
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
             PagingResult<GetDonHangDto> result = new();
-            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.MaDonHang).Where(p => !p.Deleted);
+            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.Id_don_hang).Where(p => !p.Deleted);
  
             if (input.PageSize != -1)
             {
@@ -38,15 +38,7 @@ namespace GlobalAI.ProductRepositories
             var sanphamDtos = new List<GetDonHangDto>();
             foreach (var item in sanphams)
             {
-                var getSpDto = new GetDonHangDto
-                {
-                    MaDonHang = item.MaDonHang,
-                    MaGSaler = item.MaGSaler,
-                    MaGStore = item.MaGStore,
-                    NgayHoanThanh = item.NgayHoanThanh,
-                    SoTien = item.SoTien,
-                    HinhThucThanhToan = item.HinhThucThanhToan,
-                };
+                var getSpDto = _mapper.Map<GetDonHangDto>(item);
                 sanphamDtos.Add(getSpDto);
             }
             result.Items = sanphamDtos;
@@ -68,7 +60,7 @@ namespace GlobalAI.ProductRepositories
         /// <returns></returns>
         public DonHang FindById(string maDonHang)
         {
-            var result = _dbSet.FirstOrDefault(donhang => donhang.MaDonHang == maDonHang);
+            var result = _dbSet.FirstOrDefault(donhang => donhang.Id_don_hang == maDonHang);
             if (result != null && result.Deleted == true)
             {
                 return null;

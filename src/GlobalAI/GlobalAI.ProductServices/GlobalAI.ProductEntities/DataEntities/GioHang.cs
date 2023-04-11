@@ -16,12 +16,12 @@ namespace GlobalAI.ProductEntities.DataEntities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [ColumnSnackCase(nameof(Id))]
         public int Id { get; set; }
-        [ColumnSnackCase(nameof(MaGioHang))]
-        public string MaGioHang { get; set; }
-        [ColumnSnackCase(nameof(MaGSaler))]
-        public int MaGSaler { get; set; }
-        [ColumnSnackCase(nameof(MaSanPham))]
-        public string MaSanPham { get; set; }
+        [ColumnSnackCase(nameof(Id_gio_hang))]
+        public string Id_gio_hang { get; set; }
+        [ColumnSnackCase(nameof(Id_gsaler))]
+        public int Id_gsaler { get; set; }
+        [ColumnSnackCase(nameof(Id_san_pham))]
+        public string Id_san_pham { get; set; }
         [ColumnSnackCase(nameof(Status))]
         public int Status { get; set; }
         [ColumnSnackCase(nameof(Deleted))]

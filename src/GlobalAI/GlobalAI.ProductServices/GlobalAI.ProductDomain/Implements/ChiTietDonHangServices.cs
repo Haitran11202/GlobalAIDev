@@ -49,8 +49,8 @@ namespace GlobalAI.ProductDomain.Implements
         {
             var chiTietDonHang = new ChiTietDonHang
             {
-                MaDonHang = input.MaDonHang,
-                MaSanPham = input.MaSanPham,
+                Id_don_hang = input.MaDonHang,
+                Id_san_pham = input.MaSanPham,
                 SoLuong = input.SoLuong
             };
             _repositoryChiTietDonHang.CreateChiTietDonHang(chiTietDonHang);

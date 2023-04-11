@@ -154,7 +154,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("USER", t =>
+                    b.ToTable("USER", null, t =>
                         {
                             t.HasComment("User");
                         });
@@ -173,11 +173,11 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("DELETED");
 
-                    b.Property<string>("MaDonHang")
+                    b.Property<string>("Id_don_hang")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_DON_HANG");
 
-                    b.Property<string>("MaSanPham")
+                    b.Property<string>("Id_san_pham")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_SAN_PHAM");
 
@@ -191,7 +191,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("P_ChiTietDonHang", t =>
+                    b.ToTable("P_ChiTietDonHang", null, t =>
                         {
                             t.HasComment("bảng chi tiết đơn hàng");
                         });
@@ -205,7 +205,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<string>("MaDanhMuc")
+                    b.Property<string>("Id_danh_muc")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_DANH_MUC");
 
@@ -220,7 +220,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("P_DanhMuc", t =>
+                    b.ToTable("P_DanhMuc", null, t =>
                         {
                             t.HasComment("Demo bảng danh mục sản phẩm");
                         });
@@ -242,15 +242,15 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("HINH_THUC_THANH_TOAN");
 
-                    b.Property<string>("MaDonHang")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("MA_DON_HANG");
-
-                    b.Property<int?>("MaGSaler")
+                    b.Property<int?>("Id_Gsaler")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_G_SALER");
 
-                    b.Property<int?>("MaGStore")
+                    b.Property<string>("Id_don_hang")
+                        .HasColumnType("NVARCHAR2(2000)")
+                        .HasColumnName("MA_DON_HANG");
+
+                    b.Property<int?>("Id_gstore")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_G_STORE");
 
@@ -268,7 +268,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("P_DonHang", t =>
+                    b.ToTable("P_DonHang", null, t =>
                         {
                             t.HasComment("bảng đơn hàng");
                         });
@@ -287,15 +287,15 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("NUMBER(1)")
                         .HasColumnName("DELETED");
 
-                    b.Property<int>("MaGSaler")
+                    b.Property<int>("Id_Gsaler")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_G_SALER");
 
-                    b.Property<string>("MaGioHang")
+                    b.Property<string>("Id_gio_hang")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_GIO_HANG");
 
-                    b.Property<string>("MaSanPham")
+                    b.Property<string>("Id_san_pham")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_SAN_PHAM");
 
@@ -305,7 +305,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_GioHang");
+                    b.ToTable("P_GioHang", (string)null);
                 });
 
             modelBuilder.Entity("GlobalAI.ProductEntities.DataEntities.SanPham", b =>
@@ -346,15 +346,15 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("GIA_CHIET_KHAU");
 
-                    b.Property<string>("MaDanhMuc")
+                    b.Property<string>("Id_danh_muc")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_DANH_MUC");
 
-                    b.Property<int>("MaGStore")
+                    b.Property<int>("Id_gstore")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_G_STORE");
 
-                    b.Property<string>("MaSanPham")
+                    b.Property<string>("Id_san_pham")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_SAN_PHAM");
 
@@ -391,7 +391,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("P_SanPham", t =>
+                    b.ToTable("P_SanPham", null, t =>
                         {
                             t.HasComment("bảng sản phẩm");
                         });
@@ -414,15 +414,15 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("GIA_TIEN");
 
-                    b.Property<int>("MaGSaler")
+                    b.Property<int>("Id_Gsaler")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_G_SALER");
 
-                    b.Property<string>("MaSanPham")
+                    b.Property<string>("Id_san_pham")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_SAN_PHAM");
 
-                    b.Property<string>("MaTraGia")
+                    b.Property<string>("Id_tra_gia")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_TRA_GIA");
 
@@ -432,7 +432,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("P_TraGia");
+                    b.ToTable("P_TraGia", (string)null);
                 });
 #pragma warning restore 612, 618
         }

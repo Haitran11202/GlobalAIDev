@@ -21,11 +21,8 @@ namespace GlobalAI.ProductEntities.DataEntities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [ColumnSnackCase(nameof(MaDanhMuc))]
-        public int MaDanhMuc { get; set; }
-
-        
-
+        [ColumnSnackCase(nameof(Id_danh_muc))]
+        public int Id_danh_muc { get; set; }
         [StringLength(400)]
         [ColumnSnackCase(nameof(TenDanhMuc))]
         public string TenDanhMuc { get; set; } = String.Empty;

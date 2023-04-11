@@ -35,7 +35,7 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         public GioHang FindGioHang(int maGSaler, string maSanPham)
         {
-            var gioHang = _dbSet.FirstOrDefault(sp => sp.MaGSaler == maGSaler && sp.MaSanPham == maSanPham);
+            var gioHang = _dbSet.FirstOrDefault(sp => sp.Id_gsaler == maGSaler && sp.Id_san_pham == maSanPham);
             if (gioHang != null && gioHang.Deleted == true)
             {
                 return null;

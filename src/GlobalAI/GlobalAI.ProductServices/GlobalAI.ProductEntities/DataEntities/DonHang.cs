@@ -17,17 +17,17 @@ namespace GlobalAI.ProductEntities.DataEntities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        [ColumnSnackCase(nameof(MaDonHang))]
-        public string MaDonHang { get; set; }
+        [ColumnSnackCase(nameof(Id_don_hang))]
+        public string Id_don_hang { get; set; }
 
         [ColumnSnackCase(nameof(NgayHoanThanh))]
         public DateTime NgayHoanThanh { get; set; }
 
-        [ColumnSnackCase(nameof(MaGStore))]
-        public int? MaGStore { get; set; }
+        [ColumnSnackCase(nameof(Id_gstore))]
+        public int? Id_gstore { get; set; }
 
-        [ColumnSnackCase(nameof(MaGSaler))]
-        public int? MaGSaler { get; set; }
+        [ColumnSnackCase(nameof(Id_gsaler))]
+        public int? Id_gsaler { get; set; }
 
         [ColumnSnackCase(nameof(SoTien))]
         public decimal? SoTien { get; set; }
