@@ -124,6 +124,7 @@ services.AddSwaggerGen(option =>
 services.AddScoped<ISanPhamServices, SanPhamServices>();
 services.AddScoped<IDonHangServices, DonHangServices>();
 services.AddScoped<IChiTietDonHangServices, ChiTietDonHangServices>();
+services.AddScoped<ITraGiaServices, TraGiaServices>();
 #endregion
 #region Add Auto Mapper
 services.AddAutoMapper(typeof(Program));
