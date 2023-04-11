@@ -54,7 +54,7 @@ namespace GlobalAI.ProductRepositories
             var sanPhamXoa = FindGioHang(idGsaler, idSanPham);
             if (sanPhamXoa != null)
             {
-               
+               sanPhamXoa.Deleted = true;
                 return sanPhamXoa;
             }
             return null;
