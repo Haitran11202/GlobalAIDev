@@ -12,7 +12,7 @@ using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    [Route("api/gio-hang")]
+    [Route("api/giohang")]
     [ApiController]
     public class GioHangController : BaseController
     {

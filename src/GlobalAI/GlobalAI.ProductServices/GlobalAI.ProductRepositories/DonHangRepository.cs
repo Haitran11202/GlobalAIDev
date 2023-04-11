@@ -79,5 +79,9 @@ namespace GlobalAI.ProductRepositories
             _dbContext.SaveChanges();
             return oldDonHang;
         }
+        public DonHang GetDonHang(string maDonHang)
+        {
+            return _dbSet.FirstOrDefault(dh => dh.Id_don_hang == maDonHang);
+        }
     }
 }
