@@ -73,13 +73,28 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
         [HttpGet("full")]
-        [ProducesResponseType(typeof(APIResponse<string>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateDonHangFull( [FromQuery] string maDonHang)
+        [ProducesResponseType(typeof(APIResponse<int>), (int)HttpStatusCode.OK)]
+        public APIResponse CreateDonHangFull( [FromQuery] int maDonHang)
         {
             try
             {
                 var input = _donHangServices.GetDonHangFull(maDonHang);
                 return new APIResponse(Utils.StatusCode.Success, input, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+        [HttpPost("createfull")]
+        [ProducesResponseType(typeof(APIResponse<AddChiTietDonHangDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(APIResponse<AddDonHangDto>), (int)HttpStatusCode.OK)]
+        public APIResponse CreateDonHangFull([FromQuery] AddDonHangDto donhangDto,[FromQuery] AddChiTietDonHangDto AddchiTietDonHangDto)
+        {
+            try
+            {
+                _donHangServices.CreateDonHangFull(donhangDto, AddchiTietDonHangDto);
+                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
             }
             catch (Exception ex)
             {

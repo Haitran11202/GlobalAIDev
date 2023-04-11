@@ -51,11 +51,11 @@ namespace GlobalAI.ProductRepositories
 
         public GioHang DeleteGioHang(int maGSaler, int maSanPham)
         {
-            var sanPhamEdit = FindGioHang(maGSaler, maSanPham);
-            if (sanPhamEdit != null)
+            var sanPhamXoa = FindGioHang(idGsaler, idSanPham);
+            if (sanPhamXoa != null)
             {
-                sanPhamEdit.Deleted = true;
-                return sanPhamEdit;
+               sanPhamXoa.Deleted = true;
+                return sanPhamXoa;
             }
             return null;
 

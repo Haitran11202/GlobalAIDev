@@ -54,14 +54,9 @@ namespace GlobalAI.ProductDomain.Implements
             return result;
         }
 
-        public GioHang DeleteGiohang(int maGSaler, string maSanPham)
+        public GioHang EditGiohang(int IdNguoiMua, int IdSanPham, EditGioHangDto newGioHang)
         {
-            throw new NotImplementedException();
-        }
-
-        public GioHang EditGiohang(int maGSaler, int maSanPham, EditGioHangDto newGioHang)
-        {
-            var gioHang = _repositoryGioHang.FindGioHang(maGSaler, maSanPham);
+            var gioHang = _repositoryGioHang.FindGioHang(IdNguoiMua, IdSanPham);
             if(gioHang != null)
             {
                 _repositoryGioHang.EditGioHang(gioHang, newGioHang);

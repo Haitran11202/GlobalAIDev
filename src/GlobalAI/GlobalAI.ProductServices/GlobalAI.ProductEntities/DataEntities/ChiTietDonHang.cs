@@ -27,7 +27,7 @@ namespace GlobalAI.ProductEntities.DataEntities
         /// Id sản phẩm
         /// </summary>
         [ColumnSnackCase(nameof(IdSanPham))]
-        public string IdSanPham { get; set; }
+        public int IdSanPham { get; set; }
 
         /// <summary>
         /// Số lượng sản phẩm
@@ -45,8 +45,6 @@ namespace GlobalAI.ProductEntities.DataEntities
 
         [ColumnSnackCase(nameof(Deleted))]
         public bool Deleted { get; set; }
-        [ColumnSnackCase(nameof(Status))]
-        public int Status { get; set; }
 
         [MaxLength(50)]
         [ColumnSnackCase(nameof(DeletedBy), TypeName = "VARCHAR2")]

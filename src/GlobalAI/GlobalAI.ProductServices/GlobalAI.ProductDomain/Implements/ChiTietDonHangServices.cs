@@ -47,12 +47,7 @@ namespace GlobalAI.ProductDomain.Implements
    
         public ChiTietDonHang CreateChiTietDonhang(AddChiTietDonHangDto input)
         {
-            var chiTietDonHang = new ChiTietDonHang
-            {
-                IdDonHang = input.MaDonHang,
-                IdSanPham = input.MaSanPham,
-                SoLuong = input.SoLuong
-            };
+            var chiTietDonHang = _mapper.Map<ChiTietDonHang>(input);
             _repositoryChiTietDonHang.CreateChiTietDonHang(chiTietDonHang);
 
             _dbContext.SaveChanges();
@@ -65,7 +60,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <param name="maSanPham"></param>
         /// <param name="newDonHang"></param>
         /// <returns></returns>
-        public ChiTietDonHang EditChiTietDonhang(string maDonHang, string maSanPham, EditChiTietDonHangDto newDonHang)
+        public ChiTietDonHang EditChiTietDonhang(int maDonHang, int maSanPham, EditChiTietDonHangDto newDonHang)
         {
             var result = _repositoryChiTietDonHang.FindChiTietDonHang(maDonHang, maSanPham);
             if (result != null)

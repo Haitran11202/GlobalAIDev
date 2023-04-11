@@ -25,13 +25,14 @@ namespace GlobalAI.ProductDomain.Implements
     public class DonHangServices : IDonHangServices
     {
         private readonly GlobalAIDbContext _dbContext;
+        private readonly ChiTietDonHangServices _chitietdonhangservices;
         private readonly ILogger<SanPhamServices> _logger;
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
         private readonly DonHangRepository _repositoryDonHang;
         private readonly ChiTietDonHangRepository _repositoryChiTietDonHang;
         private readonly IMapper _mapper;
-        public DonHangServices( GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
+        public DonHangServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
         {
             _repositoryDonHang = new DonHangRepository(dbContext, logger, mapper);
             _repositoryChiTietDonHang = new ChiTietDonHangRepository(dbContext, logger, mapper);
@@ -85,33 +86,47 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="maDonHang"></param>
         /// <returns></returns>
-        public DonHangFullDto GetDonHangFull(string maDonHang)
+        public DonHangFullDto GetDonHangFull(int maDonHang)
         {
-            
+
             var DonhangFull = new DonHangFullDto();
+
+            // Save DonHang
+            var resultDh = _repositoryDonHang.GetDonHang(maDonHang);
+
+            // Save ChiTietDonHang
+            var resultChiTiet = _repositoryChiTietDonHang.GetListChiTietDonHang(maDonHang);
+
+            DonhangFull.ChiTietDonHangFullDtos = _mapper.Map<List<GetChiTietDonHangDto>>(resultChiTiet);
+            DonhangFull.donHang = _mapper.Map<GetDonHangDto>(resultDh);
+
+            return DonhangFull;
+        }
+        /// <summary>
+        /// Tạo tất cả thông tin của đơn hàng
+        /// </summary>
+        /// <param name="donhangDto"></param>
+        /// <param name="ctDto"></param>
+        public void CreateDonHangFull(AddDonHangDto donhangDto, AddChiTietDonHangDto ctDto)
+        {
             using (IDbContextTransaction transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
                     // Save DonHang
-                    var resultDh = _repositoryDonHang.GetDonHang(maDonHang);
-              
-                    // Save ChiTietDonHang
-                    var resultChiTiet = _repositoryChiTietDonHang.GetListChiTietDonHang(maDonHang);
-                    
-                    DonhangFull.ChiTietDonHangFullDtos = _mapper.Map<List<GetChiTietDonHangDto>>(resultChiTiet);
-                    DonhangFull.donHang = _mapper.Map<GetDonHangDto>(resultDh);
+                    var resultDh = CreateDonhang(donhangDto);
 
+                    var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(ctDto));
+
+                    // Save ChiTietDonHang
+                    _dbContext.SaveChanges();
                     transaction.Commit();
                 }
                 catch (Exception ex)
                 {
                     transaction.Rollback();
                 }
-          
-                
-            }    
-            return DonhangFull;
+            }
         }
     }
 }
