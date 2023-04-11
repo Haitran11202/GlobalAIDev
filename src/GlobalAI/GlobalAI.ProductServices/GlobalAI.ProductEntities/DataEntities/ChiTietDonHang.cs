@@ -21,7 +21,7 @@ namespace GlobalAI.ProductEntities.DataEntities
         /// Id đơn hàng
         /// </summary>
         [ColumnSnackCase(nameof(IdDonHang))]
-        public string IdDonHang { get; set; }
+        public int IdDonHang { get; set; }
 
         /// <summary>
         /// Id sản phẩm

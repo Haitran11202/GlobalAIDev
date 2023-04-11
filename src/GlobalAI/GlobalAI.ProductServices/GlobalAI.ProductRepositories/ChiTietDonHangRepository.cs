@@ -40,10 +40,6 @@ namespace GlobalAI.ProductRepositories
         {
             var donHang = _dbSet.FirstOrDefault(sp => sp.IdDonHang == maDonHang && sp.IdSanPham == maSanPham);
             if (donHang != null && donHang.Deleted == true)
-=========
-            var donHang = _dbSet.FirstOrDefault(sp => sp.MaDonHang == maDonHang && sp.IdSanPham == maSanPham);
->>>>>>>>> Temporary merge branch 2
-            if (donHang != null && donHang.Deleted == true)
             {
                 return null;
             }

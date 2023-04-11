@@ -62,7 +62,7 @@ namespace GlobalAI.ProductRepositories
         public DonHang FindById(string maDonHang)
         {
             var result = _dbSet.FirstOrDefault(donhang => donhang.MaDonHang == maDonHang);
-            if (result != null)
+            if (result != null && result.Deleted == false)
             {
                 return null;
             }
