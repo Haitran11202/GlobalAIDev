@@ -3,6 +3,7 @@ using GlobalAI.ProductEntities.Dto.TraGia;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
@@ -52,6 +53,21 @@ namespace GlobalAI.ProductAPI.Controllers
             {
                 _traGiaServices.Approve(input);
                 return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
+        [HttpGet("find-all")]
+        [ProducesResponseType(typeof(APIResponse<List<TraGiaDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse FindAll([FromQuery] FilterTraGiaDto input)
+        {
+            try
+            {
+                var result = _traGiaServices.FindAll(input);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)
             {

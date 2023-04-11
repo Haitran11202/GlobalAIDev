@@ -1,4 +1,5 @@
-﻿using GlobalAI.ProductEntities.DataEntities;
+﻿using GlobalAI.DataAccess.Models;
+using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.TraGia;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -13,7 +14,7 @@ namespace GlobalAI.ProductDomain.Interfaces
     {
         TraGia Add(AddTraGiaDto addTraGiaDto);
         void Update(UpdateTraGiaDto input);
-
         void Approve(ApproveTraGiaDto input);
+        PagingResult<TraGiaDto> FindAll(FilterTraGiaDto input);
     }
 }

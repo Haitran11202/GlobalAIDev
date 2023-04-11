@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using GlobalAI.DataAccess.Base;
+using GlobalAI.DataAccess.Models;
 using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.TraGia;
 using GlobalAI.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -24,15 +26,13 @@ namespace GlobalAI.ProductRepositories
         public TraGia Add(TraGia input)
         {
             input.CreatedDate = DateTime.Now;
-            //khi nao table co truong nay thi dung
-            //input.Deleted = YesNo.NO;
+            input.Deleted = DeletedBool.NO;
             return _dbSet.Add(input).Entity;
         }
 
         public void Update(TraGia input)
         {
-            //them dieu kien sau khi co truong deleted && d.Deleted == YesNo.NO
-            var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id);
+            var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
             bargainQuery.GiaTien = input.GiaTien;
             bargainQuery.ModifiedDate = DateTime.Now;
             bargainQuery.ModifiedBy = input.ModifiedBy;
@@ -40,10 +40,30 @@ namespace GlobalAI.ProductRepositories
 
         public void Approve(TraGia input)
         {
-            //them dieu kien sau khi co truong deleted && d.Deleted == YesNo.NO
-            var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id);
+            var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
             bargainQuery.ModifiedDate = DateTime.Now;
             bargainQuery.ModifiedBy = input.ModifiedBy;
+        }
+
+        public PagingResult<TraGia> FindAll(FilterTraGiaDto input, int? IdGSaler = null, int? IdGStore = null)
+        {
+            PagingResult<TraGia> result = new();
+
+            var traGiaQuery = (from traGia in _dbSet                                 
+                                     where traGia.Deleted == DeletedBool.NO      
+                                     && (input.IdSanPham == null || input.IdSanPham == traGia.IdSanPham)                              
+                                     && (input.Status == null || input.Status == traGia.Status)
+                                     select traGia);
+
+            result.TotalItems = traGiaQuery.Count();
+            traGiaQuery = traGiaQuery.OrderByDescending(d => d.Id);
+            if (input.PageSize != -1)
+            {
+                traGiaQuery = traGiaQuery.Skip(input.Skip).Take(input.PageSize);
+            }
+
+            result.Items = traGiaQuery;
+            return result;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using GlobalAI.DataAccess.Base;
+using GlobalAI.DataAccess.Models;
 using GlobalAI.Entites;
 using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.DataEntities;
@@ -110,6 +111,57 @@ namespace GlobalAI.ProductDomain.Implements
             inputUpdate.Status = TrangThaiTraGia.NGUOI_BAN_DONG_Y;
             _traGiaRepository.Approve(inputUpdate);
             _dbContext.SaveChanges();
+        }
+
+        /// <summary>
+        /// danh sách phân trang
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public PagingResult<TraGiaDto> FindAll(FilterTraGiaDto input)
+        {
+            var usertype = CommonUtils.GetCurrentUserType(_httpContext);
+            int? tradingProviderId = null;
+          
+            int? partnerId = null;
+      
+
+            List<TraGiaDto> result = new();
+            var traGiaQuery = _traGiaRepository.FindAll(input, partnerId, tradingProviderId);
+
+            foreach (var item in traGiaQuery.Items)
+            {
+                // Thông tin sản phẩm xử lý sau
+                //var prductQuery = _sanPhamRepository.FindById(item.IdSanPham);
+
+                // Thông tin của gsaler, gstore
+
+                // Tìm thông tin người duyệt sản phẩm
+                var approveBy = (from approve in _dbContext.TraGias                    
+                                 where approve.Status == TrangThaiTraGia.NGUOI_BAN_DONG_Y && approve.Deleted == DeletedBool.NO                
+                                 select approve.ModifiedBy).FirstOrDefault();
+
+                //xu ly tam, lay thong tin them sau
+                result.Add(new TraGiaDto()
+                {
+                    Id = item.Id,
+                    IdSanPham = item.IdSanPham,
+                    IdNguoiBan = item.IdNguoiBan,
+                    IdNguoiMua = item.IdNguoiMua,
+                    GiaTien = item.GiaTien,
+                    Usertype = item.Usertype,
+                    Status = item.Status,
+                    CreatedBy = item.CreatedBy,
+                    CreatedDate = item.CreatedDate,
+                    ApproveBy = approveBy,
+                  
+                });
+            }
+            return new PagingResult<TraGiaDto>
+            {
+                Items = result,
+                TotalItems = traGiaQuery.TotalItems,
+            };
         }
     }
 }
