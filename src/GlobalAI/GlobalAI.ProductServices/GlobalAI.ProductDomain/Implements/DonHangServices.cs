@@ -55,15 +55,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns></returns>
         public DonHang CreateDonhang(AddDonHangDto input)
         {
-            var donHang = new DonHang
-            {
-                MaDonHang = input.MaDonHang,
-                NgayHoanThanh = input.NgayHoanThanh,
-                Status = input.Status,
-                MaGSaler = input.MaGSaler,
-                MaGStore = input.MaGStore,
-                HinhThucThanhToan = input.HinhThucThanhToan
-            };
+            var donHang = _mapper.Map<DonHang>(input);
             _repositoryDonHang.CreateDonHang(donHang);
             _dbContext.SaveChanges();
             return donHang;

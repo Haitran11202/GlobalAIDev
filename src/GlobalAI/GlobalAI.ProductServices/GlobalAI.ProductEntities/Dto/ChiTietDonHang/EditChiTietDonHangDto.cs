@@ -8,6 +8,7 @@ namespace GlobalAI.ProductEntities.Dto.ChiTietDonHang
 {
     public class EditChiTietDonHangDto
     {
+        public string MaDonHang { get; set; }
         public string MaSanPham { get; set; }
         public int SoLuong { get; set; }
     }

@@ -13,7 +13,7 @@ namespace GlobalAI.ProductEntities.Dto.ChiTietDonHang
 {
     public class GetChiTietDonHangDto
     {
-      
+
         public string MaDonHang { get; set; }
         public string MaSanPham { get; set; }
         public int SoLuong { get; set; }

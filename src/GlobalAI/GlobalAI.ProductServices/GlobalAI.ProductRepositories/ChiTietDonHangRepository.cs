@@ -26,16 +26,14 @@ namespace GlobalAI.ProductRepositories
         public ChiTietDonHang CreateChiTietDonHang(ChiTietDonHang input)
         {
             _dbSet.Add(input);
-
             return input;
-
         }
         /// <summary>
         /// Tìm sản phẩm cần sửa, xóa
         /// </summary>
         public ChiTietDonHang FindChiTietDonHang(string maDonHang, string maSanPham)
         {
-            var donHang = _dbSet.FirstOrDefault(sp => sp.MaDonHang == maDonHang && sp.MaSanPham == maSanPham);
+            var donHang = _dbSet.FirstOrDefault(sp => sp.MaDonHang == maDonHang && sp.IdSanPham == maSanPham);
             if (donHang != null && donHang.Deleted == true)
             {
                 return null;

@@ -1,6 +1,6 @@
 <template>
     <nav
-        class="md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
+        class="left-0 block fixed top-0 bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden shadow-xl bg-white flex flex-wrap items-center justify-between relative md:w-64 z-10 py-4 px-6"
     >
         <div class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center justify-between w-full mx-auto">
             <!-- Toggler -->
@@ -12,8 +12,9 @@
                 <!-- <i class="fas fa-bars"></i> -->
                 <font-awesome-icon icon="fa-bars" />
             </button>
+            <h6 class="md:min-w-full text-slate-500 text-xs uppercase font-bold hidden lg:block pt-1  no-underline lg:text-2xl">Nổi bật</h6>
             <!-- Brand -->
-            <nuxt-link class="md:block text-left md:pb-2 text-slate-700 mr-0 inline-block whitespace-nowrap text-xl font-bold p-4 px-0" to="/"> Global AI </nuxt-link>
+            <!-- <nuxt-link class="md:block text-left md:pb-2 text-slate-700 mr-0 inline-block whitespace-nowrap text-xl font-bold p-4 px-0" to="/"> Global AI </nuxt-link> -->
             <!-- User -->
             <ul class="md:hidden items-center flex flex-wrap list-none">
                 <li class="inline-block relative">
@@ -25,7 +26,7 @@
             </ul>
             <!-- Collapse -->
             <div
-                class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-1 md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded"
+                class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:mt-1 md:shadow-none shadow absolute top-0 left-0 right-0 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded"
                 v-bind:class="collapseShow"
             >
                 <!-- Collapse header -->
@@ -158,6 +159,71 @@ const listItemsSecond = [
         label: 'Thể thao du lịch',
         link: '#',
     },
+    {
+        label: 'Điện thoại',
+        link: '#',
+    },
+    {
+        label: 'Phụ kiện',
+        link: '#',
+    },
+    {
+        label: 'Thể thao du lịch',
+        link: '#',
+    },
+    {
+        label: 'Điện thoại',
+        link: '#',
+    },
+    {
+        label: 'Phụ kiện',
+        link: '#',
+    },
+    {
+        label: 'Thể thao du lịch',
+        link: '#',
+    },
+    {
+        label: 'Điện thoại',
+        link: '#',
+    },
+    {
+        label: 'Phụ kiện',
+        link: '#',
+    },
+    {
+        label: 'Thể thao du lịch',
+        link: '#',
+    },
+    {
+        label: 'Điện thoại',
+        link: '#',
+    },
+    {
+        label: 'Phụ kiện',
+        link: '#',
+    },
+    {
+        label: 'Thể thao du lịch',
+        link: '#',
+    },
+    {
+        label: 'Điện thoại',
+        link: '#',
+    },
+    {
+        label: 'Phụ kiện',
+        link: '#',
+    },
+    {
+        label: 'Thể thao du lịch',
+        link: '#',
+    },
+    {
+        label: 'Điện thoại',
+        link: '#',
+    }
+
     
 ];
 

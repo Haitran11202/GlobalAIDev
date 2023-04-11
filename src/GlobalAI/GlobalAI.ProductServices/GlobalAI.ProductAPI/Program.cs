@@ -125,6 +125,7 @@ services.AddScoped<ISanPhamServices, SanPhamServices>();
 services.AddScoped<IDonHangServices, DonHangServices>();
 services.AddScoped<IChiTietDonHangServices, ChiTietDonHangServices>();
 services.AddScoped<ITraGiaServices, TraGiaServices>();
+services.AddScoped<IGioHangServices, GioHangServices>();
 #endregion
 #region Add Auto Mapper
 services.AddAutoMapper(typeof(Program));

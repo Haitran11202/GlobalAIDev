@@ -41,8 +41,8 @@ namespace GlobalAI.ProductRepositories
                 var getSpDto = new GetDonHangDto
                 {
                     MaDonHang = item.MaDonHang,
-                    MaGSaler = item.MaGSaler,
-                    MaGStore = item.MaGStore,
+                    MaGSaler = item.IdGSaler,
+                    MaGStore = item.IdGStore,
                     NgayHoanThanh = item.NgayHoanThanh,
                     SoTien = item.SoTien,
                     HinhThucThanhToan = item.HinhThucThanhToan,
