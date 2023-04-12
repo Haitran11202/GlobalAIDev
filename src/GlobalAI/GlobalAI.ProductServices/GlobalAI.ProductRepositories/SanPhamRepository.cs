@@ -47,7 +47,7 @@ namespace GlobalAI.ProductRepositories
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
             PagingResult<GetSanPhamDto> result = new();
-            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.ID).Where(p => !p.Deleted)
+            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.Id).Where(p => !p.Deleted)
                 .Where(r => (input.Keyword == null || r.TenSanPham.Contains(input.Keyword)));
             if (input.PageSize != -1)
             {
@@ -82,7 +82,7 @@ namespace GlobalAI.ProductRepositories
         public SanPham GetById(string idSanPham)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(idSanPham)}");
-            var sanpham = _dbSet.AsNoTracking().Where(sp => !sp.Deleted).FirstOrDefault(sp => sp.Id_san_pham == idSanPham);
+            var sanpham = _dbSet.AsNoTracking().Where(sp => !sp.Deleted).FirstOrDefault(sp => sp.MaSanPham == idSanPham);
             return sanpham;
         }
         /// <summary>
@@ -93,7 +93,7 @@ namespace GlobalAI.ProductRepositories
         public List<SanPham> GetByCategory(string idDanhMuc)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(GetByCategory)}: input = {JsonSerializer.Serialize(idDanhMuc)}");
-            var danhmucs = _dbSet.Where(sp => sp.Id_danh_muc == idDanhMuc).AsNoTracking().ToList();
+            var danhmucs = _dbSet.Where(sp => sp.IdDanhMuc == idDanhMuc).AsNoTracking().ToList();
             return danhmucs;
         }
         /// <summary>
@@ -101,15 +101,28 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public SanPham FindById(string idSanPham)
+        public SanPham FindByIdSanPham(string idSanPham)
         {
-            var result = _dbSet.SingleOrDefault(sp => sp.Id_san_pham == idSanPham);
+            var result = _dbSet.SingleOrDefault(sp => sp.MaSanPham == idSanPham);
             if(result != null && result.Deleted == true) 
             {
                 return null;
             }
             return result;
         }
-
+        /// <summary>
+        /// Tìm sản phầm cần sửa theo id lưu trong Database
+        /// </summary>
+        /// <param name="idSanPham"></param>
+        /// <returns></returns>
+        public SanPham FindById(int idSanPham)
+        {
+            var result = _dbSet.SingleOrDefault(sp => sp.Id == idSanPham);
+            if (result != null && result.Deleted == true)
+            {
+                return null;
+            }
+            return result;
+        }
     }
 }

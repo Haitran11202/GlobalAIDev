@@ -53,7 +53,7 @@ namespace GlobalAI.ProductDomain.Implements
             var newSanPham = _mapper.Map<SanPham>(sanPham);
             _repositorySanPham.Add(newSanPham);
             newSanPham.Deleted = false;
-            newSanPham.Id_gstore = CommonUtils.GetCurrentUserId(_httpContext);
+            newSanPham.IdGStore = CommonUtils.GetCurrentUserId(_httpContext);
             _dbContext.SaveChanges();
             return newSanPham;
         }
@@ -64,7 +64,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns>Trả về sản phẩm vừa xóa(Trường deleted = true)</returns>
         public SanPham DeleteSanPham(string idSanPham)
         {
-            var findSanPham = _repositorySanPham.FindById(idSanPham);
+            var findSanPham = _repositorySanPham.FindByIdSanPham(idSanPham);
             if (findSanPham != null)
             {
                 _repositorySanPham.Delete(findSanPham);
@@ -79,7 +79,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns>Trả về sản phẩm đã được sửa</returns>
         public SanPham EditSanPham(string id, AddSanPhamDto newSanPham)
         {
-            var findSanPham = _repositorySanPham.FindById(id);
+            var findSanPham = _repositorySanPham.FindByIdSanPham(id);
             if (findSanPham != null)
             {
                 _repositorySanPham.EditSanPham(newSanPham, findSanPham);

@@ -64,7 +64,6 @@ namespace GlobalAI.ProductDomain.Implements
         {
             var donHang = _mapper.Map<DonHang>(input);
             _repositoryDonHang.CreateDonHang(donHang);
-            _repositorySanPham.FindById(donHang.); 
             _dbContext.SaveChanges();
             return donHang;
         }
@@ -123,11 +122,12 @@ namespace GlobalAI.ProductDomain.Implements
                 try
                 {
                     // Save DonHang
-                    var resultDh = CreateDonhang(donhangDto);
-
                     var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(ctDto));
-
+                    _dbContext.SaveChanges();
+                    var sanPham = _repositorySanPham.FindById(ctDonhang.Id);
                     // Save ChiTietDonHang
+                    var resultDh = CreateDonhang(donhangDto);
+                    resultDh.IdGStore = sanPham.IdGStore;
                     _dbContext.SaveChanges();
                     transaction.Commit();
                 }
@@ -136,7 +136,6 @@ namespace GlobalAI.ProductDomain.Implements
                     transaction.Rollback();
                 }
             }
-
         }
     }
 }
