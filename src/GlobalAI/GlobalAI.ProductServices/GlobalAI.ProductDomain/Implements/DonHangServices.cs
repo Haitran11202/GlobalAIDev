@@ -32,11 +32,13 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
         private readonly DonHangRepository _repositoryDonHang;
+        private readonly SanPhamRepository _repositorySanPham;
         private readonly ChiTietDonHangRepository _repositoryChiTietDonHang;
         private readonly IMapper _mapper;
         public DonHangServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
         {
             _repositoryDonHang = new DonHangRepository(dbContext, logger, mapper);
+            _repositorySanPham = new SanPhamRepository(dbContext, logger, mapper);
             _repositoryChiTietDonHang = new ChiTietDonHangRepository(dbContext, logger, mapper);
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
@@ -123,14 +125,13 @@ namespace GlobalAI.ProductDomain.Implements
             {
                 try
                 {
-                    var ctDonHangDto = donHangFullDto.ChiTietDonHangFullDtos;
-                    
                     // Save DonHang
-                    var resultDh = CreateDonhang(_mapper.Map<AddDonHangDto>(donHangFullDto.donHang));
-                   
                     var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(donHangFullDto.ChiTietDonHangFullDtos));
-
+                    _dbContext.SaveChanges();
+                    var sanPham = _repositorySanPham.FindById(ctDonhang.IdSanPham);
                     // Save ChiTietDonHang
+                    var resultDh = CreateDonhang(donHangFullDto.donHang);
+                    resultDh.IdGStore = sanPham.IdGStore;
                     _dbContext.SaveChanges();
                     transaction.Commit();
                 }

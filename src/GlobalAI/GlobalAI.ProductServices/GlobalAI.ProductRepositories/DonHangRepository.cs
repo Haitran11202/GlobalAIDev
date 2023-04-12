@@ -50,7 +50,6 @@ namespace GlobalAI.ProductRepositories
         // thêm đơn hàng
         public DonHang CreateDonHang(DonHang input)
         {
-            
             _dbSet.Add(input);
             return input;
         }
@@ -62,7 +61,7 @@ namespace GlobalAI.ProductRepositories
         public DonHang FindById(string maDonHang)
         {
             var result = _dbSet.FirstOrDefault(donhang => donhang.MaDonHang == maDonHang);
-            if (result != null)
+            if (result != null && result.Deleted == false)
             {
                 return null;
             }
@@ -94,7 +93,7 @@ namespace GlobalAI.ProductRepositories
 
         public DonHang GetDonHang(int maDonHang)
         {
-            return _dbSet.FirstOrDefault(dh => dh.IdNguoiMua == maDonHang);
+            return _dbSet.FirstOrDefault(dh => dh.Id == maDonHang);
 
         }
     }
