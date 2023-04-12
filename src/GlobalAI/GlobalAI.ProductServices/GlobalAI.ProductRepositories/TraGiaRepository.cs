@@ -30,13 +30,13 @@ namespace GlobalAI.ProductRepositories
             return _dbSet.Add(input).Entity;
         }
 
-        //public void Update(TraGia input)
-        //{
-        //    var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
-        //    bargainQuery.GiaTien = input.GiaTien;
-        //    bargainQuery.ModifiedDate = DateTime.Now;
-        //    bargainQuery.ModifiedBy = input.ModifiedBy;
-        //}
+        public void Update(TraGia input)
+        {
+            var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
+            bargainQuery.GiaCuoi = input.GiaCuoi;
+            bargainQuery.ModifiedDate = DateTime.Now;
+            bargainQuery.ModifiedBy = input.ModifiedBy;
+        }
 
         public void Approve(TraGia input)
         {
@@ -45,12 +45,12 @@ namespace GlobalAI.ProductRepositories
             bargainQuery.ModifiedBy = input.ModifiedBy;
         }
 
-        public PagingResult<TraGia> FindAll(FilterTraGiaDto input, int? IdGSaler = null, int? IdGStore = null)
+        public PagingResult<TraGia> FindAll(FilterTraGiaDto input, int? idGSaler = null, int? idGStore = null)
         {
             PagingResult<TraGia> result = new();
-
-            var traGiaQuery = (from traGia in _dbSet                                 
-                                     where traGia.Deleted == DeletedBool.NO      
+            //IQueryable<TraGia> traGiaQuery = _dbSet.Where(e => e.Deleted == DeletedBool.NO);
+            var traGiaQuery = (from traGia in _dbSet
+                               where traGia.Deleted == DeletedBool.NO      
                                      && (input.IdSanPham == null || input.IdSanPham == traGia.IdSanPham)                              
                                      && (input.Status == null || input.Status == traGia.Status)
                                      select traGia);
@@ -61,9 +61,13 @@ namespace GlobalAI.ProductRepositories
             {
                 traGiaQuery = traGiaQuery.Skip(input.Skip).Take(input.PageSize);
             }
-
             result.Items = traGiaQuery;
             return result;
+        }
+
+        public TraGia FindById(int id, int? IdGSaler = null, int? IdGStore = null)
+        {
+            return _dbSet.FirstOrDefault(d => d.Id == id && d.Deleted == DeletedBool.NO);
         }
     }
 }
