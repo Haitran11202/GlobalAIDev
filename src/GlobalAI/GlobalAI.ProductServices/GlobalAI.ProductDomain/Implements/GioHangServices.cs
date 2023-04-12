@@ -6,6 +6,7 @@ using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.GioHang;
 using GlobalAI.ProductRepositories;
+using GlobalAI.Utils;
 using log4net.Repository.Hierarchy;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -42,6 +43,7 @@ namespace GlobalAI.ProductDomain.Implements
         {
             var gioHang = _mapper.Map<GioHang>(input);
             _repositoryGioHang.AddGioHang(gioHang);
+            gioHang.IdNguoiMua = CommonUtils.GetCurrentUserId(_httpContext);
             _dbContext.SaveChanges();
             return gioHang;
         }
@@ -63,6 +65,11 @@ namespace GlobalAI.ProductDomain.Implements
                 _dbContext.SaveChanges();
             }
             return gioHang;
+        }
+
+        public GioHang EditGiohang(int maGSaler, string maSanPham, EditGioHangDto newGioHang)
+        {
+            throw new NotImplementedException();
         }
     }
 }

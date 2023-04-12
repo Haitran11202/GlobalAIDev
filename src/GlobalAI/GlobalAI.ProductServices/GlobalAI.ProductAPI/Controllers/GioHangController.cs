@@ -12,7 +12,7 @@ using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    [Route("api/giohang")]
+    [Route("api/product/giohang")]
     [ApiController]
     public class GioHangController : BaseController
     {
@@ -24,7 +24,7 @@ namespace GlobalAI.ProductAPI.Controllers
         }
 
 
-        [HttpPost("them")]
+        [HttpPost]
         [ProducesResponseType(typeof(APIResponse<List<AddGioHangDto>>), (int)HttpStatusCode.OK)]
         public APIResponse CreateGioHang([FromQuery] AddGioHangDto input)
         {
@@ -41,17 +41,17 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <summary>
         /// Sửa đơn hàng
         /// </summary>
-        /// <param name="maDonHang"></param>
-        /// <param name="maSanPham"></param>
-        /// <param name="newDonHang"></param>
+        /// <param name="id">Mã GSaler </param>
+        /// <param name="maSanPham">Mã sản phẩm</param>
+        /// <param name="newGioHang"></param>
         /// <returns></returns>
-        [HttpPut("sua/{id}")]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<EditGioHangDto>>), (int)HttpStatusCode.OK)]
         public APIResponse EditGioHang([FromRoute]int id, int maSanPham, EditGioHangDto newGioHang)
         {
             try
             {
-                var gioHang = _gioHangServices.EditGiohang(id,maSanPham, newGioHang);
+                var gioHang = _gioHangServices.EditGiohang(id ,maSanPham, newGioHang);
                 if (gioHang == null)
                 {
                     return new APIResponse(Utils.StatusCode.Success, null, 404, "Not Found");
@@ -63,7 +63,7 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
-        [HttpDelete("xoa")]
+        [HttpDelete("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<AddGioHangDto>>), (int)HttpStatusCode.OK)]
         public APIResponse DeleteGioHang([FromQuery] int maGSaler, int maSanPham )
         {

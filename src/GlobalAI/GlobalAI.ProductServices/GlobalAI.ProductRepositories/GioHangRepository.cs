@@ -36,7 +36,7 @@ namespace GlobalAI.ProductRepositories
         public GioHang FindGioHang(int maGSaler, int maSanPham)
         {
             var gioHang = _dbSet.FirstOrDefault(sp => sp.IdNguoiMua == maGSaler && sp.IdSanPham == maSanPham);
-            if (gioHang == null)
+            if (gioHang != null && gioHang.Deleted == true)
             {
                 return null;
             }
@@ -49,12 +49,12 @@ namespace GlobalAI.ProductRepositories
             return oldGioHang;
         }
 
-        public GioHang DeleteGioHang(int idGsaler, int idSanPham)
+        public GioHang DeleteGioHang(int maGSaler, int maSanPham)
         {
-            var sanPhamXoa = FindGioHang(idGsaler, idSanPham);
+            var sanPhamXoa = FindGioHang(maGSaler, maSanPham);
             if (sanPhamXoa != null)
             {
-               sanPhamXoa.Deleted = true;
+                sanPhamXoa.Deleted = true;
                 return sanPhamXoa;
             }
             return null;
