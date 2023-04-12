@@ -83,6 +83,7 @@ namespace GlobalAI.ProductRepositories
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(idSanPham)}");
             var sanpham = _dbSet.AsNoTracking().Where(sp => !sp.Deleted).FirstOrDefault(sp => sp.MaSanPham == idSanPham);
+
             return sanpham;
         }
         /// <summary>
@@ -92,8 +93,10 @@ namespace GlobalAI.ProductRepositories
         /// <returns></returns>
         public List<SanPham> GetByCategory(string idDanhMuc)
         {
+
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(GetByCategory)}: input = {JsonSerializer.Serialize(idDanhMuc)}");
             var danhmucs = _dbSet.Where(sp => sp.IdDanhMuc == idDanhMuc).AsNoTracking().ToList();
+
             return danhmucs;
         }
         /// <summary>
@@ -103,7 +106,9 @@ namespace GlobalAI.ProductRepositories
         /// <returns></returns>
         public SanPham FindByIdSanPham(string idSanPham)
         {
+
             var result = _dbSet.SingleOrDefault(sp => sp.MaSanPham == idSanPham);
+
             if(result != null && result.Deleted == true) 
             {
                 return null;
