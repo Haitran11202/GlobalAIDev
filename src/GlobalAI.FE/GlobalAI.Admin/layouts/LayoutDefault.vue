@@ -2,12 +2,11 @@
   <div>
     <HeaderStats />
     <div class="container mx-auto lg:flex bg-slate-100">
-      <div class="">
-        <sidebar v-on:category-clicked="handleCategoryClick" />
-      </div>
+      <!-- <div class="">
+        <sidebar/>
+      </div> -->
       <div class="pl-2">
-        <!-- <slot :category="selectedCategory"></slot> -->
-        <NuxtPage :category="selectedCategory"/>
+        <NuxtPage/>
       </div>
     </div>
     <footer-admin />
@@ -19,12 +18,4 @@ import HeaderStats from "../components/Headers/HeaderStats.vue";
 import FooterAdmin from "../components/Footers/FooterAdmin.vue";
 
 import { ref } from 'vue';
-
-const selectedCategory = ref('');
-
-function handleCategoryClick(category) {
-  console.log(category);
-  selectedCategory.value = category;
-  console.log(selectedCategory.value);
-}
 </script>

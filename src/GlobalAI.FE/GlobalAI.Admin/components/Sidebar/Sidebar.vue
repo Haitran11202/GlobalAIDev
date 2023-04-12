@@ -85,8 +85,9 @@
               </a>
             </nuxt-link> -->
             <button
-              class="text-xs uppercase py-3 font-bold block"
-              @click="selectCategory(item.id)"
+              :class="item.id == isCheckColor ? 'text-xs uppercase py-3 font-bold block text-red-500' : 'text-xs uppercase py-3 font-bold block text-black-500'"
+              @click="selectCategory(item);"
+              
             >
               {{ item.label }}
             </button>
@@ -124,7 +125,7 @@
             </nuxt-link> -->
             <button
               class="text-xs uppercase py-3 font-bold block"
-              @click="selectCategory(item.id)"
+              @click="selectCategory(item)"
             >
               {{ item.label }}
             </button>
@@ -139,7 +140,7 @@
 import { ref } from "vue";
 import NotificationDropdown from "../../components/Dropdowns/NotificationDropdown.vue";
 import UserDropdown from "../../components/Dropdowns/UserDropdown.vue";
-import { defineEmits } from 'vue';
+import { defineEmits } from "vue";
 const listItems = [
   {
     label: "Sản phẩm mới",
@@ -166,32 +167,34 @@ const listItemsSecond = [
   {
     label: "Thời trang",
     link: "#",
-    id: "5",
+    id: "1",
   },
   {
     label: "Điện thoại",
     link: "#",
-    id: "6",
+    id: "2",
   },
   {
     label: "Phụ kiện",
     link: "#",
-    id: "7",
+    id: "3",
   },
   {
     label: "Thể thao du lịch",
     link: "#",
-    id: "8",
+    id: "4",
   },
 ];
-const emits = defineEmits(['category-clicked'])
+const isCheckColor = ref('')
+const emits = defineEmits(["category-clicked"]);
 const selectCategory = (category) => {
-  emits('category-clicked' , category)
+  console.log(category)
+  emits("category-clicked", category);
+  isCheckColor.value = category.id
 };
 const props = definePageMeta({
   layout: "layout-default",
 });
-
 
 // let collapseShow = ref("hidden");
 
