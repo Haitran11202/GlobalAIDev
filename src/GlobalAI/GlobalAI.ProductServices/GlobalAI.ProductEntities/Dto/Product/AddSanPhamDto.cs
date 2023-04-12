@@ -2,7 +2,7 @@
 {
     public class AddSanPhamDto
     {
-        public string IdSanPham { get; set; }
+        public string MaSanPham { get; set; }
         public string TenSanPham { get; set; } = String.Empty;
         public string MoTa { get; set; } = String.Empty;
         public decimal GiaBan { get; set; }
