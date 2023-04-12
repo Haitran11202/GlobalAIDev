@@ -18,8 +18,11 @@ namespace GlobalAI.ProductEntities.DataEntities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [ColumnSnackCase(nameof(Id))]
+        public int Id { get; set; }
+
         [ColumnSnackCase(nameof(MaSanPham))]
-        public int MaSanPham { get; set; }
+        public string MaSanPham { get; set; }
 
         [StringLength(400)]
         [ColumnSnackCase(nameof(TenSanPham))]
@@ -35,11 +38,11 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(GiaChietKhau))]
         public decimal GiaChietKhau { get; set; }
 
-        [ColumnSnackCase(nameof(MaDanhMuc))]
-        public int MaDanhMuc { get; set; }
+        [ColumnSnackCase(nameof(IdDanhMuc))]
+        public string IdDanhMuc { get; set; }
 
-        [ColumnSnackCase(nameof(MaGStore))]
-        public int MaGStore { get; set; }
+        [ColumnSnackCase(nameof(IdGStore))]
+        public int IdGStore { get; set; }
 
         [ColumnSnackCase(nameof(NgayDangKi))]
         public DateTime NgayDangKi { get; set; }
@@ -48,6 +51,8 @@ namespace GlobalAI.ProductEntities.DataEntities
         public DateTime NgayDuyet { get; set; }
         [ColumnSnackCase(nameof(Deleted))]
         public bool Deleted { get; set; }
+        [ColumnSnackCase(nameof(Status))]
+        public int Status { get; set; }
 
         #region audit
         [MaxLength(50)]

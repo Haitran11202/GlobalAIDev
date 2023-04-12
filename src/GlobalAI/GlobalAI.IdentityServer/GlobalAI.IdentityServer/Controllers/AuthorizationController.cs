@@ -9,6 +9,7 @@ using OpenIddict.Server.AspNetCore;
 using System.Collections.Immutable;
 using System.Security.Claims;
 using static OpenIddict.Abstractions.OpenIddictConstants;
+using Shared = GlobalAI.Utils.ConstantVariables.Shared;
 
 namespace GlobalAI.IdentityServer.Controllers
 {
@@ -53,8 +54,9 @@ namespace GlobalAI.IdentityServer.Controllers
                             .SetAudiences(new string[] { "http://localhost:5002", "http://localhost:5004" })
                             .SetClaim(Claims.Email, user.Email)
                             .SetClaim(Claims.Name, $"{user.FirstName} {user.LastName}")
-                            .SetClaims(Claims.Role, (new List<string> { user.UserType }).ToImmutableArray());
-
+                            .SetClaims(Claims.Role, (new List<string> { user.UserType }).ToImmutableArray())
+                            .SetClaim(Shared.ClaimTypes.UserId, $"{user.UserId}")
+                            .SetClaims(Shared.ClaimTypes.UserType, (new List<string> { user.UserType }).ToImmutableArray());
                     // Set the list of scopes granted to the client application.
                     identity.SetScopes(new[]
                     {
