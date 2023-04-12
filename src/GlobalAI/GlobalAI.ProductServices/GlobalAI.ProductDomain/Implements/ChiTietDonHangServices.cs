@@ -53,6 +53,9 @@ namespace GlobalAI.ProductDomain.Implements
             _dbContext.SaveChanges();
             return chiTietDonHang;
         }
+
+        
+
         /// <summary>
         /// Edit chi tiết đơn hàng
         /// </summary>
@@ -69,6 +72,11 @@ namespace GlobalAI.ProductDomain.Implements
                 _dbContext.SaveChanges();
             }
             return result;
+        }
+
+        public void DeleteChiTietDonhangById(int id)
+        {
+            _repositoryChiTietDonHang.DeleteChiTietDonHangById(id);
         }
 
         /// <summary>
