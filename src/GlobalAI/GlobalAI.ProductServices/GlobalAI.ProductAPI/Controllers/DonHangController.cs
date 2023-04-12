@@ -70,13 +70,13 @@ namespace GlobalAI.ProductAPI.Controllers
         }
 
 
-        [HttpDelete("xoa/{id}")]
+        [HttpDelete("{id}")]
         public void DeleteDonHangById(int id) 
         {
             _donHangServices.DeleteDonHangById(id);
         }
 
-        [HttpGet("full")]
+        [HttpGet("donhang-full")]
         [ProducesResponseType(typeof(APIResponse<int>), (int)HttpStatusCode.OK)]
         public APIResponse CreateDonHangFull( [FromQuery] int maDonHang)
         {

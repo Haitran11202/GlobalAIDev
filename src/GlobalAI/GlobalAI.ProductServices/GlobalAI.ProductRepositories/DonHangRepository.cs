@@ -50,7 +50,6 @@ namespace GlobalAI.ProductRepositories
         // thêm đơn hàng
         public DonHang CreateDonHang(DonHang input)
         {
-            
             _dbSet.Add(input);
             return input;
         }

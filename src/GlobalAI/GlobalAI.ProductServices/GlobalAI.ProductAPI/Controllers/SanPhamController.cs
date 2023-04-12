@@ -4,14 +4,14 @@ using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-
-    [Route("api/product")]
+    [Authorize]
+    [Route("api/product/sanpham")]
     [ApiController]
     public class SanPhamController : BaseController
     {
@@ -45,7 +45,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPut]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
         public APIResponse Put(string id, [FromBody] AddSanPhamDto input)
         {
@@ -68,7 +68,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
         public APIResponse Delete(string id)
         {
@@ -107,7 +107,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <summary>
         /// lấy sản phẩm theo id
         /// </summary>s
-        [HttpGet("sanpham/{id}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<GetSanPhamDto>>), (int)HttpStatusCode.OK)]
         public APIResponse GetById(string id)
         {
@@ -125,7 +125,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <summary>
         /// lấy sản phẩm theo danh mục
         /// </summary>
-        [HttpGet("sanpham/danh-muc/{id}")]
+        [HttpGet("danh-muc/{id}")]
         [ProducesResponseType(typeof(APIResponse<List<SanPham>>), (int)HttpStatusCode.OK)]
         public APIResponse GetByCategory(string id)
         {

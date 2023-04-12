@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GlobalAI.Utils;
 
 namespace GlobalAI.ProductDomain.Implements
 {
@@ -50,8 +51,11 @@ namespace GlobalAI.ProductDomain.Implements
         public SanPham AddSanPham(AddSanPhamDto sanPham)
         {
             var newSanPham = _mapper.Map<SanPham>(sanPham);
+            _repositorySanPham.Add(newSanPham);
             newSanPham.Deleted = false;
-            return _repositorySanPham.Add(newSanPham);
+            newSanPham.Id_gstore = CommonUtils.GetCurrentUserId(_httpContext);
+            _dbContext.SaveChanges();
+            return newSanPham;
         }
         /// <summary>
         /// Xóa sản phẩm
@@ -70,7 +74,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <summary>
         /// Sửa sản phẩm
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">Mã sản phầm cần sửa</param>
         /// <param name="newSanPham"></param>
         /// <returns>Trả về sản phẩm đã được sửa</returns>
         public SanPham EditSanPham(string id, AddSanPhamDto newSanPham)
@@ -80,9 +84,8 @@ namespace GlobalAI.ProductDomain.Implements
             {
                 _repositorySanPham.EditSanPham(newSanPham, findSanPham);
             }
+            _dbContext.SaveChanges();
             return findSanPham;
-
-
         }
         /// <summary>
         /// Get list demo product phân trang

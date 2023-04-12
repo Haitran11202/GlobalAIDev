@@ -25,17 +25,13 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public SanPham Add(SanPham sanPham)
+        public void Add(SanPham sanPham)
         {
             _dbSet.Add(sanPham);
-            _dbContext.SaveChanges();
-            return sanPham;
         }
-        public SanPham EditSanPham(AddSanPhamDto newSanPham, SanPham oldSanPham)
+        public void EditSanPham(AddSanPhamDto newSanPham, SanPham oldSanPham)
         {
             _mapper.Map(newSanPham, oldSanPham);
-            _dbContext.SaveChanges();
-            return oldSanPham;
         }
         public void Delete(SanPham sanPham)
         {
@@ -86,7 +82,7 @@ namespace GlobalAI.ProductRepositories
         public SanPham GetById(string idSanPham)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(idSanPham)}");
-            var sanpham = _dbSet.AsNoTracking().Where(sp => !sp.Deleted).FirstOrDefault(sp => sp.IdSanPham == idSanPham);
+            var sanpham = _dbSet.AsNoTracking().Where(sp => !sp.Deleted).FirstOrDefault(sp => sp.Id_san_pham == idSanPham);
             return sanpham;
         }
         /// <summary>
@@ -97,7 +93,7 @@ namespace GlobalAI.ProductRepositories
         public List<SanPham> GetByCategory(string idDanhMuc)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(GetByCategory)}: input = {JsonSerializer.Serialize(idDanhMuc)}");
-            var danhmucs = _dbSet.Where(sp => sp.IdDanhMuc == idDanhMuc).AsNoTracking().ToList();
+            var danhmucs = _dbSet.Where(sp => sp.Id_danh_muc == idDanhMuc).AsNoTracking().ToList();
             return danhmucs;
         }
         /// <summary>
@@ -107,7 +103,7 @@ namespace GlobalAI.ProductRepositories
         /// <returns></returns>
         public SanPham FindById(string idSanPham)
         {
-            var result = _dbSet.SingleOrDefault(sp => sp.IdSanPham == idSanPham);
+            var result = _dbSet.SingleOrDefault(sp => sp.Id_san_pham == idSanPham);
             if(result != null && result.Deleted == true) 
             {
                 return null;

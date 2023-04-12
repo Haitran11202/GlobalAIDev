@@ -30,6 +30,7 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
         private readonly DonHangRepository _repositoryDonHang;
+        private readonly SanPhamRepository _repositorySanPham;
         private readonly ChiTietDonHangRepository _repositoryChiTietDonHang;
         private readonly IMapper _mapper;
         public DonHangServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
@@ -63,6 +64,7 @@ namespace GlobalAI.ProductDomain.Implements
         {
             var donHang = _mapper.Map<DonHang>(input);
             _repositoryDonHang.CreateDonHang(donHang);
+            _repositorySanPham.FindById(donHang.); 
             _dbContext.SaveChanges();
             return donHang;
         }
