@@ -30,6 +30,11 @@ namespace GlobalAI.ProductRepositories
             return _dbSet.Add(input).Entity;
         }
 
+        public ChiTietTraGia FindById(int id, int? IdGSaler = null, int? IdGStore = null)
+        {
+            return _dbSet.FirstOrDefault(d => d.Id == id && d.Deleted == DeletedBool.NO);
+        }
+
         //public void Update(TraGia input)
         //{
         //    var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
@@ -65,5 +70,9 @@ namespace GlobalAI.ProductRepositories
         //    result.Items = traGiaQuery;
         //    return result;
         //}
+        public IQueryable<ChiTietTraGia> GetAll(int idTraGia)
+        {
+            return _dbSet.Where(b => b.IdTraGia == idTraGia && b.Deleted == DeletedBool.NO);
+        }
     }
 }
