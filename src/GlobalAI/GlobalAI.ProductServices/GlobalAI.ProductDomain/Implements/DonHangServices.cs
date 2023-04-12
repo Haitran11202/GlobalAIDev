@@ -134,7 +134,6 @@ namespace GlobalAI.ProductDomain.Implements
                     transaction.Rollback();
                 }
             }
-
         }
     }
 }
