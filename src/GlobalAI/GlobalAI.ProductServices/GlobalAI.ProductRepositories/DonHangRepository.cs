@@ -27,26 +27,19 @@ namespace GlobalAI.ProductRepositories
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
             PagingResult<GetDonHangDto> result = new();
-            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.MaDonHang).Where(p => !p.Deleted);
- 
+            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.MaDonHang);
+
+
             if (input.PageSize != -1)
             {
-                projectQuery = projectQuery.Skip(input.Skip).Take(input.PageSize);
+                projectQuery = (IOrderedQueryable<DonHang>)projectQuery.Skip(input.Skip).Take(input.PageSize);
             }
             result.TotalItems = projectQuery.Count();
             var sanphams = projectQuery;
             var sanphamDtos = new List<GetDonHangDto>();
             foreach (var item in sanphams)
             {
-                var getSpDto = new GetDonHangDto
-                {
-                    MaDonHang = item.MaDonHang,
-                    MaGSaler = item.IdGSaler,
-                    MaGStore = item.IdGStore,
-                    NgayHoanThanh = item.NgayHoanThanh,
-                    SoTien = item.SoTien,
-                    HinhThucThanhToan = item.HinhThucThanhToan,
-                };
+                var getSpDto = _mapper.Map<GetDonHangDto>(item);
                 sanphamDtos.Add(getSpDto);
             }
             result.Items = sanphamDtos;
@@ -69,7 +62,7 @@ namespace GlobalAI.ProductRepositories
         public DonHang FindById(string maDonHang)
         {
             var result = _dbSet.FirstOrDefault(donhang => donhang.MaDonHang == maDonHang);
-            if (result != null && result.Deleted == true)
+            if (result != null)
             {
                 return null;
             }
@@ -87,15 +80,9 @@ namespace GlobalAI.ProductRepositories
             _dbContext.SaveChanges();
             return oldDonHang;
         }
-
-        public void DeleteDonHangById(int id)
+        public DonHang GetDonHang(int maDonHang)
         {
-            var Result = _dbSet.FirstOrDefault((Order) => Order.ID == id);
-            if (Result != null)
-            {
-                Result.Deleted = true;
-                _dbContext.SaveChanges();
-            }
+            return _dbSet.FirstOrDefault(dh => dh.IdNguoiMua == maDonHang);
         }
     }
 }

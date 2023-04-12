@@ -64,10 +64,10 @@ namespace GlobalAI.ProductRepositories
                 var getSpDto = _mapper.Map<GetSanPhamDto>(item);
                 //var getSpDto = new GetSanPhamDto
                 //{
-                //    MaSanPham  = item.MaSanPham,
+                //    Id_san_pham  = item.Id_san_pham,
                 //    TenSanPham = item.TenSanPham,
-                //    MaDanhMuc = item.MaDanhMuc,
-                //    MaGStore = item.MaGStore,
+                //    Id_danh_muc = item.Id_danh_muc,
+                //    Id_gstore = item.Id_gstore,
                 //    GiaBan = item.GiaBan,
                 //    GiaChietKhau = item.GiaChietKhau,
                 //    NgayDangKi = item.NgayDangKi,
@@ -86,7 +86,7 @@ namespace GlobalAI.ProductRepositories
         public SanPham GetById(string id)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(id)}");
-            var sanpham = _dbSet.AsNoTracking().Where(sp => !sp.Deleted).FirstOrDefault(sp => sp.MaSanPham == id);
+            var sanpham = _dbSet.AsNoTracking().Where(sp => !sp.Deleted).FirstOrDefault(sp => sp.Id_san_pham == id);
             return sanpham;
         }
         /// <summary>
@@ -97,7 +97,7 @@ namespace GlobalAI.ProductRepositories
         public List<SanPham> GetByCategory(string id)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(GetByCategory)}: input = {JsonSerializer.Serialize(id)}");
-            var danhmucs = _dbSet.Where(sp => sp.MaDanhMuc == id).AsNoTracking().ToList();
+            var danhmucs = _dbSet.Where(sp => sp.Id_danh_muc == id).AsNoTracking().ToList();
             return danhmucs;
         }
         /// <summary>
@@ -107,7 +107,7 @@ namespace GlobalAI.ProductRepositories
         /// <returns></returns>
         public SanPham FindById(string id)
         {
-            var result = _dbSet.SingleOrDefault(sp => sp.MaSanPham == id);
+            var result = _dbSet.SingleOrDefault(sp => sp.Id_san_pham == id);
             if(result != null && result.Deleted == true) 
             {
                 return null;

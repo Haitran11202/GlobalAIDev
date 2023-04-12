@@ -3,6 +3,7 @@ using System;
 using GlobalAI.DataAccess.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    partial class GlobalAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230411161442_add-tbl-ct-tra-gia")]
+    partial class addtblcttragia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,7 +157,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("USER", null, t =>
+                    b.ToTable("USER", t =>
                         {
                             t.HasComment("User");
                         });
@@ -326,7 +329,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_DanhMuc", null, t =>
+                    b.ToTable("P_DanhMuc", t =>
                         {
                             t.HasComment("Demo bảng danh mục sản phẩm");
                         });
@@ -398,7 +401,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_DonHang", null, t =>
+                    b.ToTable("P_DonHang", t =>
                         {
                             t.HasComment("Đơn hàng");
                         });
@@ -506,15 +509,15 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("GIA_CHIET_KHAU");
 
-                    b.Property<string>("Id_danh_muc")
+                    b.Property<string>("MaDanhMuc")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_DANH_MUC");
 
-                    b.Property<int>("Id_gstore")
+                    b.Property<int>("MaGStore")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_G_STORE");
 
-                    b.Property<string>("Id_san_pham")
+                    b.Property<string>("MaSanPham")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_SAN_PHAM");
 
@@ -551,7 +554,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("P_SanPham", null, t =>
+                    b.ToTable("P_SanPham", t =>
                         {
                             t.HasComment("bảng sản phẩm");
                         });

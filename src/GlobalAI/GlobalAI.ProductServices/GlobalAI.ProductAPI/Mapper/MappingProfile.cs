@@ -5,6 +5,7 @@ using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.GioHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.ProductEntities.Dto.TraGia;
+using System.Collections.Generic;
 
 namespace GlobalAI.ProductAPI.Mapper
 {
@@ -19,14 +20,19 @@ namespace GlobalAI.ProductAPI.Mapper
             CreateMap<GetSanPhamDto, SanPham>().ReverseMap();
             CreateMap<DonHang, AddDonHangDto>().ReverseMap();
             CreateMap<DonHang, AddDonHangDto>().ReverseMap();
+            //CreateMap<List<ChiTietDonHang>, List<AddChiTietDonHangDto>>().ReverseMap();
             CreateMap<ChiTietDonHang, AddChiTietDonHangDto>().ReverseMap();
             CreateMap<ChiTietDonHang, EditChiTietDonHangDto>().ReverseMap();
+            CreateMap<GetChiTietDonHangDto, ChiTietDonHang>().ReverseMap();
+            CreateMap<ChiTietDonHang, GetChiTietDonHangDto>().ReverseMap();
             CreateMap<GioHang, EditGioHangDto>().ReverseMap();
             CreateMap<GioHang, AddGioHangDto>().ReverseMap();
             CreateMap<GioHang, GetGioHangDto>().ReverseMap();
             CreateMap<TraGia, AddTraGiaDto>().ReverseMap();
             CreateMap<TraGia, UpdateTraGiaDto>().ReverseMap();
             CreateMap<TraGia, ApproveTraGiaDto>().ReverseMap();
+            CreateMap<GetDonHangDto, DonHang>().ReverseMap();
+
         }
     }
 }
