@@ -18,5 +18,7 @@ namespace GlobalAI.ProductDomain.Interfaces
         //void Update(UpdateTraGiaDto input);
         //void Approve(ApproveTraGiaDto input);
         //PagingResult<TraGiaDto> FindAll(FilterTraGiaDto input);
+
+        void DeleteTraGia(int id);
     }
 }

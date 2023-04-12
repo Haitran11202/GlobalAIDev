@@ -101,6 +101,13 @@ namespace GlobalAI.ProductDomain.Implements
             return inputDetailInsert;
         }
 
+        public void DeleteTraGia(int id)
+        {
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+            _traGiaRepository.DeleteTraGiaById(id, username);
+            _chiTietTraGiaRepository.DeleteByTraGiaId(id, username);
+        }
+
         /// <summary>
         /// cập nhật trả giá
         /// </summary>

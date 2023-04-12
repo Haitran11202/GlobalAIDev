@@ -47,6 +47,12 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
 
+        [HttpDelete("delete")]
+        public void Delete(int id)
+        {
+            _traGiaServices.DeleteTraGia(id);
+        }
+
         //[HttpPut("update")]
         //public APIResponse Update([FromBody] UpdateTraGiaDto input)
         //{

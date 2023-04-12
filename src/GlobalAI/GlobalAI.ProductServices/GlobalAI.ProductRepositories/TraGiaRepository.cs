@@ -65,5 +65,17 @@ namespace GlobalAI.ProductRepositories
             result.Items = traGiaQuery;
             return result;
         }
+
+        public void DeleteTraGiaById(int id, string username)
+        {
+            var result = _dbSet.FirstOrDefault( e => e.Id == id );
+            if (result != null)
+            {
+                result.DeletedBy = username;
+                result.DeletedDate = DateTime.Now;
+                result.Deleted = true;
+                _dbContext.SaveChanges();
+            }
+        }
     }
 }
