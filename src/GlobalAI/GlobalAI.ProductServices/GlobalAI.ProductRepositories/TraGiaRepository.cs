@@ -30,13 +30,13 @@ namespace GlobalAI.ProductRepositories
             return _dbSet.Add(input).Entity;
         }
 
-        public void Update(TraGia input)
-        {
-            var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
-            bargainQuery.GiaTien = input.GiaTien;
-            bargainQuery.ModifiedDate = DateTime.Now;
-            bargainQuery.ModifiedBy = input.ModifiedBy;
-        }
+        //public void Update(TraGia input)
+        //{
+        //    var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
+        //    bargainQuery.GiaTien = input.GiaTien;
+        //    bargainQuery.ModifiedDate = DateTime.Now;
+        //    bargainQuery.ModifiedBy = input.ModifiedBy;
+        //}
 
         public void Approve(TraGia input)
         {

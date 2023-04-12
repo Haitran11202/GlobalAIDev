@@ -76,10 +76,10 @@ namespace GlobalAI.Utils
         public static int GetCurrentUserId(IHttpContextAccessor httpContextAccessor)
         {
             var claims = httpContextAccessor.HttpContext?.User?.Identity as ClaimsIdentity;
-            var claim = claims?.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier);
+            var claim = claims?.FindFirst(Shared.ClaimTypes.UserId);
             if (claim == null)
             {
-                throw new FaultException(new FaultReason($"Tài khoản không chứa claim \"{System.Security.Claims.ClaimTypes.NameIdentifier}\""),
+                throw new FaultException(new FaultReason($"Tài khoản không chứa claim \"{Shared.ClaimTypes.UserId}\""),
                     new FaultCode(((int)ErrorCode.NotHaveClaim).ToString()), "");
             }
             int userId = int.Parse(claim.Value);
@@ -106,6 +106,18 @@ namespace GlobalAI.Utils
             if (claim == null)
             {
                 throw new FaultException(new FaultReason($"Tài khoản không chứa claim \"{Shared.ClaimTypes.UserType}\""),
+                    new FaultCode(((int)ErrorCode.NotHaveClaim).ToString()), "");
+            }
+            return claim?.Value;
+        }
+
+        public static string GetCurrentRole(IHttpContextAccessor httpContextAccessor)
+        {
+            var claims = httpContextAccessor.HttpContext?.User?.Identity as ClaimsIdentity;
+            var claim = claims?.FindFirst(Shared.ClaimTypes.Role);
+            if (claim == null)
+            {
+                throw new FaultException(new FaultReason($"Tài khoản không chứa claim \"{Shared.ClaimTypes.Role}\""),
                     new FaultCode(((int)ErrorCode.NotHaveClaim).ToString()), "");
             }
             return claim?.Value;

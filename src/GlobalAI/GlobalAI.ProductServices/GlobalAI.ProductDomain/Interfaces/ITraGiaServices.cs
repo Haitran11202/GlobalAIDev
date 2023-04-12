@@ -1,5 +1,6 @@
 ﻿using GlobalAI.DataAccess.Models;
 using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.ChiTietTraGia;
 using GlobalAI.ProductEntities.Dto.TraGia;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -13,8 +14,9 @@ namespace GlobalAI.ProductDomain.Interfaces
     public interface ITraGiaServices
     {
         TraGia Add(AddTraGiaDto addTraGiaDto);
-        void Update(UpdateTraGiaDto input);
-        void Approve(ApproveTraGiaDto input);
-        PagingResult<TraGiaDto> FindAll(FilterTraGiaDto input);
+        ChiTietTraGia AddDetail(AddChiTietTraGiaDto input);
+        //void Update(UpdateTraGiaDto input);
+        //void Approve(ApproveTraGiaDto input);
+        //PagingResult<TraGiaDto> FindAll(FilterTraGiaDto input);
     }
 }

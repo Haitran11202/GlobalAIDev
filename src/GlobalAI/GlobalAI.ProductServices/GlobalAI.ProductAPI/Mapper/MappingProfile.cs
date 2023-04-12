@@ -2,6 +2,7 @@
 using GlobalAI.CoreEntities.DataEntities;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
+using GlobalAI.ProductEntities.Dto.ChiTietTraGia;
 using GlobalAI.ProductEntities.Dto.GioHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.ProductEntities.Dto.TraGia;
@@ -32,7 +33,8 @@ namespace GlobalAI.ProductAPI.Mapper
             CreateMap<TraGia, UpdateTraGiaDto>().ReverseMap();
             CreateMap<TraGia, ApproveTraGiaDto>().ReverseMap();
             CreateMap<GetDonHangDto, DonHang>().ReverseMap();
-
+            CreateMap<ChiTietTraGia, AddTraGiaDto>().ReverseMap();
+            CreateMap<ChiTietTraGia, AddChiTietTraGiaDto>().ReverseMap();
         }
     }
 }
