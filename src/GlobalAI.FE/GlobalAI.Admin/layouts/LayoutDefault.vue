@@ -6,7 +6,12 @@
         <sidebar/>
       </div> -->
       <div class="pl-2">
+<<<<<<< HEAD
         <NuxtPage/>
+=======
+        <!-- <slot :category="selectedCategory.value"></slot> -->
+        <NuxtPage :category="2222" />
+>>>>>>> 84939eb08534ec3ab8525be4d0fbba82c4070ebe
       </div>
     </div>
     <footer-admin />
