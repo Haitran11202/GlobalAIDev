@@ -35,22 +35,12 @@ namespace GlobalAI.ProductDomain.Implements
             _httpContext = httpContext;
 
         }
-       /* public TraGia Add(AddTraGiaDto addTraGiaDto, IHttpContextAccessor httpContextAccessor)*/
+
         public TraGia Add(AddTraGiaDto addTraGiaDto)
         {
-            var traGia = new TraGia
-            {
-                MaTraGia = addTraGiaDto.MaTraGia,
-               /* MaGSaler = CommonUtils.GetCurrentUserId(httpContextAccessor),*/
-                MaGSaler = 1,
-                MaSanPham = addTraGiaDto.MaSanPham,
-                GiaTien = addTraGiaDto.GiaTien,
-                Status = 1,
-                Deleted = false
-            };
-
-            _traGiaRepository.Add(traGia);
-            return traGia;
+            throw new NotImplementedException();
         }
+        /* public TraGia Add(AddTraGiaDto addTraGiaDto, IHttpContextAccessor httpContextAccessor)*/
+
     }
 }

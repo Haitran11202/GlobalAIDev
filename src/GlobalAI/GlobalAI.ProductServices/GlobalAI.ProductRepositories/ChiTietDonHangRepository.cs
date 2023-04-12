@@ -58,7 +58,7 @@ namespace GlobalAI.ProductRepositories
 
         public void DeleteChiTietDonHangById(int id)
         {
-            var Result = _dbSet.FirstOrDefault((Order) => Order.ID == id);
+            var Result = _dbSet.FirstOrDefault((Order) => Order.Id == id);
             if (Result != null)
             {
                 Result.Deleted = true;
