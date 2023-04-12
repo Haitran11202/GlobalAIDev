@@ -15,22 +15,49 @@ namespace GlobalAI.ProductEntities.DataEntities
     public class DanhMuc
     {
         /// <summary>
-        /// Index
+        /// Id danh mục
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
+        /// <summary>
+        /// Mã danh mục
+        /// </summary>
         [ColumnSnackCase(nameof(MaDanhMuc))]
-        public string MaDanhMuc { get; set; }
+        public string MaDanhMuc { get; set; }        
 
-        
-
+        /// <summary>
+        /// Tên danh mục
+        /// </summary>
         [StringLength(400)]
         [ColumnSnackCase(nameof(TenDanhMuc))]
-        public string TenDanhMuc { get; set; } = String.Empty;
-        [ColumnSnackCase(nameof(Status))]
-        public int Status { get; set; }
+        public string TenDanhMuc { get; set; }
 
+        #region audit
+        [MaxLength(50)]
+        [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]
+        public string CreatedBy { get; set; } = String.Empty;
+
+        [ColumnSnackCase(nameof(CreatedDate), TypeName = "DATE")]
+        public DateTime? CreatedDate { get; set; }
+
+        [ColumnSnackCase(nameof(Deleted))]
+        public bool Deleted { get; set; }
+
+        [MaxLength(50)]
+        [ColumnSnackCase(nameof(DeletedBy), TypeName = "VARCHAR2")]
+        public string DeletedBy { get; set; } = String.Empty;
+
+        [ColumnSnackCase(nameof(DeletedDate), TypeName = "DATE")]
+        public DateTime? DeletedDate { get; set; }
+
+        [MaxLength(50)]
+        [ColumnSnackCase(nameof(ModifiedBy), TypeName = "VARCHAR2")]
+        public string ModifiedBy { get; set; } = String.Empty;
+
+        [ColumnSnackCase(nameof(ModifiedDate), TypeName = "DATE")]
+        public DateTime ModifiedDate { get; set; }
+        #endregion
     }
 }

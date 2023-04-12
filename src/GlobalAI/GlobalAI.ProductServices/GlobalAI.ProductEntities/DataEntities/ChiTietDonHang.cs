@@ -10,37 +10,49 @@ namespace GlobalAI.ProductEntities.DataEntities
     public class ChiTietDonHang
     {
         /// <summary>
-        /// Mã chi tiết đơn hàng
+        /// Id chi tiết đơn hàng
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [ColumnSnackCase(nameof(ID))]
-        public int ID {get; set;}
+        [ColumnSnackCase(nameof(Id))]
+        public int Id {get; set;}
+
         /// <summary>
-        /// Mã đơn hàng
+        /// Id đơn hàng
         /// </summary>
-        [ColumnSnackCase(nameof(MaDonHang))]
-        public string MaDonHang { get; set; }
+        [ColumnSnackCase(nameof(IdDonHang))]
+        public int IdDonHang { get; set; }
+
         /// <summary>
-        /// Mã sản phẩm
+        /// Id sản phẩm
         /// </summary>
-        [ColumnSnackCase(nameof(MaSanPham))]
-        public string MaSanPham { get; set; }
+        [ColumnSnackCase(nameof(IdSanPham))]
+        public int IdSanPham { get; set; }
+
         /// <summary>
         /// Số lượng sản phẩm
         /// </summary>
         [ColumnSnackCase(nameof(SoLuong))]
         public int SoLuong { get; set; }
-        /// <summary>
-        /// Biến xóa
-        /// </summary>
+
+        #region audit
+        [MaxLength(50)]
+        [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]
+        public string CreatedBy { get; set; } = String.Empty;
+
+        [ColumnSnackCase(nameof(CreatedDate), TypeName = "DATE")]
+        public DateTime? CreatedDate { get; set; }
+
         [ColumnSnackCase(nameof(Deleted))]
         public bool Deleted { get; set; }
-        /// <summary>
-        /// Trạng thái
-        /// </summary>
-        [ColumnSnackCase(nameof(Status))]
-        public int Status { get; set; }
+
+        [MaxLength(50)]
+        [ColumnSnackCase(nameof(DeletedBy), TypeName = "VARCHAR2")]
+        public string DeletedBy { get; set; } = String.Empty;
+
+        [ColumnSnackCase(nameof(DeletedDate), TypeName = "DATE")]
+        public DateTime? DeletedDate { get; set; }
+        #endregion
 
     }
 }

@@ -1,4 +1,6 @@
 ﻿using GlobalAI.Utils.Attributes;
+using GlobalAI.Utils.ConstantVariables.Product;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,29 +12,73 @@ using System.Threading.Tasks;
 namespace GlobalAI.ProductEntities.DataEntities
 {
     [Table("P_TraGia")]
+    [Comment("Trả giá")]
     public class TraGia
     {
+        /// <summary>
+        /// Id trả giá
+        /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [ColumnSnackCase(nameof(ID))]
-        public int ID { get; set; }
-        [ColumnSnackCase(nameof(MaTraGia))]
-        public string MaTraGia { get; set; }
-        [ColumnSnackCase(nameof(MaGSaler))]
+        [ColumnSnackCase(nameof(Id))]
+        public int Id { get; set; }
 
-        public int MaGSaler { get; set; }
-        [ColumnSnackCase(nameof(MaSanPham))]
+        /// <summary>
+        /// Id người bán (lấy userid bán sản phẩm để insert vào)
+        /// </summary>
+        [ColumnSnackCase(nameof(IdNguoiBan))]
+        public int IdNguoiBan { get; set; }
 
-        public string MaSanPham { get; set; }
-        [ColumnSnackCase(nameof(GiaTien))]
+        /// <summary>
+        /// Id người mua (gstore hoặc gsaler đều mua được)
+        /// </summary>
+        [ColumnSnackCase(nameof(IdNguoiMua))]
+        public int IdNguoiMua { get; set; }
 
-        public decimal GiaTien { get; set; }
+        /// <summary>
+        /// Id sản phẩm
+        /// </summary>
+        [ColumnSnackCase(nameof(IdSanPham))]
+        public int IdSanPham { get; set; }
+
+        /// <summary>
+        /// Giá tiền cuối cùng sau khi cả người mua và bán đã đồng ý
+        /// </summary>
+        [ColumnSnackCase(nameof(GiaCuoi))]
+        public decimal? GiaCuoi { get; set; }
+
+        /// <summary>
+        /// Trạng thái của đợt trả giá
+        /// <see cref="TrangThaiTraGia"/>
+        /// </summary>
         [ColumnSnackCase(nameof(Status))]
-
         public int Status { get; set; }
-        [ColumnSnackCase(nameof(Deleted))]
 
+        #region audit
+        [MaxLength(50)]
+        [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]
+        public string CreatedBy { get; set; } = String.Empty;
+
+        [ColumnSnackCase(nameof(CreatedDate), TypeName = "DATE")]
+        public DateTime? CreatedDate { get; set; }
+
+        [ColumnSnackCase(nameof(Deleted))]
         public bool Deleted { get; set; }
+
+        [MaxLength(50)]
+        [ColumnSnackCase(nameof(DeletedBy), TypeName = "VARCHAR2")]
+        public string DeletedBy { get; set; } = String.Empty;
+
+        [ColumnSnackCase(nameof(DeletedDate), TypeName = "DATE")]
+        public DateTime? DeletedDate { get; set; }
+
+        [MaxLength(50)]
+        [ColumnSnackCase(nameof(ModifiedBy), TypeName = "VARCHAR2")]
+        public string ModifiedBy { get; set; } = String.Empty;
+
+        [ColumnSnackCase(nameof(ModifiedDate), TypeName = "DATE")]
+        public DateTime ModifiedDate { get; set; }
+        #endregion
 
 
     }

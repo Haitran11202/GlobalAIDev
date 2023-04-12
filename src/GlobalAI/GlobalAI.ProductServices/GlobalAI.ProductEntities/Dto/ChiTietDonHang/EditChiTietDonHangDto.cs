@@ -8,7 +8,19 @@ namespace GlobalAI.ProductEntities.Dto.ChiTietDonHang
 {
     public class EditChiTietDonHangDto
     {
-        public string MaSanPham { get; set; }
+        /// <summary>
+        /// Id đơn hàng
+        /// </summary>
+        public int IdDonHang { get; set; }
+
+        /// <summary>
+        /// Id sản phẩm
+        /// </summary>
+        public int IdSanPham { get; set; }
+
+        /// <summary>
+        /// Số lượng sản phẩm
+        /// </summary>
         public int SoLuong { get; set; }
     }
 }

@@ -51,7 +51,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpPut("sua/{id}")]
         [ProducesResponseType(typeof(APIResponse<List<AddChiTietDonHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse EditChiTietDonHang([FromRoute]string id, string maSanPham, EditChiTietDonHangDto newDonHang)
+        public APIResponse EditChiTietDonHang([FromRoute]int id, int maSanPham, EditChiTietDonHangDto newDonHang)
         {
             try
             {

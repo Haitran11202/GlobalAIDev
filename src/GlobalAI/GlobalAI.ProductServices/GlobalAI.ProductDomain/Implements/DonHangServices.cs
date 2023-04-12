@@ -6,9 +6,12 @@ using GlobalAI.DemoRepositories;
 using GlobalAI.Entites;
 using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
+using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.ProductRepositories;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
@@ -22,14 +25,17 @@ namespace GlobalAI.ProductDomain.Implements
     public class DonHangServices : IDonHangServices
     {
         private readonly GlobalAIDbContext _dbContext;
+        private readonly ChiTietDonHangServices _chitietdonhangservices;
         private readonly ILogger<SanPhamServices> _logger;
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
         private readonly DonHangRepository _repositoryDonHang;
+        private readonly ChiTietDonHangRepository _repositoryChiTietDonHang;
         private readonly IMapper _mapper;
-        public DonHangServices( GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
+        public DonHangServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
         {
             _repositoryDonHang = new DonHangRepository(dbContext, logger, mapper);
+            _repositoryChiTietDonHang = new ChiTietDonHangRepository(dbContext, logger, mapper);
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
             _dbContext = dbContext;
@@ -55,15 +61,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns></returns>
         public DonHang CreateDonhang(AddDonHangDto input)
         {
-            var donHang = new DonHang
-            {
-                MaDonHang = input.MaDonHang,
-                NgayHoanThanh = input.NgayHoanThanh,
-                Status = input.Status,
-                MaGSaler = input.MaGSaler,
-                MaGStore = input.MaGStore,
-                HinhThucThanhToan = input.HinhThucThanhToan
-            };
+            var donHang = _mapper.Map<DonHang>(input);
             _repositoryDonHang.CreateDonHang(donHang);
             _dbContext.SaveChanges();
             return donHang;
@@ -84,9 +82,59 @@ namespace GlobalAI.ProductDomain.Implements
             return donHang;
         }
 
+
         public void DeleteDonHangById(int id)
         {
             _repositoryDonHang.DeleteDonHangById(id);
+        }
+        
+        /// <summary>
+        /// Lấy ra tất cả thông tin trong đơn hàng
+        /// </summary>
+        /// <param name="maDonHang"></param>
+        /// <returns></returns>
+        public DonHangFullDto GetDonHangFull(int maDonHang)
+        {
+
+            var DonhangFull = new DonHangFullDto();
+
+            // Save DonHang
+            var resultDh = _repositoryDonHang.GetDonHang(maDonHang);
+
+            // Save ChiTietDonHang
+            var resultChiTiet = _repositoryChiTietDonHang.GetListChiTietDonHang(maDonHang);
+
+            DonhangFull.ChiTietDonHangFullDtos = _mapper.Map<List<GetChiTietDonHangDto>>(resultChiTiet);
+            DonhangFull.donHang = _mapper.Map<GetDonHangDto>(resultDh);
+
+            return DonhangFull;
+        }
+        /// <summary>
+        /// Tạo tất cả thông tin của đơn hàng
+        /// </summary>
+        /// <param name="donhangDto"></param>
+        /// <param name="ctDto"></param>
+        public void CreateDonHangFull(AddDonHangDto donhangDto, AddChiTietDonHangDto ctDto)
+        {
+            using (IDbContextTransaction transaction = _dbContext.Database.BeginTransaction())
+            {
+                try
+                {
+                    // Save DonHang
+                    var resultDh = CreateDonhang(donhangDto);
+
+                    var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(ctDto));
+
+                    // Save ChiTietDonHang
+                    _dbContext.SaveChanges();
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
+
         }
     }
 }

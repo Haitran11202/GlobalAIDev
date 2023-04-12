@@ -1,22 +1,17 @@
 <template>
     <div class="bg-gray-100">
-      <section class="text-gray-600 body-font">
+      <section class="text-gray-600 body-font ">
         <div class="container mt-10">
-          <h1 class="text-black text-2xl title-font font-bold mb-2">
-            Nhà cung cấp
-          </h1>
           <div
-            class="p-5 bg-white flex items-center mx-auto border-b mb-3 border-gray-200 rounded-lg sm:flex-row flex-col"
+            class="my-10 bg-white flex mx-auto border-b mb-3 border-gray-200 rounded-lg sm:flex-row flex-col"
           >
             <div
-              class="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center flex-shrink-0"
+              class=" mr-6 flex-shrink-0"
             >
-              <img
-                src="https://firebasestorage.googleapis.com/v0/b/thecaffeinecode.appspot.com/o/Tcc_img%2Flogo.png?alt=media&token=5e5738c4-8ffd-44f9-b47a-57d07e0b7939"
-              />
+              <img class="w-full" :src="gstore" />
             </div>
             <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
-              <h1 class="text-black text-2xl title-font font-bold mb-2">
+              <h1 class="text-black text-4xl title-font font-bold mb-2">
                 Supplier Global
               </h1>
 
@@ -64,69 +59,30 @@
         Giới thiệu
       </h2>
       <p class="font-laonoto leading-relaxed">
-        Đối với bất kỳ doanh nghiệp nào, cung cấp nguồn nguyên vật liệu hay dịch
-        vụ đóng vai trò vô cùng quan trọng trong các hoạt động kinh doanh
+        Garnier là thương hiệu làm đẹp từ thiên nhiên số 1 thế giới, chuyên sâu về chăm sóc và bảo vệ sức khỏe làn da. Là sự hòa quyện tuyệt vời giữa từ hơn 90% chiết xuất nguyên liệu từ thiên nhiên và công nghệ khoa học đột phá – Green Labs, được kiểm nghiệm bởi chuyên gia da liễu, Garnier cung cấp những giải pháp có hiệu quả vượt trội đã được chứng minh hoàn toàn lành tính & an toàn, chăm sóc da của bạn khỏe đẹp từ bên trong.
       </p>
     </div>
     <section class="bg-gray-100">
-      <card-list-product-short title="Sản phẩm" :products="products1" />
+      <cards-card-list-product title="Sản phẩm" :products="products1" />
     </section>
-    <nav aria-label="Page navigation" class="flex items-center justify-center">
-      <ul class="inline-flex space-x-2">
-        <li>
-          <button
-            class="flex items-center justify-center w-10 h-10 text-indigo-600 transition-colors duration-150 rounded-full focus:shadow-outline hover:bg-indigo-100"
-          >
-            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-              <path
-                d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                clip-rule="evenodd"
-                fill-rule="evenodd"
-              ></path>
-            </svg>
-          </button>
-        </li>
-        <li>
-          <button
-            class="w-10 h-10 text-white transition-colors duration-150 bg-indigo-600 border border-r-0 border-indigo-600 rounded-full focus:shadow-outline"
-          >
-            1
-          </button>
-        </li>
-        <li>
-          <button
-            class="w-10 h-10 text-indigo-600 transition-colors duration-150 rounded-full focus:shadow-outline hover:bg-indigo-100"
-          >
-            2
-          </button>
-        </li>
-        <li>
-          <button
-            class="w-10 h-10 text-indigo-600 transition-colors duration-150 rounded-full focus:shadow-outline hover:bg-indigo-100"
-          >
-            3
-          </button>
-        </li>
-        <li>
-          <button
-            class="flex items-center justify-center w-10 h-10 text-indigo-600 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-indigo-100"
-          >
-            <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
-              <path
-                d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                clip-rule="evenodd"
-                fill-rule="evenodd"
-              ></path>
-            </svg>
-          </button>
-        </li>
-      </ul>
-    </nav>
+    <card-pagination></card-pagination>
 </template>    
 
 <script setup>
 // import CardListProductShort from "../../../../components/Cards/CardListProductShort.vue";
 import CardListProductShort from "~~/components/Cards/CardListProductShort.vue";
+import CardPagination from "~~/components/Cards/CardPagination.vue";
+import img1 from "~/assets/img/product/2a058125fdc92cb24ca382fa36107f1d.jpg";
+import img2 from "~/assets/img/product/8c37010c4421b7eed56fc3b5e6fbf414.jpg";
+import img3 from "~/assets/img/product/a10cacd0a2ec3dd59e1b679b31373256.jpg";
+import img4 from "~/assets/img/product/mypham.jpg";
+import img5 from "~/assets/img/product/sg-11134201-22120-6odt1fg9y6kve2.jpg";
+import img6 from "~/assets/img/product/sg-11134201-22120-75lyidugp7kv06.jpg";
+import img8 from "~/assets/img/product/sg-11134201-22120-un5b5kp9xskvd0.jpg";
+import img7 from "~/assets/img/product/vn-11134201-23020-tjtl9dace3nv28.jpg";
+import img9 from "~/assets/img/product/sg-11134201-22120-ol6w530xclkv13.jpg";
+import img10 from "~/assets/img/product/8c37010c4421b7eed56fc3b5e6fbf414.jpg";
+import gstore from "~/assets/img/gstore/z4237084905277_fb92d546d07a25fd2385aaedfc6f31cb.jpg";
 // import { defineAsyncComponent } from 'vue';
 // const CardListProductShort = defineAsyncComponent('../../components/Cards/CardListProductShort.vue');
 
@@ -137,61 +93,61 @@ definePageMeta({
 const products1 = [
   {
     name: "Viên uống bổ sung vitamin C DHC",
-    imgUrl: "../../src/assets/img/product/2a058125fdc92cb24ca382fa36107f1d.jpg",
+    imgUrl: img1,
     price: "170,000",
     discount: "150,000",
   },
   {
     name: "Kính râm phân cực Kateluo",
-    imgUrl: "../../src/assets/img/product/8c37010c4421b7eed56fc3b5e6fbf414.jpg",
+    imgUrl: img2,
     price: "340,000",
     discount: "300,000",
   },
   {
     name: "Camera ip wifi Ezviz",
-    imgUrl: "../../src/assets/img/product/53ef4c442bd8470b27ab983133775eea.jpg",
+    imgUrl: img3,
     price: "1,689,000",
     discount: "1,400,000",
   },
   {
     name: "Nồi inox cao cấp 3 lớp đáy",
-    imgUrl: "../../src/assets/img/product/a10cacd0a2ec3dd59e1b679b31373256.jpg",
+    imgUrl: img4,
     price: "645,000",
     discount: "600,000",
   },
   {
     name: "Son kem lì 3CE Cloud lip tint",
-    imgUrl: "../../src/assets/img/product/mypham.jpg",
+    imgUrl: img5,
     price: "363,000",
     discount: "350,000",
   },
   {
     name: "Mũ bảo hiểm nửa đầu",
-    imgUrl: "../../src/assets/img/product/sg-11134201-22120-6odt1fg9y6kve2.jpg",
+    imgUrl: img6,
     price: "219,000",
     discount: "250,000",
   },
   {
     name: "Áo khoác Paradox",
-    imgUrl: "../../src/assets/img/product/sg-11134201-22120-75lyidugp7kv06.jpg",
+    imgUrl: img7,
     price: "379,000",
     discount: "320,000",
   },
   {
     name: "Serum cho da nhờn mụn Garnier",
-    imgUrl: "../../src/assets/img/product/vn-11134201-23020-tjtl9dace3nv28.jpg",
+    imgUrl: img8,
     price: "289,000",
     discount: "250,000",
   },
   {
     name: "Giày chạy bộ Supernova Adidas",
-    imgUrl: "../../src/assets/img/product/sg-11134201-22120-un5b5kp9xskvd0.jpg",
+    imgUrl: img9,
     price: "2,400,000",
     discount: "2,000,000",
   },
   {
     name: "Chảo chống dính cao cấp",
-    imgUrl: "../../src/assets/img/product/sg-11134201-22120-ol6w530xclkv13.jpg",
+    imgUrl: img10,
     price: "209,000",
     discount: "190,000",
   },

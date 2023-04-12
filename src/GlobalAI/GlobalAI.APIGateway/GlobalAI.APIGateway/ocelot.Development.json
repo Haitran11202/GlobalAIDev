@@ -104,6 +104,28 @@
       "Key": "ProductAPI",
       "SwaggerKey": "ProductAPI"
     },
+    {
+      "DownstreamPathTemplate": "/api/giohang/{urlPath}",
+      "UpstreamPathTemplate": "/api/giohang/{urlPath}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-For": "{RemoteIpAddress}"
+      },
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "Key": "ProductAPI",
+      "SwaggerKey": "ProductAPI"
+    },
     //test api
     {
       "DownstreamPathTemplate": "/api/donhang/{urlPath}",
@@ -131,6 +153,29 @@
     {
       "DownstreamPathTemplate": "/api/ct-donhang/{urlPath}",
       "UpstreamPathTemplate": "/api/ct-donhang/{urlPath}",
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
+      "UpstreamHeaderTransform": {
+        "X-Forwarded-For": "{RemoteIpAddress}"
+      },
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ],
+      "Key": "ProductAPI",
+      "SwaggerKey": "ProductAPI"
+    },
+    //gio-hang
+    {
+      "DownstreamPathTemplate": "/api/gio-hang/{urlPath}",
+      "UpstreamPathTemplate": "/api/gio-hang/{urlPath}",
       "UpstreamHttpMethod": [
         "Get",
         "Post",

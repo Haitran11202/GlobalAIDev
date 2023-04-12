@@ -175,11 +175,11 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("DELETED");
 
-                    b.Property<string>("MaDonHang")
+                    b.Property<string>("Id_don_hang")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_DON_HANG");
 
-                    b.Property<string>("MaSanPham")
+                    b.Property<string>("Id_san_pham")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_SAN_PHAM");
 
@@ -203,7 +203,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<string>("MaDanhMuc")
+                    b.Property<string>("Id_danh_muc")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_DANH_MUC");
 
@@ -236,15 +236,15 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("HINH_THUC_THANH_TOAN");
 
-                    b.Property<string>("MaDonHang")
+                    b.Property<string>("Id_don_hang")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_DON_HANG");
 
-                    b.Property<int?>("MaGSaler")
+                    b.Property<int?>("Id_Gsaler")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_G_SALER");
 
-                    b.Property<int?>("MaGStore")
+                    b.Property<int?>("Id_gstore")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_G_STORE");
 
@@ -305,15 +305,15 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("GIA_CHIET_KHAU");
 
-                    b.Property<string>("MaDanhMuc")
+                    b.Property<string>("Id_danh_muc")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_DANH_MUC");
 
-                    b.Property<int>("MaGStore")
+                    b.Property<int>("Id_gstore")
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("MA_G_STORE");
 
-                    b.Property<string>("MaSanPham")
+                    b.Property<string>("Id_san_pham")
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("MA_SAN_PHAM");
 
