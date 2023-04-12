@@ -56,5 +56,15 @@ namespace GlobalAI.ProductRepositories
             return _dbSet.Where(dh => dh.IdDonHang == maDonHang).ToList();
         }
 
+        public void DeleteChiTietDonHangById(int id)
+        {
+            var Result = _dbSet.FirstOrDefault((Order) => Order.Id == id);
+            if (Result != null)
+            {
+                Result.Deleted = true;
+                _dbContext.SaveChanges();
+            }
+        }
+
     }
 }

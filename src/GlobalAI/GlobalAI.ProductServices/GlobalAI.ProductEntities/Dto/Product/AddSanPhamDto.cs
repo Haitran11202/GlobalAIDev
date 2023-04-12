@@ -1,29 +1,19 @@
-﻿using GlobalAI.Utils;
-using GlobalAI.Utils.Attributes;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GlobalAI.ProductEntities.Dto.Product
+﻿namespace GlobalAI.ProductEntities.Dto.Product
 {
     public class AddSanPhamDto
     {
-        private string _tenSP { get; set; }
-
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Tên sản phẩm không được bỏ trống")]
-        [StringLength(400)]
-        public string TenSanPham { get => _tenSP; set => _tenSP = value?.Trim(); }
-        public string IdSanPham { get; set; }
-        [StringLength(1000)]
+        public string Id_san_pham { get; set; }
+        public string TenSanPham { get; set; } = String.Empty;
         public string MoTa { get; set; } = String.Empty;
         public decimal GiaBan { get; set; }
         public decimal GiaChietKhau { get; set; }
-        public string IdDanhMuc { get; set; }
-        public int IdGStore { get; set; }
+        public string Id_danh_muc { get; set; }
+        public int Id_gstore { get; set; }
+
+        public DateTime NgayDangKi { get; set; }
+        public DateTime NgayDuyet { get; set; }
+        public int Status { get; set; }
+
     }
 }
 

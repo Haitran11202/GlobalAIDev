@@ -25,7 +25,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost("sanpham")]
+        [HttpPost]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
         public APIResponse Add([FromBody] AddSanPhamDto input)
         {
@@ -45,7 +45,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <param name="id"></param>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPut("sanpham/{id}")]
+        [HttpPut]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
         public APIResponse Put(string id, [FromBody] AddSanPhamDto input)
         {
@@ -68,7 +68,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpDelete("sanpham/{id}")]
+        [HttpDelete]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
         public APIResponse Delete(string id)
         {
@@ -89,7 +89,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <summary>
         /// lấy danh sách sản phẩm có phân trang
         /// </summary>
-        [HttpGet("sanpham")]
+        [HttpGet]
         [ProducesResponseType(typeof(APIResponse<List<FindSanPhamDto>>), (int)HttpStatusCode.OK)]
         public APIResponse FindAll1([FromQuery] FindSanPhamDto input)
         {
