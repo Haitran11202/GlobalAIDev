@@ -1,5 +1,6 @@
 ﻿using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
+using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
@@ -33,7 +34,7 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);  
             }
         }
-        [HttpPost("{id}")]
+        [HttpPost]
         [ProducesResponseType(typeof(APIResponse<List<AddDonHangDto>>), (int)HttpStatusCode.OK)]
         public APIResponse CreateDonHang([FromQuery] AddDonHangDto input)
         {
@@ -70,10 +71,19 @@ namespace GlobalAI.ProductAPI.Controllers
         }
 
 
-        [HttpDelete("xoa/{id}")]
-        public void DeleteDonHangById(int id) 
+        [HttpDelete("{id}")]
+        [ProducesResponseType(typeof(APIResponse<int>), (int)HttpStatusCode.OK)]
+        public APIResponse DeleteDonHangFull([FromQuery] int maDonHang)
         {
-            _donHangServices.DeleteDonHangById(id);
+            try
+            {
+                _donHangServices.DeleteDonHangById(maDonHang);
+                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
         }
 
         [HttpGet("full")]
@@ -90,14 +100,13 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
-        [HttpPost("donhang-full")]
-        [ProducesResponseType(typeof(APIResponse<AddChiTietDonHangDto>), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(APIResponse<AddDonHangDto>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateDonHangFull([FromQuery] AddDonHangDto donhangDto,[FromQuery] AddChiTietDonHangDto AddchiTietDonHangDto)
+        [HttpPost("full")]
+        [ProducesResponseType(typeof(APIResponse<AddDonHangFullDto>), (int)HttpStatusCode.OK)]
+        public APIResponse CreateDonHangFull([FromBody] AddDonHangFullDto AddDonHangFullDto)
         {
             try
             {
-                _donHangServices.CreateDonHangFull(donhangDto, AddchiTietDonHangDto);
+                _donHangServices.CreateDonHangFull(AddDonHangFullDto);
                 return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
             }
             catch (Exception ex)

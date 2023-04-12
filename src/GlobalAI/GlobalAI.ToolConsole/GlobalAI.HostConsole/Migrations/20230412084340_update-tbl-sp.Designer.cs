@@ -3,6 +3,7 @@ using System;
 using GlobalAI.DataAccess.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    partial class GlobalAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230412084340_update-tbl-sp")]
+    partial class updatetblsp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -472,8 +475,7 @@ namespace GlobalAI.HostConsole.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("ID");
+                        .HasColumnType("NUMBER(10)");
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
