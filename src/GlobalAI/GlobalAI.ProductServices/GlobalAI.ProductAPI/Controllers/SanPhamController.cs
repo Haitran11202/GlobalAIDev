@@ -11,7 +11,7 @@ using System.Net;
 namespace GlobalAI.ProductAPI.Controllers
 {
 
-    [Route("api/product")]
+    [Route("api/product/sanpham")]
     [ApiController]
     public class SanPhamController : BaseController
     {

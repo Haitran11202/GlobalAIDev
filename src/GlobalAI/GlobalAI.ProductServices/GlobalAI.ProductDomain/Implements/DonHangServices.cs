@@ -10,6 +10,7 @@ using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.ProductRepositories;
+using GlobalAI.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -61,6 +63,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns></returns>
         public DonHang CreateDonhang(AddDonHangDto input)
         {
+            var userId = CommonUtils.GetCurrentUserId(_httpContext);
             var donHang = _mapper.Map<DonHang>(input);
             _repositoryDonHang.CreateDonHang(donHang);
             _dbContext.SaveChanges();
@@ -114,16 +117,18 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="donhangDto"></param>
         /// <param name="ctDto"></param>
-        public void CreateDonHangFull(AddDonHangDto donhangDto, AddChiTietDonHangDto ctDto)
+        public void CreateDonHangFull(AddDonHangFullDto donHangFullDto)
         {
             using (IDbContextTransaction transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
+                    var ctDonHangDto = donHangFullDto.ChiTietDonHangFullDtos;
+                    
                     // Save DonHang
-                    var resultDh = CreateDonhang(donhangDto);
-
-                    var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(ctDto));
+                    var resultDh = CreateDonhang(_mapper.Map<AddDonHangDto>(donHangFullDto.donHang));
+                   
+                    var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(donHangFullDto.ChiTietDonHangFullDtos));
 
                     // Save ChiTietDonHang
                     _dbContext.SaveChanges();
