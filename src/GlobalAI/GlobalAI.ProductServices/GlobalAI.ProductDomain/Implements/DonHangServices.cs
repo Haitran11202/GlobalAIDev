@@ -81,6 +81,13 @@ namespace GlobalAI.ProductDomain.Implements
             _dbContext.SaveChanges();
             return donHang;
         }
+
+
+        public void DeleteDonHangById(int id)
+        {
+            _repositoryDonHang.DeleteDonHangById(id);
+        }
+        
         /// <summary>
         /// Lấy ra tất cả thông tin trong đơn hàng
         /// </summary>
