@@ -68,10 +68,10 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
 
-        //[HttpDelete("xoa/{id}")]
-        //public void DeleteChiTietDonHangById(int id)
-        //{
-        //    _chiTietDonHangServices.DeleteChiTietDonhangById(id);
-        //}
+        [HttpDelete("xoa/{id}")]
+        public void DeleteChiTietDonHangById(int id)
+        {
+            _chiTietDonHangServices.DeleteChiTietDonhangById(id);
+        }
     }
 }
