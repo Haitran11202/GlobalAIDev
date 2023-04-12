@@ -55,7 +55,7 @@ namespace GlobalAI.ProductDomain.Implements
             var userType = CommonUtils.GetCurrentRole(_httpContext);
             var userId = CommonUtils.GetCurrentUserId(_httpContext);
             var username = CommonUtils.GetCurrentUsername(_httpContext);
-
+            var transaction = _dbContext.Database.BeginTransaction();
             var inputInsert = _mapper.Map<TraGia>(input);
 
             var inputDetailInsert = _mapper.Map<ChiTietTraGia>(input);
@@ -75,8 +75,8 @@ namespace GlobalAI.ProductDomain.Implements
             inputDetailInsert.Status = TrangThaiChiTietTraGia.NGUOI_MUA_DE_NGHI;
             inputDetailInsert.Usertype = userType;
             _chiTietTraGiaRepository.Add(inputDetailInsert);
-            _dbContext.SaveChanges();   
-            
+            _dbContext.SaveChanges();
+            transaction.Commit();
             return inputInsert;
         }
 
