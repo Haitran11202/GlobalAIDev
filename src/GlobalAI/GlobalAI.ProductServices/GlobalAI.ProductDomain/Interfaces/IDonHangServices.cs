@@ -22,6 +22,6 @@ namespace GlobalAI.ProductDomain.Interfaces
         public void DeleteDonHangById(int id);
 
         public DonHangFullDto GetDonHangFull(int maDonHang);
-        public void CreateDonHangFull(AddDonHangDto donhangDto, AddChiTietDonHangDto ctDto);
+        public void CreateDonHangFull(AddDonHangFullDto donHangFullDto);
     }
 }
