@@ -10,7 +10,9 @@ namespace GlobalAI.ProductEntities.Dto.DonHang
 {
     public class AddDonHangFullDto
     {
-        public AddChiTietDonHangDto ChiTietDonHangFullDtos { get; set; }
         public AddDonHangDto donHang { get; set; }
+
+        public List<AddChiTietDonHangDto> ChiTietDonHangFullDtos { get; set; }
+
     }
 }
