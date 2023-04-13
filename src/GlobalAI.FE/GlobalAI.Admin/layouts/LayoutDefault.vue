@@ -6,6 +6,7 @@
           <sidebar />
           </div>
           <div class="pl-2">
+            <!-- Slot tượng trưng cho từng layout trong trang web -->
            <slot></slot>
           </div>
       </div>
