@@ -56,7 +56,7 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete("")]
         public void Delete(int id)
         {
             _traGiaServices.DeleteTraGia(id);
