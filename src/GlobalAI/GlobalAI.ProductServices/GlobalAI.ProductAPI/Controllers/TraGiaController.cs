@@ -18,8 +18,12 @@ namespace GlobalAI.ProductAPI.Controllers
         {
             _traGiaServices = traGiaServices;
         }
-
-        [HttpPost("add")]
+        /// <summary>
+        /// Tạo giỏ hàng và 1 lân trả giá chi tiết
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost("")]
         public APIResponse Add([FromBody] AddTraGiaDto input)
         {
             try
@@ -33,6 +37,11 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// sau khi có trả giá thì thêm chi tiết trả giá
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost("add-detail")]
         public APIResponse AddDetail([FromBody] AddChiTietTraGiaDto input)
         {
@@ -75,19 +84,19 @@ namespace GlobalAI.ProductAPI.Controllers
         //    }
         //}
 
-        //[HttpGet("find-all")]
-        //[ProducesResponseType(typeof(APIResponse<List<TraGiaDto>>), (int)HttpStatusCode.OK)]
-        //public APIResponse FindAll([FromQuery] FilterTraGiaDto input)
-        //{
-        //    try
-        //    {
-        //        var result = _traGiaServices.FindAll(input);
-        //        return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return OkException(ex);
-        //    }
-        //}
+        [HttpGet("find-all")]
+        [ProducesResponseType(typeof(APIResponse<List<TraGiaDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse FindAll([FromQuery] FilterTraGiaDto input)
+        {
+            try
+            {
+                var result = _traGiaServices.FindAll(input);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
     }
 }

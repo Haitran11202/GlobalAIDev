@@ -3,6 +3,7 @@ using System;
 using GlobalAI.DataAccess.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    partial class GlobalAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230413045111_update-bang-don-hang")]
+    partial class updatebangdonhang
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -400,8 +403,8 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("SO_TIEN");
 
-                    b.Property<int?>("Status")
-                        .HasColumnType("NUMBER(10)")
+                    b.Property<string>("Status")
+                        .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("STATUS");
 
                     b.HasKey("Id");

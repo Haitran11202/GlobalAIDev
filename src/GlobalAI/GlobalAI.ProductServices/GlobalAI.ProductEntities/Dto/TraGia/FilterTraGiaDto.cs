@@ -16,7 +16,7 @@ namespace GlobalAI.ProductEntities.Dto.TraGia
         /// </summary>
         [FromQuery(Name = "IdSanPham")]
         public int? IdSanPham { get; set; }
-        [FromQuery(Name = "IdSanPham")]
+        [FromQuery(Name = "GiaTien")]
         public decimal? GiaTien { get; set; }
         /// <summary>
         /// Trạng thái 
