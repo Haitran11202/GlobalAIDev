@@ -5,12 +5,14 @@ using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
+    [Authorize]
     [Route("api/product/ct-donhang")]
     [ApiController]
     public class ChiTietDonHangController : BaseController
@@ -30,7 +32,7 @@ namespace GlobalAI.ProductAPI.Controllers
         //}
         [HttpPost]
         [ProducesResponseType(typeof(APIResponse<List<AddChiTietDonHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateChiTietDonHang([FromQuery] AddChiTietDonHangDto input)
+        public APIResponse CreateChiTietDonHang([FromBody] AddChiTietDonHangDto input)
         {
             try
             {

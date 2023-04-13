@@ -4,11 +4,13 @@ using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
+    [Authorize]
     [Route("api/product/donhang")]
     [ApiController]
     public class DonHangController : BaseController
@@ -88,7 +90,7 @@ namespace GlobalAI.ProductAPI.Controllers
 
         [HttpGet("full")]
         [ProducesResponseType(typeof(APIResponse<int>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateDonHangFull( [FromQuery] int maDonHang)
+        public APIResponse CreateDonHangFull([FromBody]int maDonHang)
         {
             try
             {
@@ -100,13 +102,14 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
-        [HttpPost("full")]
-        [ProducesResponseType(typeof(APIResponse<AddDonHangFullDto>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateDonHangFull([FromBody] AddDonHangFullDto AddDonHangFullDto)
+
+        [HttpPost("donhang-full")]
+        [ProducesResponseType(typeof(APIResponse<AddChiTietDonHangDto>), (int)HttpStatusCode.OK)]
+        public APIResponse CreateDonHangFull([FromBody] AddDonHangFullDto donHangFull)
         {
             try
             {
-                _donHangServices.CreateDonHangFull(AddDonHangFullDto);
+                _donHangServices.CreateDonHangFull(donHangFull);
                 return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
             }
             catch (Exception ex)
