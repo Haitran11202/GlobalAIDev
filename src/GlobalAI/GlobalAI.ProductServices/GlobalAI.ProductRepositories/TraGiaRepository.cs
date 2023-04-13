@@ -73,7 +73,7 @@ namespace GlobalAI.ProductRepositories
             {
                 result.DeletedBy = username;
                 result.DeletedDate = DateTime.Now;
-                result.Deleted = true;
+                result.Deleted = DeletedBool.YES;
                 _dbContext.SaveChanges();
             }
         }

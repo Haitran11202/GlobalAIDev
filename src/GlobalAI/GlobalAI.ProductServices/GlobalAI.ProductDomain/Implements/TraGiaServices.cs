@@ -106,6 +106,7 @@ namespace GlobalAI.ProductDomain.Implements
             var username = CommonUtils.GetCurrentUsername(_httpContext);
             _traGiaRepository.DeleteTraGiaById(id, username);
             _chiTietTraGiaRepository.DeleteByTraGiaId(id, username);
+            _dbContext.SaveChanges();
         }
 
         /// <summary>

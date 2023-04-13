@@ -32,17 +32,15 @@ namespace GlobalAI.ProductRepositories
 
         public void DeleteByTraGiaId(int id, string username)
         {
-            var Results = _dbSet.Where(e => e.IdTraGia == id).ToList();
-
-            if (Results != null)
+            if (_dbSet.Any(e => e.IdTraGia == id))
             {
-                foreach (var Result in Results)
-                {
-                    Result.DeletedBy = username;
-                    Result.DeletedDate = DateTime.Now;
-                    Result.Deleted = true;
-                }
-                _dbContext.SaveChanges();
+                _dbSet.Where(e => e.IdTraGia == id)
+                    .ToList()
+                    .ForEach(e => {
+                        e.DeletedBy = username;
+                        e.DeletedDate = DateTime.Now;
+                        e.Deleted = true;
+                    });
             }
         }
 
