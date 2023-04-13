@@ -10,7 +10,6 @@
           </div>
       </div>
       <footer-admin />
-
   </div>
 </template>
 <script setup>
