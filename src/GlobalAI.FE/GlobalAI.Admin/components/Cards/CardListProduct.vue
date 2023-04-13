@@ -52,4 +52,3 @@ const detail = () => {
     router.push({name: 'ProductDetail',params: { id: '1' }})
 }
 </script>
-  

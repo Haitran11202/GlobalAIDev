@@ -24,8 +24,8 @@ namespace GlobalAI.ProductEntities.DataEntities
         /// <summary>
         /// Mã danh mục
         /// </summary>
-        [ColumnSnackCase(nameof(MaDanhMuc))]
-        public string MaDanhMuc { get; set; }        
+        [ColumnSnackCase(nameof(IdDanhMuc))]
+        public string IdDanhMuc { get; set; }        
 
         /// <summary>
         /// Tên danh mục

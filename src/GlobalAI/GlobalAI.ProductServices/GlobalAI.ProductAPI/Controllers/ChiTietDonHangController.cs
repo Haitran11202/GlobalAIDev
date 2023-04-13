@@ -11,7 +11,7 @@ using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    [Route("api/ct-donhang")]
+    [Route("api/product/ct-donhang")]
     [ApiController]
     public class ChiTietDonHangController : BaseController
     {
@@ -28,7 +28,7 @@ namespace GlobalAI.ProductAPI.Controllers
         //{
 
         //}
-        [HttpPost("them")]
+        [HttpPost]
         [ProducesResponseType(typeof(APIResponse<List<AddChiTietDonHangDto>>), (int)HttpStatusCode.OK)]
         public APIResponse CreateChiTietDonHang([FromQuery] AddChiTietDonHangDto input)
         {
@@ -49,7 +49,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <param name="maSanPham"></param>
         /// <param name="newDonHang"></param>
         /// <returns></returns>
-        [HttpPut("sua/{id}")]
+        [HttpPut("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<AddChiTietDonHangDto>>), (int)HttpStatusCode.OK)]
         public APIResponse EditChiTietDonHang([FromRoute]int id, int maSanPham, EditChiTietDonHangDto newDonHang)
         {
@@ -66,6 +66,12 @@ namespace GlobalAI.ProductAPI.Controllers
             {
                 return OkException(ex);
             }
+        }
+
+        [HttpDelete("{id}")]
+        public void DeleteChiTietDonHangById(int id)
+        {
+            _chiTietDonHangServices.DeleteChiTietDonhangById(id);
         }
     }
 }

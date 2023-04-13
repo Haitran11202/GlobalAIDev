@@ -10,6 +10,7 @@ using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.ProductRepositories;
+using GlobalAI.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,11 +32,13 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
         private readonly DonHangRepository _repositoryDonHang;
+        private readonly SanPhamRepository _repositorySanPham;
         private readonly ChiTietDonHangRepository _repositoryChiTietDonHang;
         private readonly IMapper _mapper;
         public DonHangServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
         {
             _repositoryDonHang = new DonHangRepository(dbContext, logger, mapper);
+            _repositorySanPham = new SanPhamRepository(dbContext, logger, mapper);
             _repositoryChiTietDonHang = new ChiTietDonHangRepository(dbContext, logger, mapper);
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
@@ -61,6 +65,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns></returns>
         public DonHang CreateDonhang(AddDonHangDto input)
         {
+            var userId = CommonUtils.GetCurrentUserId(_httpContext);
             var donHang = _mapper.Map<DonHang>(input);
             _repositoryDonHang.CreateDonHang(donHang);
             _dbContext.SaveChanges();
@@ -81,6 +86,13 @@ namespace GlobalAI.ProductDomain.Implements
             _dbContext.SaveChanges();
             return donHang;
         }
+
+
+        public void DeleteDonHangById(int id)
+        {
+            _repositoryDonHang.DeleteDonHangById(id);
+        }
+
         /// <summary>
         /// Lấy ra tất cả thông tin trong đơn hàng
         /// </summary>
@@ -107,18 +119,24 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="donhangDto"></param>
         /// <param name="ctDto"></param>
-        public void CreateDonHangFull(AddDonHangDto donhangDto, AddChiTietDonHangDto ctDto)
+        public void CreateDonHangFull(AddDonHangFullDto donHangFullDto)
         {
             using (IDbContextTransaction transaction = _dbContext.Database.BeginTransaction())
             {
                 try
                 {
                     // Save DonHang
-                    var resultDh = CreateDonhang(donhangDto);
+                    var resultDh = CreateDonhang(donHangFullDto.donHang);
 
-                    var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(ctDto));
-
+                    _dbContext.SaveChanges();
+                    var idDonHang = resultDh.Id;
                     // Save ChiTietDonHang
+                    foreach (var item in donHangFullDto.ChiTietDonHangFullDtos)
+                    {
+                        var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(item));
+                        ctDonhang.IdDonHang = idDonHang;
+
+                    }
                     _dbContext.SaveChanges();
                     transaction.Commit();
                 }
@@ -126,6 +144,7 @@ namespace GlobalAI.ProductDomain.Implements
                 {
                     transaction.Rollback();
                 }
+
             }
         }
     }
