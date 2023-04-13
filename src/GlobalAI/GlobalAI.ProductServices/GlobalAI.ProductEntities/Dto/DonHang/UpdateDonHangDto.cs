@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.ProductEntities.Dto.DonHang
 {
-    public class UpdateDonHang
+    public class UpdateStatusDonHangDto
     {
         public int ID { get; set; }
+        public int Status { get; set; }
     }
 }

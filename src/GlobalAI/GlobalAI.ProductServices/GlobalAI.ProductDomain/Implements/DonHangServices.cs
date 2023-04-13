@@ -148,9 +148,11 @@ namespace GlobalAI.ProductDomain.Implements
         /// <param name="idDonHang"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        public DonHang UpdateStatusDonHang(int idDonHang, int status)
+        public DonHang UpdateStatusDonHang(UpdateStatusDonHangDto updateDonHangDto)
         {
-            var result = _repositoryDonHang.UpdateStatusDonHang(idDonHang, status);
+            var result = _repositoryDonHang.UpdateStatusDonHang(updateDonHangDto);
+            _dbContext.SaveChanges();
+            return result;
         }
     }
 }

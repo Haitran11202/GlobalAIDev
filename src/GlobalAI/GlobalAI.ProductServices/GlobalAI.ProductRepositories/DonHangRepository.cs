@@ -9,6 +9,8 @@ using GlobalAI.ProductEntities.Dto.Product;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.Internal;
 using GlobalAI.ProductEntities.Dto.DonHang;
+using GlobalAI.Utils.ConstantVariables.Product;
+using System.ServiceModel;
 
 namespace GlobalAI.ProductRepositories
 
@@ -109,14 +111,28 @@ namespace GlobalAI.ProductRepositories
         /// <param name="updateDh"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        public DonHang UpdateStatusDonHang(UpdateDonHang updateDh, int status)
+        public DonHang UpdateStatusDonHang(UpdateStatusDonHangDto updateStatusDh)
         {
-            var result = _dbSet.FirstOrDefault(dh => dh.Id == updateDh.ID);
-            if (result != null)
+            var result = _dbSet.FirstOrDefault(dh => dh.Id == updateStatusDh.ID);
+            if (result == null)
             {
-                return null;
+                throw new InvalidDataException("Don hang khong ton tai!");
             }
-            result.Status = status;
+            switch (updateStatusDh.Status)
+            {
+                case 1:
+                    result.Status = TrangThaiDonHang.TAO_MOI;
+                    break;
+                case 2:
+                    result.Status = TrangThaiDonHang.DA_XAC_NHAN;
+                    break;
+                case 3:
+                    result.Status = TrangThaiDonHang.HOAN_THANH;
+                    break;
+                default:
+                    throw new InvalidDataException("Trang thai khong hop le!");
+            }
+            return result;
         }
     }
 }

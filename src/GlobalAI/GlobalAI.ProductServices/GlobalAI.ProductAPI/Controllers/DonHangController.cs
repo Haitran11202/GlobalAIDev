@@ -129,7 +129,6 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <param name="addDonHangFullDto"></param>
         /// <returns></returns>
         [HttpPost("full")]
-        [ProducesResponseType(typeof(APIResponse<AddDonHangFullDto>), (int)HttpStatusCode.OK)]
         public APIResponse CreateDonHangFull([FromBody] AddDonHangFullDto addDonHangFullDto)
         {
             try
@@ -142,5 +141,19 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+        [HttpPut("update-status")]
+        public APIResponse UpdateStatusDonHang([FromBody] UpdateStatusDonHangDto updateDonHangDto)
+        {
+            try
+            {
+                var result = _donHangServices.UpdateStatusDonHang(updateDonHangDto);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
     }
 }

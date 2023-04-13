@@ -24,7 +24,7 @@ namespace GlobalAI.ProductDomain.Interfaces
         public DonHangFullDto GetDonHangFull(int maDonHang);
         public void CreateDonHangFull(AddDonHangFullDto donHangFullDto);
 
-        public DonHang UpdateStatusDonHang(int idDonHang, int status);
+        public DonHang UpdateStatusDonHang(UpdateStatusDonHangDto updateDonHangDto);
        
     }
 }
