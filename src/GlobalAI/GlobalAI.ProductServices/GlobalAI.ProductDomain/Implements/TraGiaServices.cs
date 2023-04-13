@@ -74,6 +74,7 @@ namespace GlobalAI.ProductDomain.Implements
             inputDetailInsert.CreatedBy = username;
             inputDetailInsert.Status = TrangThaiChiTietTraGia.NGUOI_MUA_DE_NGHI;
             inputDetailInsert.Usertype = userType;
+            inputDetailInsert.Type = 1;
             _chiTietTraGiaRepository.Add(inputDetailInsert);
             _dbContext.SaveChanges();
             transaction.Commit();
@@ -95,6 +96,7 @@ namespace GlobalAI.ProductDomain.Implements
             inputDetailInsert.CreatedBy = username;
             inputDetailInsert.Status = TrangThaiChiTietTraGia.NGUOI_MUA_DE_NGHI;
             inputDetailInsert.Usertype = userType;
+            inputDetailInsert.Type = input.Type;
             _chiTietTraGiaRepository.Add(inputDetailInsert);
             _dbContext.SaveChanges();
 
@@ -141,17 +143,17 @@ namespace GlobalAI.ProductDomain.Implements
         //}
 
         /// <summary>
-        /// danh sách phân trang
+        /// Danh sach tra gia cua nguoi mua
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         public PagingResult<TraGiaDto> FindAll(FilterTraGiaDto input)
         {
+            int? userId = CommonUtils.GetCurrentUserId(_httpContext);
             var usertype = CommonUtils.GetCurrentRole(_httpContext);
-            int? idGStore = null;
-            int? idGSaler = null;
+            
             var result = new PagingResult<TraGiaDto>();
-            var traGiaQuery = _traGiaRepository.FindAll(input, idGSaler, idGStore);
+            var traGiaQuery = _traGiaRepository.FindAll(input, userId);
 
             result.Items = _mapper.Map<List<TraGiaDto>>(traGiaQuery.Items);
             result.TotalItems = traGiaQuery.TotalItems;
@@ -160,40 +162,7 @@ namespace GlobalAI.ProductDomain.Implements
                 item.ChiTietTraGias = _mapper.Map<List<ChiTietTraGiaDto>>(_chiTietTraGiaRepository.GetAll(item.Id));
             }
             return result;
-            //foreach (var item in traGiaQuery.Items)
-            //{
-            //    var chiTietTraGias = _chiTietTraGiaRepository.GetAll(item.Id);
-            //    // Thông tin sản phẩm xử lý sau
-            //    //var prductQuery = _sanPhamRepository.FindById(item.IdSanPham);
-
-            //    // Thông tin của gsaler, gstore
-
-            //    // Tìm thông tin người duyệt sản phẩm
-            //    var approveBy = (from approve in _dbContext.TraGias
-            //                     where approve.Status == TrangThaiTraGia.DA_TRA_GIA && approve.Deleted == DeletedBool.NO
-            //                     select approve.ModifiedBy).FirstOrDefault();
-
-            //    //xu ly tam, lay thong tin them sau
-            //    result.Add(new TraGiaDto()
-            //    {
-            //        Id = item.Id,
-            //        IdSanPham = item.IdSanPham,
-            //        IdNguoiBan = item.IdNguoiBan,
-            //        IdNguoiMua = item.IdNguoiMua,
-            //        GiaCuoi = item.GiaCuoi,
-            //        Status = item.Status,
-            //        CreatedBy = item.CreatedBy,
-            //        CreatedDate = item.CreatedDate,
-            //        ApproveBy = approveBy,
-            //        ChiTietTraGias = chiTietTraGias ?? null,
-
-            //});
-            //}
-            //return new PagingResult<TraGiaDto>
-            //{
-            //    Items = result,
-            //    TotalItems = traGiaQuery.TotalItems,
-            //};
+           
         }
     }
 }

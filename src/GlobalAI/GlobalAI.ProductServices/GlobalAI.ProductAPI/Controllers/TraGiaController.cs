@@ -19,7 +19,7 @@ namespace GlobalAI.ProductAPI.Controllers
             _traGiaServices = traGiaServices;
         }
         /// <summary>
-        /// Tạo giỏ hàng và 1 lân trả giá chi tiết
+        /// Người mua tạo giỏ hàng và 1 lân trả giá chi tiết
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>

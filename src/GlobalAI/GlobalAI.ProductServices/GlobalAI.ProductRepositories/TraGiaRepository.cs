@@ -45,13 +45,21 @@ namespace GlobalAI.ProductRepositories
             bargainQuery.ModifiedBy = input.ModifiedBy;
         }
 
-        public PagingResult<TraGia> FindAll(FilterTraGiaDto input, int? idGSaler = null, int? idGStore = null)
+        /// <summary>
+        /// Danh sach tra gia cua nguoi mua
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="idGSaler"></param>
+        /// <param name="idGStore"></param>
+        /// <returns></returns>
+        public PagingResult<TraGia> FindAll(FilterTraGiaDto input, int? userId = null)
         {
             PagingResult<TraGia> result = new();
-            //IQueryable<TraGia> traGiaQuery = _dbSet.Where(e => e.Deleted == DeletedBool.NO);
+    
             var traGiaQuery = (from traGia in _dbSet
                                where traGia.Deleted == DeletedBool.NO      
-                                     && (input.IdSanPham == null || input.IdSanPham == traGia.IdSanPham)                              
+                                     && (input.IdSanPham == null || input.IdSanPham == traGia.IdSanPham)
+                                     && (traGia.IdNguoiMua == userId || traGia.IdNguoiBan == userId)
                                      && (input.Status == null || input.Status == traGia.Status)
                                      select traGia);
 
