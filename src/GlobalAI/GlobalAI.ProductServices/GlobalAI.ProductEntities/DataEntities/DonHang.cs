@@ -66,7 +66,7 @@ namespace GlobalAI.ProductEntities.DataEntities
         /// <see cref="TrangThaiDonHang"/>
         /// </summary>
         [ColumnSnackCase(nameof(Status))]
-        public string Status { get; set; }
+        public int? Status { get; set; }
 
         #region audit
         [MaxLength(50)]
