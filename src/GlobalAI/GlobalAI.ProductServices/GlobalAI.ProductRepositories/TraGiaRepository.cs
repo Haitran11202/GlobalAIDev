@@ -4,6 +4,7 @@ using GlobalAI.DataAccess.Models;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.TraGia;
 using GlobalAI.Utils;
+using GlobalAI.Utils.ConstantVariables.Product;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -38,13 +39,6 @@ namespace GlobalAI.ProductRepositories
             bargainQuery.ModifiedBy = input.ModifiedBy;
         }
 
-        public void Approve(TraGia input)
-        {
-            var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
-            bargainQuery.ModifiedDate = DateTime.Now;
-            bargainQuery.ModifiedBy = input.ModifiedBy;
-        }
-
         /// <summary>
         /// Danh sach tra gia cua nguoi mua
         /// </summary>
@@ -59,7 +53,7 @@ namespace GlobalAI.ProductRepositories
             var traGiaQuery = (from traGia in _dbSet
                                where traGia.Deleted == DeletedBool.NO      
                                      && (input.IdSanPham == null || input.IdSanPham == traGia.IdSanPham)
-                                     && (traGia.IdNguoiMua == userId || traGia.IdNguoiBan == userId)
+                                     && (traGia.IdNguoiBan == userId || traGia.IdNguoiMua == userId)
                                      && (input.Status == null || input.Status == traGia.Status)
                                      select traGia);
 
@@ -73,7 +67,7 @@ namespace GlobalAI.ProductRepositories
             return result;
         }
 
-        public TraGia FindById(int id, int? IdGSaler = null, int? IdGStore = null)
+        public TraGia FindById(int id, int? userId = null)
         {
             return _dbSet.FirstOrDefault(d => d.Id == id && d.Deleted == DeletedBool.NO);
         }

@@ -4,6 +4,7 @@ using GlobalAI.DataAccess.Models;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.TraGia;
 using GlobalAI.Utils;
+using GlobalAI.Utils.ConstantVariables.Product;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -39,13 +40,6 @@ namespace GlobalAI.ProductRepositories
         //{
         //    var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
         //    bargainQuery.GiaTien = input.GiaTien;
-        //    bargainQuery.ModifiedDate = DateTime.Now;
-        //    bargainQuery.ModifiedBy = input.ModifiedBy;
-        //}
-
-        //public void Approve(TraGia input)
-        //{
-        //    var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
         //    bargainQuery.ModifiedDate = DateTime.Now;
         //    bargainQuery.ModifiedBy = input.ModifiedBy;
         //}

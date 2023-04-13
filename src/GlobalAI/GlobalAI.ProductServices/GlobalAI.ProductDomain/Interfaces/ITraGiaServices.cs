@@ -16,7 +16,8 @@ namespace GlobalAI.ProductDomain.Interfaces
         TraGia Add(AddTraGiaDto addTraGiaDto);
         ChiTietTraGia AddDetail(AddChiTietTraGiaDto input);
         //void Update(UpdateTraGiaDto input);
-        //void Approve(ApproveTraGiaDto input);
+        void Approve(ApproveTraGiaDto input);
         PagingResult<TraGiaDto> FindAll(FilterTraGiaDto input);
+        TraGiaDto GetById(int id);
     }
 }

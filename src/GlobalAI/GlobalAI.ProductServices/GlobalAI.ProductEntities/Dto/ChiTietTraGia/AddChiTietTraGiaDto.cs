@@ -9,7 +9,7 @@ namespace GlobalAI.ProductEntities.Dto.ChiTietTraGia
     public class AddChiTietTraGiaDto
     {
         public int IdTraGia { get; set; }
-        public int Type { get; set; }
+        public int LoaiTraGia { get; set; }
         //be tu lay
         //public int Status { get; set; }
 

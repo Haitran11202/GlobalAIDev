@@ -74,7 +74,7 @@ namespace GlobalAI.ProductDomain.Implements
             inputDetailInsert.CreatedBy = username;
             inputDetailInsert.Status = TrangThaiChiTietTraGia.NGUOI_MUA_DE_NGHI;
             inputDetailInsert.Usertype = userType;
-            inputDetailInsert.Type = 1;
+            inputDetailInsert.LoaiTraGia = LoaiTraGias.NGUOI_MUA_DE_XUAT;
             _chiTietTraGiaRepository.Add(inputDetailInsert);
             _dbContext.SaveChanges();
             transaction.Commit();
@@ -96,7 +96,7 @@ namespace GlobalAI.ProductDomain.Implements
             inputDetailInsert.CreatedBy = username;
             inputDetailInsert.Status = TrangThaiChiTietTraGia.NGUOI_MUA_DE_NGHI;
             inputDetailInsert.Usertype = userType;
-            inputDetailInsert.Type = input.Type;
+            inputDetailInsert.LoaiTraGia = input.LoaiTraGia;
             _chiTietTraGiaRepository.Add(inputDetailInsert);
             _dbContext.SaveChanges();
 
@@ -132,15 +132,24 @@ namespace GlobalAI.ProductDomain.Implements
         ///// Xác nhận trả giá thành công
         ///// </summary>
         ///// <param name="input"></param>
-        //public void Approve(ApproveTraGiaDto input)
-        //{
-        //    var username = CommonUtils.GetCurrentUsername(_httpContext);   
-        //    var inputUpdate = _mapper.Map<TraGia>(input);
-        //    inputUpdate.ModifiedBy = username;
-        //    inputUpdate.Status = TrangThaiTraGia.NGUOI_BAN_DONG_Y;
-        //    _traGiaRepository.Approve(inputUpdate);
-        //    _dbContext.SaveChanges();
-        //}
+        public void Approve(ApproveTraGiaDto input)
+        {
+            var transaction = _dbContext.Database.BeginTransaction();
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+   
+            var traGia = _traGiaRepository.FindById(input.Id);
+            traGia.ModifiedBy = username;
+            traGia.Status = input.Status;
+            _dbContext.SaveChanges();
+
+            var chiTietTraGia = _chiTietTraGiaRepository.FindById(input.IdChiTietTraGia);
+            chiTietTraGia.ModifiedBy = username;
+   
+            chiTietTraGia.Status = traGia.Status == TrangThaiTraGia.DA_TRA_GIA ? TrangThaiChiTietTraGia.NGUOI_BAN_DONG_Y : TrangThaiChiTietTraGia.NGUOI_MUA_DE_NGHI;
+
+            _dbContext.SaveChanges();
+            transaction.Commit();
+        }
 
         /// <summary>
         /// Danh sach tra gia cua nguoi mua
@@ -160,9 +169,20 @@ namespace GlobalAI.ProductDomain.Implements
             foreach (var item in result.Items)
             {
                 item.ChiTietTraGias = _mapper.Map<List<ChiTietTraGiaDto>>(_chiTietTraGiaRepository.GetAll(item.Id));
+                item.Type = item.IdNguoiMua == userId ? TypeLoginTraGia.NGUOI_MUA : item.IdNguoiBan == userId ? TypeLoginTraGia.NGUOI_BAN : 0;
             }
             return result;
-           
+        }
+
+        public TraGiaDto GetById(int id)
+        {
+            int? userId = CommonUtils.GetCurrentUserId(_httpContext);
+
+            var traGia = _traGiaRepository.FindById(id);
+            var result = _mapper.Map<TraGiaDto>(traGia);
+            result.Type = result.IdNguoiMua == userId ? TypeLoginTraGia.NGUOI_MUA : result.IdNguoiBan == userId ? TypeLoginTraGia.NGUOI_BAN : 0;
+            result.ChiTietTraGias = _mapper.Map<List<ChiTietTraGiaDto>>(_chiTietTraGiaRepository.GetAll(traGia.Id));
+            return result;
         }
     }
 }
