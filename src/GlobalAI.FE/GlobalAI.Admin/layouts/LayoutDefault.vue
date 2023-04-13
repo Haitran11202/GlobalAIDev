@@ -6,8 +6,7 @@
         <sidebar/>
       </div> -->
       <div class="pl-2">
-        <NuxtPage/>
-        <NuxtPage />
+         <slot></slot>
       </div>
     </div>
     <footer-admin />
