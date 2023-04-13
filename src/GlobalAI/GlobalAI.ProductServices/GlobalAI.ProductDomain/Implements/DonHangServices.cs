@@ -142,5 +142,15 @@ namespace GlobalAI.ProductDomain.Implements
             }
 
         }
+        /// <summary>
+        /// Cập nhật trạng thái đơn hàng
+        /// </summary>
+        /// <param name="idDonHang"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public DonHang UpdateStatusDonHang(int idDonHang, int status)
+        {
+            var result = _repositoryDonHang.UpdateStatusDonHang(idDonHang, status);
+        }
     }
 }

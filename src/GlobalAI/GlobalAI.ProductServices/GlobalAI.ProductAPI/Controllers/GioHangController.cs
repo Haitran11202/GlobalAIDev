@@ -23,7 +23,11 @@ namespace GlobalAI.ProductAPI.Controllers
             _gioHangServices = gioHangServices;
         }
 
-
+        /// <summary>
+        /// Tạo mới giỏ hàng
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(APIResponse<List<AddGioHangDto>>), (int)HttpStatusCode.OK)]
         public APIResponse CreateGioHang([FromQuery] AddGioHangDto input)

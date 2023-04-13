@@ -8,7 +8,7 @@ using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductEntities.Dto.Product;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.Internal;
-
+using GlobalAI.ProductEntities.Dto.DonHang;
 
 namespace GlobalAI.ProductRepositories
 
@@ -80,7 +80,10 @@ namespace GlobalAI.ProductRepositories
             return oldDonHang;
         }
 
-
+        /// <summary>
+        /// Xóa đơn hàng theo id
+        /// </summary>
+        /// <param name="id"></param>
         public void DeleteDonHangById(int id)
         {
             var Result = _dbSet.FirstOrDefault((Order) => Order.Id == id);
@@ -90,11 +93,30 @@ namespace GlobalAI.ProductRepositories
                 _dbContext.SaveChanges();
             }
         }
-
+        /// <summary>
+        /// Lấy đơn hàng theo id
+        /// </summary>
+        /// <param name="maDonHang"></param>
+        /// <returns></returns>
         public DonHang GetDonHang(int maDonHang)
         {
             return _dbSet.FirstOrDefault(dh => dh.Id == maDonHang);
 
+        }
+        /// <summary>
+        /// Cập nhật trạng thái đơn hàng
+        /// </summary>
+        /// <param name="updateDh"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public DonHang UpdateStatusDonHang(UpdateDonHang updateDh, int status)
+        {
+            var result = _dbSet.FirstOrDefault(dh => dh.Id == updateDh.ID);
+            if (result != null)
+            {
+                return null;
+            }
+            result.Status = status;
         }
     }
 }
