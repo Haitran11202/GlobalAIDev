@@ -25,7 +25,6 @@ definePageMeta({
   layout: "layout-default",
 });
 
-Home
 const products = ref([])
 const productsSeller = ref([])
 // Phân trang

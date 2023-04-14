@@ -33,5 +33,4 @@ import HeaderStats from '../components/Headers/HeaderStats.vue'
 import FooterAdmin from '../components/Footers/FooterAdmin.vue'
 
 </script>
-</script>
 
