@@ -47,7 +47,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
-        public APIResponse Put(string id, [FromBody] AddSanPhamDto input)
+        public APIResponse Put(int id, [FromBody] AddSanPhamDto input)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
-        public APIResponse Delete(string id)
+        public APIResponse Delete(int id)
         {
             try
             {
@@ -109,7 +109,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>s
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<GetSanPhamDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse GetById(string id)
+        public APIResponse GetById(int id)
         {
             try
             {
@@ -127,7 +127,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         [HttpGet("danh-muc/{id}")]
         [ProducesResponseType(typeof(APIResponse<List<SanPham>>), (int)HttpStatusCode.OK)]
-        public APIResponse GetByCategory(string id)
+        public APIResponse GetByCategory(int id)
         {
             try
             {
