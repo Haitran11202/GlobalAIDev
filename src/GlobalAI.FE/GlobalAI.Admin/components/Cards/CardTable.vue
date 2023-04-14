@@ -266,6 +266,18 @@ export default {
       showMore: {},
       selectedProductId: null,
       showAction: {},
+
+      newData: {
+        maSanPham: "",
+        tenSanPham: "",
+        moTa: "",
+        giaBan: "",
+        giaChietKhau: "",
+        idDanhMuc: "",
+        idGStore: "",
+        ngayDangKi: "",
+        ngayDuyet: "",
+      },
     };
   },
   components: {
@@ -354,7 +366,9 @@ export default {
         const response = await axios.get(
           `http://localhost:5003/api/product/sanpham/${id}`
         );
-        const product = response.data;
+        const product = response.data.data;
+        // this.newData.maSanPham = product.maSanPham;
+        console.log(this.newData.maSanPham);
         console.log(product);
       } catch (error) {
         console.error(error);
