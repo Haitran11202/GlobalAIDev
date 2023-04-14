@@ -102,14 +102,14 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
-
-        [HttpPost("donhang-full")]
-        [ProducesResponseType(typeof(APIResponse<AddChiTietDonHangDto>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateDonHangFull([FromBody] AddDonHangFullDto donHangFull)
+        
+        [HttpPost("full")]
+        [ProducesResponseType(typeof(APIResponse<AddDonHangFullDto>), (int)HttpStatusCode.OK)]
+        public APIResponse CreateDonHangFull([FromBody] AddDonHangFullDto addDonHangFullDto)
         {
             try
             {
-                _donHangServices.CreateDonHangFull(donHangFull);
+                _donHangServices.CreateDonHangFull(addDonHangFullDto);
                 return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
             }
             catch (Exception ex)
