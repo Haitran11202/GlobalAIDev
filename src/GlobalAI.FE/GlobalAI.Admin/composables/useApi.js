@@ -1,20 +1,15 @@
 import axios from 'axios';
-// import store from '../store';
-// import { apiRefreshToken } from './useApiAuth';
-
-// const toast = useToast();
-// const env = useRuntimeConfig();
-
-// const baseURL = env.public.apiEndpoint || '';
+import { useUserStorage } from '~~/stores/user';
 
 const instance = axios.create();
 
 instance.interceptors.request.use(config => {
     const env = useRuntimeConfig();
+    const userStorage = useUserStorage();
     const baseURL = env.public.apiEndpoint || '';
 
     config.baseURL = baseURL;
-    // config.headers.Authorization = `Bearer ${store.getters.accessToken}`;
+    config.headers.Authorization = `Bearer ${userStorage.accessToken}`;
 
     return config;
 });
