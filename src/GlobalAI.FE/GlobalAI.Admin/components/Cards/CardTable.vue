@@ -5,19 +5,14 @@
   >
     <div class="rounded-t mb-0 px-4 py-3 border-0">
       <div class="flex flex-wrap items-center">
-        <div
-          class="relative w-full px-4 max-w-full flex justify-between items-center"
-        >
+        <div class="relative w-full px-4 max-w-full flex justify-between items-center">
           <h3
             class="font-semibold text-lg"
             :class="[color === 'light' ? 'text-slate-700' : 'text-white']"
           >
             Danh sách sản phẩm
           </h3>
-          <button
-            @click="this.$router.push('/admin/form')"
-            class="btn btn-outline"
-          >
+          <button @click="this.$router.push('/admin/form')" class="btn btn-outline">
             Thêm sản phẩm
           </button>
         </div>
@@ -120,11 +115,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in products" :key="item.idSanPham">
+          <tr v-for="item in products" :key="item.id">
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{ item.idSanPham }}
+              {{ item.id }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
@@ -138,9 +133,7 @@
               <div v-if="item.moTa && item.moTa.length > 20">
                 <div v-if="!showMore[item.id]">
                   {{ item.moTa.slice(0, 20) }}...
-                  <span
-                    @click="showMore[item.id] = true"
-                    class="font-bold cursor-pointer"
+                  <span @click="showMore[item.id] = true" class="font-bold cursor-pointer"
                     >Xem thêm</span
                   >
                 </div>
@@ -193,21 +186,16 @@
                 @click="toggleAction(item.id)"
                 >...</span
               >
-              <div
-                v-if="showAction[item.id]"
-                class="mt-2 absolute right-0 z-10"
-              >
-                <div
-                  class="bg-white shadow-2xl border p-5 rounded-lg overflow-hidden"
-                >
+              <div v-if="showAction[item.id]" class="mt-2 absolute right-0 z-10">
+                <div class="bg-white shadow-2xl border p-5 rounded-lg overflow-hidden">
                   <button
-                    @click="editProduct(item.idSanPham)"
+                    @click="editProduct(item.id)"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
                   >
                     Sửa
                   </button>
                   <button
-                    @click="deleteProduct(item.idSanPham)"
+                    @click="deleteProduct(item.id)"
                     class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2"
                   >
                     Xoá
@@ -254,6 +242,7 @@ import team1 from "../../assets/img/team-1-800x800.jpg";
 import team2 from "../../assets/img/team-2-800x800.jpg";
 import team3 from "../../assets/img/team-3-800x800.jpg";
 import team4 from "../../assets/img/team-4-470x470.png";
+import { toast } from "vue3-toastify";
 
 export default {
   data() {
@@ -313,16 +302,13 @@ export default {
 
     async getProducts() {
       try {
-        const response = await axios.get(
-          "http://localhost:5003/api/product/sanpham",
-          {
-            params: {
-              pageSize: this.pageSize,
-              pageNumber: this.pageNumber,
-              skip: this.skip,
-            },
-          }
-        );
+        const response = await axios.get("http://localhost:5003/api/product/sanpham", {
+          params: {
+            pageSize: this.pageSize,
+            pageNumber: this.pageNumber,
+            skip: this.skip,
+          },
+        });
         this.products = response.data.data.items;
         this.totalCount = Number(response.headers["content-length"]);
         console.log(response.headers);
@@ -356,11 +342,10 @@ export default {
     async deleteProduct(id) {
       try {
         await axios.delete(`http://localhost:5003/api/product/sanpham/${id}`);
+        toast.success("Xoá sản phẩm thành công!");
       } catch (error) {
-        console.error(error);
+        toast.error("Xoá sản phẩm thất bại!");
       }
-
-      console.log(id);
     },
 
     async editProduct(id) {
@@ -369,7 +354,8 @@ export default {
         const response = await axios.get(
           `http://localhost:5003/api/product/sanpham/${id}`
         );
-        const product = response.data
+        const product = response.data;
+        console.log(product);
       } catch (error) {
         console.error(error);
       }
