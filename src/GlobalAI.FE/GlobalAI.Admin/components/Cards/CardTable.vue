@@ -115,7 +115,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in products" :key="item.id">
+          <!-- <tr v-for="item in products" :key="item.id">
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
@@ -203,7 +203,13 @@
                 </div>
               </div>
             </td>
-          </tr>
+          </tr> -->
+          <td>  <button
+                    @click="editProduct(9)"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+                  >
+                    Sửa
+                  </button></td>
         </tbody>
       </table>
       <div class="flex gap-5 p-3 justify-center">
@@ -228,10 +234,10 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import axios from "axios";
 import TableDropdown from "../Dropdowns/TableDropdown.vue";
-
+import { useRouter } from "vue-router";
 import bootstrap from "../../assets/img/bootstrap.jpg";
 import angular from "../../assets/img/angular.jpg";
 import sketch from "../../assets/img/sketch.jpg";
@@ -244,136 +250,128 @@ import team3 from "../../assets/img/team-3-800x800.jpg";
 import team4 from "../../assets/img/team-4-470x470.png";
 import { toast } from "vue3-toastify";
 
-export default {
-  data() {
-    return {
-      bootstrap,
-      angular,
-      sketch,
-      react,
-      vue,
-      team1,
-      team2,
-      team3,
-      team4,
+// export default {
+//   data() {
+//     return {
+//       bootstrap,
+//       angular,
+//       sketch,
+//       react,
+//       vue,
+//       team1,
+//       team2,
+//       team3,
+//       team4,
 
-      products: [],
-      pageSize: 5,
-      pageNumber: 1,
-      skip: 0,
-      totalCount: 0,
+//       products: [],
+//       pageSize: 5,
+//       pageNumber: 1,
+//       skip: 0,
+//       totalCount: 0,
 
-      showMore: {},
-      selectedProductId: null,
-      showAction: {},
+//       showMore: {},
+//       selectedProductId: null,
+//       showAction: {},
 
-      newData: {
-        maSanPham: "",
-        tenSanPham: "",
-        moTa: "",
-        giaBan: "",
-        giaChietKhau: "",
-        idDanhMuc: "",
-        idGStore: "",
-        ngayDangKi: "",
-        ngayDuyet: "",
-      },
-    };
-  },
-  components: {
-    TableDropdown,
-  },
-  props: {
-    color: {
-      default: "light",
-      validator: function (value) {
-        // The value must match one of these strings
-        return ["light", "dark"].indexOf(value) !== -1;
-      },
-    },
-  },
+//       newData: {
+//         maSanPham: "",
+//         tenSanPham: "",
+//         moTa: "",
+//         giaBan: "",
+//         giaChietKhau: "",
+//         idDanhMuc: "",
+//         idGStore: "",
+//         ngayDangKi: "",
+//         ngayDuyet: "",
+//       },
+//     };
+//   },
+//   components: {
+//     TableDropdown,
+//   },
+//   props: {
+//     color: {
+//       default: "light",
+//       validator: function (value) {
+//         // The value must match one of these strings
+//         return ["light", "dark"].indexOf(value) !== -1;
+//       },
+//     },
+//   },
 
-  computed: {
-    pageCount() {
-      return Math.ceil(this.totalCount / this.pageSize);
-    },
-  },
+//   computed: {
+//     pageCount() {
+//       return Math.ceil(this.totalCount / this.pageSize);
+//     },
+//   },
 
-  async mounted() {
-    try {
-      await this.getProducts();
-    } catch (error) {
-      console.log(error);
-    }
-  },
+//   async mounted() {
+//     try {
+//       await this.getProducts();
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   },
 
-  methods: {
-    toggleAction(id) {
-      this.showAction[id] = !this.showAction[id];
-    },
+//   methods: {
+//     toggleAction(id) {
+//       this.showAction[id] = !this.showAction[id];
+//     },
 
-    async getProducts() {
-      try {
-        const response = await axios.get("http://localhost:5003/api/product/sanpham", {
-          params: {
-            pageSize: this.pageSize,
-            pageNumber: this.pageNumber,
-            skip: this.skip,
-          },
-        });
-        this.products = response.data.data.items;
-        this.totalCount = Number(response.headers["content-length"]);
-        console.log(response.headers);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    previousPage() {
-      if (this.pageNumber > 1) {
-        this.pageNumber--;
-        this.skip = (this.pageNumber - 1) * this.pageSize;
-        try {
-          this.getProducts();
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    },
-    nextPage() {
-      if (this.pageNumber < this.pageCount) {
-        this.pageNumber++;
-        this.skip = (this.pageNumber - 1) * this.pageSize;
-        try {
-          this.getProducts();
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    },
+//     async getProducts() {
+//       try {
+//         const response = await axios.get("http://localhost:5003/api/product/sanpham", {
+//           params: {
+//             pageSize: this.pageSize,
+//             pageNumber: this.pageNumber,
+//             skip: this.skip,
+//           },
+//         });
+//         this.products = response.data.data.items;
+//         this.totalCount = Number(response.headers["content-length"]);
+//         console.log(response.headers);
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     },
+//     previousPage() {
+//       if (this.pageNumber > 1) {
+//         this.pageNumber--;
+//         this.skip = (this.pageNumber - 1) * this.pageSize;
+//         try {
+//           this.getProducts();
+//         } catch (error) {
+//           console.log(error);
+//         }
+//       }
+//     },
+//     nextPage() {
+//       if (this.pageNumber < this.pageCount) {
+//         this.pageNumber++;
+//         this.skip = (this.pageNumber - 1) * this.pageSize;
+//         try {
+//           this.getProducts();
+//         } catch (error) {
+//           console.log(error);
+//         }
+//       }
+//     },
 
-    async deleteProduct(id) {
-      try {
-        await axios.delete(`http://localhost:5003/api/product/sanpham/${id}`);
-        toast.success("Xoá sản phẩm thành công!");
-      } catch (error) {
-        toast.error("Xoá sản phẩm thất bại!");
-      }
-    },
+//     async deleteProduct(id) {
+//       try {
+//         await axios.delete(`http://localhost:5003/api/product/sanpham/${id}`);
+//         toast.success("Xoá sản phẩm thành công!");
+//       } catch (error) {
+//         toast.error("Xoá sản phẩm thất bại!");
+//       }
+//     },
 
-    async editProduct(id) {
-      try {
-        this.$router.push(`/admin/form/${id}`);
-        const response = await axios.get(
-          `http://localhost:5003/api/product/sanpham/${id}`
-        );
-        const product = response.data.data;
-        // this.newData.maSanPham = product.maSanPham;
-        console.log(this.newData.maSanPham);
-        console.log(product);
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  },
-};
+  
+//   },
+// };
+const router = useRouter();
+const editProduct = (id) => {
+  router.push({name: 'Form' , params : {id : 1}})
+}
+
 </script>

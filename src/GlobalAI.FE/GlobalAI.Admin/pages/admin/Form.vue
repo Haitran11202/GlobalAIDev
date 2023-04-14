@@ -18,7 +18,7 @@
             >Mã sản phẩm</label
           >
           <input
-            v-model="newProduct.maSanPham"
+            v-model="maSanPham.value"
             type="text"
             id="id_san_pham"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -32,7 +32,7 @@
             >Tên sản phẩm</label
           >
           <input
-            v-model="newProduct.tenSanPham"
+            v-model="tenSanPham.value"
             type="text"
             id="tenSanPham"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -46,7 +46,7 @@
             >Giá bán</label
           >
           <input
-            v-model="newProduct.giaBan"
+            v-model="giaBan.value"
             type="number"
             id="giaBan"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -60,7 +60,7 @@
             >Giá chiết khấu</label
           >
           <input
-            v-model="newProduct.giaChietKhau"
+            v-model="giaChietKhau.value"
             type="number"
             id="giaChietKhau"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -74,7 +74,7 @@
             >Mã danh mục</label
           >
           <input
-            v-model="newProduct.idDanhMuc"
+            v-model="idDanhMuc.value"
             type="text"
             id="id_danh_muc"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -88,7 +88,7 @@
             >Mã G-Store</label
           >
           <input
-            v-model="newProduct.id_gstore"
+            v-model="id_gstore"
             type="number"
             id="id_gstore"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -145,74 +145,105 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import axios from "axios";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
+import { useRoute } from "vue-router";
 definePageMeta({
   layout: "admin",
 });
-export default {
-  name: "Form",
-  components: {
-    Toastify: Vue3Toastify,
-  },
-  data() {
-    return {
-      newProduct: {
-        maSanPham: "",
-        tenSanPham: "",
-        moTa: "",
-        giaBan: 0,
-        giaChietKhau: 0,
-        idDanhMuc: "",
-        idGStore: 0,
-        ngayDangKi: "",
-        ngayDuyet: "",
-      },
-      isEditing: false,
-      productID: null,
-    };
-  },
-  methods: {
-    async AddProducts() {
-      try {
-        await axios.post("http://localhost:5003/api/product/sanpham", this.newProduct);
-        this.$router.push("/admin/tables");
-        toast.success("Thêm sản phẩm thành công!");
-      } catch (error) {
-        console.error(error);
-        toast.error("Thêm sản phẩm thất bại. Vui lòng thử lại!");
-      }
-    },
+// export default {
+//   name: "Form",
+//   components: {
+//     Toastify: Vue3Toastify,
+//   },
+//   data() {
+//     return {
+//       newProduct: {
+//         maSanPham: "",
+//         tenSanPham: "",
+//         moTa: "",
+//         giaBan: 0,
+//         giaChietKhau: 0,
+//         idDanhMuc: "",
+//         idGStore: 0,
+//         ngayDangKi: "",
+//         ngayDuyet: "",
+//       },
+//       isEditing: false,
+//       productID: null,
+//     };
+//   },
+//   methods: {
+//     async AddProducts() {
+//       try {
+//         await axios.post("http://localhost:5003/api/product/sanpham", this.newProduct);
+//         this.$router.push("/admin/tables");
+//         toast.success("Thêm sản phẩm thành công!");
+//       } catch (error) {
+//         console.error(error);
+//         toast.error("Thêm sản phẩm thất bại. Vui lòng thử lại!");
+//       }
+//     },
 
-    async updateProducts(id) {
-      try {
-        await axios.put(
-          `http://localhost:5003/api/product/sanpham/${id}`,
-          this.newProduct
-        );
-        this.$router.push("/admin/tables");
-        toast.success("Cập nhật sản phẩm thành công!");
-      } catch (error) {
-        console.error(error);
-        toast.error("Cập nhật sản phẩm thất bại. Vui lòng thử lại!");
-      }
-    },
+//     async updateProducts(id) {
+//       try {
+//         await axios.put(
+//           `http://localhost:5003/api/product/sanpham/${id}`,
+//           this.newProduct
+//         );
+//         this.$router.push("/admin/tables");
+//         toast.success("Cập nhật sản phẩm thành công!");
+//       } catch (error) {
+//         console.error(error);
+//         toast.error("Cập nhật sản phẩm thất bại. Vui lòng thử lại!");
+//       }
+//     },
 
-    computed: {
-      formButtonLabel() {
-        return this.isEditing ? "Cập nhật sản phẩm" : "Thêm sản phẩm";
-      },
-    },
-    mounted() {
-      if (this.$route.params.id) {
-        this.isEditing = true;
-        this.productID = this.$route.params.id;
-      }
-    },
-  },
-};
+//     computed: {
+//       formButtonLabel() {
+//         return this.isEditing ? "Cập nhật sản phẩm" : "Thêm sản phẩm";
+//       },
+//     },
+//     mounted() {
+//       if (this.$route.params.id) {
+//         this.isEditing = true;
+//         this.productID = this.$route.params.id;
+//       }
+//     },
+//   },
+//   setup() {
+//     const route = useRoute();
+//     const id = route.params.id;
+//   },
+// };
+//
+const maSanPham = ref("");
+const tenSanPham = ref("");
+const moTa = ref("");
+const giaBan = ref(0);
+const giaChietKhau = ref(0);
+const idDanhMuc = ref("");
+const idGStore = ref("");
+const ngayDangKi = ref("");
+const ngayDuyet = ref("");
+const isEditing = ref(false);
+const product = ref(null);
+
+const productValue = ref({});
+const idRoute = useRoute();
+const route = idRoute.params.id;
+console.log(9999, route);
+console.log(1);
+watchEffect(async () => {
+  try {
+    const response = await axios.get(`http://localhost:5003/api/product/sanpham/9`);
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+});
 </script>
 
 <style></style>
