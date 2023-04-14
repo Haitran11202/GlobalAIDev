@@ -28,7 +28,7 @@ namespace GlobalAI.ProductAPI.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(APIResponse<List<AddGioHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateGioHang([FromQuery] AddGioHangDto input)
+        public APIResponse CreateGioHang([FromBody] AddGioHangDto input)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace GlobalAI.ProductAPI.Controllers
         }
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<AddGioHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse DeleteGioHang([FromQuery] int maGSaler, int maSanPham )
+        public APIResponse DeleteGioHang([FromBody] int maGSaler, int maSanPham )
         {
             try
             {

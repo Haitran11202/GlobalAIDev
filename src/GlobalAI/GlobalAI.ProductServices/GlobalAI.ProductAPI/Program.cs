@@ -12,7 +12,7 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Reflection;
 using PemReader = PemUtils.PemReader;
 using AutoMapper;
-using GlobalAI.ProductAPI.Mapper;
+using GlobalAI.ProductEntities.DataEntities.Mapper;
 using Microsoft.Owin;
 using Owin;
 using GlobalAI.ProductAPI.HubFolder;
@@ -131,7 +131,7 @@ services.AddScoped<ITraGiaServices, TraGiaServices>();
 services.AddScoped<IGioHangServices, GioHangServices>();
 #endregion
 #region Add Auto Mapper
-services.AddAutoMapper(typeof(Program));
+services.AddAutoMapper(typeof(MappingProfile));
 #endregion
 #region Add SignalR và CORS policy
 services.AddCors(options => options.AddPolicy("Cors", builder =>
