@@ -1,22 +1,29 @@
 <template>
   <div
-    class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded"
+    class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg"
     :class="[color === 'light' ? 'bg-white' : 'bg-emerald-900 text-white']"
   >
     <div class="rounded-t mb-0 px-4 py-3 border-0">
       <div class="flex flex-wrap items-center">
-        <div class="relative w-full px-4 max-w-full flex-grow flex-1">
+        <div
+          class="relative w-full px-4 max-w-full flex justify-between items-center"
+        >
           <h3
             class="font-semibold text-lg"
             :class="[color === 'light' ? 'text-slate-700' : 'text-white']"
           >
-            Card Tables
+            Danh sách sản phẩm
           </h3>
+          <button
+            @click="this.$router.push('/admin/form')"
+            class="btn btn-outline"
+          >
+            Thêm sản phẩm
+          </button>
         </div>
       </div>
     </div>
-    <div class="block w-full overflow-x-auto">
-      <!-- Projects table -->
+    <div class="block mt-5 w-full overflow-x-auto">
       <table class="items-center w-full bg-transparent border-collapse">
         <thead>
           <tr>
@@ -28,7 +35,7 @@
                   : 'bg-emerald-800 text-emerald-300 border-emerald-700',
               ]"
             >
-              Project
+              Mã sản phẩm
             </th>
             <th
               class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -38,7 +45,7 @@
                   : 'bg-emerald-800 text-emerald-300 border-emerald-700',
               ]"
             >
-              Budget
+              Tên sản phẩm
             </th>
             <th
               class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -48,7 +55,7 @@
                   : 'bg-emerald-800 text-emerald-300 border-emerald-700',
               ]"
             >
-              Status
+              Mô tả
             </th>
             <th
               class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -58,7 +65,7 @@
                   : 'bg-emerald-800 text-emerald-300 border-emerald-700',
               ]"
             >
-              Users
+              Giá bán
             </th>
             <th
               class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -68,7 +75,7 @@
                   : 'bg-emerald-800 text-emerald-300 border-emerald-700',
               ]"
             >
-              Completion
+              Giá chiết khấu
             </th>
             <th
               class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
@@ -77,403 +84,164 @@
                   ? 'bg-slate-50 text-slate-500 border-slate-100'
                   : 'bg-emerald-800 text-emerald-300 border-emerald-700',
               ]"
-            ></th>
+            >
+              Mã danh mục
+            </th>
+            <th
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              :class="[
+                color === 'light'
+                  ? 'bg-slate-50 text-slate-500 border-slate-100'
+                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
+              ]"
+            >
+              Mã G - Store
+            </th>
+            <th
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              :class="[
+                color === 'light'
+                  ? 'bg-slate-50 text-slate-500 border-slate-100'
+                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
+              ]"
+            >
+              Ngày đăng ký
+            </th>
+            <th
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              :class="[
+                color === 'light'
+                  ? 'bg-slate-50 text-slate-500 border-slate-100'
+                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
+              ]"
+            >
+              Ngày duyệt
+            </th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center"
-            >
-              <img
-                :src="bootstrap"
-                class="h-12 w-12 bg-white rounded-full border"
-                alt="..."
-              />
-              <span
-                class="ml-3 font-bold"
-                :class="[
-                  color === 'light' ? 'text-slate-600' : 'text-white',
-                ]"
-              >
-                Argon Design System
-              </span>
-            </th>
+          <tr v-for="item in products" :key="item.idSanPham">
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              $2,500 USD
+              {{ item.idSanPham }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              <i class="fas fa-circle text-orange-500 mr-2"></i> pending
+              {{ item.tenSanPham }}
             </td>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              style="vertical-align: middle"
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 whitespace-pre-wrap"
             >
-              <div class="flex">
-                <img
-                  :src="team1"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow"
-                />
-                <img
-                  :src="team2"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-                <img
-                  :src="team3"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-                <img
-                  :src="team4"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-              </div>
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <div class="flex items-center">
-                <span class="mr-2">60%</span>
-                <div class="relative w-full">
-                  <div
-                    class="overflow-hidden h-2 text-xs flex rounded bg-red-200"
+              <div v-if="item.moTa && item.moTa.length > 20">
+                <div v-if="!showMore[item.id]">
+                  {{ item.moTa.slice(0, 20) }}...
+                  <span
+                    @click="showMore[item.id] = true"
+                    class="font-bold cursor-pointer"
+                    >Xem thêm</span
                   >
-                    <div
-                      style="width: 60%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
-                    ></div>
-                  </div>
+                </div>
+                <div v-else>
+                  {{ item.moTa }}
+                  <span
+                    @click="showMore[item.id] = false"
+                    class="font-bold cursor-pointer"
+                    >Thu gọn</span
+                  >
                 </div>
               </div>
+              <div v-if="item.moTa">{{ item.moTa }}</div>
             </td>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              <table-dropdown />
+              {{ item.giaBan }}
             </td>
-          </tr>
-          <tr>
-            <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center"
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              <img
-                :src="angular"
-                class="h-12 w-12 bg-white rounded-full border"
-                alt="..."
-              />
+              {{ item.giaChietKhau }}
+            </td>
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+            >
+              {{ item.idDanhMuc }}
+            </td>
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+            >
+              {{ item.idGStore }}
+            </td>
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+            >
+              {{ item.ngayDangKi }}
+            </td>
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+            >
+              {{ item.ngayDuyet }}
+            </td>
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 relative"
+            >
               <span
-                class="ml-3 font-bold"
-                :class="[
-                  color === 'light' ? 'text-slate-600' : 'text-white',
-                ]"
+                class="text-blue-500 cursor-pointer text-xl h-4"
+                @click="toggleAction(item.id)"
+                >...</span
               >
-                Angular Now UI Kit PRO
-              </span>
-            </th>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              $1,800 USD
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <i class="fas fa-circle text-emerald-500 mr-2"></i>
-              completed
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <div class="flex">
-                <img
-                  :src="team1"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow"
-                />
-                <img
-                  :src="team2"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-                <img
-                  :src="team3"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-                <img
-                  :src="team4"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-              </div>
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <div class="flex items-center">
-                <span class="mr-2">100%</span>
-                <div class="relative w-full">
-                  <div
-                    class="overflow-hidden h-2 text-xs flex rounded bg-emerald-200"
+              <div
+                v-if="showAction[item.id]"
+                class="mt-2 absolute right-0 z-10"
+              >
+                <div
+                  class="bg-white shadow-2xl border p-5 rounded-lg overflow-hidden"
+                >
+                  <button
+                    @click="editProduct(item.idSanPham)"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
                   >
-                    <div
-                      style="width: 100%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
-                    ></div>
-                  </div>
+                    Sửa
+                  </button>
+                  <button
+                    @click="deleteProduct(item.idSanPham)"
+                    class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2"
+                  >
+                    Xoá
+                  </button>
                 </div>
               </div>
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
-            >
-              <table-dropdown />
-            </td>
-          </tr>
-          <tr>
-            <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center"
-            >
-              <img
-                :src="sketch"
-                class="h-12 w-12 bg-white rounded-full border"
-                alt="..."
-              />
-              <span
-                class="ml-3 font-bold"
-                :class="[
-                  color === 'light' ? 'text-slate-600' : 'text-white',
-                ]"
-              >
-                Black Dashboard Sketch
-              </span>
-            </th>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              $3,150 USD
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <i class="fas fa-circle text-red-500 mr-2"></i> delayed
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <div class="flex">
-                <img
-                  :src="team1"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow"
-                />
-                <img
-                  :src="team2"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-                <img
-                  :src="team3"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-                <img
-                  :src="team4"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-              </div>
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <div class="flex items-center">
-                <span class="mr-2">73%</span>
-                <div class="relative w-full">
-                  <div
-                    class="overflow-hidden h-2 text-xs flex rounded bg-red-200"
-                  >
-                    <div
-                      style="width: 73%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-red-500"
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
-            >
-              <table-dropdown />
-            </td>
-          </tr>
-          <tr>
-            <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center"
-            >
-              <img
-                :src="react"
-                class="h-12 w-12 bg-white rounded-full border"
-                alt="..."
-              />
-              <span
-                class="ml-3 font-bold"
-                :class="[
-                  color === 'light' ? 'text-slate-600' : 'text-white',
-                ]"
-              >
-                React Material Dashboard
-              </span>
-            </th>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              $4,400 USD
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <i class="fas fa-circle text-teal-500 mr-2"></i> on schedule
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <div class="flex">
-                <img
-                  :src="team1"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow"
-                />
-                <img
-                  :src="team2"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-                <img
-                  :src="team3"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-                <img
-                  :src="team4"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-              </div>
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <div class="flex items-center">
-                <span class="mr-2">90%</span>
-                <div class="relative w-full">
-                  <div
-                    class="overflow-hidden h-2 text-xs flex rounded bg-teal-200"
-                  >
-                    <div
-                      style="width: 90%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-teal-500"
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
-            >
-              <table-dropdown />
-            </td>
-          </tr>
-          <tr>
-            <th
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-left flex items-center"
-            >
-              <img
-                :src="vue"
-                class="h-12 w-12 bg-white rounded-full border"
-                alt="..."
-              />
-              <span
-                class="ml-3 font-bold"
-                :class="[
-                  color === 'light' ? 'text-slate-600' : 'text-white',
-                ]"
-              >
-                React Material Dashboard
-              </span>
-            </th>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              $2,200 USD
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <i class="fas fa-circle text-emerald-500 mr-2"></i>
-              completed
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <div class="flex">
-                <img
-                  :src="team1"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow"
-                />
-                <img
-                  :src="team2"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-                <img
-                  :src="team3"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-                <img
-                  :src="team4"
-                  alt="..."
-                  class="w-10 h-10 rounded-full border-2 border-slate-50 shadow -ml-4"
-                />
-              </div>
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <div class="flex items-center">
-                <span class="mr-2">100%</span>
-                <div class="relative w-full">
-                  <div
-                    class="overflow-hidden h-2 text-xs flex rounded bg-emerald-200"
-                  >
-                    <div
-                      style="width: 100%;"
-                      class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-500"
-                    ></div>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
-            >
-              <table-dropdown />
             </td>
           </tr>
         </tbody>
       </table>
+      <div class="flex gap-5 p-3 justify-center">
+        <button
+          :disabled="pageNumber === 1"
+          @click="previousPage"
+          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          &#10094;
+        </button>
+        <span class="flex items-center font-medium"
+          >Trang {{ pageNumber }} / {{ pageCount }}</span
+        >
+        <button
+          :disabled="pageNumber === pageCount"
+          @click="nextPage"
+          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        >
+          &#10095;
+        </button>
+      </div>
     </div>
   </div>
 </template>
 <script>
+import axios from "axios";
 import TableDropdown from "../Dropdowns/TableDropdown.vue";
 
 import bootstrap from "../../assets/img/bootstrap.jpg";
@@ -499,6 +267,16 @@ export default {
       team2,
       team3,
       team4,
+
+      products: [],
+      pageSize: 5,
+      pageNumber: 1,
+      skip: 0,
+      totalCount: 0,
+
+      showMore: {},
+      selectedProductId: null,
+      showAction: {},
     };
   },
   components: {
@@ -511,6 +289,90 @@ export default {
         // The value must match one of these strings
         return ["light", "dark"].indexOf(value) !== -1;
       },
+    },
+  },
+
+  computed: {
+    pageCount() {
+      return Math.ceil(this.totalCount / this.pageSize);
+    },
+  },
+
+  async mounted() {
+    try {
+      await this.getProducts();
+    } catch (error) {
+      console.log(error);
+    }
+  },
+
+  methods: {
+    toggleAction(id) {
+      this.showAction[id] = !this.showAction[id];
+    },
+
+    async getProducts() {
+      try {
+        const response = await axios.get(
+          "http://localhost:5003/api/product/sanpham",
+          {
+            params: {
+              pageSize: this.pageSize,
+              pageNumber: this.pageNumber,
+              skip: this.skip,
+            },
+          }
+        );
+        this.products = response.data.data.items;
+        this.totalCount = Number(response.headers["content-length"]);
+        console.log(response.headers);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    previousPage() {
+      if (this.pageNumber > 1) {
+        this.pageNumber--;
+        this.skip = (this.pageNumber - 1) * this.pageSize;
+        try {
+          this.getProducts();
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    },
+    nextPage() {
+      if (this.pageNumber < this.pageCount) {
+        this.pageNumber++;
+        this.skip = (this.pageNumber - 1) * this.pageSize;
+        try {
+          this.getProducts();
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    },
+
+    async deleteProduct(id) {
+      try {
+        await axios.delete(`http://localhost:5003/api/product/sanpham/${id}`);
+      } catch (error) {
+        console.error(error);
+      }
+
+      console.log(id);
+    },
+
+    async editProduct(id) {
+      try {
+        this.$router.push(`/admin/form/${id}`);
+        const response = await axios.get(
+          `http://localhost:5003/api/product/sanpham/${id}`
+        );
+        const product = response.data
+      } catch (error) {
+        console.error(error);
+      }
     },
   },
 };

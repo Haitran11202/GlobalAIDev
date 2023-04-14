@@ -1,30 +1,28 @@
 <template>
-    <div>
-        <header-stats />
-        <div class="container mx-auto lg:flex bg-slate-100">
-            <div class="">
-            <sidebar v-on:category-clicked="handleCategoryClick" />
-            </div>
-            <div class="pl-2">
-                <NuxtPage :category="selectedCategory"/>
-            </div>
-        </div>
+  <div>
+    <sidebar-admin />
+    <div class="relative md:ml-64 bg-blueGray-100">
+      <admin-navbar />
+      <header-stats />
+      <div class="px-4 md:px-10 mx-auto w-full -m-24">
+        <slot></slot>
         <footer-admin />
-
+      </div>
     </div>
+  </div>
 </template>
-<script setup>
-import AdminNavbar from '../components/Navbars/AdminNavbar.vue'
-import Sidebar from '../components/Sidebar/Sidebar.vue'
-import HeaderStats from '../components/Headers/HeaderStats.vue'
-import FooterAdmin from '../components/Footers/FooterAdmin.vue'
-import { ref } from 'vue';
-
-const selectedCategory = ref('');
-
-const  handleCategoryClick = (category) => {
-  console.log(category);
-  selectedCategory.value = category;
-  console.log(selectedCategory.value);
-}
+<script>
+import SidebarAdmin from "~~/components/Sidebar/SidebarAdmin.vue";
+import AdminNavbar from "~~/components/Navbars/AdminNavbar.vue";
+import FooterAdmin from "~~/components/Footers/FooterAdmin.vue";
+import HeaderStats from '~~/components/Headers/HeaderStats.vue';
+export default {
+  name: "admin-layout",
+  components: {
+    AdminNavbar,
+    FooterAdmin,
+    SidebarAdmin,
+    HeaderStats
+  },
+};
 </script>
