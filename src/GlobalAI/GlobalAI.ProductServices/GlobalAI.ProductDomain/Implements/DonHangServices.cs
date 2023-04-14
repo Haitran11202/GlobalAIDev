@@ -92,7 +92,7 @@ namespace GlobalAI.ProductDomain.Implements
         {
             _repositoryDonHang.DeleteDonHangById(id);
         }
-        
+
         /// <summary>
         /// Lấy ra tất cả thông tin trong đơn hàng
         /// </summary>
@@ -126,12 +126,17 @@ namespace GlobalAI.ProductDomain.Implements
                 try
                 {
                     // Save DonHang
-                    var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(donHangFullDto.ChiTietDonHangFullDtos));
-                    _dbContext.SaveChanges();
-                    var sanPham = _repositorySanPham.FindById(ctDonhang.IdSanPham);
-                    // Save ChiTietDonHang
                     var resultDh = CreateDonhang(donHangFullDto.donHang);
-                    resultDh.IdGStore = sanPham.IdGStore;
+
+                    _dbContext.SaveChanges();
+                    var idDonHang = resultDh.Id;
+                    // Save ChiTietDonHang
+                    foreach (var item in donHangFullDto.ChiTietDonHangFullDtos)
+                    {
+                        var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(item));
+                        ctDonhang.IdDonHang = idDonHang;
+
+                    }
                     _dbContext.SaveChanges();
                     transaction.Commit();
                 }
@@ -139,8 +144,8 @@ namespace GlobalAI.ProductDomain.Implements
                 {
                     transaction.Rollback();
                 }
-            }
 
+            }
         }
         /// <summary>
         /// Cập nhật trạng thái đơn hàng
