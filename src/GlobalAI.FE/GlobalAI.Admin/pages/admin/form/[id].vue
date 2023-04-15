@@ -1,6 +1,5 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <h1>Form</h1>
     <button
       @click="this.$router.push('/admin/tables')"
       class="absolute m-auto mt-3 w-20 btn btn-outline btn-error right-0 mr-12"
