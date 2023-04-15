@@ -6,12 +6,14 @@ using GlobalAI.ProductEntities.Dto.GioHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
+    [Authorize]
     [Route("api/product/giohang")]
     [ApiController]
     public class GioHangController : BaseController
@@ -26,7 +28,7 @@ namespace GlobalAI.ProductAPI.Controllers
 
         [HttpPost]
         [ProducesResponseType(typeof(APIResponse<List<AddGioHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateGioHang([FromQuery] AddGioHangDto input)
+        public APIResponse CreateGioHang([FromBody] AddGioHangDto input)
         {
             try
             {
@@ -65,7 +67,7 @@ namespace GlobalAI.ProductAPI.Controllers
         }
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<AddGioHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse DeleteGioHang([FromQuery] int maGSaler, int maSanPham )
+        public APIResponse DeleteGioHang([FromBody] int maGSaler, int maSanPham )
         {
             try
             {

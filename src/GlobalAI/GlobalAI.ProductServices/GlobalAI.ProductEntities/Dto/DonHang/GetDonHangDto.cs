@@ -14,7 +14,7 @@ namespace GlobalAI.ProductEntities.Dto.Product
     {
 
        
-      
+        public int Id { get; set; } 
         /// <summary>
         /// Mã đơn hàng
         /// </summary>
