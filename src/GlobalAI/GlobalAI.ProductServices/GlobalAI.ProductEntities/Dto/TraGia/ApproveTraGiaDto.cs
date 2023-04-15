@@ -9,5 +9,7 @@ namespace GlobalAI.ProductEntities.Dto.TraGia
     public class ApproveTraGiaDto
     {
         public int Id { get; set; }
+        public int IdChiTietTraGia { get; set; }
+        public int Status { get; set; }
     }
 }

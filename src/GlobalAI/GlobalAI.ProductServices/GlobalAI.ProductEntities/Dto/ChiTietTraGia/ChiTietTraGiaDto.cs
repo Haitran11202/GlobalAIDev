@@ -10,6 +10,7 @@ namespace GlobalAI.ProductEntities.Dto.ChiTietTraGia
     {
         public int Id { get; set; }
         public int IdTraGia { get; set; }
+        public int LoaiTraGia { get; set; }
         public string Usertype { get; set; }
         public decimal? GiaTien { get; set; }
         public int Status { get; set; }
