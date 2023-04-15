@@ -59,19 +59,9 @@
 <!-- :class="[isActive ? 'text-emerald-500 hover:text-emerald-600' : 'text-slate-700 hover:text-slate-500']" -->
                 <!-- Divider -->
                 <hr class="my-4 md:min-w-full" />
-                <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-                    <li v-for="(item, idx) in listItems" :key="idx" class="items-center">
-                        <nuxt-link :to="item.link" v-slot="{ href, navigate, isActive }">
-                            <a
-                                :href="href"
-                                @click="navigate"
-                                class="text-xs uppercase py-3 font-bold block"
-                                :class="['text-slate-700 hover:text-slate-500']"
-                            >
-                                <i class="fas fa-tv mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-slate-300']"></i>
-                                {{ item.label }}
-                            </a>
-                        </nuxt-link>
+                <ul class="md:flex-col md:min-w-full flex flex-col gap-3 list-none ">
+                    <li v-for="(item, idx) in listItems" @click="selectedCategory(item.id)" :key="idx" :class="item.id == setColor ?  'items-center cursor-pointer text-red-500' : 'items-center cursor-pointer' " >
+                           {{ item.label }}
                     </li>
                 </ul>
                 <!-- Divider -->
@@ -80,9 +70,9 @@
                 <h6 class="md:min-w-full text-slate-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline lg:text-2xl">Danh mục</h6>
                 <!-- Navigation -->
 
-                <ul class="md:flex-col md:min-w-full flex flex-col list-none">
-                    <li v-for="(item, idx) in listItemsSecond" :key="idx" class="items-center">
-                        <nuxt-link :to="item.link" v-slot="{ href, navigate, isActive }">
+                <ul class="md:flex-col md:min-w-full gap-3 flex flex-col list-none">
+                    <li v-for="(item, idx) in listItemsSecond" :key="idx" :class="item.id == setColor ?  'items-center cursor-pointer text-red-500' : 'items-center cursor-pointer' " @click="selectedCategory(item.id)">
+                        <!-- <nuxt-link :to="item.link" v-slot="{ href, navigate, isActive }">
                             <a
                                 :href="href"
                                 @click="navigate"
@@ -92,143 +82,73 @@
                                 <i class="fas fa-tv mr-2 text-sm" :class="[isActive ? 'opacity-75' : 'text-slate-300']"></i>
                                 {{ item.label }}
                             </a>
-                        </nuxt-link>
+                        </nuxt-link> -->
+                        {{item.label}}
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 </template>
-); }
 
 <script setup>
 import { ref } from 'vue';
 import NotificationDropdown from '../../components/Dropdowns/NotificationDropdown.vue'
 import UserDropdown from '../../components/Dropdowns/UserDropdown.vue'
-
+import { defineEmits } from 'vue';
+import { DANH_MUC } from '~~/lib/danhMuc';
 let collapseShow = ref('hidden');
+
 const listItems = [
     {
         label: 'Sản phẩm mới',
-        link: '#',
+        id:DANH_MUC.SAN_PHAM_MOI,
+        active: false
     },
     {
         label: 'Sản phẩm chiết khấu cao',
-        link: '#',
+        id:DANH_MUC.SAN_PHAM_CHIET_KHAU_CAO,
+        active: false
     },
     {
         label: 'Sản phẩm bán chạy',
-        link: '#',
-    },
-    {
-        label: 'Gợi ý sản phẩm',
-        link: '#',
+        id:DANH_MUC.SAN_PHAM_BAN_CHAY,
+        active: false
     },
 ];
 
 const listItemsSecond = [
     {
         label: 'Thời trang',
-        link: '#',
+        id:DANH_MUC.THOI_TRANG,
+        active: false
     },
     {
         label: 'Điện thoại',
-        link: '#',
+        id:DANH_MUC.DIEN_THOAI,
+        active: false
     },
     {
         label: 'Phụ kiện',
-        link: '#',
+        id:DANH_MUC.PHU_KIEN,
+        active: false
     },
     {
         label: 'Thể thao du lịch',
-        link: '#',
+        id:DANH_MUC.THE_THAO_DU_LICH,
+        active: false
     },
-    {
-        label: 'Thời trang',
-        link: '#',
-    },
-    {
-        label: 'Điện thoại',
-        link: '#',
-    },
-    {
-        label: 'Phụ kiện',
-        link: '#',
-    },
-    {
-        label: 'Thể thao du lịch',
-        link: '#',
-    },
-    {
-        label: 'Điện thoại',
-        link: '#',
-    },
-    {
-        label: 'Phụ kiện',
-        link: '#',
-    },
-    {
-        label: 'Thể thao du lịch',
-        link: '#',
-    },
-    {
-        label: 'Điện thoại',
-        link: '#',
-    },
-    {
-        label: 'Phụ kiện',
-        link: '#',
-    },
-    {
-        label: 'Thể thao du lịch',
-        link: '#',
-    },
-    {
-        label: 'Điện thoại',
-        link: '#',
-    },
-    {
-        label: 'Phụ kiện',
-        link: '#',
-    },
-    {
-        label: 'Thể thao du lịch',
-        link: '#',
-    },
-    {
-        label: 'Điện thoại',
-        link: '#',
-    },
-    {
-        label: 'Phụ kiện',
-        link: '#',
-    },
-    {
-        label: 'Thể thao du lịch',
-        link: '#',
-    },
-    {
-        label: 'Điện thoại',
-        link: '#',
-    },
-    {
-        label: 'Phụ kiện',
-        link: '#',
-    },
-    {
-        label: 'Thể thao du lịch',
-        link: '#',
-    },
-    {
-        label: 'Điện thoại',
-        link: '#',
-    }
+ ];
 
-    
-];
-
+const setColor = ref('') 
 const toggleCollapseShow = (classes) => {
     collapseShow.value = classes;
+}
+const emits = defineEmits("category-clicked")
+const selectedCategory = (category) => {
+    console.log(category)
+    setColor.value = category
+    emits("category-clicked", category);
 }
 
 </script>

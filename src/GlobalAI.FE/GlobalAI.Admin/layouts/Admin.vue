@@ -5,7 +5,7 @@
             <div class="">
             <sidebar v-on:category-clicked="handleCategoryClick" />
             </div>
-            <div class="pl-2">
+            <div class="pl-2 flex-1">
                 <NuxtPage :category="selectedCategory"/>
             </div>
         </div>

@@ -1,4 +1,4 @@
-<template>
+<template lang="">
     <div class="bg-gray-100">
       <section class="text-gray-600 body-font ">
         <div class="container mt-10">

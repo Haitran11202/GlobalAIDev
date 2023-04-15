@@ -23,6 +23,11 @@ export default defineNuxtConfig({
             src: '~/plugins/fontawesome.client.js',
             mode: 'client'
         },
+        // Thêm plugins signalr
+        {
+            src: '~/plugins/signalr.js',
+            mode: 'client' // nếu chỉ chạy trên client
+          }
     ],
 
     pinia: {
