@@ -5,14 +5,19 @@
   >
     <div class="rounded-t mb-0 px-4 py-3 border-0">
       <div class="flex flex-wrap items-center">
-        <div class="relative w-full px-4 max-w-full flex justify-between items-center">
+        <div
+          class="relative w-full px-4 max-w-full flex justify-between items-center"
+        >
           <h3
             class="font-semibold text-lg"
             :class="[color === 'light' ? 'text-slate-700' : 'text-white']"
           >
             Danh sách sản phẩm
           </h3>
-          <button @click="this.$router.push('/admin/form')" class="btn btn-outline">
+          <button
+            @click="this.$router.push('/admin/addform')"
+            class="btn btn-outline"
+          >
             Thêm sản phẩm
           </button>
         </div>
@@ -115,87 +120,92 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in products" :key="item.id">
+          <tr v-for="product in products" :key="product.id">
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{ item.id }}
+              {{ product.id }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{ item.tenSanPham }}
+              {{ product.tenSanPham }}
             </td>
             <td
               style="vertical-align: middle"
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 whitespace-pre-wrap"
             >
-              <div v-if="item.moTa && item.moTa.length > 20">
-                <div v-if="!showMore[item.id]">
-                  {{ item.moTa.slice(0, 20) }}...
-                  <span @click="showMore[item.id] = true" class="font-bold cursor-pointer"
+              <div v-if="product.moTa && product.moTa.length > 20">
+                <div v-if="!showMore[product.id]">
+                  {{ product.moTa.slice(0, 20) }}...
+                  <span
+                    @click="showMore[product.id] = true"
+                    class="font-bold cursor-pointer"
                     >Xem thêm</span
                   >
                 </div>
                 <div v-else>
-                  {{ item.moTa }}
+                  {{ product.moTa }}
                   <span
-                    @click="showMore[item.id] = false"
+                    @click="showMore[product.id] = false"
                     class="font-bold cursor-pointer"
                     >Thu gọn</span
                   >
                 </div>
               </div>
-              <div v-if="item.moTa">{{ item.moTa }}</div>
+              <div v-if="product.moTa">{{ product.moTa }}</div>
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{ item.giaBan }}
+              {{ product.giaBan }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{ item.giaChietKhau }}
+              {{ product.giaChietKhau }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{ item.idDanhMuc }}
+              {{ product.idDanhMuc }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{ item.idGStore }}
+              {{ product.idGStore }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{ item.ngayDangKi }}
+              {{ product.ngayDangKi }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{ item.ngayDuyet }}
+              {{ product.ngayDuyet }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 relative"
             >
               <span
                 class="text-blue-500 cursor-pointer text-xl h-4"
-                @click="toggleAction(item.id)"
-                >...</span
+                @click="toggleAction(product.id)"
               >
-              <div v-if="showAction[item.id]" class="mt-2 absolute right-0 z-10">
-                <div class="bg-white shadow-2xl border p-5 rounded-lg overflow-hidden">
+                ...
+              </span>
+              <div class="fixed right-10 z-30" v-if="showAction[product.id]">
+                <div
+                  class="bg-white shadow-2xl border p-5 rounded-lg overflow-hidden"
+                >
                   <button
-                    @click="editProduct(item.id)"
+                    @click="onEditButtonClick(product.id)"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
                   >
                     Sửa
                   </button>
                   <button
-                    @click="deleteProduct(item.id)"
+                    @click="onDeleteButtonClick(product.id)"
                     class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded ml-2"
                   >
                     Xoá
@@ -206,30 +216,43 @@
           </tr>
         </tbody>
       </table>
-      <div class="flex gap-5 p-3 justify-center">
+    </div>
+    <nav
+      class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+    >
+      <div class="hidden sm:block">
+        <p class="text-sm text-gray-700">
+          Showing
+          <span class="font-medium">{{ (pageNumber - 1) * pageSize + 1 }}</span>
+          to
+          <span class="font-medium">{{
+            Math.min(pageNumber * pageSize, products.length)
+          }}</span>
+          of
+          <span class="font-medium">{{ products.length }}</span>
+          results
+        </p>
+      </div>
+      <div class="flex-1 flex justify-between sm:justify-end">
         <button
-          :disabled="pageNumber === 1"
           @click="previousPage"
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          :disabled="pageNumber === 1"
+          class="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
         >
           &#10094;
         </button>
-        <span class="flex items-center font-medium"
-          >Trang {{ pageNumber }} / {{ pageCount }}</span
-        >
         <button
-          :disabled="pageNumber === pageCount"
           @click="nextPage"
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          :disabled="pageNumber === Math.ceil(products.length / pageSize)"
+          class="relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
         >
           &#10095;
         </button>
       </div>
-    </div>
+    </nav>
   </div>
 </template>
 <script>
-import axios from "axios";
 import TableDropdown from "../Dropdowns/TableDropdown.vue";
 
 import bootstrap from "../../assets/img/bootstrap.jpg";
@@ -243,7 +266,6 @@ import team2 from "../../assets/img/team-2-800x800.jpg";
 import team3 from "../../assets/img/team-3-800x800.jpg";
 import team4 from "../../assets/img/team-4-470x470.png";
 import { toast } from "vue3-toastify";
-
 export default {
   data() {
     return {
@@ -256,33 +278,12 @@ export default {
       team2,
       team3,
       team4,
-
-      products: [],
-      pageSize: 5,
-      pageNumber: 1,
-      skip: 0,
-      totalCount: 0,
-
-      showMore: {},
-      selectedProductId: null,
-      showAction: {},
-
-      newData: {
-        maSanPham: "",
-        tenSanPham: "",
-        moTa: "",
-        giaBan: "",
-        giaChietKhau: "",
-        idDanhMuc: "",
-        idGStore: "",
-        ngayDangKi: "",
-        ngayDuyet: "",
-      },
     };
   },
   components: {
     TableDropdown,
   },
+
   props: {
     color: {
       default: "light",
@@ -292,88 +293,90 @@ export default {
       },
     },
   },
+};
+</script>
 
-  computed: {
-    pageCount() {
-      return Math.ceil(this.totalCount / this.pageSize);
-    },
-  },
+<script setup>
+import { ref, watchEffect } from "vue";
+import axios from "axios";
+import { useRouter } from "vue-router";
+const router = useRouter();
 
-  async mounted() {
-    try {
-      await this.getProducts();
-    } catch (error) {
-      console.log(error);
-    }
-  },
+const apiUrl = "http://localhost:5003/api/product/sanpham";
+const pageSize = 5;
+const pageNumber = ref(1);
+const skip = ref(0);
 
-  methods: {
-    toggleAction(id) {
-      this.showAction[id] = !this.showAction[id];
-    },
+// Sử dụng biến ref() để tạo các biến reactive
+const products = ref([]);
+const deletedProduct = ref(null);
+const showAction = ref({});
 
-    async getProducts() {
-      try {
-        const response = await axios.get("http://localhost:5003/api/product/sanpham", {
-          params: {
-            pageSize: this.pageSize,
-            pageNumber: this.pageNumber,
-            skip: this.skip,
-          },
-        });
-        this.products = response.data.data.items;
-        this.totalCount = Number(response.headers["content-length"]);
-        console.log(response.headers);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    previousPage() {
-      if (this.pageNumber > 1) {
-        this.pageNumber--;
-        this.skip = (this.pageNumber - 1) * this.pageSize;
-        try {
-          this.getProducts();
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    },
-    nextPage() {
-      if (this.pageNumber < this.pageCount) {
-        this.pageNumber++;
-        this.skip = (this.pageNumber - 1) * this.pageSize;
-        try {
-          this.getProducts();
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    },
+const getAllProducts = () => {
+  axios
+    .get(
+      `${apiUrl}?pageSize=${pageSize}&pageNumber=${pageNumber.value}&skip=${skip.value}`
+    )
+    .then((response) => {
+      // Gán giá trị mới vào biến reactive
+      products.value = response.data.data.items;
+      console.log(products.value);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
-    async deleteProduct(id) {
-      try {
-        await axios.delete(`http://localhost:5003/api/product/sanpham/${id}`);
-        toast.success("Xoá sản phẩm thành công!");
-      } catch (error) {
-        toast.error("Xoá sản phẩm thất bại!");
-      }
-    },
+const deleteProduct = (id) => {
+  axios
+    .delete(`${apiUrl}/${id}`)
+    .then((response) => {
+      // Gán giá trị mới vào biến reactive
+      deletedProduct.value = response.data;
+      console.log(deletedProduct.value);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
-    async editProduct(id) {
-      try {
-        this.$router.push(`/admin/form/${id}`);
-        const response = await axios.get(
-          `http://localhost:5003/api/product/sanpham/${id}`
-        );
-        const product = response.data.data;
-        // this.newData.maSanPham = product.maSanPham;
-        console.log(this.newData.maSanPham);
-        console.log(product);
-      } catch (error) {
-        console.error(error);
-      }
-    },
-  },
+const editProduct = (id) => {
+  axios.get(`${apiUrl}/${id}`).then((response) => {
+    const product = response.data.data;
+  });
+};
+
+const nextPage = () => {
+  pageNumber.value += 1;
+  skip.value = (pageNumber.value - 1) * pageSize;
+};
+
+const previousPage = () => {
+  pageNumber.value -= 1;
+  skip.value = (pageNumber.value - 1) * pageSize;
+};
+
+watchEffect(() => {
+  getAllProducts();
+  if (deletedProduct.value !== null) {
+    // Nếu sản phẩm đã được xóa thành công, gọi lại hàm getAllProducts() để cập nhật danh sách sản phẩm
+    getAllProducts();
+    // Đặt lại giá trị cho biến deletedProduct
+    deletedProduct.value = null;
+  }
+});
+
+// Gọi hàm xóa sản phẩm khi người dùng click vào nút Xóa
+const onDeleteButtonClick = (id) => {
+  deleteProduct(id);
+};
+
+const onEditButtonClick = (id) => {
+  router.push({ name: "Form", params: { id: id } });
+  editProduct(id);
+};
+
+const toggleAction = (id) => {
+  showAction.value[id] = !showAction.value[id];
 };
 </script>
