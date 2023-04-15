@@ -10,7 +10,7 @@ export const getSanPhamDanhMuc = async (id) => {
   }
 };
 
-// Cương
+// Cương code
 
 // Lấy tất cả sản phẩm và phân trang
 export const getAllProducts = async (pageSize, pageNumber, skip) => {
