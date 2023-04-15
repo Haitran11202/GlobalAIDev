@@ -298,11 +298,15 @@ export default {
 
 <script setup>
 import { ref, watchEffect } from "vue";
-import axios from "axios";
 import { useRouter } from "vue-router";
+import {
+  getAllProducts,
+  deleteProduct,
+  getProductById,
+} from "~~/composables/useApiProduct.js";
 const router = useRouter();
 
-const apiUrl = "http://localhost:5003/api/product/sanpham";
+// Khởi tạo giá trị mặc định phân trang 5 1 0
 const pageSize = 5;
 const pageNumber = ref(1);
 const skip = ref(0);
@@ -312,52 +316,60 @@ const products = ref([]);
 const deletedProduct = ref(null);
 const showAction = ref({});
 
-const getAllProducts = () => {
-  axios
-    .get(
-      `${apiUrl}?pageSize=${pageSize}&pageNumber=${pageNumber.value}&skip=${skip.value}`
-    )
+// Lấy tất cả sản phẩm
+const fetchData = async () => {
+  getAllProducts(pageSize, pageNumber.value, skip.value)
     .then((response) => {
       // Gán giá trị mới vào biến reactive
-      products.value = response.data.data.items;
+      products.value = response.data.items;
       console.log(products.value);
     })
-    .catch((error) => {
-      console.error(error);
+    .catch((err) => {
+      console.error(err);
     });
 };
 
-const deleteProduct = (id) => {
-  axios
-    .delete(`${apiUrl}/${id}`)
-    .then((response) => {
-      // Gán giá trị mới vào biến reactive
-      deletedProduct.value = response.data;
-      console.log(deletedProduct.value);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-};
-
-const editProduct = (id) => {
-  axios.get(`${apiUrl}/${id}`).then((response) => {
-    const product = response.data.data;
-  });
-};
-
+// Chuyển sang trang mới
 const nextPage = () => {
   pageNumber.value += 1;
   skip.value = (pageNumber.value - 1) * pageSize;
 };
 
+// Quay lại trang cũ
 const previousPage = () => {
   pageNumber.value -= 1;
   skip.value = (pageNumber.value - 1) * pageSize;
 };
 
+// Gọi hàm xóa sản phẩm khi người dùng click vào nút Xóa
+const onDeleteButtonClick = (id) => {
+  deleteProduct(id)
+    .then((res) => {
+      // Gán giá trị mới vào biến reactive
+      deletedProduct.value = res;
+      toast.success("Xoá sản phẩm thành công.");
+    })
+    .catch((err) => {
+      console.error(err);
+      toast.error("Xoá sản phẩm thất bại. Vui lòng thử lại!");
+    });
+};
+
+// Gọi hàm sửa bắn dữ liệu và form
+const onEditButtonClick = (id) => {
+  router.push({ name: "Form", params: { id: id } });
+  getProductById(id)
+    .then((res) => {
+      res.data;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
 watchEffect(() => {
-  getAllProducts();
+  //Lấy tất cả sản phẩm
+  fetchData();
   if (deletedProduct.value !== null) {
     // Nếu sản phẩm đã được xóa thành công, gọi lại hàm getAllProducts() để cập nhật danh sách sản phẩm
     getAllProducts();
@@ -366,16 +378,7 @@ watchEffect(() => {
   }
 });
 
-// Gọi hàm xóa sản phẩm khi người dùng click vào nút Xóa
-const onDeleteButtonClick = (id) => {
-  deleteProduct(id);
-};
-
-const onEditButtonClick = (id) => {
-  router.push({ name: "Form", params: { id: id } });
-  editProduct(id);
-};
-
+// Show Action Sửa và xoá
 const toggleAction = (id) => {
   showAction.value[id] = !showAction.value[id];
 };

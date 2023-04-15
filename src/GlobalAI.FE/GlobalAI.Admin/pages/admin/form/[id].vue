@@ -148,6 +148,7 @@ import { ref } from "vue";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
+import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
 definePageMeta({
   layout: "admin",
   name: "Form",
@@ -159,27 +160,21 @@ const productId = ref([]);
 
 onMounted(() => {
   productId.value = router.currentRoute.value.params.id;
-  watchEffect(() => {
-    axios
-      .get(`http://localhost:5003/api/product/sanpham/${productId.value}`)
-      .then((response) => {
-        product.value = response.data.data;
-        console.log(product.value);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  watchEffect(async () => {
+    try {
+      const data = await getProductById(productId.value);
+      product.value = data.data;
+      console.log(product.value);
+    } catch (error) {
+      console.log(error);
+    }
   });
 });
 
 const submitForm = () => {
-  axios
-    .put(
-      `http://localhost:5003/api/product/sanpham/${productId.value}`,
-      product.value
-    )
-    .then((response) => {
-      console.log(response.data.data);
+  updateProduct(productId.value, product.value)
+    .then((data) => {
+      console.log(data);
       toast.success("Cập nhật sản phẩm thành công");
       router.push("/admin/tables");
     })

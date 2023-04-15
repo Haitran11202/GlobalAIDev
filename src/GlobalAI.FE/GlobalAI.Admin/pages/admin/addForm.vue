@@ -6,7 +6,10 @@
     >
       <span class="flex">&#8592;</span>
     </button>
-    <form @submit.prevent="addProduct" class="m-auto shadow-2xl p-12 h-[670px]">
+    <form
+      @submit.prevent="handlePostProduct"
+      class="m-auto shadow-2xl p-12 h-[670px]"
+    >
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div>
           <label
@@ -143,15 +146,14 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import axios from "axios";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
+import { postProduct } from "../../composables/useApiProduct.js";
 
 definePageMeta({
   layout: "admin",
 });
-
 const maSanPham = ref("");
 const tenSanPham = ref("");
 const moTa = ref("");
@@ -161,7 +163,7 @@ const idDanhMuc = ref("");
 const ngayDangKi = ref("");
 const ngayDuyet = ref("");
 
-async function addProduct() {
+function handlePostProduct() {
   const productData = {
     maSanPham: maSanPham.value,
     tenSanPham: tenSanPham.value,
@@ -173,10 +175,9 @@ async function addProduct() {
     ngayDuyet: ngayDuyet.value,
   };
 
-  axios
-    .post("http://localhost:5003/api/product/sanpham", productData)
+  postProduct(productData)
     .then((response) => {
-      console.log(response.data.data);
+      console.log(response);
       toast.success("Thêm sản phẩm thành công");
     })
     .catch((error) => {
