@@ -1,6 +1,6 @@
 import axios from 'axios';
 import store from '../store';
-import { apiRefreshToken } from './useApiAuth';
+// import { apiRefreshToken } from './useApiAuth';
 
 const env = useRuntimeConfig();
 
@@ -23,12 +23,12 @@ instance.interceptors.response.use(function (response) {
         originalRequest._retry = true;
 
         const refreshToken = store.getters.refreshToken;
-        await apiRefreshToken(refreshToken);
+        // await apiRefreshToken(refreshToken);
 
-        originalRequest.headers.Authorization = `Bearer ${store.getters.accessToken}`;
-        instance.defaults.headers = {
-            Authorization: `Bearer ${store.getters.accessToken}`
-        };
+        // originalRequest.headers.Authorization = `Bearer ${store.getters.accessToken}`;
+        // instance.defaults.headers = {
+        //     Authorization: `Bearer ${store.getters.accessToken}`
+        // };
 
         return instance(originalRequest);
     }

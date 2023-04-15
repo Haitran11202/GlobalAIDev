@@ -1,17 +1,17 @@
 import axios from 'axios';
-// import store from '../store';
-import { apiRefreshToken } from './useApiAuth';
+import { useUserStorage } from '~~/stores/user';
 
-// const toast = useToast();
-const env = useRuntimeConfig();
+const instance = axios.create();
 
-const baseURL = env.public.apiEndpoint || '';
+instance.interceptors.request.use(config => {
+    const env = useRuntimeConfig();
+    const userStorage = useUserStorage();
+    const baseURL = env.public.apiEndpoint || '';
 
-const instance = axios.create({
-    baseURL,
-    headers: {
-        // Authorization: `Bearer ${store.getters.accessToken}`
-    }
+    config.baseURL = baseURL;
+    config.headers.Authorization = `Bearer ${userStorage.accessToken}`;
+
+    return config;
 });
 
 instance.interceptors.response.use(function (response) {
