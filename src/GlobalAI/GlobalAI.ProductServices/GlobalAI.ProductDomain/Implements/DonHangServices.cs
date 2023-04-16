@@ -125,6 +125,7 @@ namespace GlobalAI.ProductDomain.Implements
             {
                 try
                 {
+                    donHangFullDto.donHang.IdNguoiMua = CommonUtils.GetCurrentUserId(_httpContext);
                     // Save DonHang
                     var resultDh = CreateDonhang(donHangFullDto.donHang);
 

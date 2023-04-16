@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http.Internal;
 using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.Utils.ConstantVariables.Product;
 using System.ServiceModel;
+using GlobalAI.Utils;
 
 namespace GlobalAI.ProductRepositories
 

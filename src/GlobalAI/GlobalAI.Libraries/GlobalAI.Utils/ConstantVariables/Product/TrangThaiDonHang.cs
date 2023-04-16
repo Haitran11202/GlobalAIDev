@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GlobalAI.Utils.ConstantVariables.Product
+﻿namespace GlobalAI.Utils.ConstantVariables.Product
 {
     /// <summary>
     /// Trạng thái đơn hàng

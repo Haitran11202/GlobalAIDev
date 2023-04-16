@@ -25,6 +25,7 @@ namespace GlobalAI.ProductAPI.Mapper
             CreateMap<ChiTietDonHang, AddChiTietDonHangDto>().ReverseMap();
             CreateMap<ChiTietDonHang, EditChiTietDonHangDto>().ReverseMap();
             CreateMap<GetChiTietDonHangDto, ChiTietDonHang>().ReverseMap();
+            CreateMap<GetGioHangDto, GioHang>().ReverseMap();
             CreateMap<ChiTietDonHang, GetChiTietDonHangDto>().ReverseMap();
             CreateMap<GioHang, EditGioHangDto>().ReverseMap();
             CreateMap<GioHang, AddGioHangDto>().ReverseMap();

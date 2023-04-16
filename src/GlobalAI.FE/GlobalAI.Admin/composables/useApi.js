@@ -2,14 +2,13 @@ import axios from 'axios';
 import { useUserStorage } from '~~/stores/user';
 
 const instance = axios.create();
-
 instance.interceptors.request.use(config => {
     const env = useRuntimeConfig();
     const userStorage = useUserStorage();
     const baseURL = env.public.apiEndpoint || '';
-
     config.baseURL = baseURL;
     config.headers.Authorization = `Bearer ${userStorage.accessToken}`;
+
 
     return config;
 });
@@ -28,17 +27,17 @@ instance.interceptors.response.use(function (response) {
 
     // Xử lý lấy access token mới
     if (error.response.status === 401 && !originalRequest._retry
-        // && store.getters.refreshToken
+        && store.getters.refreshToken
     ) {
         originalRequest._retry = true;
 
-        // const refreshToken = store.getters.refreshToken;
-        // await apiRefreshToken(refreshToken);
+        const refreshToken = store.getters.refreshToken;
+        await apiRefreshToken(refreshToken);
 
-        // originalRequest.headers.Authorization = `Bearer ${store.getters.accessToken}`;
-        // instance.defaults.headers = {
-        //     Authorization: `Bearer ${store.getters.accessToken}`
-        // };
+        originalRequest.headers.Authorization = `Bearer ${store.getters.accessToken}`;
+        instance.defaults.headers = {
+            Authorization: `Bearer ${store.getters.accessToken}`
+        };
 
         return instance(originalRequest);
     }
