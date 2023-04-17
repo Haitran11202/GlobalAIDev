@@ -323,17 +323,22 @@ const isChecked = ref(false);
 
 onMounted(() => {
   productId.value = router.currentRoute.value.params.id;
-  watchEffect(async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:5003/api/product/sanpham/${productId.value}`
-      );
-      products.value = response.data.data;
-      console.log(products.value);
-    } catch (error) {
-      console.error(error);
-    }
-  });
+  getSanPhamById(productId.value)
+    .then((res) => {
+      products.value = res?.data?.data;
+    })
+    .catch(() => {});
+  // watchEffect(async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       `http://localhost:5003/api/product/sanpham/${productId.value}`
+  //     );
+  //     products.value = response.data.data;
+  //     console.log(products.value);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // });
 });
 
 let openTab = ref(1);
