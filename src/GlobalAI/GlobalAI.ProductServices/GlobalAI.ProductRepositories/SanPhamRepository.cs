@@ -85,13 +85,27 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public List<SanPham> GetByCategory(int idDanhMuc)
+        public PagingResult<GetSanPhamDto> GetByCategory(string idDanhMuc, FindSanPhamByCatetoryDto input)
         {
 
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(GetByCategory)}: input = {JsonSerializer.Serialize(idDanhMuc)}");
-            var danhmucs = _dbSet.Where(sp => sp.Id == idDanhMuc).AsNoTracking().ToList();
-
-            return danhmucs;
+            PagingResult<GetSanPhamDto> result = new();
+            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.Id).Where(p => !p.Deleted && p.IdDanhMuc == idDanhMuc)
+                .Where(r => (input.Keyword == null || r.TenSanPham.Contains(input.Keyword)));
+            if (input.PageSize != -1)
+            {
+                projectQuery = projectQuery.Skip(input.Skip).Take(input.PageSize);
+            }
+            result.TotalItems = projectQuery.Count();
+            var sanphams = projectQuery;
+            var sanphamDtos = new List<GetSanPhamDto>();
+            foreach (var item in sanphams)
+            {
+                var getSpDto = _mapper.Map<GetSanPhamDto>(item);
+                sanphamDtos.Add(getSpDto);
+            }
+            result.Items = sanphamDtos;
+            return result;
         }
         /// <summary>
         /// Tìm sản phầm cần sửa, xóa
