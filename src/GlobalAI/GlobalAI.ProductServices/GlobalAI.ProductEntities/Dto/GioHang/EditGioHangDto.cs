@@ -8,11 +8,7 @@ namespace GlobalAI.ProductEntities.Dto.GioHang
 {
     public class EditGioHangDto
     {
-        /// <summary>
-        /// Id Người mua (Vì gstore và gsaler đều có thể mua hàng)
-        /// (Lấy giá trị từ id trong bảng user)
-        /// </summary>
-        public int IdNguoiMua { get; set; }
+        
 
         /// <summary>
         /// Id Sản phẩm (Có thể trùng nhau)

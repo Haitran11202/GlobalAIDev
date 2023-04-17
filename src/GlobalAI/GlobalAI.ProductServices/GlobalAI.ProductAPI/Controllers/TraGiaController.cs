@@ -3,11 +3,13 @@ using GlobalAI.ProductEntities.Dto.ChiTietTraGia;
 using GlobalAI.ProductEntities.Dto.TraGia;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
+    [Authorize]
     [Route("api/product/tra-gia")]
     [ApiController]
     public class TraGiaController : BaseController

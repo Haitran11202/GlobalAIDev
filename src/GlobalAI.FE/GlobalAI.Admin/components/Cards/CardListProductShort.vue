@@ -1,61 +1,69 @@
 <template>
-    <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded p-5">
-        <!-- SẢN PHẨM MỚI -->
-        <div>
-            <div class="flex flex-row justify-between items-center">
-                <h3 class="uppercase text-2xl font-semibold">{{ props.title }}</h3>
-                <RouterLink to="/product/category/1"> 
-                <button
-                    class="bg-orange-500 text-white active:bg-slate-600 text-sm font-semibold px-4 py-2 rounded shadow hover:shadow-lg  hover:text-coolGray-900 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    type="button"
-                >
-                    Xem thêm
-                </button>
-            </RouterLink>
+  <div
+    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded p-5"
+  >
+    <!-- SẢN PHẨM MỚI -->
+    <div>
+      <div class="flex flex-row justify-between items-center">
+        <h3 class="uppercase text-2xl font-semibold">{{ props.title }}</h3>
+      </div>
+      <div class="flex flex-wrap">
+        <div
+          v-for="(item, idx) in products"
+          :key="idx"
+          class="border lg:w-1/5 mx-0.3 rounded-xl my-1 flex flex-col justify-between"
+        >
+          <div class="w-full rounded-t-xl">
+            <img class="block h-30 w-full object-cover" :src="img1" alt="" />
+            <p class="mt-3 font-bold px-3">{{ item.tenSanPham }}</p>
+          </div>
+          <div class="justify-center my-3 px-3">
+            <!-- <p class="mt-3 font-bold">{{item.name}}</p> -->
+            <p class="mt-3 text-sm">
+              <span class="text-red-500 font-bold">$</span
+              ><span class="font-semibold">Giá Bán:</span>
+              <spnan class="italic">{{ item.giaBan }}</spnan>
+            </p>
+            <p class="mt-3 text-sm">
+              <span class="text-red-500 font-bold">$</span
+              ><span class="font-semibold">Chiết Khấu:</span>
+              <spnan class="italic">{{ item.giaChietKhau }}</spnan>
+            </p>
+            <div class="mt-3 flex justify-center">
+              <button
+                @click="detail(item.id)"
+                class="bg-emerald-600 text-white active:bg-slate-600 text-sm font-semibold px-4 py-2 rounded shadow hover:bg-amber-600 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+              >
+                Chi tiết
+              </button>
             </div>
-            <div class="flex flex-wrap">
-                <div v-for="(item, idx) in products" :key="idx" class="border lg:w-1/5 mx-0.3 rounded-xl my-1 flex flex-col justify-between">
-                    <div class=" w-full rounded-t-xl">
-                        <img class="block h-30 w-full object-cover " :src=item.imgUrl alt="" />
-                        <p class="mt-3 font-bold px-3">{{item.name}}</p>
-                    </div>
-                    <div class=" justify-center my-3 px-3">
-                        <!-- <p class="mt-3 font-bold">{{item.name}}</p> -->
-                        <p class="mt-3 text-sm "><span class="text-red-500 font-bold ">$</span><span class="font-semibold">Giá Bán:</span> <spnan class="italic">{{item.price}}</spnan></p>
-                        <p class="mt-3 text-sm "><span class="text-red-500 font-bold ">$</span><span class="font-semibold">Chiết Khấu:</span> <spnan class="italic">{{item.discount}}</spnan></p>
-                        <div class="mt-3 flex justify-center">
-                            <button @click="detail"
-                            class="bg-emerald-600 text-white active:bg-slate-600 text-sm font-semibold px-4 py-2 rounded shadow hover:bg-amber-600 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                            type="button"
-                        >
-                            Chi tiết
-                        </button>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { useRouter } from "vue-router";
+import img1 from "~/assets/img/product/2a058125fdc92cb24ca382fa36107f1d.jpg";
+const router = useRouter();
 
 const props = defineProps({
-    title: {
-        type: String,
-    },
-    products:{
-        name: String,
-        imgUrl: String,
-        price: String,
-        discount: String
-    }
-})
-const detail = () => {
-    router.push({name: 'ProductDetail',params: { id: '1' }})
-}
+  title: {
+    type: String,
+  },
+  products: {
+    id:Number,
+    name: String,
+    imgUrl: String,
+    price: String,
+    discount: String,
+  },
+});
+const detail = (id) => {
+  router.push({ name: "ProductDetail", params: { id } });
+};
 </script>
   

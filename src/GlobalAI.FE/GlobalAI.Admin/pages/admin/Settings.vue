@@ -11,7 +11,9 @@
 <script>
 import CardSettings from "../../components/Cards/CardSettings.vue";
 import CardProfile from "../../components/Cards/CardProfile.vue";
-
+definePageMeta({
+  layout: "admin",
+});
 export default {
   components: {
     CardSettings,

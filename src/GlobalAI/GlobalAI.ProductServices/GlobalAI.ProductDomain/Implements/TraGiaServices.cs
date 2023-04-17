@@ -65,6 +65,7 @@ namespace GlobalAI.ProductDomain.Implements
 
             inputInsert.IdNguoiMua = userId;
             inputInsert.CreatedBy = username;
+           
             inputInsert.Status = TrangThaiTraGia.DANG_TRA_GIA;
             inputInsert = _traGiaRepository.Add(inputInsert);
             _dbContext.SaveChanges();

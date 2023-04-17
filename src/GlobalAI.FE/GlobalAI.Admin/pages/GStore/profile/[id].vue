@@ -41,11 +41,6 @@
                   </h1>
                 </div>
               </div>
-              <!-- <a class="mt-3 text-indigo-500 inline-flex items-center">Learn More
-                                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                                </svg>
-                                </a> -->
             </div>
           </div>
         </div>
@@ -85,7 +80,6 @@ import img10 from "~/assets/img/product/8c37010c4421b7eed56fc3b5e6fbf414.jpg";
 import gstore from "~/assets/img/Gstore/z4237084905277_fb92d546d07a25fd2385aaedfc6f31cb.jpg";
 // import { defineAsyncComponent } from 'vue';
 // const CardListProductShort = defineAsyncComponent('../../components/Cards/CardListProductShort.vue');
-
 definePageMeta({
   layout: 'admin',
 });
@@ -152,4 +146,7 @@ const products1 = [
     discount: "190,000",
   },
 ];
+
+
 </script>
+

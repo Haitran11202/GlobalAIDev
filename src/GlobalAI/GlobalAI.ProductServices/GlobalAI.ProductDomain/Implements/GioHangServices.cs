@@ -4,7 +4,9 @@ using GlobalAI.DataAccess.Models;
 using GlobalAI.Entites;
 using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.ProductEntities.Dto.GioHang;
+using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.ProductRepositories;
 using GlobalAI.Utils;
 using log4net.Repository.Hierarchy;
@@ -38,9 +40,20 @@ namespace GlobalAI.ProductDomain.Implements
             _httpContext = httpContext;
             _mapper = mapper;
         }
-
+        public GetFullGioHangDto GetGiohang()
+        {
+            var IdNguoiMua = CommonUtils.GetCurrentUserId(_httpContext);
+            var UserName = CommonUtils.GetCurrentUsername(_httpContext);
+            var gioHang = _repositoryGioHang.GetGioHang(IdNguoiMua);
+            var getFullDonHangDto = new GetFullGioHangDto
+            {
+                GioHang = gioHang,
+            };
+            return getFullDonHangDto;
+        }
         public GioHang CreateGiohang(AddGioHangDto input)
         {
+            
             var gioHang = _mapper.Map<GioHang>(input);
             _repositoryGioHang.AddGioHang(gioHang);
             gioHang.IdNguoiMua = CommonUtils.GetCurrentUserId(_httpContext);
@@ -49,16 +62,16 @@ namespace GlobalAI.ProductDomain.Implements
         }
 
 
-        public GioHang DeleteGiohang(int maGSaler, int maSanPham)
+        public GioHang DeleteGiohang(int idGioHang)
         {
-            var result = _repositoryGioHang.DeleteGioHang(maGSaler, maSanPham);
+            var result = _repositoryGioHang.DeleteGioHang(idGioHang);
             _dbContext.SaveChanges();
             return result;
         }
 
-        public GioHang EditGiohang(int IdNguoiMua, int IdSanPham, EditGioHangDto newGioHang)
+        public GioHang EditGiohang(int idGiohang, EditGioHangDto newGioHang)
         {
-            var gioHang = _repositoryGioHang.FindGioHang(IdNguoiMua, IdSanPham);
+            var gioHang = _repositoryGioHang.FindGioHang(idGiohang);
             if(gioHang != null)
             {
                 _repositoryGioHang.EditGioHang(gioHang, newGioHang);
@@ -67,9 +80,16 @@ namespace GlobalAI.ProductDomain.Implements
             return gioHang;
         }
 
-        public GioHang EditGiohang(int maGSaler, string maSanPham, EditGioHangDto newGioHang)
+      
+        /// <summary>
+        /// Lấy ra danh sách sản phẩm trong giỏ hàng của người dùng
+        /// </summary>
+        /// <returns></returns>
+        public List<GetSanPhamDto> getSanPhamTheoNguoiMua()
         {
-            throw new NotImplementedException();
+            var userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var sanPhams = _repositoryGioHang.GetSanPhamByNguoiMua(userId);
+            return sanPhams;
         }
     }
 }

@@ -512,13 +512,17 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("DATE")
                         .HasColumnName("DELETED_DATE");
 
-                    b.Property<decimal>("GiaBan")
+                    b.Property<decimal?>("GiaBan")
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("GIA_BAN");
 
-                    b.Property<decimal>("GiaChietKhau")
+                    b.Property<decimal?>("GiaChietKhau")
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("GIA_CHIET_KHAU");
+
+                    b.Property<decimal?>("GiaToiThieu")
+                        .HasColumnType("DECIMAL(18, 2)")
+                        .HasColumnName("GIA_TOI_THIEU");
 
                     b.Property<string>("IdDanhMuc")
                         .HasColumnType("NVARCHAR2(2000)")
@@ -550,7 +554,7 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("TIMESTAMP(7)")
                         .HasColumnName("NGAY_DANG_KI");
 
-                    b.Property<DateTime>("NgayDuyet")
+                    b.Property<DateTime?>("NgayDuyet")
                         .HasColumnType("TIMESTAMP(7)")
                         .HasColumnName("NGAY_DUYET");
 
@@ -562,6 +566,10 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasMaxLength(400)
                         .HasColumnType("NVARCHAR2(400)")
                         .HasColumnName("TEN_SAN_PHAM");
+
+                    b.Property<string>("Thumbnail")
+                        .HasColumnType("NVARCHAR2(2000)")
+                        .HasColumnName("THUMBNAIL");
 
                     b.HasKey("Id");
 

@@ -4,11 +4,13 @@ using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
+    [Authorize]
     [Route("api/product/donhang")]
     [ApiController]
     public class DonHangController : BaseController
@@ -19,7 +21,11 @@ namespace GlobalAI.ProductAPI.Controllers
         {
             _donHangServices = donHangServices;
         }
-
+        /// <summary>
+        /// Lấy ra tất cả đơn hàng có phân trang
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(APIResponse<List<FindDonHangDto>>), (int)HttpStatusCode.OK)]
         public APIResponse FindAll([FromQuery] FindDonHangDto input)
@@ -34,6 +40,11 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);  
             }
         }
+        /// <summary>
+        /// Tạo mới một đơn hàng
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(APIResponse<List<AddDonHangDto>>), (int)HttpStatusCode.OK)]
         public APIResponse CreateDonHang([FromQuery] AddDonHangDto input)
@@ -48,9 +59,15 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+        /// <summary>
+        /// Sửa đơn hàng theo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="newDonHang"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<AddDonHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateDonHang([FromRoute]string id, AddDonHangDto newDonHang )
+        public APIResponse EditDonHang([FromRoute]string id, AddDonHangDto newDonHang )
         {
             try
             {
@@ -70,7 +87,11 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
 
-
+        /// <summary>
+        /// Xóa đơn hàng
+        /// </summary>
+        /// <param name="maDonHang"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(APIResponse<int>), (int)HttpStatusCode.OK)]
         public APIResponse DeleteDonHangFull([FromQuery] int maDonHang)
@@ -85,10 +106,14 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
-
+        /// <summary>
+        /// Lấy đơn hàng và chi tiết đơn hàng
+        /// </summary>
+        /// <param name="maDonHang"></param>
+        /// <returns></returns>
         [HttpGet("full")]
         [ProducesResponseType(typeof(APIResponse<int>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateDonHangFull( [FromQuery] int maDonHang)
+        public APIResponse GetDonHangFull( [FromQuery] int maDonHang)
         {
             try
             {
@@ -100,8 +125,12 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+        /// <summary>
+        /// Tạo đơn hàng và chi tiết đơn hàng
+        /// </summary>
+        /// <param name="addDonHangFullDto"></param>
+        /// <returns></returns>
         [HttpPost("full")]
-        [ProducesResponseType(typeof(APIResponse<AddDonHangFullDto>), (int)HttpStatusCode.OK)]
         public APIResponse CreateDonHangFull([FromBody] AddDonHangFullDto addDonHangFullDto)
         {
             try
@@ -114,5 +143,19 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+        [HttpPut("update-status")]
+        public APIResponse UpdateStatusDonHang([FromBody] UpdateStatusDonHangDto updateDonHangDto)
+        {
+            try
+            {
+                var result = _donHangServices.UpdateStatusDonHang(updateDonHangDto);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
     }
 }

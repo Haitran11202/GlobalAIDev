@@ -1,17 +1,16 @@
 import axios from 'axios';
-// import store from '../store';
-import { apiRefreshToken } from './useApiAuth';
+import { useUserStorage } from '~~/stores/user';
 
-// const toast = useToast();
-const env = useRuntimeConfig();
+const instance = axios.create();
+instance.interceptors.request.use(config => {
+    const env = useRuntimeConfig();
+    const userStorage = useUserStorage();
+    const baseURL = env.public.apiEndpoint || '';
+    config.baseURL = baseURL;
+    config.headers.Authorization = `Bearer ${userStorage.accessToken}`;
 
-const baseURL = env.public.apiEndpoint || '';
 
-const instance = axios.create({
-    baseURL,
-    headers: {
-        // Authorization: `Bearer ${store.getters.accessToken}`
-    }
+    return config;
 });
 
 instance.interceptors.response.use(function (response) {
@@ -28,17 +27,17 @@ instance.interceptors.response.use(function (response) {
 
     // Xử lý lấy access token mới
     if (error.response.status === 401 && !originalRequest._retry
-        // && store.getters.refreshToken
+        && store.getters.refreshToken
     ) {
         originalRequest._retry = true;
 
-        // const refreshToken = store.getters.refreshToken;
-        // await apiRefreshToken(refreshToken);
+        const refreshToken = store.getters.refreshToken;
+        await apiRefreshToken(refreshToken);
 
-        // originalRequest.headers.Authorization = `Bearer ${store.getters.accessToken}`;
-        // instance.defaults.headers = {
-        //     Authorization: `Bearer ${store.getters.accessToken}`
-        // };
+        originalRequest.headers.Authorization = `Bearer ${store.getters.accessToken}`;
+        instance.defaults.headers = {
+            Authorization: `Bearer ${store.getters.accessToken}`
+        };
 
         return instance(originalRequest);
     }
