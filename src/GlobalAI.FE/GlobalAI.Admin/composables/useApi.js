@@ -1,19 +1,29 @@
 import axios from 'axios';
 import { useUserStorage } from '~~/stores/user';
+import { useApiRefreshToken } from './useApiAuth';
 
 const instance = axios.create();
+
+/**
+ * INTERCEPT VÀO REQUEST CALL API
+ */
 instance.interceptors.request.use(config => {
+
     const env = useRuntimeConfig();
     const userStorage = useUserStorage();
+
     const baseURL = env.public.apiEndpoint || '';
+
     config.baseURL = baseURL;
     config.headers.Authorization = `Bearer ${userStorage.accessToken}`;
-
 
     return config;
 });
 
-instance.interceptors.response.use(function (response) {
+/**
+ * INTERCEPT VÀO RESPONSE TRẢ VỀ
+ */
+instance.interceptors.response.use(response => {
     // Any status code within the range of 2xx cause this function to trigger
     // Do something with response data
     if (response.status === 200 && response.data.code !== 200 && response?.data?.message) {
@@ -22,21 +32,23 @@ instance.interceptors.response.use(function (response) {
     }
 
     return response;
-}, async function (error) {
+}, async (error) => {
+
     const originalRequest = error.config;
+    const userStorage = useUserStorage();
 
     // Xử lý lấy access token mới
     if (error.response.status === 401 && !originalRequest._retry
-        && store.getters.refreshToken
+        && userStorage.refreshToken
     ) {
         originalRequest._retry = true;
+        
+        const refreshToken = userStorage.refreshToken;
+        await useApiRefreshToken(refreshToken);
 
-        const refreshToken = store.getters.refreshToken;
-        await apiRefreshToken(refreshToken);
-
-        originalRequest.headers.Authorization = `Bearer ${store.getters.accessToken}`;
+        originalRequest.headers.Authorization = `Bearer ${useUserStorage().accessToken}`;
         instance.defaults.headers = {
-            Authorization: `Bearer ${store.getters.accessToken}`
+            Authorization: `Bearer ${useUserStorage().accessToken}`
         };
 
         return instance(originalRequest);

@@ -24,6 +24,8 @@ var services = builder.Services;
 RsaSecurityKey key;
 
 var path = Configuration.GetValue<string>("JwtKey");
+var accessTokenLifeTime = Configuration.GetValue<int>("Authorize:AccessTokenLifetime");
+var refreshTokenLifeTime = Configuration.GetValue<int>("Authorize:RefreshTokenLifetime");
 
 using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
 using (var reader = new PemReader(stream))
@@ -65,7 +67,11 @@ services
             options.SetTokenEndpointUris("connect/token");
 
             // Enable the client credentials flow.
-            options.AllowPasswordFlow().AllowClientCredentialsFlow();
+            options.AllowPasswordFlow()
+                    .AllowRefreshTokenFlow()
+                    .SetAccessTokenLifetime(TimeSpan.FromMinutes(accessTokenLifeTime))
+                    .SetRefreshTokenLifetime(TimeSpan.FromDays(refreshTokenLifeTime));
+            ;
 
             // Accept anonymous clients (i.e clients that don't send a client_id).
             options.AcceptAnonymousClients();
