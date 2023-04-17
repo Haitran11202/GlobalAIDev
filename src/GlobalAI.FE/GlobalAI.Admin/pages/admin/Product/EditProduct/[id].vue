@@ -1,11 +1,5 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <button
-      @click="this.$router.push('/admin/tables')"
-      class="absolute m-auto mt-3 w-20 btn btn-outline btn-error right-0 mr-12"
-    >
-      <span class="flex">&#8592;</span>
-    </button>
     <form @submit.prevent="submitForm" class="m-auto shadow-2xl p-12 h-[670px]">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div>
@@ -135,9 +129,18 @@
           />
         </div>
       </div>
-      <button type="submit" class="btn btn-outline float-right">
-        Cập nhật sản phẩm
-      </button>
+      <div class="flex justify-end gap-5">
+        <button type="submit" class="btn btn-outline float-right">
+          Cập nhật sản phẩm
+        </button>
+        <button class="btn btn-outline btn-success">Duyệt sản phẩm</button>
+        <button
+          @click="this.$router.push('/admin/product')"
+          class="btn btn-outline btn-error"
+        >
+          <span class="flex">Quay về</span>
+        </button>
+      </div>
     </form>
   </div>
 </template>

@@ -1,11 +1,5 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <button
-      @click="this.$router.push('/admin/tables')"
-      class="absolute m-auto mt-3 w-20 btn btn-outline btn-error right-0 mr-12"
-    >
-      <span class="flex">&#8592;</span>
-    </button>
     <form
       @submit.prevent="handlePostProduct"
       class="m-auto shadow-2xl p-12 h-[670px]"
@@ -82,19 +76,19 @@
           />
         </div>
         <!-- <div>
-            <label
-              for="idGStore"
-              class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-              >Mã G-Store</label
-            >
-            <input
-              v-model="idGStore"
-              type="number"
-              id="idGStore"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              required
-            />
-          </div> -->
+              <label
+                for="idGStore"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >Mã G-Store</label
+              >
+              <input
+                v-model="idGStore"
+                type="number"
+                id="idGStore"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required
+              />
+            </div> -->
         <div>
           <label
             for="ngayDangKi"
@@ -138,9 +132,16 @@
           />
         </div>
       </div>
-      <button type="submit" class="btn btn-outline float-right">
-        Thêm sản phẩm
-      </button>
+      <div class="flex justify-end gap-5">
+        <button type="submit" class="btn btn-outline">Thêm sản phẩm</button>
+        <button class="btn btn-outline btn-success">Duyệt sản phẩm</button>
+        <button
+          @click="this.$router.push('/admin/product')"
+          class="btn btn-outline btn-error"
+        >
+          <span class="flex">Quay về</span>
+        </button>
+      </div>
     </form>
   </div>
 </template>
@@ -149,7 +150,8 @@
 import axios from "axios";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
-import { postProduct } from "../../composables/useApiProduct.js";
+// import { postProduct } from "../../composables/useApiProduct.js";
+import { postProduct } from "~~/composables/useApiProduct";
 
 definePageMeta({
   layout: "admin",

@@ -15,7 +15,7 @@
             Danh sách sản phẩm
           </h3>
           <button
-            @click="this.$router.push('/admin/addformproduct')"
+            @click="this.$router.push('/admin/product/addproduct')"
             class="btn btn-outline"
           >
             Thêm sản phẩm
