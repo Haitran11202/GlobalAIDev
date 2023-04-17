@@ -18,7 +18,7 @@
 <script setup>
 import CardListProduct from "../../../components/Cards/CardListProduct.vue";
 import CardPagination from "~~/components/Cards/CardPagination.vue";
-import { defineProps } from "vue";
+// import { defineProps } from "vue";
 import { ref } from "vue";
 import { DANH_MUC_NOI_BAT } from "~~/lib/danhMuc";
 

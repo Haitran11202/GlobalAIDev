@@ -22,12 +22,12 @@
             <p class="mt-3 text-sm">
               <span class="text-red-500 font-bold">$</span
               ><span class="font-semibold">Giá Bán:</span>
-              <spnan class="italic">{{ item.giaBan }}</spnan>
+              <span class="italic">{{ item.giaBan }}</span>
             </p>
             <p class="mt-3 text-sm">
               <span class="text-red-500 font-bold">$</span
               ><span class="font-semibold">Chiết Khấu:</span>
-              <spnan class="italic">{{ item.giaChietKhau }}</spnan>
+              <span class="italic">{{ item.giaChietKhau }}</span>
             </p>
             <div class="mt-3 flex justify-center">
               <button
