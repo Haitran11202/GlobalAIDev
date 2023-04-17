@@ -9,6 +9,21 @@ export const API_ENDPOINT = {
   editGioHang: (id) => `api/product/giohang/${id}`,
   deleteGioHang: (id) => `api/product/giohang/${id}`,
   createDonHangFull: "api/product/donhang/full",
+  getAllProducts: (pageSize, pageNumber, skip) =>
+    `api/product/sanpham?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
+
+  deleteProduct: (id) => `api/product/sanpham/${id}`,
+
+  getProductById: (id)=> `api/product/sanpham/${id}`,
+
+  postProducts: `api/product/sanpham`,
+
+  putProduct: (id) => `api/product/sanpham/${id}`,
+
+  
+  // Quản lý đơn hàng
+  getAllOrder: (pageSize, pageNumber, skip) =>
+    `http://localhost:5003/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
 };
 
   

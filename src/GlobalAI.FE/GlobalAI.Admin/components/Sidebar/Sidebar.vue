@@ -106,15 +106,16 @@ const listItems = [
         active: false
     },
     {
-        label: 'Sản phẩm chiết khấu cao',
-        id:DANH_MUC.SAN_PHAM_CHIET_KHAU_CAO,
-        active: false
-    },
-    {
         label: 'Sản phẩm bán chạy',
         id:DANH_MUC.SAN_PHAM_BAN_CHAY,
         active: false
     },
+    {
+        label: 'Sản phẩm chiết khấu cao',
+        id:DANH_MUC.SAN_PHAM_CHIET_KHAU_CAO,
+        active: false
+    },
+ 
 ];
 
 const listItemsSecond = [

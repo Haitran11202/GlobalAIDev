@@ -32,8 +32,9 @@ const ProductDetail = defineAsyncComponent(() => import('/src/pages/Product/Prod
 const ProductCategory = defineAsyncComponent(() => import('/src/pages/Product/ProductCategory.vue'));
 
 //CART
-const ManageCart = defineAsyncComponent(() => import('/src/pages/Cart/ManageCart.vue'));
-const FromEdit = defineAsyncComponent(() => import('/src/pages/admin/FormEdit.vue'));
+const ManageCart = defineAsyncComponent(() => import('/src/pages/Cart/ManageCart.vue'))
+
+const Form = defineAsyncComponent(() => import('/src/pages/admin/Form.vue'));
 
 // INDEX
 const Index = defineAsyncComponent(() => import('/src/pages/Index.vue'));
@@ -42,6 +43,7 @@ const PostDetail = defineAsyncComponent(() => import('/src/pages/Post/PostDetail
 
 //ADMIN
 const Dashboard = defineAsyncComponent(() => import('/src/pages/admin/Dashboard.vue'));
+
 
 const routes = [
     // {
@@ -104,16 +106,16 @@ const routes = [
         },
     },
     {
-        path: "/admin/formEdit/:id",
-        name: 'FormEdit',
-        component: FromEdit,
+        path: '/admin/form/:id',
+        name: 'Form',
+        component: Form,
         meta: {
             layout: Admin,
             requiredLogin: false,
         },
     },
     {
-        path: "/cart/manageCart",
+        path: "/card/manageCart/:id",
         name: 'ManageCart',
         component: ManageCart,
         meta: {
@@ -134,6 +136,15 @@ const routes = [
         path: "/product/category/:id",
         name: 'ProductCategory',
         component: ProductCategory,
+        meta: {
+            layout: Admin,
+            requiredLogin: false,
+        },
+    },
+    {
+        path: "/gstore/profile/:id",
+        name: 'GstoreProfile',
+        component: GstoreProfile,
         meta: {
             layout: Admin,
             requiredLogin: false,

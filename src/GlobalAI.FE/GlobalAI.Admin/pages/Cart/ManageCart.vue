@@ -297,7 +297,7 @@ import { toast } from "vue3-toastify";
 // const router = useRouter();
 
 definePageMeta({
-  layout: "admin",
+  layout: "layout-default",
   name: "ManageCart",
 });
 const products = ref([]);

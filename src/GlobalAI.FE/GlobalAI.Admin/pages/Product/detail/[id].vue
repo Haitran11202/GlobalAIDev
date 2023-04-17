@@ -282,6 +282,7 @@
       <div class="flex justify-end items-center mt-3">
         <button
           class="bg-white hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
+          @click="handleAddCart(productId)"
         >
           Thêm vào giỏ hàng
         </button>
@@ -304,9 +305,9 @@
 import axios from "axios";
 import { useRouter } from "vue-router";
 import img8 from "~/assets/img/product/sg-11134201-22120-un5b5kp9xskvd0.jpg";
-
+import {toast} from "vue3-toastify"
 definePageMeta({
-  layout: "admin",
+  layout: "layout-default",
   name: "ProductDetail",
 });
 
@@ -359,6 +360,24 @@ const handleBuyClick = () => {
     .catch(() => {});
   router.push({ name: "ManageCart" });
 };
+
+// Thêm sản phẩm vào giỏ hàng 
+const handleAddCart = () => {
+  const body = {
+     idSanPham:productId.value,
+     soLuong:1,
+     status:1
+  };
+  createGioHang(body)
+  .then((res) => {
+      toast.success("Thêm sản phẩm vào giỏ hàng thành công")
+    })
+  .catch(() => {
+    alert('Thêm sản phẩm vào giỏ hàng thất bại')
+  })
+}
+
+
 const toggleTabs = function (tabNumber) {
   openTab.value = tabNumber;
 };

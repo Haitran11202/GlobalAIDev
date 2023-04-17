@@ -65,6 +65,6 @@ const props = defineProps({
 });
 
 definePageMeta({
-  layout: "admin",
+  layout: "layout-default",
 })
 </script>
