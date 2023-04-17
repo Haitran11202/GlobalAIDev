@@ -250,6 +250,10 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("ID_TRA_GIA");
 
+                    b.Property<int>("LoaiTraGia")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("LOAI_TRA_GIA");
+
                     b.Property<string>("ModifiedBy")
                         .HasMaxLength(50)
                         .HasColumnType("VARCHAR2")
@@ -306,9 +310,9 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("DATE")
                         .HasColumnName("DELETED_DATE");
 
-                    b.Property<string>("MaDanhMuc")
+                    b.Property<string>("IdDanhMuc")
                         .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("MA_DANH_MUC");
+                        .HasColumnName("ID_DANH_MUC");
 
                     b.Property<string>("ModifiedBy")
                         .HasMaxLength(50)
@@ -395,6 +399,10 @@ namespace GlobalAI.HostConsole.Migrations
                     b.Property<decimal?>("SoTien")
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("SO_TIEN");
+
+                    b.Property<int?>("Status")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("STATUS");
 
                     b.HasKey("Id");
 

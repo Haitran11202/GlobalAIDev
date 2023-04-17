@@ -13,6 +13,9 @@ using System.Reflection;
 using PemReader = PemUtils.PemReader;
 using AutoMapper;
 using GlobalAI.ProductAPI.Mapper;
+using Microsoft.Owin;
+using Owin;
+using GlobalAI.ProductAPI.HubFolder;
 
 var builder = WebApplication.CreateBuilder(args);
 var Configuration = builder.Configuration;
@@ -130,7 +133,17 @@ services.AddScoped<IGioHangServices, GioHangServices>();
 #region Add Auto Mapper
 services.AddAutoMapper(typeof(Program));
 #endregion
-
+#region Add SignalR và CORS policy
+services.AddCors(options => options.AddPolicy("Cors", builder =>
+{
+    builder
+      .AllowAnyMethod()
+      .AllowAnyHeader()
+      .AllowCredentials()
+      .WithOrigins("http://localhost:5003"); 
+}));
+services.AddSignalR();
+#endregion
 services.AddHttpContextAccessor();
 services.AddAuthorization();
 
@@ -155,3 +168,9 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+app.UseCors("Cors");
+app.UseEndpoints(endpoints => {
+    endpoints.MapControllers();
+    endpoints.MapHub<ChatHub>("/offers");
+});

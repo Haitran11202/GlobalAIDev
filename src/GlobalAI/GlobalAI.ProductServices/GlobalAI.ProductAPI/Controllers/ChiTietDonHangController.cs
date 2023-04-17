@@ -5,12 +5,14 @@ using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
+    [Authorize]
     [Route("api/product/ct-donhang")]
     [ApiController]
     public class ChiTietDonHangController : BaseController
@@ -22,15 +24,14 @@ namespace GlobalAI.ProductAPI.Controllers
             _chiTietDonHangServices = chiTietDonHang;
         }
 
-        //[HttpGet("lay-chi-tiet-don-hang")]
-        //[ProducesResponseType(typeof(APIResponse<List<FindDonHangDto>>), (int)HttpStatusCode.OK)]
-        //public APIResponse FindAll([FromQuery] FindDonHangDto input)
-        //{
-
-        //}
+        /// <summary>
+        /// Tạo chi tiết đơn hàng
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(APIResponse<List<AddChiTietDonHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateChiTietDonHang([FromQuery] AddChiTietDonHangDto input)
+        public APIResponse CreateChiTietDonHang([FromBody] AddChiTietDonHangDto input)
         {
             try
             {
@@ -67,7 +68,10 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
-
+        /// <summary>
+        /// Xóa chi tiết đơn hàng
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("{id}")]
         public void DeleteChiTietDonHangById(int id)
         {

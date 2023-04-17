@@ -31,7 +31,7 @@
             </p>
             <div class="mt-3 flex justify-center">
               <button
-                @click="detail"
+                @click="detail(item.id)"
                 class="bg-emerald-600 text-white active:bg-slate-600 text-sm font-semibold px-4 py-2 rounded shadow hover:bg-amber-600 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                 type="button"
               >
@@ -55,14 +55,15 @@ const props = defineProps({
     type: String,
   },
   products: {
+    id:Number,
     name: String,
     imgUrl: String,
     price: String,
     discount: String,
   },
 });
-const detail = () => {
-  router.push({ name: "ProductDetail", params: { id: "1" } });
+const detail = (id) => {
+  router.push({ name: "ProductDetail", params: { id } });
 };
 </script>
   
