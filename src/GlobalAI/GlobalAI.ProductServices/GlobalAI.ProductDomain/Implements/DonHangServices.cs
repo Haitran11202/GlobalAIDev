@@ -125,6 +125,7 @@ namespace GlobalAI.ProductDomain.Implements
             {
                 try
                 {
+                    donHangFullDto.donHang.IdNguoiMua = CommonUtils.GetCurrentUserId(_httpContext);
                     // Save DonHang
                     var resultDh = CreateDonhang(donHangFullDto.donHang);
 
@@ -146,6 +147,18 @@ namespace GlobalAI.ProductDomain.Implements
                 }
 
             }
+        }
+        /// <summary>
+        /// Cập nhật trạng thái đơn hàng
+        /// </summary>
+        /// <param name="idDonHang"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public DonHang UpdateStatusDonHang(UpdateStatusDonHangDto updateDonHangDto)
+        {
+            var result = _repositoryDonHang.UpdateStatusDonHang(updateDonHangDto);
+            _dbContext.SaveChanges();
+            return result;
         }
     }
 }

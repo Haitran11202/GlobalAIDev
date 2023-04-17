@@ -25,6 +25,7 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<ChiTietDonHang, AddChiTietDonHangDto>().ReverseMap();
             CreateMap<ChiTietDonHang, EditChiTietDonHangDto>().ReverseMap();
             CreateMap<GetChiTietDonHangDto, ChiTietDonHang>().ReverseMap();
+            CreateMap<GetGioHangDto, GioHang>().ReverseMap();
             CreateMap<ChiTietDonHang, GetChiTietDonHangDto>().ReverseMap();
             CreateMap<GioHang, EditGioHangDto>().ReverseMap();
             CreateMap<GioHang, AddGioHangDto>().ReverseMap();
@@ -35,6 +36,8 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<GetDonHangDto, DonHang>().ReverseMap();
             CreateMap<ChiTietTraGia, AddTraGiaDto>().ReverseMap();
             CreateMap<ChiTietTraGia, AddChiTietTraGiaDto>().ReverseMap();
+            CreateMap<ChiTietTraGia, ChiTietTraGiaDto>().ReverseMap();
+            CreateMap<TraGia, TraGiaDto>().ReverseMap();
         }
     }
 }

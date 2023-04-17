@@ -10,7 +10,7 @@ using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    [Authorize]
+    // [Authorize]
     [Route("api/product/sanpham")]
     [ApiController]
     public class SanPhamController : BaseController
@@ -20,6 +20,21 @@ namespace GlobalAI.ProductAPI.Controllers
         {
             _sanPhamServices = sanPhamServices;
         }
+        [HttpGet("sanPham-full")]
+        [ProducesResponseType(typeof(APIResponse<GetSanPhamDto>), (int)HttpStatusCode.OK)]
+        public APIResponse Add()
+        {
+            try
+            {
+                var result = _sanPhamServices.GetFullSanPham();
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
         /// <summary>
         /// Thêm sản phẩm
         /// </summary>

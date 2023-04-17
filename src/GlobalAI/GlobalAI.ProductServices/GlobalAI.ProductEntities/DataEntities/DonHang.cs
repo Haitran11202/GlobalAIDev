@@ -1,4 +1,5 @@
 ﻿using GlobalAI.Utils.Attributes;
+using GlobalAI.Utils.ConstantVariables.Product;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -58,6 +59,21 @@ namespace GlobalAI.ProductEntities.DataEntities
         /// </summary>
         [ColumnSnackCase(nameof(HinhThucThanhToan))]
         public string HinhThucThanhToan { get; set; }
+
+        /// <summary>
+        /// Trạng thái đơn hàng
+        /// 1: Tạo mới; 2: Đã xác nhận; 3: Hoàn Thành
+        /// <see cref="TrangThaiDonHang"/>
+        /// </summary>
+        [ColumnSnackCase(nameof(Status))]
+        public int? Status { get; set; }
+
+        /// <summary>
+        /// Địa chỉ 
+        /// </summary>
+        [ColumnSnackCase(nameof(DiaChi), TypeName = "VARCHAR2")]
+        [MaxLength(1000)]
+        public string DiaChi { get; set; }
 
         #region audit
         [MaxLength(50)]

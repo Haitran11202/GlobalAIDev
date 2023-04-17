@@ -19,8 +19,8 @@
 import CardListProduct from "../../../components/Cards/CardListProduct.vue";
 import CardPagination from "~~/components/Cards/CardPagination.vue";
 import { defineProps } from "vue";
-import { ref, watch } from "vue";
-import axios from "axios";
+import { ref } from "vue";
+import { DANH_MUC_NOI_BAT } from "~~/lib/danhMuc";
 
 definePageMeta({
   layout: "admin",
@@ -38,17 +38,16 @@ const itemsPerPage = 10;
 const currentPage = ref(1);
 
 // Phân trang
-watchEffect(async () => {
-  try {
-    const response = await axios.get(
-      `http://localhost:5003/api/product/danh-muc/${props.category.id === undefined ? 1 : props.category.id}`
-    );
-    products.value = response.data.data;
-    console.log(response.data);
-  } catch (error) {
-    console.error(error);
-  }
+onMounted(() => {
+  const id = props.category.id || DANH_MUC_NOI_BAT.SAN_PHAM_MOI;
+
+  getSanPhamDanhMuc(id)
+    .then((res) => {
+      products.value = res?.data?.data;
+    })
+    .catch(() => {});
 });
+
 const displayedItems = computed(() => {
   const startIndex = (currentPage.value - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
@@ -66,6 +65,7 @@ const nextPage = () => {
 const prevPage = () => {
   currentPage.value--;
 };
+
 const handlePageClick = (page) => {
   console.log(page);
   currentPage.value = page;
