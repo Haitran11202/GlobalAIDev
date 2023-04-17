@@ -14,17 +14,27 @@
     </div>
 </template>
 <script setup>
-import AdminNavbar from '../components/Navbars/AdminNavbar.vue'
-import Sidebar from '../components/Sidebar/Sidebar.vue'
-import HeaderStats from '../components/Headers/HeaderStats.vue'
-import FooterAdmin from '../components/Footers/FooterAdmin.vue'
-import { ref } from 'vue';
+import AdminNavbar from "../components/Navbars/AdminNavbar.vue";
+import Sidebar from "../components/Sidebar/Sidebar.vue";
+import HeaderStats from "../components/Headers/HeaderStats.vue";
+import FooterAdmin from "../components/Footers/FooterAdmin.vue";
+import { onBeforeRouteUpdate } from "vue-router";
+import { ref } from "vue";
+const router = useRouter();
+const selectedCategory = ref("");
+const showSideBar = ref(false);
 
-const selectedCategory = ref('');
+onBeforeRouteUpdate((to, from, next) => {
+  if (to.path === "/Cart/ManageCart") {
+    console.log(to.path);
+    showSideBar.value = false;
+  }
+  next();
+});
 
-const  handleCategoryClick = (category) => {
+const handleCategoryClick = (category) => {
   console.log(category);
   selectedCategory.value = category;
   console.log(selectedCategory.value);
-}
+};
 </script>

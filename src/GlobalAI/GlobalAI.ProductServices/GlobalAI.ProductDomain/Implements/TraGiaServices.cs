@@ -65,6 +65,7 @@ namespace GlobalAI.ProductDomain.Implements
 
             inputInsert.IdNguoiMua = userId;
             inputInsert.CreatedBy = username;
+           
             inputInsert.Status = TrangThaiTraGia.DANG_TRA_GIA;
             inputInsert = _traGiaRepository.Add(inputInsert);
             _dbContext.SaveChanges();
@@ -140,55 +141,60 @@ namespace GlobalAI.ProductDomain.Implements
         //    _dbContext.SaveChanges();
         //}
 
-        ///// <summary>
-        ///// danh sách phân trang
-        ///// </summary>
-        ///// <param name="input"></param>
-        ///// <returns></returns>
-        //public PagingResult<TraGiaDto> FindAll(FilterTraGiaDto input)
-        //{
-        //    var usertype = CommonUtils.GetCurrentRole(_httpContext);
-        //    int? tradingProviderId = null;
+        /// <summary>
+        /// danh sách phân trang
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public PagingResult<TraGiaDto> FindAll(FilterTraGiaDto input)
+        {
+            var usertype = CommonUtils.GetCurrentRole(_httpContext);
+            int? idGStore = null;
+            int? idGSaler = null;
+            var result = new PagingResult<TraGiaDto>();
+            var traGiaQuery = _traGiaRepository.FindAll(input, idGSaler, idGStore);
 
-        //    int? partnerId = null;
+            result.Items = _mapper.Map<List<TraGiaDto>>(traGiaQuery.Items);
+            result.TotalItems = traGiaQuery.TotalItems;
+            foreach (var item in result.Items)
+            {
+                item.ChiTietTraGias = _mapper.Map<List<ChiTietTraGiaDto>>(_chiTietTraGiaRepository.GetAll(item.Id));
+            }
+            return result;
+            //foreach (var item in traGiaQuery.Items)
+            //{
+            //    var chiTietTraGias = _chiTietTraGiaRepository.GetAll(item.Id);
+            //    // Thông tin sản phẩm xử lý sau
+            //    //var prductQuery = _sanPhamRepository.FindById(item.IdSanPham);
 
+            //    // Thông tin của gsaler, gstore
 
-        //    List<TraGiaDto> result = new();
-        //    var traGiaQuery = _traGiaRepository.FindAll(input, partnerId, tradingProviderId);
+            //    // Tìm thông tin người duyệt sản phẩm
+            //    var approveBy = (from approve in _dbContext.TraGias
+            //                     where approve.Status == TrangThaiTraGia.DA_TRA_GIA && approve.Deleted == DeletedBool.NO
+            //                     select approve.ModifiedBy).FirstOrDefault();
 
-        //    foreach (var item in traGiaQuery.Items)
-        //    {
-        //        // Thông tin sản phẩm xử lý sau
-        //        //var prductQuery = _sanPhamRepository.FindById(item.IdSanPham);
+            //    //xu ly tam, lay thong tin them sau
+            //    result.Add(new TraGiaDto()
+            //    {
+            //        Id = item.Id,
+            //        IdSanPham = item.IdSanPham,
+            //        IdNguoiBan = item.IdNguoiBan,
+            //        IdNguoiMua = item.IdNguoiMua,
+            //        GiaCuoi = item.GiaCuoi,
+            //        Status = item.Status,
+            //        CreatedBy = item.CreatedBy,
+            //        CreatedDate = item.CreatedDate,
+            //        ApproveBy = approveBy,
+            //        ChiTietTraGias = chiTietTraGias ?? null,
 
-        //        // Thông tin của gsaler, gstore
-
-        //        // Tìm thông tin người duyệt sản phẩm
-        //        var approveBy = (from approve in _dbContext.TraGias                    
-        //                         where approve.Status == TrangThaiTraGia.NGUOI_BAN_DONG_Y && approve.Deleted == DeletedBool.NO                
-        //                         select approve.ModifiedBy).FirstOrDefault();
-
-        //        //xu ly tam, lay thong tin them sau
-        //        result.Add(new TraGiaDto()
-        //        {
-        //            Id = item.Id,
-        //            IdSanPham = item.IdSanPham,
-        //            IdNguoiBan = item.IdNguoiBan,
-        //            IdNguoiMua = item.IdNguoiMua,
-        //            GiaTien = item.GiaTien,
-        //            Usertype = item.Usertype,
-        //            Status = item.Status,
-        //            CreatedBy = item.CreatedBy,
-        //            CreatedDate = item.CreatedDate,
-        //            ApproveBy = approveBy,
-
-        //        });
-        //    }
-        //    return new PagingResult<TraGiaDto>
-        //    {
-        //        Items = result,
-        //        TotalItems = traGiaQuery.TotalItems,
-        //    };
-        //}
+            //});
+            //}
+            //return new PagingResult<TraGiaDto>
+            //{
+            //    Items = result,
+            //    TotalItems = traGiaQuery.TotalItems,
+            //};
+        }
     }
 }

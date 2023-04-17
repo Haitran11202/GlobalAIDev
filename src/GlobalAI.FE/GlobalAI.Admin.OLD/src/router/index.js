@@ -33,6 +33,7 @@ const ProductCategory = defineAsyncComponent(() => import('/src/pages/Product/Pr
 
 //CART
 const ManageCart = defineAsyncComponent(() => import('/src/pages/Cart/ManageCart.vue'));
+const FromEdit = defineAsyncComponent(() => import('/src/pages/admin/FormEdit.vue'));
 
 // INDEX
 const Index = defineAsyncComponent(() => import('/src/pages/Index.vue'));
@@ -103,7 +104,16 @@ const routes = [
         },
     },
     {
-        path: "/gsaler/cart",
+        path: "/admin/formEdit/:id",
+        name: 'FormEdit',
+        component: FromEdit,
+        meta: {
+            layout: Admin,
+            requiredLogin: false,
+        },
+    },
+    {
+        path: "/cart/manageCart",
         name: 'ManageCart',
         component: ManageCart,
         meta: {

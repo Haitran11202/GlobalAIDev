@@ -14,10 +14,8 @@
   </div>
 </template>
 <script setup>
-import AdminNavbar from '../components/Navbars/AdminNavbar.vue'
-import Sidebar from '../components/Sidebar/Sidebar.vue'
-import HeaderStats from '../components/Headers/HeaderStats.vue'
-import FooterAdmin from '../components/Footers/FooterAdmin.vue'
-
+import AdminNavbar from "../components/Navbars/AdminNavbar.vue";
+import Sidebar from "../components/Sidebar/Sidebar.vue";
+import HeaderStats from "../components/Headers/HeaderStats.vue";
+import FooterAdmin from "../components/Footers/FooterAdmin.vue";
 </script>
-

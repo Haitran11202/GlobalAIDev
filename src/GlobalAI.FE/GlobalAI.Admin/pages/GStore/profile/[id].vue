@@ -80,7 +80,6 @@ import img10 from "~/assets/img/product/8c37010c4421b7eed56fc3b5e6fbf414.jpg";
 import gstore from "~/assets/img/Gstore/z4237084905277_fb92d546d07a25fd2385aaedfc6f31cb.jpg";
 // import { defineAsyncComponent } from 'vue';
 // const CardListProductShort = defineAsyncComponent('../../components/Cards/CardListProductShort.vue');
-
 definePageMeta({
   layout: 'admin',
 });
@@ -147,4 +146,7 @@ const products1 = [
     discount: "190,000",
   },
 ];
+
+
 </script>
+

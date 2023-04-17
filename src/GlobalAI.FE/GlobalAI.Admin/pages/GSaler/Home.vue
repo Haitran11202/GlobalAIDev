@@ -23,7 +23,7 @@
 
 <script setup>
 import CardListProductShort from "../../components/Cards/CardListProductShort.vue";
-import { DANH_MUC_NOI_BAT } from '~~/lib/danhMuc';
+import { DANH_MUC_NOI_BAT } from "~~/lib/danhMuc";
 import { ref } from "vue";
 definePageMeta({
   layout: "layout-default",
@@ -39,7 +39,7 @@ onMounted(() => {
       console.log(products.value)
       return getSanPhamDanhMuc(DANH_MUC_NOI_BAT.SAN_PHAM_BAN_CHAY);
     })
-    .then(res => {
+    .then((res) => {
       productsSeller.value = res?.data?.data;
     })
     .catch(() => {});

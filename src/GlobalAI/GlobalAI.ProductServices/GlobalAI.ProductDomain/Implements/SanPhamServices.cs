@@ -43,6 +43,10 @@ namespace GlobalAI.ProductDomain.Implements
             _httpContext = httpContext;
 
         }
+        public List<GetSanPhamDto> GetFullSanPham()
+        {
+            return _repositorySanPham.GetFullSanPham();
+        }
         /// <summary>
         /// Thêm sản phẩm
         /// </summary>
@@ -104,7 +108,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public SanPham GetById(string idSanPham)
+        public SanPham GetById(int idSanPham)
         {
             //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
 

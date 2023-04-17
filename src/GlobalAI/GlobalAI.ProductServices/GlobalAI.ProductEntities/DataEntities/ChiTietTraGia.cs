@@ -44,6 +44,13 @@ namespace GlobalAI.ProductEntities.DataEntities
         public string Usertype { get; set; }
 
         /// <summary>
+        /// 1: Người mua đề xuất giá; 2: Người bán đề xuất giá
+        /// <see cref="LoaiTraGias"/>
+        /// </summary>
+        [ColumnSnackCase(nameof(LoaiTraGia))]
+        public int LoaiTraGia { get; set; }
+
+        /// <summary>
         /// Trạng thái của đợt trả giá
         /// <see cref="TrangThaiChiTietTraGia"/>
         /// </summary>
