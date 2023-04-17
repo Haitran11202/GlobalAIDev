@@ -4,6 +4,7 @@ using GlobalAI.DataAccess.Models;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.TraGia;
 using GlobalAI.Utils;
+using GlobalAI.Utils.ConstantVariables.Product;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -38,20 +39,21 @@ namespace GlobalAI.ProductRepositories
             bargainQuery.ModifiedBy = input.ModifiedBy;
         }
 
-        public void Approve(TraGia input)
-        {
-            var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
-            bargainQuery.ModifiedDate = DateTime.Now;
-            bargainQuery.ModifiedBy = input.ModifiedBy;
-        }
-
-        public PagingResult<TraGia> FindAll(FilterTraGiaDto input, int? idGSaler = null, int? idGStore = null)
+        /// <summary>
+        /// Danh sach tra gia cua nguoi mua
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="idGSaler"></param>
+        /// <param name="idGStore"></param>
+        /// <returns></returns>
+        public PagingResult<TraGia> FindAll(FilterTraGiaDto input, int? userId = null)
         {
             PagingResult<TraGia> result = new();
-            //IQueryable<TraGia> traGiaQuery = _dbSet.Where(e => e.Deleted == DeletedBool.NO);
+    
             var traGiaQuery = (from traGia in _dbSet
                                where traGia.Deleted == DeletedBool.NO      
-                                     && (input.IdSanPham == null || input.IdSanPham == traGia.IdSanPham)                              
+                                     && (input.IdSanPham == null || input.IdSanPham == traGia.IdSanPham)
+                                     && (traGia.IdNguoiBan == userId || traGia.IdNguoiMua == userId)
                                      && (input.Status == null || input.Status == traGia.Status)
                                      select traGia);
 
@@ -65,7 +67,18 @@ namespace GlobalAI.ProductRepositories
             return result;
         }
 
-        public TraGia FindById(int id, int? IdGSaler = null, int? IdGStore = null)
+        public void DeleteTraGiaById(int id, string username)
+        {
+            var result = _dbSet.FirstOrDefault( e => e.Id == id );
+            if (result != null)
+            {
+                result.DeletedBy = username;
+                result.DeletedDate = DateTime.Now;
+                result.Deleted = DeletedBool.YES;
+                _dbContext.SaveChanges();
+            }
+        }
+        public TraGia FindById(int id, int? userId = null)
         {
             return _dbSet.FirstOrDefault(d => d.Id == id && d.Deleted == DeletedBool.NO);
         }
