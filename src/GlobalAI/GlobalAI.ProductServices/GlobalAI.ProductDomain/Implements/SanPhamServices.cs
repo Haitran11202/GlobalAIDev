@@ -43,6 +43,10 @@ namespace GlobalAI.ProductDomain.Implements
             _httpContext = httpContext;
 
         }
+        public List<GetSanPhamDto> GetFullSanPham()
+        {
+            return _repositorySanPham.GetFullSanPham();
+        }
         /// <summary>
         /// Thêm sản phẩm
         /// </summary>

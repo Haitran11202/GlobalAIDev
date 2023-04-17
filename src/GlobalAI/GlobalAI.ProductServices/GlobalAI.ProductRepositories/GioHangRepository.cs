@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using System.Net.Mail;
 using GlobalAI.ProductEntities.Dto.GioHang;
+using GlobalAI.Utils;
 
 namespace GlobalAI.ProductRepositories
 {
@@ -24,18 +25,32 @@ namespace GlobalAI.ProductRepositories
         {
             _mapper = mapper;
         }
+        public List<GetGioHangDto> GetGioHang(int idNguoiMua)
+        {
+            var gioHangs = _dbSet.Where(g => g.IdNguoiMua == idNguoiMua && !g.Deleted).ToList();
+            var results = _mapper.Map<List<GetGioHangDto>>(gioHangs);
+            return results;
+        }
 
         public GioHang AddGioHang(GioHang dto)
         {
-            _dbSet.Add(dto);
+            var item = _dbSet.FirstOrDefault(g => g.IdSanPham == dto.IdSanPham && !g.Deleted);
+            if (item != null)
+            {
+                item.SoLuong += dto.SoLuong;
+            }
+            else
+            {
+                _dbSet.Add(dto);
+            }
             return dto;
         }
         /// <summary>
         /// Tìm sản phẩm cần sửa, xóa
         /// </summary>
-        public GioHang FindGioHang(int maGSaler, int maSanPham)
+        public GioHang FindGioHang(int idGioHang)
         {
-            var gioHang = _dbSet.FirstOrDefault(sp => sp.IdNguoiMua == maGSaler && sp.IdSanPham == maSanPham);
+            var gioHang = _dbSet.FirstOrDefault(sp => sp.Id == idGioHang && !sp.Deleted);
             if (gioHang != null && gioHang.Deleted == true)
             {
                 return null;
@@ -49,16 +64,23 @@ namespace GlobalAI.ProductRepositories
             return oldGioHang;
         }
 
-        public GioHang DeleteGioHang(int maGSaler, int maSanPham)
+        public GioHang DeleteGioHang( int idGioHang)
         {
-            var sanPhamXoa = FindGioHang(maGSaler, maSanPham);
+            var sanPhamXoa = FindGioHang(idGioHang);
             if (sanPhamXoa != null)
             {
                 sanPhamXoa.Deleted = true;
                 return sanPhamXoa;
             }
             return null;
+        }
 
+        public List<GetSanPhamDto> GetSanPhamByNguoiMua(int idNguoiMua)
+        {
+            var sanPhamIds = _dbSet.Where(gh => gh.IdNguoiMua == idNguoiMua && !gh.Deleted)
+                .Select(c => c.IdSanPham);
+            var sanPhams = _globalAIDbContext.SanPhams.Where(sp => sanPhamIds.Contains(sp.Id)).ToList();
+            return _mapper.Map<List<GetSanPhamDto>>(sanPhams);
         }
     }
 }

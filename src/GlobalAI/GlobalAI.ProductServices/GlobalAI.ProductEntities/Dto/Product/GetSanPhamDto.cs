@@ -11,7 +11,7 @@ namespace GlobalAI.ProductEntities.Dto.Product
     public class GetSanPhamDto
     {
         public int Id { get; set; }
-        public string IdSanPham { get; set; }
+        public string MaSanPham { get; set; }
         public string TenSanPham { get; set; }
         public string MoTa { get; set; } = String.Empty;
         public decimal GiaBan { get; set; }
