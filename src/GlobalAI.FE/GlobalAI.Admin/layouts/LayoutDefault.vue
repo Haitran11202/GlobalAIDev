@@ -1,8 +1,8 @@
 <template>
   <div>
-    <header-stats />
+    <admin-navbar />
     <div class="container mx-auto lg:flex bg-slate-100">
-      <div class="">
+      <div class="" v-if="showSidebar.getShowSideBar">
         <sidebar />
       </div>
       <div class="">
@@ -18,4 +18,6 @@ import AdminNavbar from "../components/Navbars/AdminNavbar.vue";
 import Sidebar from "../components/Sidebar/Sidebar.vue";
 import HeaderStats from "../components/Headers/HeaderStats.vue";
 import FooterAdmin from "../components/Footers/FooterAdmin.vue";
+import { useSideBarStorage } from "../stores/sideBar";
+const showSidebar = useSideBarStorage();
 </script>

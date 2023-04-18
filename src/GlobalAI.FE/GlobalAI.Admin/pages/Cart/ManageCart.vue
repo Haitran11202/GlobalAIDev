@@ -155,7 +155,7 @@
                       <td class="p-2">
                         <div class="text-left font-medium text-green-500">
                           {{
-                            getPrice(
+                            formatMoney(
                               getCartItemQuantity(sanpham.id),
                               sanpham.giaBan
                             )
@@ -204,11 +204,13 @@
         </p>
         <div class="mb-2 flex justify-between">
           <p class="text-gray-700">Giá bán</p>
-          <p class="text-gray-700">{{ totalPrice.sum }}</p>
+          <p class="text-gray-700">{{ formatMoneyAll(totalPrice.sum) }}</p>
         </div>
         <div class="flex justify-between">
           <p class="text-gray-700">Giá chiết khấu</p>
-          <p class="text-gray-700">{{ totalPrice.chietKhau }}</p>
+          <p class="text-gray-700">
+            {{ formatMoneyAll(totalPrice.chietKhau) }}
+          </p>
         </div>
         <p class="text-gray-700 mt-3 font-semibold">Hình thức thanh toán</p>
         <div>
@@ -263,13 +265,13 @@
         <hr class="my-4" />
 
         <div class="flex justify-between">
-          <p class="text-lg font-bold text-black">Tổng thanh toán</p>
+          <p class="text-sm font-bold text-black">Tổng thanh toán</p>
           <div class="">
             <p class="mb-1 text-lg font-bold text-black">
-              {{ totalPrice.chietKhau }}
+              {{ formatMoneyAll(totalPrice.chietKhau) }}
             </p>
             <p class="text-sm text-gray-700">
-              Tiết kiệm: {{ totalPrice.tongThanhToan }}
+              Tiết kiệm: {{ formatMoneyAll(totalPrice.tietKiem) }}
             </p>
           </div>
         </div>
@@ -297,12 +299,13 @@ import { toast } from "vue3-toastify";
 // const router = useRouter();
 
 definePageMeta({
-  layout: "admin",
+  layout: "layout-default",
   name: "ManageCart",
 });
 const products = ref([]);
 const datas = ref([]);
 const selectedProducts = ref([]);
+const address = ref("");
 //body call api tạo đơn hàng full
 const bodyData = ref({
   donHang: {
@@ -312,6 +315,7 @@ const bodyData = ref({
     idNguoiMua: 0,
     soTien: 0,
     hinhThucThanhToan: "",
+    diaChi: "Hà Nội",
   },
   chiTietDonHangFullDtos: [],
 });
@@ -406,7 +410,7 @@ const deleteGh = (idsp) => {
 const totalPrice = computed(() => {
   let sum = 0;
   let chietKhau = 0;
-
+  let tietKiem = 0;
   datas.value.forEach((item) => {
     if (selectedProducts.value.includes(item.idSanPham)) {
       let giaBan = getGiaBanTuIdSanPham(item.idSanPham);
@@ -415,9 +419,20 @@ const totalPrice = computed(() => {
       chietKhau += getPrice(item.soLuong, giaChietKhau);
     }
   });
+  tietKiem = sum - chietKhau;
 
-  return { sum, chietKhau };
+  return { sum, chietKhau, tietKiem };
 });
+// format tiền
+const formatMoney = (soLuong, giaBan) => {
+  return getPrice(soLuong, giaBan).toLocaleString("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  });
+};
+const formatMoneyAll = (money) => {
+  return money.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+};
 //tạo đơn hàng
 const checkOut = () => {
   selectedProducts.value.map((idSp) => {
