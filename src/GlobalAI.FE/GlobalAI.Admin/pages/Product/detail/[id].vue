@@ -1,64 +1,61 @@
-<template>
-  <div>
-    <!-- Product Info -->
-    <div class="card lg:card-side bg-base-100 shadow-xl pt-8">
-      <div class="w-1/6">
-        <figure><img class="w-full" :src="img8" alt="Album" /></figure>
-      </div>
-      <div class="card-body">
-        <h2 class="card-title">{{ products.tenSanPham }}</h2>
-        <div class="rating rating-md rating-half">
-          <input
-            :disabled="true"
-            type="radio"
-            name="rating-10"
-            class="rating-hidden"
-          />
-
-          <!-- Sử dụng vòng lặp for để tạo ra các input với các thuộc tính tương tự nhau -->
-          <div v-for="(i, idx) in 9" :key="idx">
-            <input
-              :disabled="true"
-              type="radio"
-              name="rating-10"
-              class="bg-yellow-400 mask mask-star-2"
-              :class="{
-                'mask-half-1': i % 2 == 1,
-                'mask-half-2': i % 2 == 0,
-              }"
-            />
-          </div>
-        </div>
-        <p class="mt-3">
-          <span class="text-red-500 font-bold">$</span>&nbsp;Giá bán:
-          <span class="italic">{{ products.giaBan }}</span>
-        </p>
-        <p class="mt-3">
-          <span class="text-red-500 font-bold">$</span>&nbsp;Chiết khấu:
-          <span class="italic">{{ products.giaChietKhau }}</span>
-        </p>
-        <div class="text-sm breadcrumbs">
-          <ul>
-            <li>
-              <a class="">
-                <font-awesome-icon :icon="['fa', 'circle-info']" />
-                <!-- link toi co the truyen vao param -->
-                <!-- <button @click="supplier" class="btn btn-link btn-xs">Thông tin nhà cung cấp</button> -->
-                <!-- link toi chua co cach truyen vao param -->
-                <nuxt-link
-                  class="btn btn-link btn-xs"
-                  to="/gsaler/product/supplier/1"
-                  >Thông tin nhà cung cấp</nuxt-link
-                >
-                <!-- <a href="/gsaler/product/supplier/1" class="link link-primary">Thông tin nhà cung cấp</a> -->
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+<template lang="">
+  <div class="w-full mt-[40px] flex gap-[20px]">
+    <div class="w-[42%]">
+       <div class="w-full h-[454px] rounded-xl overflow-hidden">
+        <img src="https://media.sellycdn.net/files/sm_2022_08_13_03_19_20_0700_xJPPQPefAX.jpg" class="object-cover" alt="">
+       </div>
     </div>
-    <!-- Product Detail Info -->
-    <div class="flex flex-wrap">
+    <div class="flex-1">
+        <h1 class="text-[30px] font-bold uppercase">{{products.tenSanPham}}</h1>
+        <div class="flex items-center">
+          <span class="text-[#cc3366] text-[20px]">Giá Bán :</span>
+          <span class="text-[30px] text-[#cc3366] font-bold">{{products.giaBan}}</span>
+        </div>
+        <div class="flex items-center gap-[10px]">
+          <span>Giá Chiết Khấu : </span>
+          <p class="text-[18px]">{{products.giaChietKhau}}</p>
+        </div>
+        <div class="flex items-center mt-[15px]">
+          <h2 class="text-[16px] font-[500] mr-[40px]">Màu Sắc</h2>
+          <div class="flex items-center gap-4">
+          <button @click="handleSelectColor(color.id)" v-for="color in ListColor" :key="color" :class=" idColor===color.id ? 'px-[12px] bg-white text-red-500 py-[6px] border-2 rounded-md border-red-400' : 'px-[12px] bg-slate-100 py-[6px] border-2 rounded-md'">{{color.label}}</button>
+        
+        </div>
+        </div>
+        <div class="w-full px-[20px] py-[20px] mt-[20px] bg-[#fafafa] rounded-md">
+            <div class="flex justify-between border-b-2 border-[#ccc] pb-[20px]">
+              <button class="py-[10px] px-[10px] h-[40px] flex items-center rounded-md text-white bg-[#23c6c8]">Freeship 80K</button>
+               <div>
+                  <p class="text-[14px]">
+                    <span class="text-[16px] font-bold">.</span>
+                    Miễn Phí Vận Chuyển 20.000đ cho đến 149.000đ </p>
+                  <p  class="text-[14px]">
+                    <span class="text-[16px] font-bold">.</span>
+                    Miễn Phí Vận Chuyển 30.000đ cho đến 249.000đ </p>
+                  <p  class="text-[14px]">
+                    <span class="text-[16px] font-bold">.</span>
+                    Miễn Phí Vận Chuyển 80.000đ cho đến 349.000đ </p>
+               </div>
+            </div>
+            <div class="flex mt-[10px] justify-between border-b-2 border-[#ccc] pb-[20px]">
+              <p class="">Vận chuyển đến</p>
+              <p class="font-[500] ml-[50px]">Vui lòng chọn địa chỉ</p>
+              <p>></p>
+            </div>
+            <div class="flex mt-[10px] justify-between">
+              <p class="">Phí vận chuyển dự kiến </p>
+              <p class="font-[500] ">Vui lòng chọn địa chỉ</p>
+              <p>></p>
+            </div>
+         
+        </div>
+        <div class="flex gap-[15px] mt-[20px]">
+              <button @click="handleshowModelCart" class="bg-[#16A249] rounded-md text-white py-4 px-5">Thêm Vào Giỏ Hàng</button>
+              <button @click="handleBuyClick" class="bg-[#cc3366] text-white rounded-md py-4 px-5">Mua Hàng</button>
+        </div>
+    </div>
+  </div>
+  <div class="flex flex-wrap mt-[40px] border-t-2 border-[#ccc] pt-[20px]">
       <div class="w-full">
         <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
           <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
@@ -270,42 +267,74 @@
           </div>
         </div>
       </div>
+  </div>
+  <div v-if="isShowModelCart" class="z-50 fixed w-[480px] py-[20px] px-[10px] h-[480px] bg-white top-[50%] rounded-xl shadow-2xl left-[35%] translate-y-[-50%]">
+    <div class="float-right">
+      <button @click="isShowModelCart = false" class="rounded-xl  text-white px-[10px] py-[10px] border-2  bg-red-300">Ẩn</button>
     </div>
-    <div>
-      <div class="flex items-center justify-end">
-        <label class="label cursor-pointer">
-          <input type="checkbox" v-model="isChecked" class="checkbox" />
-          <span class="label-text mr-3">&nbsp;Đồng ý điều khoản</span>
-        </label>
+    <div class="px-[35px] mt-[60px]">
+      <div class="flex gap-[20px]">
+        <div class="w-[72px] h-[72px] rounded-xl overflow-hidden">
+          <img src="https://media.sellycdn.net/files/sm_2022_08_13_03_19_20_0700_xJPPQPefAX.jpg" class="object-cover" alt="">
+        </div>
+        <div>
+          <h1 class="text-[18px] uppercase text-[#384059] font-bold">{{products.tenSanPham}}</h1>
+          <div class="flex gap-[20px]">
+            <h2 class="text-[16px]">Màu sắc</h2>
+            <span>Trắng</span>
+          </div>
+        </div>
       </div>
-
-      <div class="flex justify-end items-center mt-3">
-        <button
-          class="bg-white hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
-          @click="handleAddCart(productId)"
-        >
-          Thêm vào giỏ hàng
-        </button>
-        <div class="w-4"></div>
-
-        <button
-          :disabled="!isChecked"
-          :class="{ 'bg-green-500': isChecked, 'bg-gray-400': !isChecked }"
-          @click="handleBuyClick(productId)"
-          class="mr-3 bg-white hover:bg-green-500 text-green-700 font-semibold hover:text-white py-2 px-4 border border-green-500 hover:border-transparent rounded"
-        >
-          Mua hàng
-        </button>
+      <div class="flex justify-between items-center mt-[30px]">
+        <h2 class="font-bold text-[16px] text-[#384059]">Số lượng</h2>
+        <div class="px-[10px] flex justify-between items-center py-[6px] rounded-xl border-2">
+          <button @click="increment" class="w-[20px] h-[20px] flex items-center font-medium justify-center rounded-[50%] bg-black text-white">+</button>
+          <input class="w-[100px] flex pl-[40px] border-none outline-none" type="number" :value="soLuong">
+          <button @click="decrement" class="w-[20px] h-[20px] flex items-center font-medium justify-center rounded-[50%] bg-black text-white">-</button>
+        </div>
+      </div>
+      <div class="flex justify-between items-center mt-[30px]">
+        <h2 class="font-bold text-[16px] text-[#384059]">Giá</h2>
+        <div class="px-[10px] py-[6px] w-[165px] rounded-xl border-2 border-coolGray-400">
+          <p class="float-right font-medium">{{products.giaBan}}</p>
+        </div>
+      </div>
+      <div class="flex justify-between items-center mt-[30px]">
+        <h2 class="font-bold text-[16px] text-[#384059]">Tổng giá </h2>
+          <p class="float-right font-medium">{{tongGiaBan}}</p>
+      </div>
+      <div class="px-[40px] mt-[30px] flex items-center justify-center">
+        <button @click="handleAddProductCart" class="py-[10px] rounded-md px-[20px] flex items-center bg-[#cc3366] text-white font-bold">Thêm vào giỏ hàng</button>
       </div>
     </div>
   </div>
+  <div v-if="isShowModelCart" @click="isShowModelCart=false" class="fixed top-0 lef-0 right-0 w-full h-full bg-black opacity-25 z-20"></div>
 </template>
-
 <script setup>
 import axios from "axios";
 import { useRouter } from "vue-router";
 import img8 from "~/assets/img/product/sg-11134201-22120-un5b5kp9xskvd0.jpg";
 import {toast} from "vue3-toastify"
+const idColor = ref('')
+
+const ListColor = [
+  {
+    label:'Trắng',
+    id:1
+  },
+  {
+    label:'Xanh',
+    id:2
+  },
+  {
+    label:'Đỏ',
+    id:3
+  }
+]
+const handleSelectColor = (id) => {
+  idColor.value = id
+}
+
 definePageMeta({
   layout: "layout-default",
   name: "ProductDetail",
@@ -313,8 +342,10 @@ definePageMeta({
 
 const router = useRouter();
 const productId = ref([]);
-const products = ref([]);
+const products = ref({});
 const isChecked = ref(false);
+const isShowModelCart = ref(false)
+const soLuong = ref(1)
 // const props = defineProps({
 //   productId: {
 //     type: Number,
@@ -322,7 +353,7 @@ const isChecked = ref(false);
 //   },
 // });
 
-onMounted(() => {
+watchEffect(() => {
   productId.value = router.currentRoute.value.params.id;
   getSanPhamById(productId.value)
     .then((res) => {
@@ -341,6 +372,10 @@ onMounted(() => {
   //   }
   // });
 });
+
+const tongGiaBan = computed(() => {
+  return products.value.giaBan * soLuong.value;
+})
 
 let openTab = ref(1);
 
@@ -361,18 +396,35 @@ const handleBuyClick = () => {
   router.push({ name: "ManageCart" });
 };
 
+const increment = () => {
+  soLuong.value++;
+}
+
+const decrement = () => {
+  soLuong.value--;
+}
+
 // Thêm sản phẩm vào giỏ hàng 
-const handleAddCart = () => {
-  const body = {
-     idSanPham:productId.value,
-     soLuong:1,
-     status:1
-  };
+const handleshowModelCart = () => {
+  isShowModelCart.value = true;
+}
+const handleAddProductCart =() => {
+  const body={
+    idSanPham: productId.value,
+    soLuong: soLuong.value,
+    status:1
+  }
   createGioHang(body)
   .then((res) => {
-      toast.success("Thêm sản phẩm vào giỏ hàng thành công")
-    })
-  .catch(() => {
+    toast.success("Thêm sản phẩm vào giỏ hàng thành công !", {
+        autoClose: 1000,
+        onClose:() => {
+          router.push({ name: "ManageCart" })
+        }
+      });
+    
+  })
+  .catch(()=>{
     alert('Thêm sản phẩm vào giỏ hàng thất bại')
   })
 }
@@ -382,3 +434,6 @@ const toggleTabs = function (tabNumber) {
   openTab.value = tabNumber;
 };
 </script>
+<style lang="">
+  
+</style>

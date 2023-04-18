@@ -10,8 +10,8 @@
                 <div v-for="(item, idx) in products"
           :key="idx" class="w-[210px] h-[340px] bg-white rounded-[10px] overflow-hidden border-2 "
           @click="detail(item.id)">
-          <div class="w-full">
-            <img src="https://media.sellycdn.net/files/sm_2023_03_17_04_32_55_0700_ArddHLwscN.jpg" class="object-cover" alt="">
+          <div class="w-full px-[4px] py-[4px]">
+            <img src="https://media.sellycdn.net/files/sm_2023_03_17_04_32_55_0700_ArddHLwscN.jpg" class="rounded-md object-cover" alt="">
           </div>
           <div class="bg-white px-[10px] flex flex-col gap-[4px]">
             <h2 class="text-[18px] mt-[10px] uppercase text-[#384059]">{{ item.tenSanPham }}</h2>
