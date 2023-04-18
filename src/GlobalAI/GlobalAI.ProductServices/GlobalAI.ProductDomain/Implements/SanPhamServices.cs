@@ -22,6 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GlobalAI.Utils;
+using GlobalAI.Utils.ConstantVariables.Product;
 
 namespace GlobalAI.ProductDomain.Implements
 {
@@ -126,7 +127,22 @@ namespace GlobalAI.ProductDomain.Implements
             return _repositorySanPham.GetByCategory(idDanhMuc, input);
         }
 
-
-
+        /// <summary>
+        /// Duyệt sản phẩm theo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public void ApproveSanPham(int id)
+        {
+            var Results = _repositorySanPham.ApproveSanPham();
+            foreach(var Result in Results)
+            {
+                if (Result.Id == id && Result.Status == TrangThaiSanPham.CHO_DUYET)
+                {
+                    Result.Status = TrangThaiSanPham.DA_DUYET;
+                    _dbContext.SaveChanges();
+                }
+            }
+        }
     }
 }
