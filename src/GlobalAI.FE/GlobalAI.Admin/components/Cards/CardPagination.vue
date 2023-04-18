@@ -3,10 +3,10 @@
     <nav aria-label="Page navigation example ">
       <ul class="flex items-center -space-x-px">
         <li>
-          
           <button
-          :disabled="currentPage === 1"
-           class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" @click="prevPage" > <img class="w-5 h-5" src="~/assets/Previous.svg" alt="icon" /></button>
+          :disabled="pageNumber === 1"
+          @click="prevPage"
+           class="block px-3 py-2 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white" > <img class="w-5 h-5" src="~/assets/Previous.svg" alt="icon" /></button>
         </li>
         <div v-for="pages in totalPages" :key="pages">
           <li>
@@ -15,7 +15,6 @@
         </div>
         <li>
           <button
-            :disabled="currentPage === totalPages"
             class="block px-3 py-2 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             @click="nextPage"
           >
@@ -42,7 +41,7 @@
 <script setup>
 import { defineEmits } from "vue";
 const props = defineProps({
-  currentPage: {
+  pageNumber: {
     type: Number,
     required: true,
   },

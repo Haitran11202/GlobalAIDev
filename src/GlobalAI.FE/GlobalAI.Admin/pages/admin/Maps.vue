@@ -11,7 +11,9 @@
 </template>
 <script>
 import MapExample from "../../components/Maps/MapExample.vue";
-
+definePageMeta({
+  layout: "admin",
+});
 export default {
   components: {
     MapExample,

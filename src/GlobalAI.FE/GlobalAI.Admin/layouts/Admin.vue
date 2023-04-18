@@ -1,4 +1,5 @@
-<template>
+
+  <template>
   <div>
     <sidebar-admin />
     <div class="relative md:ml-64 bg-blueGray-100">

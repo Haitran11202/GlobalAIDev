@@ -1,14 +1,44 @@
 import http from "./useApi";
 import { API_ENDPOINT } from "~~/api/api.endpoint";
 
+
+export const getSanPhamDanhMucPhanTrang = async(categoryId , pageSize ,pageNumber , Skip) => {
+  const res = await http.get(API_ENDPOINT.getSanPhamDanhMucPhanTrang(categoryId , pageSize ,pageNumber ,Skip));
+  try {
+    return Promise.resolve(res);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
 export const getSanPhamDanhMuc = async (id) => {
+  console.log(id)
   const res = await http.get(API_ENDPOINT.getSanPhamDanhMuc(id));
+  console.log(res)
   try {
     return Promise.resolve(res);
   } catch (err) {
     return Promise.reject(err);
   }
 };
+
+// Lấy sản phẩm dựa theo ID
+export const getFullSanPham = async () => {
+  const res = await http.get(API_ENDPOINT.getFullSanPham);
+  try {
+    return Promise.resolve(res);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
+
+// Cương code
+
+// Lấy tất cả sản phẩm và phân trang
+
+// Xoá sản phẩm dựa theo ID
+
+
+
 
 export const getGioHang = async () => {
   const res = await http.get(API_ENDPOINT.getGioHang);

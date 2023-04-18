@@ -68,6 +68,13 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(Status))]
         public int? Status { get; set; }
 
+        /// <summary>
+        /// Địa chỉ 
+        /// </summary>
+        [ColumnSnackCase(nameof(DiaChi), TypeName = "VARCHAR2")]
+        [MaxLength(1000)]
+        public string DiaChi { get; set; }
+
         #region audit
         [MaxLength(50)]
         [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]

@@ -16,6 +16,7 @@ export default defineNuxtConfig({
             apiEndpoint: process.env.API_ENDPOINT,
             authEndpoit: process.env.AUTH_ENDPOINT,
             apiGrantType: process.env.API_GRANT_TYPE,
+            apiAuthScope: process.env.API_AUTH_SCOPE
         }
     },
     plugins: [

@@ -10,7 +10,7 @@ using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-     [Authorize]
+    [Authorize]
     [Route("api/product/sanpham")]
     [ApiController]
     public class SanPhamController : BaseController
@@ -62,7 +62,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
-        public APIResponse Put(string id, [FromBody] AddSanPhamDto input)
+        public APIResponse Put(int id, [FromBody] AddSanPhamDto input)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
-        public APIResponse Delete(string id)
+        public APIResponse Delete(int id)
         {
             try
             {
@@ -142,11 +142,11 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         [HttpGet("danh-muc/{id}")]
         [ProducesResponseType(typeof(APIResponse<List<SanPham>>), (int)HttpStatusCode.OK)]
-        public APIResponse GetByCategory(string id)
+        public APIResponse GetByCategory(string id, [FromQuery] FindSanPhamByCatetoryDto input)
         {
             try
             {
-                var result = _sanPhamServices.GetByCategory(id);
+                var result = _sanPhamServices.GetByCategory(id, input);
 
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
