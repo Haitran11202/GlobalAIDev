@@ -144,24 +144,26 @@
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 whitespace-pre-wrap"
             >
               <div v-if="product.moTa && product.moTa.length > 20">
-                <div v-if="!showMore[product.id]">
+                <template v-if="!showMore[product.id]">
                   {{ product.moTa.slice(0, 20) }}...
                   <span
                     @click="showMore[product.id] = true"
                     class="font-bold cursor-pointer"
                     >Xem thêm</span
                   >
-                </div>
-                <div v-else>
+                </template>
+                <template v-else>
                   {{ product.moTa }}
                   <span
                     @click="showMore[product.id] = false"
                     class="font-bold cursor-pointer"
                     >Thu gọn</span
                   >
-                </div>
+                </template>
               </div>
-              <div v-if="product.moTa">{{ product.moTa }}</div>
+              <div v-else>
+                {{ product.moTa }}
+              </div>
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
@@ -202,7 +204,7 @@
               >
                 ...
               </span>
-              <div class="fixed right-10 z-30" v-if="showAction[product.id]">
+              <div class="absolute right-10 z-50" v-if="showAction[product.id]">
                 <div
                   class="bg-white flex flex-col shadow-2xl border px-10 py-5 rounded-lg overflow-hidden"
                 >
@@ -221,7 +223,6 @@
                   </button>
                   <hr />
                   <button
-                    @click="onDeleteButtonClick(product.id)"
                     class="text-black font-bold py-2 flex px-10 rounded hover:bg-[#039669] hover:text-white"
                   >
                     Duyệt
@@ -332,6 +333,7 @@ const skip = ref(0);
 const products = ref([]);
 const deletedProduct = ref(null);
 const showAction = ref({});
+const showMore = ref({});
 
 // Lấy tất cả sản phẩm
 const fetchData = async () => {

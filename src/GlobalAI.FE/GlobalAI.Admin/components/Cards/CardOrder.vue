@@ -91,40 +91,80 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="(order, index) in orders"
-            :key="index"
-            @click="onClickOrderDetails(index)"
-          >
+          <tr v-for="(order, index) in orders" :key="index">
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 cursor-pointer"
+              @click="onClickOrderDetails(index)"
             >
               {{ order.maDonHang }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 cursor-pointer"
+              @click="onClickOrderDetails(index)"
             >
               {{ order.ngayHoanThanh }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 cursor-pointer"
+              @click="onClickOrderDetails(index)"
             >
               {{ order.idGStore }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 cursor-pointer"
+              @click="onClickOrderDetails(index)"
             >
               {{ order.idNguoiMua }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 cursor-pointer"
+              @click="onClickOrderDetails(index)"
             >
               {{ order.soTien }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 cursor-pointer"
+              @click="onClickOrderDetails(index)"
             >
               {{ order.hinhThucThanhToan }}
+            </td>
+
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap relative"
+            >
+              <span
+                class="text-blue-500 cursor-pointer text-xl h-4"
+                @click="
+                  toggleAction(index);
+                  $event.stopPropagation();
+                "
+              >
+                ...
+              </span>
+              <div class="absolute right-10 z-50" v-if="showAction[index]">
+                <div
+                  class="bg-white flex flex-col shadow-2xl border px-10 py-5 rounded-lg overflow-hidden"
+                >
+                  <button
+                    class="text-black font-bold py-2 flex px-10 rounded hover:bg-[#039669] hover:text-white"
+                  >
+                    Sửa
+                  </button>
+                  <hr />
+                  <button
+                    class="text-black font-bold py-2 flex px-10 rounded hover:bg-[#039669] hover:text-white"
+                  >
+                    Xoá
+                  </button>
+                  <hr />
+                  <button
+                    class="text-black font-bold py-2 flex px-10 rounded hover:bg-[#039669] hover:text-white"
+                  >
+                    Duyệt
+                  </button>
+                  <hr />
+                </div>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -188,6 +228,7 @@ const skip = ref(0);
 
 // Sử dụng biến ref() để tạo các biến reactive
 const orders = ref([]);
+const showAction = ref({});
 
 const fetchData = async () => {
   getAllOrder(pageSize, pageNumber.value, skip.value)
@@ -212,4 +253,8 @@ const onClickOrderDetails = (id) => {
 watchEffect(() => {
   fetchData();
 });
+
+const toggleAction = (id) => {
+  showAction.value[id] = !showAction.value[id];
+};
 </script>

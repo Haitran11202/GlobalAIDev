@@ -40,11 +40,12 @@
             >Giá bán</label
           >
           <input
-            v-model="giaBan"
+            v-model.number="giaBan"
             type="number"
             id="giaBan"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
+            @input="giaBanFormatted"
           />
         </div>
         <div>
@@ -54,11 +55,12 @@
             >Giá chiết khấu</label
           >
           <input
-            v-model="giaChietKhau"
+            v-model.number="giaChietKhau"
             type="number"
             id="giaChietKhau"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
+            @input="giaChietKhauFormatted"
           />
         </div>
         <div>
@@ -152,6 +154,7 @@ import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 // import { postProduct } from "../../composables/useApiProduct.js";
 import { postProduct } from "~~/composables/useApiProduct";
+import { ref, computed, watch } from "vue";
 
 definePageMeta({
   layout: "admin",
@@ -164,6 +167,17 @@ const giaChietKhau = ref(0);
 const idDanhMuc = ref("");
 const ngayDangKi = ref("");
 const ngayDuyet = ref("");
+
+const giaBanFormatted = ref(0);
+const giaChietKhauFormatted = ref(0);
+
+watch(giaBan, (newValue) => {
+  giaBanFormatted.value = newValue.toLocaleString("vi-VN");
+});
+
+watch(giaChietKhau, (newValue) => {
+  giaChietKhauFormatted.value = newValue.toLocaleString("vi-VN");
+});
 
 function handlePostProduct() {
   const productData = {
