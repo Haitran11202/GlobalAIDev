@@ -24,8 +24,30 @@ namespace GlobalAI.ProductAPI.Controllers
         {
             _gioHangServices = gioHangServices;
         }
-
-
+        /// <summary>
+        /// Lấy mới giỏ hàng
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet]
+        //[ProducesResponseType(typeof(APIResponse<List<int>>), (int)HttpStatusCode.OK)]
+        public APIResponse GetGioHang()
+        {
+            try
+            {
+                var result = _gioHangServices.GetGiohang();
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+        /// <summary>
+        /// Tạo mới giỏ hàng
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(APIResponse<List<AddGioHangDto>>), (int)HttpStatusCode.OK)]
         public APIResponse CreateGioHang([FromBody] AddGioHangDto input)
@@ -49,11 +71,11 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<EditGioHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse EditGioHang([FromRoute]int id, int maSanPham, EditGioHangDto newGioHang)
+        public APIResponse EditGioHang([FromRoute]int id,[FromBody] EditGioHangDto newGioHang)
         {
             try
             {
-                var gioHang = _gioHangServices.EditGiohang(id ,maSanPham, newGioHang);
+                var gioHang = _gioHangServices.EditGiohang(id, newGioHang);
                 if (gioHang == null)
                 {
                     return new APIResponse(Utils.StatusCode.Success, null, 404, "Not Found");
@@ -65,13 +87,40 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+        /// <summary>
+        /// Xóa giỏ hàng
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
-        [ProducesResponseType(typeof(APIResponse<List<AddGioHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse DeleteGioHang([FromBody] int maGSaler, int maSanPham )
+        [ProducesResponseType(typeof(APIResponse<int>), (int)HttpStatusCode.OK)]
+        public APIResponse DeleteGioHang([FromRoute] int id)
         {
             try
             {
-                var result = _gioHangServices.DeleteGiohang(maGSaler,maSanPham);
+                var gioHang = _gioHangServices.DeleteGiohang(id);
+                if (gioHang == null)
+                {
+                    return new APIResponse(Utils.StatusCode.Success, null, 404, "Not Found");
+                }
+                return new APIResponse(Utils.StatusCode.Success, gioHang, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+        /// <summary>
+        /// Lấy ra sản phẩm theo giỏ hàng
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("sanpham-giohang")]
+        [ProducesResponseType(typeof(APIResponse<List<GetSanPhamDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse GetSanPhamGioHang()
+        {
+            try
+            {
+                var result = _gioHangServices.getSanPhamTheoNguoiMua();
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)

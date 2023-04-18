@@ -1,3 +1,4 @@
+
 <template>
     <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded p-5">
         <!-- SẢN PHẨM MỚI -->
@@ -9,8 +10,8 @@
             <div class="flex flex-wrap">
                 <div v-for="(item, idx) in products" :key="idx" class="border lg:w-1/5 mx-0.3 rounded-xl my-1 flex flex-col justify-between">
                     <div class=" w-full rounded-t-xl">
-                        <img class="block h-30 w-full object-cover " :src=img1 alt="" />
-                        <p class="mt-3 font-bold px-3">{{item.tenSanPham}}</p>
+                        <img class="block h-30 w-full object-cover " :src="img1" alt="" />
+                        <p class="mt-3 font-bold px-3">{{item.name}}</p>
                     </div>
                     <div class=" justify-center my-3 px-3">
                         <!-- <p class="mt-3 font-bold">{{item.name}}</p> -->
@@ -52,3 +53,4 @@ const detail = () => {
     router.push({name: 'ProductDetail',params: { id: '1' }})
 }
 </script>
+  

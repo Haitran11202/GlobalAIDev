@@ -20,6 +20,21 @@ namespace GlobalAI.ProductAPI.Controllers
         {
             _sanPhamServices = sanPhamServices;
         }
+        [HttpGet("sanPham-full")]
+        [ProducesResponseType(typeof(APIResponse<GetSanPhamDto>), (int)HttpStatusCode.OK)]
+        public APIResponse Add()
+        {
+            try
+            {
+                var result = _sanPhamServices.GetFullSanPham();
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
         /// <summary>
         /// Thêm sản phẩm
         /// </summary>
@@ -127,11 +142,11 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         [HttpGet("danh-muc/{id}")]
         [ProducesResponseType(typeof(APIResponse<List<SanPham>>), (int)HttpStatusCode.OK)]
-        public APIResponse GetByCategory(int id)
+        public APIResponse GetByCategory(string id, [FromQuery] FindSanPhamByCatetoryDto input)
         {
             try
             {
-                var result = _sanPhamServices.GetByCategory(id);
+                var result = _sanPhamServices.GetByCategory(id, input);
 
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }

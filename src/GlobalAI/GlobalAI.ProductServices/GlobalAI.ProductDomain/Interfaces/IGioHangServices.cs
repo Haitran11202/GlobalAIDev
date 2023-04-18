@@ -11,8 +11,10 @@ namespace GlobalAI.ProductDomain.Interfaces
 {
     public interface IGioHangServices
     {
+        public GetFullGioHangDto GetGiohang();
         public GioHang CreateGiohang(AddGioHangDto input);
-        public GioHang EditGiohang(int maGSaler, int maSanPham, EditGioHangDto newGioHang);
-        public GioHang DeleteGiohang(int maGSaler,int maSanPham);
+        public GioHang EditGiohang(int idGioHang, EditGioHangDto newGioHang);
+        public GioHang DeleteGiohang(int idGioHang);
+        public List<GetSanPhamDto> getSanPhamTheoNguoiMua();
     }
 }

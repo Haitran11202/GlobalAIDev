@@ -21,38 +21,82 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(Id))]
         public int Id { get; set; }
 
+        /// <summary>
+        /// Mã sản phẩm
+        /// </summary>
         [ColumnSnackCase(nameof(MaSanPham))]
         public string MaSanPham { get; set; }
 
+        /// <summary>
+        /// Tên sản phẩm
+        /// </summary>
         [StringLength(400)]
         [ColumnSnackCase(nameof(TenSanPham))]
         public string TenSanPham { get; set; } = String.Empty;
 
+        /// <summary>
+        /// Mô tả
+        /// </summary>
         [ColumnSnackCase(nameof(MoTa))]
         [StringLength(1000)]
         public string MoTa { get; set; } = String.Empty;
 
+        /// <summary>
+        /// Giá bán
+        /// </summary>
         [ColumnSnackCase(nameof(GiaBan))]
-        public decimal GiaBan { get; set; }
+        public decimal? GiaBan { get; set; }
 
+        /// <summary>
+        /// Giá chiết khấu
+        /// </summary>
         [ColumnSnackCase(nameof(GiaChietKhau))]
-        public decimal GiaChietKhau { get; set; }
+        public decimal? GiaChietKhau { get; set; }
 
+        /// <summary>
+        /// Id danh mục
+        /// </summary>
         [ColumnSnackCase(nameof(IdDanhMuc))]
         public string IdDanhMuc { get; set; }
 
+        /// <summary>
+        /// Id Gstore
+        /// </summary>
         [ColumnSnackCase(nameof(IdGStore))]
         public int IdGStore { get; set; }
 
+        /// <summary>
+        /// Ngày đăng ký
+        /// </summary>
         [ColumnSnackCase(nameof(NgayDangKi))]
         public DateTime NgayDangKi { get; set; }
 
+        /// <summary>
+        /// Ngày duyệt
+        /// </summary>
         [ColumnSnackCase(nameof(NgayDuyet))]
-        public DateTime NgayDuyet { get; set; }
+        public DateTime? NgayDuyet { get; set; }
+
         [ColumnSnackCase(nameof(Deleted))]
         public bool Deleted { get; set; }
+
+        /// <summary>
+        /// Trạng thái
+        /// </summary>
         [ColumnSnackCase(nameof(Status))]
         public int Status { get; set; }
+
+        /// <summary>
+        /// Giá tối thiểu
+        /// </summary>
+        [ColumnSnackCase(nameof(GiaToiThieu))]
+        public decimal? GiaToiThieu { get; set; }
+
+        /// <summary>
+        /// Immage của sp
+        /// </summary>
+        [ColumnSnackCase(nameof(Thumbnail))]
+        public string Thumbnail { get; set; }
 
         #region audit
         [MaxLength(50)]

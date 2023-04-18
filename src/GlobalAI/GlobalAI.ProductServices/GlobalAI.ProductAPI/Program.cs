@@ -13,8 +13,8 @@ using System.Reflection;
 using PemReader = PemUtils.PemReader;
 using AutoMapper;
 using GlobalAI.ProductEntities.DataEntities.Mapper;
-using Microsoft.Owin;
-using Owin;
+// using Microsoft.Owin;
+// using Owin;
 using GlobalAI.ProductAPI.HubFolder;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -100,25 +100,30 @@ services.AddSwaggerGen(option =>
                     }
                 });
 
+    // Set the comments path for the Swagger JSON and UI.
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    option.IncludeXmlComments(xmlPath);
+
     // Set the comments path for the Swagger JSON and UI.**
-    var xmlFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
-    if (File.Exists(xmlFile))
-    {
-        option.IncludeXmlComments(xmlFile);
-    }
-    var projectDependencies = Assembly.GetEntryAssembly().CustomAttributes
-        .SelectMany(c => c.ConstructorArguments.Select(ca => ca.Value?.ToString()))
-        .Where(o => o != null)
-        .ToList();
-    foreach (var assembly in projectDependencies)
-    {
-        var otherXml = Path.Combine(AppContext.BaseDirectory, $"{assembly}.xml");
-        if (File.Exists(otherXml))
-        {
-            option.IncludeXmlComments(otherXml);
-        }
-    }
-    option.CustomSchemaIds(x => x.FullName);
+    //var xmlFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
+    //if (File.Exists(xmlFile))
+    //{
+    //    option.IncludeXmlComments(xmlFile);
+    //}
+    //var projectDependencies = Assembly.GetEntryAssembly().CustomAttributes
+    //    .SelectMany(c => c.ConstructorArguments.Select(ca => ca.Value?.ToString()))
+    //    .Where(o => o != null)
+    //    .ToList();
+    //foreach (var assembly in projectDependencies)
+    //{
+    //    var otherXml = Path.Combine(AppContext.BaseDirectory, $"{assembly}.xml");
+    //    if (File.Exists(otherXml))
+    //    {
+    //        option.IncludeXmlComments(otherXml);
+    //    }
+    //}
+    //option.CustomSchemaIds(x => x.FullName);
 
 });
 #endregion
@@ -133,7 +138,7 @@ services.AddScoped<IGioHangServices, GioHangServices>();
 #region Add Auto Mapper
 services.AddAutoMapper(typeof(MappingProfile));
 #endregion
-#region Add SignalR và CORS policy
+#region Add SignalR vï¿½ CORS policy
 services.AddCors(options => options.AddPolicy("Cors", builder =>
 {
     builder

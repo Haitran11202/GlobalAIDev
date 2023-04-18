@@ -48,9 +48,14 @@ namespace GlobalAI.ProductEntities.Dto.Product
         public decimal? SoTien { get; set; }
 
         /// <summary>
+        /// Trạng thái đơn hàng
+        /// </summary>
+        public int? Status { get; set; }
+
+        /// <summary>
         /// Hình thức thanh toán
         /// </summary>
-       
+
         public string HinhThucThanhToan { get; set; }
 
     }

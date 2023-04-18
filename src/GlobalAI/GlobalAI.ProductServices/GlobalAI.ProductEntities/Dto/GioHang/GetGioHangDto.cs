@@ -13,57 +13,30 @@ namespace GlobalAI.ProductEntities.Dto.GioHang
 {
     public class GetGioHangDto
     {
-
         public int Id { get; set; }
 
         /// <summary>
         /// Id Người mua (Vì gstore và gsaler đều có thể mua hàng)
         /// (Lấy giá trị từ id trong bảng user)
-        /// </summary>
-        [ColumnSnackCase(nameof(IdNguoiMua))]
+        /// <
         public int IdNguoiMua { get; set; }
 
         /// <summary>
         /// Id Sản phẩm (Có thể trùng nhau)
-        /// </summary>
-        [ColumnSnackCase(nameof(IdSanPham))]
+        /// <
         public int? IdSanPham { get; set; }
 
         /// <summary>
         /// Số lượng sp
-        /// </summary>
-        [ColumnSnackCase(nameof(SoLuong))]
+        /// <
         public int SoLuong { get; set; }
 
         /// <summary>
         /// Trạng thái
         /// <see cref="TrangThaiGioHang"/>
-        /// </summary>
-        [ColumnSnackCase(nameof(Status))]
+        /// <
         public int? Status { get; set; }
-
-        [MaxLength(50)]
-        [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]
-        public string CreatedBy { get; set; } = String.Empty;
-
-        [ColumnSnackCase(nameof(CreatedDate), TypeName = "DATE")]
-        public DateTime? CreatedDate { get; set; }
-
-        [ColumnSnackCase(nameof(Deleted))]
-        public bool Deleted { get; set; }
-
-        [MaxLength(50)]
-        [ColumnSnackCase(nameof(DeletedBy), TypeName = "VARCHAR2")]
-        public string DeletedBy { get; set; } = String.Empty;
-
-        [ColumnSnackCase(nameof(DeletedDate), TypeName = "DATE")]
-        public DateTime? DeletedDate { get; set; }
-
-        [MaxLength(50)]
-        [ColumnSnackCase(nameof(ModifiedBy), TypeName = "VARCHAR2")]
-        public string ModifiedBy { get; set; } = String.Empty;
-
-        [ColumnSnackCase(nameof(ModifiedDate), TypeName = "DATE")]
-        public DateTime ModifiedDate { get; set; }
+        public string DiaChi { get; set; }
+        
     }
 }

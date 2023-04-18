@@ -43,6 +43,10 @@ namespace GlobalAI.ProductDomain.Implements
             _httpContext = httpContext;
 
         }
+        public List<GetSanPhamDto> GetFullSanPham()
+        {
+            return _repositorySanPham.GetFullSanPham();
+        }
         /// <summary>
         /// Thêm sản phẩm
         /// </summary>
@@ -115,11 +119,11 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public List<SanPham> GetByCategory(int idDanhMuc)
+        public PagingResult<GetSanPhamDto> GetByCategory(string idDanhMuc, FindSanPhamByCatetoryDto input)
         {
             //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(id)}");
-
-            return _repositorySanPham.GetByCategory(idDanhMuc);
+            
+            return _repositorySanPham.GetByCategory(idDanhMuc, input);
         }
 
 

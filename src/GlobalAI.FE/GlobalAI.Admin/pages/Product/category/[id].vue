@@ -1,15 +1,13 @@
 <template>
   <div class="flex flex-col">
-    <div class="flex pt-20 lg:pt-4 flex-wrap">
-      <card-list-product title="sản phẩm mới" :products="displayedItems" />
+    <div class="flex pt-20 lg:pt-2 flex-wrap">
+      <card-list-product title="sản phẩm mới" :products="products" />
     </div>
     <div class="flex items-center justify-center">
       <card-pagination
-        :currentPage="currentPage"
-        :totalPages="totalPages"
-        :nextPage="nextPage"
-        :prevPage="prevPage"
-        v-on:click-page="handlePageClick"
+      :pageNumber="pageNumber"
+      :total-pages="totalPages" :next-page="nextPage" :prev-page="prevPage"
+      v-on:click-page="handlePageClick"
       ></card-pagination>
     </div>
   </div>
@@ -18,56 +16,67 @@
 <script setup>
 import CardListProduct from "../../../components/Cards/CardListProduct.vue";
 import CardPagination from "~~/components/Cards/CardPagination.vue";
-import { defineProps } from "vue";
-import { ref, watch } from "vue";
-import axios from "axios";
+// import { defineProps } from "vue";
+import { ref } from "vue";
+import {getSanPhamDanhMuc} from "~~/composables/useApiProduct.js"
+import { PAGINATION } from "~~/lib/danhMuc";
 
-definePageMeta({
-  layout: "admin",
-});
+const products = ref([]);
+const totalPages = ref(1);
+const pageSize = 10;
+const pageNumber = ref(1);
+const skip = ref(0);
 
+watchEffect(() => {
+  const categoryId = props.category || 1;
+  console.log(categoryId)
+
+  getSanPhamDanhMucPhanTrang(categoryId , pageSize ,pageNumber.value , skip.value )
+      .then((res) => {
+          products.value = res?.data?.data.items;
+          console.log(products.value)
+        })
+      .catch(() => {});
+})
+// const displayedItems = computed(() => {
+//   const startIndex = (currentPage.value - 1) * itemsPerPage;
+//   const endIndex = startIndex + itemsPerPage;
+//   return products.value.slice(startIndex, endIndex);
+// });
+
+watchEffect(() => {
+  getFullSanPham()
+   .then((res) => {
+      totalPages.value = res?.data?.data.length
+    })
+   .catch((error) => {
+    console.log(error)
+   });
+})
+
+const nextPage = ()=> {
+     pageNumber.value++;
+     skip.value = (pageNumber.value - 1) * pageSize;
+}
+
+const handlePageClick = (page) =>{
+  pageNumber.value = page;
+  skip.value = (pageNumber.value - 1) * pageSize;
+}
+
+const prevPage =() =>{
+  pageNumber.value--;
+  console.log(123);
+  skip.value = (pageNumber.value - 1) * pageSize;
+}
 const props = defineProps({
   category: {
-    type: Object,
+    type: Number,
     required: true,
   },
 });
 
-const products = ref([]);
-const itemsPerPage = 10;
-const currentPage = ref(1);
-
-// Phân trang
-watchEffect(async () => {
-  try {
-    const response = await axios.get(
-      `http://localhost:5003/api/product/danh-muc/${props.category.id === undefined ? 1 : props.category.id}`
-    );
-    products.value = response.data.data;
-    console.log(response.data);
-  } catch (error) {
-    console.error(error);
-  }
-});
-const displayedItems = computed(() => {
-  const startIndex = (currentPage.value - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-  return products.value.slice(startIndex, endIndex);
-});
-
-const totalPages = computed(() => {
-  return Math.ceil(products.value.length / itemsPerPage);
-});
-
-const nextPage = () => {
-  currentPage.value++;
-};
-
-const prevPage = () => {
-  currentPage.value--;
-};
-const handlePageClick = (page) => {
-  console.log(page);
-  currentPage.value = page;
-};
+definePageMeta({
+  layout: "layout-default",
+})
 </script>

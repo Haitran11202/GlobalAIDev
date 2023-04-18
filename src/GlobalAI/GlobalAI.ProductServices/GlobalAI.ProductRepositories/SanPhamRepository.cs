@@ -9,16 +9,20 @@ using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductEntities.Dto.Product;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.Internal;
-
+using System.Net.WebSockets;
 
 namespace GlobalAI.ProductRepositories
 {
     public class SanPhamRepository : BaseEFRepository<SanPham>
     {
         private readonly IMapper _mapper;
-        public SanPhamRepository(DbContext dbContext, ILogger logger,IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
+        public SanPhamRepository(DbContext dbContext, ILogger logger, IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
         {
             _mapper = mapper;
+        }
+        public List<GetSanPhamDto> GetFullSanPham() {
+            var result = _dbSet.ToList();
+            return _mapper.Map<List<GetSanPhamDto>>(result);
         }
         /// <summary>
         /// Tạo mới product
@@ -58,17 +62,7 @@ namespace GlobalAI.ProductRepositories
             var sanphamDtos = new List<GetSanPhamDto>();
             foreach ( var item in sanphams ) {
                 var getSpDto = _mapper.Map<GetSanPhamDto>(item);
-                //var getSpDto = new GetSanPhamDto
-                //{
-                //    Id_san_pham  = item.Id_san_pham,
-                //    TenSanPham = item.TenSanPham,
-                //    Id_danh_muc = item.Id_danh_muc,
-                //    Id_gstore = item.Id_gstore,
-                //    GiaBan = item.GiaBan,
-                //    GiaChietKhau = item.GiaChietKhau,
-                //    NgayDangKi = item.NgayDangKi,
-                //    NgayDuyet = item.NgayDuyet,
-                //};
+               
                 sanphamDtos.Add(getSpDto);
             }
             result.Items = sanphamDtos;
@@ -91,13 +85,27 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        public List<SanPham> GetByCategory(int idDanhMuc)
+        public PagingResult<GetSanPhamDto> GetByCategory(string idDanhMuc, FindSanPhamByCatetoryDto input)
         {
 
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(GetByCategory)}: input = {JsonSerializer.Serialize(idDanhMuc)}");
-            var danhmucs = _dbSet.Where(sp => sp.Id == idDanhMuc).AsNoTracking().ToList();
-
-            return danhmucs;
+            PagingResult<GetSanPhamDto> result = new();
+            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.Id).Where(p => !p.Deleted && p.IdDanhMuc == idDanhMuc)
+                .Where(r => (input.Keyword == null || r.TenSanPham.Contains(input.Keyword)));
+            if (input.PageSize != -1)
+            {
+                projectQuery = projectQuery.Skip(input.Skip).Take(input.PageSize);
+            }
+            result.TotalItems = projectQuery.Count();
+            var sanphams = projectQuery;
+            var sanphamDtos = new List<GetSanPhamDto>();
+            foreach (var item in sanphams)
+            {
+                var getSpDto = _mapper.Map<GetSanPhamDto>(item);
+                sanphamDtos.Add(getSpDto);
+            }
+            result.Items = sanphamDtos;
+            return result;
         }
         /// <summary>
         /// Tìm sản phầm cần sửa, xóa
@@ -127,6 +135,12 @@ namespace GlobalAI.ProductRepositories
             {
                 return null;
             }
+            return result;
+        }
+        public List<SanPham> GetSanPhamFull()
+        {
+            var result = _dbSet.ToList();
+            
             return result;
         }
     }

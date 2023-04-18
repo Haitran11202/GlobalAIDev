@@ -8,7 +8,10 @@ using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductEntities.Dto.Product;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.Internal;
-
+using GlobalAI.ProductEntities.Dto.DonHang;
+using GlobalAI.Utils.ConstantVariables.Product;
+using System.ServiceModel;
+using GlobalAI.Utils;
 
 namespace GlobalAI.ProductRepositories
 
@@ -80,7 +83,10 @@ namespace GlobalAI.ProductRepositories
             return oldDonHang;
         }
 
-
+        /// <summary>
+        /// Xóa đơn hàng theo id
+        /// </summary>
+        /// <param name="id"></param>
         public void DeleteDonHangById(int id)
         {
             var Result = _dbSet.FirstOrDefault((Order) => Order.Id == id);
@@ -90,11 +96,44 @@ namespace GlobalAI.ProductRepositories
                 _dbContext.SaveChanges();
             }
         }
-
+        /// <summary>
+        /// Lấy đơn hàng theo id
+        /// </summary>
+        /// <param name="maDonHang"></param>
+        /// <returns></returns>
         public DonHang GetDonHang(int maDonHang)
         {
             return _dbSet.FirstOrDefault(dh => dh.Id == maDonHang);
 
+        }
+        /// <summary>
+        /// Cập nhật trạng thái đơn hàng
+        /// </summary>
+        /// <param name="updateDh"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public DonHang UpdateStatusDonHang(UpdateStatusDonHangDto updateStatusDh)
+        {
+            var result = _dbSet.FirstOrDefault(dh => dh.Id == updateStatusDh.ID);
+            if (result == null)
+            {
+                throw new InvalidDataException("Don hang khong ton tai!");
+            }
+            switch (updateStatusDh.Status)
+            {
+                case 1:
+                    result.Status = TrangThaiDonHang.TAO_MOI;
+                    break;
+                case 2:
+                    result.Status = TrangThaiDonHang.DA_XAC_NHAN;
+                    break;
+                case 3:
+                    result.Status = TrangThaiDonHang.HOAN_THANH;
+                    break;
+                default:
+                    throw new InvalidDataException("Trang thai khong hop le!");
+            }
+            return result;
         }
     }
 }
