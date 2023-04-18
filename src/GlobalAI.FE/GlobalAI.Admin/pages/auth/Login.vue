@@ -86,7 +86,7 @@
               </div>
             </div>
 
-            <div class="flex items-center justify-end mt-3">
+            <div class="flex items-center justify-center mt-3">
               <label class="text-gray-800 text-sm">
                 Chưa có tài khoản bấm
                 <nuxt-link

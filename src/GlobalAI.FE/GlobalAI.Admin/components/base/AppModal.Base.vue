@@ -14,7 +14,7 @@
     </vue-final-modal>
 </template>
 <script setup>
-import { ref, defineProps } from 'vue';
+import { ref } from 'vue';
 import { $vfm, VueFinalModal } from 'vue-final-modal';
     let show = ref(false);
     const props = defineProps({
