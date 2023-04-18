@@ -13,8 +13,8 @@ using System.Reflection;
 using PemReader = PemUtils.PemReader;
 using AutoMapper;
 using GlobalAI.ProductEntities.DataEntities.Mapper;
-using Microsoft.Owin;
-using Owin;
+// using Microsoft.Owin;
+// using Owin;
 using GlobalAI.ProductAPI.HubFolder;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -138,7 +138,7 @@ services.AddScoped<IGioHangServices, GioHangServices>();
 #region Add Auto Mapper
 services.AddAutoMapper(typeof(MappingProfile));
 #endregion
-#region Add SignalR và CORS policy
+#region Add SignalR vï¿½ CORS policy
 services.AddCors(options => options.AddPolicy("Cors", builder =>
 {
     builder
