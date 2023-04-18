@@ -1,10 +1,8 @@
 <template lang="">
-  <div>
+  <div class="bg-slate-100">
       <header-default />
-      <div class="container mx-auto lg:flex bg-slate-100">
-          <div class="">
-          <sidebar v-on:category-clicked="handleCategoryClick" />
-          </div>
+      <sidebar v-on:category-clicked="handleCategoryClick" />
+      <div class="container mx-auto px-[185px]">
           <div class="pl-2 flex-1">
             <!-- Slot tượng trưng cho từng layout trong trang web -->
             <NuxtPage :category="selectedCategory"/>

@@ -1,33 +1,27 @@
 
 <template>
-    <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded p-5">
+    <div class="relative flex flex-col min-w-0 break-words  w-full mb-6 p-5">
         <!-- SẢN PHẨM MỚI -->
         <div>
-            <div class="flex flex-row justify-between items-center">
+            <div class="flex flex-row justify-between mb-[20px] items-center">
                 <h3 class="uppercase text-2xl font-semibold">{{ props.title }}</h3>
-                
             </div>
-            <div class="flex flex-wrap">
-                <div v-for="(item, idx) in products" :key="idx" class="border lg:w-1/5 mx-0.3 rounded-xl my-1 flex flex-col justify-between">
-                    <div class=" w-full rounded-t-xl">
-                        <img class="block h-30 w-full object-cover " :src="img1" alt="" />
-                        <p class="mt-3 font-bold px-3">{{item.name}}</p>
-                    </div>
-                    <div class=" justify-center my-3 px-3">
-                        <!-- <p class="mt-3 font-bold">{{item.name}}</p> -->
-                        <p class="mt-3 text-sm "><span class="text-red-500 font-bold ">$</span><span class="font-semibold">Giá Bán:</span> <spnan class="italic">{{item.giaBan}}</spnan></p>
-                        <p class="mt-3 text-sm "><span class="text-red-500 font-bold ">$</span><span class="font-semibold">Chiết Khấu:</span> <spnan class="italic">{{item.giaChietKhau}}</spnan></p>
-                        <div class="mt-3 flex justify-center">
-                            <button @click="detail"
-                            class="bg-emerald-600 text-white active:bg-slate-600 text-sm font-semibold px-4 py-2 rounded shadow hover:bg-amber-600 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                            type="button"
-                        >
-                            Chi tiết
-                        </button>
-                        </div>
-                        
-                    </div>
-                </div>
+            <div class="flex flex-wrap px-[15px] gap-[15px] overflow-hidden">
+                <div v-for="(item, idx) in products"
+          :key="idx" class="w-[210px] h-[340px] bg-white rounded-[10px] overflow-hidden border-2 "
+          @click="detail(item.id)">
+          <div class="w-full">
+            <img src="https://media.sellycdn.net/files/sm_2023_03_17_04_32_55_0700_ArddHLwscN.jpg" class="object-cover" alt="">
+          </div>
+          <div class="bg-white px-[10px] flex flex-col gap-[4px]">
+            <h2 class="text-[18px] mt-[10px] uppercase text-[#384059]">{{ item.tenSanPham }}</h2>
+            <p class="text-[12px] text-[#384059]">Price From <span class="text-[16px] text-[#cc3366]">{{ item.giaBan }}</span></p>
+            <p class="text-[12px]">Commission : {{ item.giaChietKhau }}</p>
+            <div class="text-[12px]">
+            Sold 85
+          </div>
+          </div>
+         </div>
             </div>
         </div>
     </div>

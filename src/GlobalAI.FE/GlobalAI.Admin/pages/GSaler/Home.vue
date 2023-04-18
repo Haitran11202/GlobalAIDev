@@ -1,20 +1,13 @@
 <template>
   <div>
-    <div class="flex flex-wrap bg-white relative">
-      <RouterLink
-        to="/product/category/1"
-        class="absolute top-[15px] right-[20px] z-[10]"
-      >
-        <button
-          class="bg-orange-500 text-white active:bg-slate-600 text-sm font-semibold px-4 py-2 rounded shadow hover:shadow-lg hover:text-coolGray-900 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          type="button"
-        >
-          Xem thêm
-        </button>
-      </RouterLink>
-      <card-list-product-short title="sản phẩm mới" :products="products" />
+    <div class="flex flex-wrap bg-slate-100 relative">
+      <div class="w-full rounded-2xl overflow-hidden">
+        <img src="https://media.sellycdn.net/files/md_2023_03_31_08_24_23_0700_ipMNOLVEoW.jpg" class="object-cover" alt="">
+      </div>
+      <card-list-product-short id="1" title="Sản phẩm mới" :products="products" />
       <card-list-product-short
-        title="sản phẩm bán chạy"
+        id="2" 
+        title="Sản phẩm bán chạy"
         :products="productsSeller"
       />
     </div>
