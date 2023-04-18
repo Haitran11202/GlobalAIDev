@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using GlobalAI.CoreEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.ChiTietTraGia;
@@ -8,7 +8,7 @@ using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.ProductEntities.Dto.TraGia;
 using System.Collections.Generic;
 
-namespace GlobalAI.ProductAPI.Mapper
+namespace GlobalAI.ProductEntities.DataEntities.Mapper
 {
     public class MappingProfile : Profile
     {

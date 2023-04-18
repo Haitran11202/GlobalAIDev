@@ -19,6 +19,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
+
 namespace GlobalAI.ProductDomain.Implements
 {
     public class TraGiaServices : ITraGiaServices

@@ -115,7 +115,7 @@ const routes = [
         },
     },
     {
-        path: "/card/manageCart/:id",
+        path: "/card/manageCart",
         name: 'ManageCart',
         component: ManageCart,
         meta: {
