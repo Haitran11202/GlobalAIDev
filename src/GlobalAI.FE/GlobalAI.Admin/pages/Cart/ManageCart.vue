@@ -283,7 +283,7 @@
         </div>
         <button
           @click="checkOut"
-          class="focus:outline-none focus:ring-2 mt-3 w-full rounded-md bg-blue-500 py-1.5 font-medium hover:bg-indigo-600 bg-indigo-700 duration-150 focus:ring-indigo-400 transition ease-in-out"
+          class="focus:outline-none focus:ring-2 mt-3 w-full rounded-md py-1.5 font-medium hover:bg-indigo-600 bg-indigo-700 duration-150 focus:ring-indigo-400 transition ease-in-out"
         >
           Check out
         </button>

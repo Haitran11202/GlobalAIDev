@@ -36,6 +36,7 @@ namespace GlobalAI.ProductEntities.Dto.GioHang
         /// <see cref="TrangThaiGioHang"/>
         /// <
         public int? Status { get; set; }
+        public string DiaChi { get; set; }
         
     }
 }
