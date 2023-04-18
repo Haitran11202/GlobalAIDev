@@ -172,7 +172,6 @@
 
 <script setup>
 import AppModalBaseVue from "../base/AppModal.Base.vue";
-import { ref, defineProps, onMounted } from "vue";
 import { $vfm, VueFinalModal } from "vue-final-modal";
 
 const props = defineProps({

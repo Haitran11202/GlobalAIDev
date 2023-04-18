@@ -15,8 +15,8 @@
                     </div>
                     <div class=" justify-center my-3 px-3">
                         <!-- <p class="mt-3 font-bold">{{item.name}}</p> -->
-                        <p class="mt-3 text-sm "><span class="text-red-500 font-bold ">$</span><span class="font-semibold">Giá Bán:</span> <spnan class="italic">{{item.price}}</spnan></p>
-                        <p class="mt-3 text-sm "><span class="text-red-500 font-bold ">$</span><span class="font-semibold">Chiết Khấu:</span> <spnan class="italic">{{item.discount}}</spnan></p>
+                        <p class="mt-3 text-sm "><span class="text-red-500 font-bold ">$</span><span class="font-semibold">Giá Bán:</span> <span class="italic">{{item.price}}</span></p>
+                        <p class="mt-3 text-sm "><span class="text-red-500 font-bold ">$</span><span class="font-semibold">Chiết Khấu:</span> <span class="italic">{{item.discount}}</span></p>
                         <div class="mt-3 flex justify-center">
                             <button @click="detail"
                             class="bg-emerald-600 text-white active:bg-slate-600 text-sm font-semibold px-4 py-2 rounded shadow hover:bg-amber-600 outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

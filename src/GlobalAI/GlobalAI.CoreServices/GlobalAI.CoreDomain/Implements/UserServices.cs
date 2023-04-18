@@ -91,5 +91,17 @@ namespace GlobalAI.CoreDomain.Implements
 
             return _userRepository.ValidateUser(username, password);
         }
+
+        /// <summary>
+        /// Lấy user theo username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public User FindByUsername(string username)
+        {
+            _logger.LogInformation($"{nameof(FindByUsername)}: username={username}");
+
+            return _userRepository.FindByUsername(username);
+        }
     }
 }
