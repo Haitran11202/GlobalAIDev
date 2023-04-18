@@ -1,5 +1,5 @@
-<template>
-    <div>
+<template lang="">
+     <div>
         <index-navbar />
     </div>
     <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
@@ -395,14 +395,10 @@
           </section>
       </article>
   </div>
-
-
-
 <div>
     <footer-component />
 </div>
 </template>
-
 <script setup>
 import IndexNavbar from "../../components/Navbars/IndexNavbar.vue";
 import FooterComponent from "../../components/Footers/Footer.vue";

@@ -3,6 +3,7 @@ using System;
 using GlobalAI.DataAccess.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    partial class GlobalAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230417023455_update-tbl-don-hang-dia-chi")]
+    partial class updatetbldonhangdiachi
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -512,17 +515,13 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("DATE")
                         .HasColumnName("DELETED_DATE");
 
-                    b.Property<decimal?>("GiaBan")
+                    b.Property<decimal>("GiaBan")
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("GIA_BAN");
 
-                    b.Property<decimal?>("GiaChietKhau")
+                    b.Property<decimal>("GiaChietKhau")
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("GIA_CHIET_KHAU");
-
-                    b.Property<decimal?>("GiaToiThieu")
-                        .HasColumnType("DECIMAL(18, 2)")
-                        .HasColumnName("GIA_TOI_THIEU");
 
                     b.Property<string>("IdDanhMuc")
                         .HasColumnType("NVARCHAR2(2000)")
@@ -554,7 +553,7 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("TIMESTAMP(7)")
                         .HasColumnName("NGAY_DANG_KI");
 
-                    b.Property<DateTime?>("NgayDuyet")
+                    b.Property<DateTime>("NgayDuyet")
                         .HasColumnType("TIMESTAMP(7)")
                         .HasColumnName("NGAY_DUYET");
 
@@ -566,10 +565,6 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasMaxLength(400)
                         .HasColumnType("NVARCHAR2(400)")
                         .HasColumnName("TEN_SAN_PHAM");
-
-                    b.Property<string>("Thumbnail")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("THUMBNAIL");
 
                     b.HasKey("Id");
 

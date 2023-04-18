@@ -45,6 +45,16 @@
                   : 'bg-emerald-800 text-emerald-300 border-emerald-700',
               ]"
             >
+              Hình ảnh
+            </th>
+            <th
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              :class="[
+                color === 'light'
+                  ? 'bg-slate-50 text-slate-500 border-slate-100'
+                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
+              ]"
+            >
               Tên sản phẩm
             </th>
             <th
@@ -133,6 +143,15 @@
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
               {{ product.id }}
+            </td>
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+            >
+              <img
+                class="w-[50px] h-[50px] object-contain"
+                :src="getImageUrl(product.imageUrl)"
+                alt=""
+              />
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
@@ -346,6 +365,16 @@ const fetchData = async () => {
     .catch((err) => {
       console.error(err);
     });
+};
+// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `http://localhost:5003/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
 };
 
 // Chuyển sang trang mới

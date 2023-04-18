@@ -45,7 +45,6 @@
             id="giaBan"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
-            @input="giaBanFormatted"
           />
         </div>
         <div>
@@ -60,7 +59,6 @@
             id="giaChietKhau"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
-            @input="giaChietKhauFormatted"
           />
         </div>
         <div>
@@ -69,28 +67,39 @@
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >Mã danh mục</label
           >
-          <input
+          <select
             v-model="idDanhMuc"
-            type="text"
             id="idDanhMuc"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
-          />
+          >
+            <option value="">-- Lựa chọn danh mục --</option>
+            <option value="quanao">Quần áo</option>
+            <option value="giaydep">Giày dép</option>
+            <option value="phukien">Phụ kiện</option>
+          </select>
         </div>
-        <!-- <div>
-              <label
-                for="idGStore"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Mã G-Store</label
-              >
-              <input
-                v-model="idGStore"
-                type="number"
-                id="idGStore"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required
-              />
-            </div> -->
+        <div class="">
+          <label
+            for="image"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Image</label
+          >
+          <div class="flex items-center justify-between relative">
+            <input
+              type="file"
+              id="image"
+              class="text-gray-900 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+              @change="uploadImage"
+            />
+            <img
+              alt="Product Image"
+              class="w-[50px] h-[50px] border absolute right-0 rounded"
+              :src="imageUrl"
+            />
+          </div>
+        </div>
         <div>
           <label
             for="ngayDangKi"
@@ -168,16 +177,30 @@ const idDanhMuc = ref("");
 const ngayDangKi = ref("");
 const ngayDuyet = ref("");
 
-const giaBanFormatted = ref(0);
-const giaChietKhauFormatted = ref(0);
-
-watch(giaBan, (newValue) => {
-  giaBanFormatted.value = newValue.toLocaleString("vi-VN");
+const image = ref(null);
+const imageUrl = computed(() => {
+  if (image.value) {
+    return URL.createObjectURL(image.value);
+  }
 });
 
-watch(giaChietKhau, (newValue) => {
-  giaChietKhauFormatted.value = newValue.toLocaleString("vi-VN");
-});
+async function uploadImage(event) {
+  console.log(event.target.files[0]);
+  try {
+    const formData = new FormData();
+    formData.append("file", event.target.files[0]);
+    const response = await axios.post(
+      "http://localhost:5003/api/file/upload?folder=image",
+      formData
+    );
+    const imageData = response.data;
+    if (imageData.status === 1) {
+      imageUrl.value = imageData.data;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 function handlePostProduct() {
   const productData = {
@@ -189,6 +212,7 @@ function handlePostProduct() {
     idDanhMuc: idDanhMuc.value,
     ngayDangKi: ngayDangKi.value,
     ngayDuyet: ngayDuyet.value,
+    image: image.value,
   };
 
   postProduct(productData)

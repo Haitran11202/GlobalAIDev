@@ -4,6 +4,7 @@ using GlobalAI.DataAccess.Models;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.TraGia;
 using GlobalAI.Utils;
+using GlobalAI.Utils.ConstantVariables.Product;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -30,6 +31,20 @@ namespace GlobalAI.ProductRepositories
             return _dbSet.Add(input).Entity;
         }
 
+        public void DeleteByTraGiaId(int id, string username)
+        {
+            if (_dbSet.Any(e => e.IdTraGia == id))
+            {
+                _dbSet.Where(e => e.IdTraGia == id)
+                    .ToList()
+                    .ForEach(e => {
+                        e.DeletedBy = username;
+                        e.DeletedDate = DateTime.Now;
+                        e.Deleted = true;
+                    });
+            }
+        }
+        
         public ChiTietTraGia FindById(int id, int? IdGSaler = null, int? IdGStore = null)
         {
             return _dbSet.FirstOrDefault(d => d.Id == id && d.Deleted == DeletedBool.NO);
@@ -39,13 +54,6 @@ namespace GlobalAI.ProductRepositories
         //{
         //    var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
         //    bargainQuery.GiaTien = input.GiaTien;
-        //    bargainQuery.ModifiedDate = DateTime.Now;
-        //    bargainQuery.ModifiedBy = input.ModifiedBy;
-        //}
-
-        //public void Approve(TraGia input)
-        //{
-        //    var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
         //    bargainQuery.ModifiedDate = DateTime.Now;
         //    bargainQuery.ModifiedBy = input.ModifiedBy;
         //}

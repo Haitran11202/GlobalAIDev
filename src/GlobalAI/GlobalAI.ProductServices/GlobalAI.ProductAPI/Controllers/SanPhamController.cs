@@ -142,11 +142,11 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         [HttpGet("danh-muc/{id}")]
         [ProducesResponseType(typeof(APIResponse<List<SanPham>>), (int)HttpStatusCode.OK)]
-        public APIResponse GetByCategory(int id)
+        public APIResponse GetByCategory(string id, [FromQuery] FindSanPhamByCatetoryDto input)
         {
             try
             {
-                var result = _sanPhamServices.GetByCategory(id);
+                var result = _sanPhamServices.GetByCategory(id, input);
 
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
