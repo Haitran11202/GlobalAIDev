@@ -46,6 +46,9 @@ namespace GlobalAI.ProductEntities.Dto.Product
 
         public string DiaChi { get; set; }
 
+        
+        
+
 
     }
 }

@@ -1,7 +1,7 @@
 <template lang="">
   <div>
     <header-default />
-    <div class="container mx-auto lg:flex bg-slate-100">
+    <div class="container mx-auto lg:flex bg-slate-100 max-h-screen">
       <div class="" v-if="useSideBar.getShowSideBar">
         <sidebar v-on:category-clicked="handleCategoryClick" />
       </div>
@@ -10,7 +10,7 @@
         <NuxtPage :category="selectedCategory" />
       </div>
     </div>
-    <footer-admin />
+    <!-- <footer-admin /> -->
   </div>
 </template>
 <script setup>

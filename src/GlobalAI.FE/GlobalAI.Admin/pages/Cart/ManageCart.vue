@@ -71,7 +71,7 @@
               </header>
 
               <div class="overflow-x-auto p-3">
-                <table class="table-auto w-full">
+                <table class="table-auto w-full overflow-hidden">
                   <thead
                     class="text-xs font-semibold uppercase text-gray-400 bg-gray-50"
                   >
@@ -425,6 +425,7 @@ const totalPrice = computed(() => {
 });
 // format tiền
 const formatMoney = (soLuong, giaBan) => {
+  console.log(products.value);
   return getPrice(soLuong, giaBan).toLocaleString("vi-VN", {
     style: "currency",
     currency: "VND",
@@ -433,29 +434,57 @@ const formatMoney = (soLuong, giaBan) => {
 const formatMoneyAll = (money) => {
   return money.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
 };
+const removeDuplicates = (arr) => {
+  let uniqueArr = arr.filter((item, index) => arr.indexOf(item) === index);
+  return uniqueArr;
+};
+//Lấy id gstore
+
 //tạo đơn hàng
 const checkOut = () => {
+  var arrGstore = [];
+  //lấy ra idgstore
   selectedProducts.value.map((idSp) => {
     var chiTiet = products.value.find((p) => p.id == idSp);
-
-    bodyData.value.chiTietDonHangFullDtos.push({
-      idSanPham: chiTiet.id,
-      soLuong: getCartItemQuantity(idSp),
-    });
+    arrGstore.push(chiTiet.idGStore);
   });
-  bodyData.value.donHang.maDonHang = `md${Math.floor(Math.random() * 10) + 1}`;
-  bodyData.value.donHang.hinhThucThanhToan = selectedPaymentType.value;
-  bodyData.value.donHang.soTien = totalPrice.value.chietKhau;
-  bodyData.value.donHang.ngayHoanThanh = new Date();
-  bodyData.value.donHang.idGStore = 0; //chưa biết
-  var body = {
-    ...bodyData.value,
-  };
-
-  createFullDonHang(body)
-    .then((res) => console.log(res.data))
-    .then((res) => toast.success("Tạo đơn hàng thành công"))
-    .catch(() => {});
+  console.log(selectedProducts.value);
+  console.log(arrGstore);
+  //tạo chi tiet don hang
+  const uniqueGstores = [...new Set(arrGstore)];
+  uniqueGstores.forEach((idGStore) => {
+    const filterdProducts = selectedProducts.value.filter((idsp) => {
+      const product = products.value.find((p) => p.id == idsp);
+      return product.idGStore == idGStore;
+    });
+    // create chi tiet don hang for products with matching idGStore
+    // create chi tiet don hang for products with matching idGStore
+    const chiTietDonHangFullDtos = filterdProducts.map((idSp) => {
+      const chiTiet = products.value.find((p) => p.id == idSp);
+      return {
+        idSanPham: chiTiet.id,
+        soLuong: getCartItemQuantity(idSp),
+      };
+    });
+    // create full don hang object
+    const sendBody = {
+      donHang: {
+        maDonHang: `md${Math.floor(Math.random() * 10) + 1}`,
+        ngayHoanThanh: new Date(),
+        idGStore: idGStore,
+        soTien: totalPrice.value.chietKhau,
+        hinhThucThanhToan: selectedPaymentType.value,
+      },
+      chiTietDonHangFullDtos: chiTietDonHangFullDtos,
+    };
+    console.log(sendBody);
+    createFullDonHang(sendBody)
+      .then((res) => {
+        toast.success("Tạo đơn hàng thành công");
+        console.log(res);
+      })
+      .catch(() => {});
+  });
 };
 </script>
 <style>

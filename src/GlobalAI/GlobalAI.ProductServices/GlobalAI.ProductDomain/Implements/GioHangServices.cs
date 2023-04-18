@@ -57,6 +57,8 @@ namespace GlobalAI.ProductDomain.Implements
             var gioHang = _mapper.Map<GioHang>(input);
             _repositoryGioHang.AddGioHang(gioHang);
             gioHang.IdNguoiMua = CommonUtils.GetCurrentUserId(_httpContext);
+            gioHang.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);
+            gioHang.CreatedDate = DateTime.Now;
             _dbContext.SaveChanges();
             return gioHang;
         }
