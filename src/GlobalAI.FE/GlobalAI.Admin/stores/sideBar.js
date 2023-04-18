@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 export const useSideBarStorage = defineStore("sideBar", {
   state: () => ({
-    showSideBar: true,
+    showSideBar: false,
   }),
   getters: {
     getShowSideBar: (state) => state.showSideBar,
@@ -12,5 +12,4 @@ export const useSideBarStorage = defineStore("sideBar", {
       this.showSideBar = payload;
     },
   },
-  persist: true,
 });

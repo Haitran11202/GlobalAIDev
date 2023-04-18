@@ -25,22 +25,22 @@
 import CardListProductShort from "../../components/Cards/CardListProductShort.vue";
 import { DANH_MUC_NOI_BAT } from "~~/lib/danhMuc";
 import { ref } from "vue";
-
 definePageMeta({
   layout: "layout-default",
 });
-
 const products = ref([]);
 const productsSeller = ref([]);
 
+// Lấy tất cả sản phẩm theo danh mục 
 onMounted(() => {
   getSanPhamDanhMuc(DANH_MUC_NOI_BAT.SAN_PHAM_MOI)
     .then((res) => {
-      products.value = res?.data?.data;
+      products.value = res?.data?.data.items;
+      console.log(products.value)
       return getSanPhamDanhMuc(DANH_MUC_NOI_BAT.SAN_PHAM_BAN_CHAY);
     })
     .then((res) => {
-      productsSeller.value = res?.data?.data;
+      productsSeller.value = res?.data?.data.items;
     })
     .catch(() => {});
 });
