@@ -276,7 +276,8 @@
         </div>
       </div>
   </div>
-  <div v-if="isShowModelCart" class="z-50 fixed w-[480px] py-[20px] px-[10px] h-[480px] bg-white top-[50%] rounded-xl shadow-2xl left-[35%] translate-y-[-50%]">
+  <!-- Model Update Number Product -->
+  <div v-if="isShowModelCart" class="z-50 fixed w-[480px] py-[10px] px-[10px] h-[450px] bg-white top-[50%] rounded-xl shadow-2xl left-[50%] translate-y-[-50%] translate-x-[-50%]">
     <div class="float-right">
       <button @click="isShowModelCart = false" class="text-[24px] "><font-awesome-icon :icon="['fas', 'circle-xmark']" /></button>
     </div>
@@ -316,6 +317,7 @@
       </div>
     </div>
   </div>
+  <!-- Modal Opacity -->
   <div v-if="isShowModelCart" @click="isShowModelCart=false" class="fixed top-0 lef-0 right-0 w-full h-full bg-black opacity-25 z-20"></div>
 </template>
 <script setup>
@@ -354,12 +356,6 @@ const products = ref({});
 const isChecked = ref(false);
 const isShowModelCart = ref(false)
 const soLuong = ref(1)
-// const props = defineProps({
-//   productId: {
-//     type: Number,
-//     required: false,
-//   },
-// });
 
 watchEffect(() => {
   productId.value = router.currentRoute.value.params.id;
@@ -368,17 +364,6 @@ watchEffect(() => {
       products.value = res?.data?.data;
     })
     .catch(() => {});
-  // watchEffect(async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       `http://localhost:5003/api/product/sanpham/${productId.value}`
-  //     );
-  //     products.value = response.data.data;
-  //     console.log(products.value);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // });
 });
 
 const tongGiaBan = computed(() => {
@@ -429,6 +414,7 @@ const handleAddProductCart =() => {
   }
   createGioHang(body)
   .then((res) => {
+    isShowModelCart.value = false;
     toast.success("Thêm sản phẩm vào giỏ hàng thành công !", {
         autoClose: 1000,
         onClose:() => {
