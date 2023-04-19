@@ -1,6 +1,8 @@
 <template>
   <div class="mt-[20px]">
-    <span class="text-[16px] text-red-500 float-left">Trở lại</span>
+    <div class="text-[18px] text-[#cc3366] float-left flex items-center gap-2">
+      <font-awesome-icon class="text-black text-[18px]" :icon="['fas', 'angle-left']" />
+     <span> Trở lại</span></div>
     <div class="flex w-full mt-[40px] gap-[30px]">
       <div class="w-[65%] mt-[20px] rounded-md overflow-hidden">
         <div class="flex gap-[20px] items-center px-[20px] py-[10px] bg-white">
@@ -184,9 +186,7 @@
 <script setup>
 import { getGioHang } from "~~/composables/useApiProduct";
 import { toast } from "vue3-toastify";
-
 // const router = useRouter();
-
 definePageMeta({
   layout: "layout-default",
   name: "ManageCart",
@@ -225,7 +225,6 @@ const getCartItemQuantity = (id) => {
 //tăng số lượng sản phẩm trong giỏ hàng
 const increment = (idsp) => {
   const gioHangsanpham = datas.value.find((s) => s.idSanPham == idsp);
-
   gioHangsanpham.soLuong++;
   console.log(gioHangsanpham.id);
   const body = {
@@ -233,7 +232,6 @@ const increment = (idsp) => {
     soLuong: gioHangsanpham.soLuong,
     status: 1,
   };
-
   editGioHang(gioHangsanpham.id, body)
     .then((res) => console.log(res))
     .catch(() => {});
@@ -247,7 +245,6 @@ const decrement = (idsp) => {
     soLuong: gioHangsanpham.soLuong,
     status: 1,
   };
-
   editGioHang(gioHangsanpham.id, body)
     .then((res) => console.log(res))
     .catch(() => {});
@@ -297,7 +294,6 @@ const deleteGh = (idsp) => {
 const totalPrice = computed(() => {
   let sum = 0;
   let chietKhau = 0;
-
   datas.value.forEach((item) => {
     if (selectedProducts.value.includes(item.idSanPham)) {
       let giaBan = getGiaBanTuIdSanPham(item.idSanPham);
@@ -306,14 +302,12 @@ const totalPrice = computed(() => {
       chietKhau += getPrice(item.soLuong, giaChietKhau);
     }
   });
-
   return { sum, chietKhau };
 });
 //tạo đơn hàng
 const checkOut = () => {
   selectedProducts.value.map((idSp) => {
     var chiTiet = products.value.find((p) => p.id == idSp);
-
     bodyData.value.chiTietDonHangFullDtos.push({
       idSanPham: chiTiet.id,
       soLuong: getCartItemQuantity(idSp),
@@ -327,7 +321,6 @@ const checkOut = () => {
   var body = {
     ...bodyData.value,
   };
-
   createFullDonHang(body)
     .then((res) => console.log(res.data))
     .then((res) => toast.success("Tạo đơn hàng thành công"))

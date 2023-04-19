@@ -15,9 +15,16 @@
             <h2 class="text-[18px] mt-[10px] uppercase text-[#384059]">{{ item.tenSanPham }}</h2>
             <p class="text-[12px] text-[#384059]">Price From <span class="text-[16px] text-[#cc3366]">{{ item.giaBan }}</span></p>
             <p class="text-[12px]">Commission : {{ item.giaChietKhau }}</p>
-            <div class="text-[12px]">
-            Sold 85
-          </div>
+            <div class="text-[12px] flex mt-2 justify-between items-center">
+              <div class="flex gap-1 text-[#f8ac59] text-[12px] items-center">
+                <font-awesome-icon :icon="['fas', 'star']" />
+                <font-awesome-icon :icon="['fas', 'star']" />
+                <font-awesome-icon :icon="['fas', 'star']" />
+                <font-awesome-icon :icon="['fas', 'star']" />
+                <font-awesome-icon :icon="['fas', 'star']" />
+              </div>
+                Sold 85
+             </div>
           </div>
          </div>
       </div>

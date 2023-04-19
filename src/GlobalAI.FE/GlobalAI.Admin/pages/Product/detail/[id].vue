@@ -15,6 +15,14 @@
           <span>Giá Chiết Khấu : </span>
           <p class="text-[18px]">{{products.giaChietKhau}}</p>
         </div>
+        <div class="flex gap-1 mt-2 text-[#f8ac59] text-[18px] items-center">
+          <font-awesome-icon :icon="['fas', 'star']" />
+          <font-awesome-icon :icon="['fas', 'star']" />
+          <font-awesome-icon :icon="['fas', 'star']" />
+          <font-awesome-icon :icon="['fas', 'star']" />
+          <font-awesome-icon :icon="['fas', 'star']" />
+          4.9/5
+        </div>
         <div class="flex items-center mt-[15px]">
           <h2 class="text-[16px] font-[500] mr-[40px]">Màu Sắc</h2>
           <div class="flex items-center gap-4">
@@ -270,7 +278,7 @@
   </div>
   <div v-if="isShowModelCart" class="z-50 fixed w-[480px] py-[20px] px-[10px] h-[480px] bg-white top-[50%] rounded-xl shadow-2xl left-[35%] translate-y-[-50%]">
     <div class="float-right">
-      <button @click="isShowModelCart = false" class="rounded-xl  text-white px-[10px] py-[10px] border-2  bg-red-300">Ẩn</button>
+      <button @click="isShowModelCart = false" class="text-[24px] "><font-awesome-icon :icon="['fas', 'circle-xmark']" /></button>
     </div>
     <div class="px-[35px] mt-[60px]">
       <div class="flex gap-[20px]">
@@ -288,9 +296,9 @@
       <div class="flex justify-between items-center mt-[30px]">
         <h2 class="font-bold text-[16px] text-[#384059]">Số lượng</h2>
         <div class="px-[10px] flex justify-between items-center py-[6px] rounded-xl border-2">
-          <button @click="increment" class="w-[20px] h-[20px] flex items-center font-medium justify-center rounded-[50%] bg-black text-white">+</button>
-          <input class="w-[100px] flex pl-[40px] border-none outline-none" type="number" :value="soLuong">
           <button @click="decrement" class="w-[20px] h-[20px] flex items-center font-medium justify-center rounded-[50%] bg-black text-white">-</button>
+          <input class="w-[100px] flex pl-[40px] border-none outline-none" type="number" :value="soLuong">
+          <button @click="increment" class="w-[20px] h-[20px] flex items-center font-medium justify-center rounded-[50%] bg-black text-white">+</button>
         </div>
       </div>
       <div class="flex justify-between items-center mt-[30px]">
@@ -401,7 +409,12 @@ const increment = () => {
 }
 
 const decrement = () => {
-  soLuong.value--;
+  if(soLuong.value <= 1){
+    soLuong.value = 1;
+  }else{
+    soLuong.value--;
+  }
+ 
 }
 
 // Thêm sản phẩm vào giỏ hàng 

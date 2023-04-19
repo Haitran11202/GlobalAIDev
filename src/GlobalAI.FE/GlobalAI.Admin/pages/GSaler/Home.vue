@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex flex-wrap bg-slate-100 relative">
+    <div class="flex flex-wrap relative">
       <div class="w-full rounded-2xl overflow-hidden">
         <img src="https://media.sellycdn.net/files/md_2023_03_31_08_24_23_0700_ipMNOLVEoW.jpg" class="object-cover" alt="">
       </div>
