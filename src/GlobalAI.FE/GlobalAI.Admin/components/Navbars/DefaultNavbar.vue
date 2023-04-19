@@ -41,7 +41,7 @@
         >
           <a
             class="hover:text-slate-500 text-slate-700 px-3 py-2 flex items-center text-xs uppercase font-bold"
-            href="/Cart/ManageCart"
+            href="/Cart/ManageCart/1"
            
           >
             <i class="text-slate-400 fab fa-facebook text-lg leading-lg" />

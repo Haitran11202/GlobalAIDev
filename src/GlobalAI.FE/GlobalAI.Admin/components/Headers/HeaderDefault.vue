@@ -28,12 +28,15 @@
             <i class="fas fa-bars"></i>
           </button>
         </div>
-        <!-- Card stats -->
+ 
         <div class="flex flex-wrap">
           <DefaultNavbar></DefaultNavbar>
         </div>
       </div>
     </div>
+    <!-- <div class="w-full h-[74px] bg-[#cc3366] px-[82px] flex items-center justify-center">
+        <h1 class="font-bold text-white ">GlobalAI</h1>
+    </div> -->
   </template>
   
   <script setup>
