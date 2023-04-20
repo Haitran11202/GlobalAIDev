@@ -177,7 +177,14 @@ export const postProduct = async (productData) => {
 };
 
 //Get Image
-export const getImage = async () => {};
+export const getImage = async () => {
+  const res = await http.get(API_ENDPOINT.getImage);
+  try {
+    Promise.resolve(res);
+  } catch (err) {
+    Promise.reject(err);
+  }
+};
 
 //Post Image
 export const postImage = async (postImage) => {

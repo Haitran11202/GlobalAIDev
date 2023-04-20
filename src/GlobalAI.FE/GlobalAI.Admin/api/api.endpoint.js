@@ -1,3 +1,5 @@
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiEndpoint;
 export const API_ENDPOINT = {
   login: "connect/token",
   refreshToken: "connect/token",
@@ -30,4 +32,5 @@ export const API_ENDPOINT = {
   // Quản lý đơn hàng
   getAllOrder: (pageSize, pageNumber, skip) =>
     `http://localhost:5003/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
+  getImage: `${baseUrl}/api/file/get?folder=test&file=globalai-0b272053460d4fb2b99c8e328f30e398.jpg`,
 };
