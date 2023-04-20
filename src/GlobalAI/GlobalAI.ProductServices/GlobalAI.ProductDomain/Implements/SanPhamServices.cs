@@ -58,6 +58,8 @@ namespace GlobalAI.ProductDomain.Implements
             _repositorySanPham.Add(newSanPham);
             newSanPham.Deleted = false;
             newSanPham.IdGStore = CommonUtils.GetCurrentUserId(_httpContext);
+            newSanPham.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);
+            newSanPham.CreatedDate = DateTime.Now;
             _dbContext.SaveChanges();
             return newSanPham;
         }

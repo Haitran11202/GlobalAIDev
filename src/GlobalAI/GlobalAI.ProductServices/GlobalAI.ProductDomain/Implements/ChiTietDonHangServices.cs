@@ -50,6 +50,7 @@ namespace GlobalAI.ProductDomain.Implements
             var chiTietDonHang = _mapper.Map<ChiTietDonHang>(input);
             _repositoryChiTietDonHang.CreateChiTietDonHang(chiTietDonHang);
 
+
             _dbContext.SaveChanges();
             return chiTietDonHang;
         }

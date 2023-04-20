@@ -125,10 +125,12 @@ namespace GlobalAI.ProductDomain.Implements
             {
                 try
                 {
-                    donHangFullDto.donHang.IdNguoiMua = CommonUtils.GetCurrentUserId(_httpContext);
+                    var idNguoiMua = CommonUtils.GetCurrentUserId(_httpContext);
+                    donHangFullDto.donHang.IdNguoiMua = idNguoiMua;
                     // Save DonHang
                     var resultDh = CreateDonhang(donHangFullDto.donHang);
-
+                    resultDh.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);
+                    resultDh.CreatedDate = DateTime.Now;
                     _dbContext.SaveChanges();
                     var idDonHang = resultDh.Id;
                     // Save ChiTietDonHang
@@ -136,6 +138,8 @@ namespace GlobalAI.ProductDomain.Implements
                     {
                         var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(item));
                         ctDonhang.IdDonHang = idDonHang;
+                        ctDonhang.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);
+                        ctDonhang.CreatedDate = DateTime.Now;
 
                     }
                     _dbContext.SaveChanges();

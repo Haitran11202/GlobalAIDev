@@ -1,7 +1,6 @@
 import { faShareAltSquare } from "@fortawesome/free-solid-svg-icons";
 import http from "./useApi";
 import { API_ENDPOINT } from "~~/api/api.endpoint";
-
 export const getSanPhamDanhMucPhanTrang = async (
   categoryId,
   pageSize,
@@ -32,7 +31,6 @@ export const getSanPhamDanhMuc = async (id) => {
     return Promise.reject(err);
   }
 };
-
 // Lấy sản phẩm dựa theo ID
 export const getFullSanPham = async () => {
   const res = await http.get(API_ENDPOINT.getFullSanPham);
@@ -46,7 +44,6 @@ export const getFullSanPham = async () => {
 // Cương code
 
 // Lấy tất cả sản phẩm và phân trang
-
 // Xoá sản phẩm dựa theo ID
 
 export const getGioHang = async () => {
@@ -177,17 +174,21 @@ export const postProduct = async (productData) => {
 };
 
 //Get Image
-export const getImage = async () => {};
+export const getImage = async () => {
+  const res = await http.get(API_ENDPOINT.getImage);
+  try {
+    Promise.resolve(res);
+  } catch (err) {
+    Promise.reject(err);
+  }
+};
 
 //Post Image
-export const postImage = async (postImage) => {
+
+//Post Image
+export const postImage = async (formData) => {
   try {
-    const res = await http.post(
-      encodeURIComponent(
-        "http://localhost:5003/api/file/get?folder=upload&file=D:\\Tech\\image\\globalai-3de0ccf49e9d41c389d34b4cf198d373.jpg&download=false"
-      ),
-      postImage
-    );
+    const res = await http.post(API_ENDPOINT.postImages, formData);
     return Promise.resolve(res.data);
   } catch (err) {
     return Promise.reject(err);
