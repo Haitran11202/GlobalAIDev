@@ -1,34 +1,52 @@
 <template>
-    <div class="w-full mt-[40px] cursor-pointer">
-      <div class="flex  w-full justify-between items-center mb-[20px]">
-        <h1 class="text-[24px] text-[#384059] uppercase font-bold">{{ props.title }}</h1>
-        <RouterLink  :to="`/product/category/${id}`" class="font-[500] text-[#384059] text-[18px]">Xem Thêm</RouterLink>
-      </div>
-      <div   class="flex flex-wrap gap-[15px] overflow-hidden">
-         <div v-for="(item, idx) in products"
-          :key="idx" class="w-[210px] h-[340px] bg-white rounded-[10px] overflow-hidden border-2 "
-          @click="detail(item.id)">
-          <div class="w-full px-[4px] py-[4px]">
-            <img src="https://media.sellycdn.net/files/sm_2023_03_17_04_32_55_0700_ArddHLwscN.jpg" class="rounded-md object-cover" alt="">
+  <div class="w-full mt-[40px] cursor-pointer">
+    <div class="flex w-full justify-between items-center mb-[20px]">
+      <h1 class="lg:text-[24px] text-[#384059] uppercase font-bold">
+        {{ props.title }}
+      </h1>
+      <RouterLink
+        :to="`/product/category/${id}`"
+        class="font-[500] text-[#384059] lg:text-[18px]"
+        >Xem Thêm</RouterLink
+      >
+    </div>
+    <div class="flex flex-wrap lg:gap-[15px] overflow-hidden">
+      <div
+        v-for="(item, idx) in products"
+        :key="idx"
+        class="lg:w-[210px] lg:h-[340px] w-1/2 bg-white rounded-[10px] overflow-hidden border-2"
+        @click="detail(item.id)"
+      >
+        <div class="w-full px-[4px] py-[4px]">
+          <img
+            src="https://media.sellycdn.net/files/sm_2023_03_17_04_32_55_0700_ArddHLwscN.jpg"
+            class="rounded-md object-cover"
+            alt=""
+          />
+        </div>
+        <div class="bg-white px-[10px] flex flex-col gap-[4px]">
+          <h2 class="text-[18px] mt-[10px] uppercase text-[#384059]">
+            {{ item.tenSanPham }}
+          </h2>
+          <p class="text-[12px] text-[#384059]">
+            Price From
+            <span class="text-[16px] text-[#cc3366]">{{ item.giaBan }}</span>
+          </p>
+          <p class="text-[12px]">Commission : {{ item.giaChietKhau }}</p>
+          <div class="text-[12px] flex mt-2 justify-between items-center">
+            <div class="flex gap-1 text-[#f8ac59] text-[12px] items-center">
+              <font-awesome-icon :icon="['fas', 'star']" />
+              <font-awesome-icon :icon="['fas', 'star']" />
+              <font-awesome-icon :icon="['fas', 'star']" />
+              <font-awesome-icon :icon="['fas', 'star']" />
+              <font-awesome-icon :icon="['fas', 'star']" />
+            </div>
+            Sold 85
           </div>
-          <div class="bg-white px-[10px] flex flex-col gap-[4px]">
-            <h2 class="text-[18px] mt-[10px] uppercase text-[#384059]">{{ item.tenSanPham }}</h2>
-            <p class="text-[12px] text-[#384059]">Price From <span class="text-[16px] text-[#cc3366]">{{ item.giaBan }}</span></p>
-            <p class="text-[12px]">Commission : {{ item.giaChietKhau }}</p>
-            <div class="text-[12px] flex mt-2 justify-between items-center">
-              <div class="flex gap-1 text-[#f8ac59] text-[12px] items-center">
-                <font-awesome-icon :icon="['fas', 'star']" />
-                <font-awesome-icon :icon="['fas', 'star']" />
-                <font-awesome-icon :icon="['fas', 'star']" />
-                <font-awesome-icon :icon="['fas', 'star']" />
-                <font-awesome-icon :icon="['fas', 'star']" />
-              </div>
-                Sold 85
-             </div>
-          </div>
-         </div>
+        </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script setup>
@@ -40,7 +58,7 @@ const props = defineProps({
   title: {
     type: String,
   },
-  id:{
+  id: {
     type: String,
   },
   products: {
