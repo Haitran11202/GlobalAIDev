@@ -86,34 +86,6 @@
             required
           />
         </div>
-        <div>
-          <label
-            for="ngayDangKi"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Ngày đăng kí</label
-          >
-          <input
-            v-model="product.ngayDangKi"
-            type="date"
-            id="ngayDangKi"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
-        </div>
-        <div>
-          <label
-            for="ngayDuyet"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Ngày duyệt</label
-          >
-          <input
-            v-model="product.ngayDuyet"
-            type="date"
-            id="ngayDuyet"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
-        </div>
         <div class="mb-6">
           <label
             for="moTa"
@@ -127,6 +99,23 @@
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
           />
+        </div>
+        <div class="flex items-center">
+          <h1>Ảnh sản phẩm</h1>
+          <div class="flex items-center justify-between relative">
+            <input
+              type="file"
+              id="image"
+              class="text-gray-900 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+              @change="uploadImage"
+            />
+            <img
+              alt="Product Image"
+              class="w-[50px] h-[50px] border absolute right-0 rounded"
+              :src="imageUrl"
+            />
+          </div>
         </div>
       </div>
       <div class="flex justify-end gap-5">
@@ -173,6 +162,23 @@ onMounted(() => {
     }
   });
 });
+async function uploadImage(event) {
+  console.log(event.target.files[0].name);
+  try {
+    const formData = new FormData();
+    formData.append("file", event.target.files[0]);
+    postImage(formData)
+      .then((response) => {
+        console.log(response);
+        product.value.thumbnail = response.data.split("=")[2];
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 const submitForm = () => {
   updateProduct(productId.value, product.value)

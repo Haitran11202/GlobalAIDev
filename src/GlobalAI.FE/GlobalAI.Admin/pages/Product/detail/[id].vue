@@ -430,7 +430,17 @@ const products = ref({});
 const isChecked = ref(false);
 const isShowModelCart = ref(false);
 const soLuong = ref(1);
-const config = uss;
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiEndpoint;
+watchEffect(() => {
+  axios
+    .get(
+      `${baseUrl}/api/file/get?folder=test&file=globalai-0b272053460d4fb2b99c8e328f30e398.jpg`
+    )
+    .then((res) => console.log(res.data))
+    .catch(() => {});
+});
+
 watchEffect(() => {
   productId.value = router.currentRoute.value.params.id;
   getSanPhamById(productId.value)

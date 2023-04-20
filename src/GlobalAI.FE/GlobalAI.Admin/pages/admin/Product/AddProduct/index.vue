@@ -100,34 +100,6 @@
             />
           </div>
         </div>
-        <div>
-          <label
-            for="ngayDangKi"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Ngày đăng kí</label
-          >
-          <input
-            v-model="ngayDangKi"
-            type="date"
-            id="ngayDangKi"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
-        </div>
-        <div>
-          <label
-            for="ngayDuyet"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Ngày duyệt</label
-          >
-          <input
-            v-model="ngayDuyet"
-            type="date"
-            id="ngayDuyet"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
-        </div>
         <div class="mb-6">
           <label
             for="moTa"
@@ -174,29 +146,40 @@ const moTa = ref("");
 const giaBan = ref(0);
 const giaChietKhau = ref(0);
 const idDanhMuc = ref("");
-const ngayDangKi = ref("");
-const ngayDuyet = ref("");
+const thumbnail = ref("");
 
-const image = ref(null);
-const imageUrl = computed(() => {
-  if (image.value) {
-    return URL.createObjectURL(image.value);
-  }
-});
+// const image = ref(null);
+// const imageUrl = computed(() => {
+//   if (image.value) {
+//     return URL.createObjectURL(image.value);
+//   }
+// });
+// const image = ref(null);
+// const imageUrl = computed(() => {
+//   if (image.value) {
+//     return URL.createObjectURL(image.value);
+//   }
+// });
 
 async function uploadImage(event) {
-  console.log(event.target.files[0]);
+  console.log(event.target.files[0].name);
+  console.log(event.target.files[0].name);
   try {
     const formData = new FormData();
     formData.append("file", event.target.files[0]);
-    const response = await axios.post(
-      "http://localhost:5003/api/file/upload?folder=image",
-      formData
-    );
-    const imageData = response.data;
-    if (imageData.status === 1) {
-      imageUrl.value = imageData.data;
-    }
+    // const response = await axios.post(
+    //   "http://localhost:5003/api/file/upload?folder=image",
+    //   formData
+    // );
+    // console.log(response)
+    postImage(formData)
+      .then((response) => {
+        console.log(response);
+        thumbnail.value = response.data.split("=")[2];
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   } catch (error) {
     console.error(error);
   }
@@ -210,9 +193,7 @@ function handlePostProduct() {
     giaBan: giaBan.value,
     giaChietKhau: giaChietKhau.value,
     idDanhMuc: idDanhMuc.value,
-    ngayDangKi: ngayDangKi.value,
-    ngayDuyet: ngayDuyet.value,
-    image: image.value,
+    thumbnail: thumbnail.value,
   };
 
   postProduct(productData)
