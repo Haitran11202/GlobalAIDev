@@ -31,6 +31,7 @@ import {
   faBars,
   faTimes,
   faTruckMoving,
+
 } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
@@ -59,8 +60,9 @@ library.add(
   faCircleInfo,
   faBars,
   faTimes
+
 );
 
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.component("font-awesome-icon", FontAwesomeIcon);
+    nuxtApp.vueApp.component("font-awesome-icon", FontAwesomeIcon);
 });
