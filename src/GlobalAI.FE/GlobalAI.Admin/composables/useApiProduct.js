@@ -1,3 +1,4 @@
+
 import { faShareAltSquare } from "@fortawesome/free-solid-svg-icons";
 import http from "./useApi";
 import { API_ENDPOINT } from "~~/api/api.endpoint";
@@ -180,16 +181,11 @@ export const postProduct = async (productData) => {
 export const getImage = async () => {};
 
 //Post Image
-export const postImage = async (postImage) => {
-  try {
-    const res = await http.post(
-      encodeURIComponent(
-        "http://localhost:5003/api/file/get?folder=upload&file=D:\\Tech\\image\\globalai-3de0ccf49e9d41c389d34b4cf198d373.jpg&download=false"
-      ),
-      postImage
-    );
+export const postImage = async (formData) => {
+   try{
+    const res = await http.post(API_ENDPOINT.postImages , formData);
     return Promise.resolve(res.data);
-  } catch (err) {
+   }catch(err){
     return Promise.reject(err);
-  }
+   }
 };

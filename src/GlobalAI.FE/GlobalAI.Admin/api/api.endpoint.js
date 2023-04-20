@@ -1,3 +1,4 @@
+
 export const API_ENDPOINT = {
   login: "connect/token",
   refreshToken: "connect/token",
@@ -25,7 +26,7 @@ export const API_ENDPOINT = {
   putProduct: (id) => `api/product/sanpham/${id}`,
 
   //Image
-  postImages: `api/file/upload`,
+  postImages:"api/file/upload?folder=image",
 
   // Quản lý đơn hàng
   getAllOrder: (pageSize, pageNumber, skip) =>
