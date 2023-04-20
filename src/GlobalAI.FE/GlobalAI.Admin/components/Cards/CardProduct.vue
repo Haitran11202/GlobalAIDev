@@ -149,7 +149,7 @@
             >
               <img
                 class="w-[50px] h-[50px] object-contain"
-                :src="getImageUrl(product.imageUrl)"
+                :src="getImageUrl('globalai-65961721b2cb4acfae71b891940c8f0a.jpg')"
                 alt=""
               />
             </td>
@@ -342,6 +342,8 @@ import {
   getProductById,
 } from "~~/composables/useApiProduct.js";
 const router = useRouter();
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiEndpoint;
 
 // Khởi tạo giá trị mặc định phân trang 5 1 0
 const pageSize = 5;
@@ -371,7 +373,7 @@ const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
   }
-  const url = `http://localhost:5003/api/file/get?folder=image&file=${encodeURIComponent(
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
     imageUrl
   )}&download=false`;
   return url;
