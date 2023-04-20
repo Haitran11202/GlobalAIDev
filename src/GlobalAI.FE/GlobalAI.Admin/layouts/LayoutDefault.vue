@@ -1,16 +1,17 @@
 <template lang="">
-  <div>
+  <div :class="showColor ? 'bg-white' : 'bg-slate-100'">
     <header-default />
-    <div class="container mx-auto lg:flex bg-slate-100">
-      <div class="" v-if="useSideBar.getShowSideBar">
-        <sidebar v-on:category-clicked="handleCategoryClick" />
-      </div>
-      <div class="pl-2 flex-1">
+    <sidebar
+      v-if="useSideBar.getShowSideBar"
+      v-on:category-clicked="handleCategoryClick"
+    />
+    <div class="container mx-auto lg:px-[185px]">
+      <div class="flex-1 lg:px-1 flex-col">
         <!-- Slot tượng trưng cho từng layout trong trang web -->
         <NuxtPage :category="selectedCategory" />
       </div>
     </div>
-    <footer-admin />
+    <!-- <footer-admin /> -->
   </div>
 </template>
 <script setup>
@@ -22,15 +23,20 @@ import { useSideBarStorage } from "~~/stores/sideBar";
 const router = useRouter();
 const useSideBar = useSideBarStorage();
 const selectedCategory = ref("");
-
+const showColor = ref(false);
 const changeSideBarShow = () => {
-  if (router.currentRoute.value.name == "ManageCart") {
-    useSideBar.changeShowSideBar(false);
-  } else {
+  if (
+    router.currentRoute.value.name !== "ManageCart" &&
+    router.currentRoute.value.name !== "ProductDetail"
+  ) {
+    console.log(1);
     useSideBar.changeShowSideBar(true);
+  } else {
+    useSideBar.changeShowSideBar(false);
   }
 };
-onMounted(() => {
+
+watchEffect(() => {
   changeSideBarShow();
 });
 const handleCategoryClick = (category) => {
@@ -38,4 +44,21 @@ const handleCategoryClick = (category) => {
   selectedCategory.value = category;
   console.log(selectedCategory.value);
 };
+
+// watchEffect(() =>{
+//     if(router.currentRoute.value.name !== 'ProductDetail' && router.currentRoute.value.name !== 'ManageCart'){
+//       showSidebar.value = true
+//     }
+//     else {
+//       showSidebar.value = false
+//     }
+// })
+
+watchEffect(() => {
+  if (router.currentRoute.value.name == "ProductDetail") {
+    showColor.value = true;
+  } else {
+    showColor.value = false;
+  }
+});
 </script>
