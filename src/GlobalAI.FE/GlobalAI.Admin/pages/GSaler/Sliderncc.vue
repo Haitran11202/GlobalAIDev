@@ -2,7 +2,7 @@
   <div class="w-full overflow-hidden">
     <div class="slider w-full flex justify-center items-center">
       <button
-        class="prev-button w-12 h-12 rounded-full ml-5 mt-5 flex items-center justify-center"
+        class="hover:bg-[rgba(255, 255, 255, 0.8)] prev-button w-12 h-12 rounded-full ml-5 mt-5 flex items-center justify-center"
         @click="prevImage"
       >
         <font-awesome-icon :icon="['fas', 'angle-left']" />
@@ -22,7 +22,7 @@
         ref="imagesContainer"
       >
         <div
-          class="w-[25%] px-[12px] max-h-full flex-shrink-0 opacity-2 ease-in-out"
+          class="hover:bg-[rgba(255, 255, 255, 0.8)] w-[25%] px-[12px] max-h-full flex-shrink-0 opacity-2 ease-in-out"
           v-for="(image, index) in images"
           :key="index"
         >
@@ -154,11 +154,6 @@ console.log(images.length);
 .images-container img.active {
   opacity: 1;
 }
-
-button:hover {
-  background-color: rgba(255, 255, 255, 0.8);
-}
-
 .active {
   width: 100%;
   height: auto;

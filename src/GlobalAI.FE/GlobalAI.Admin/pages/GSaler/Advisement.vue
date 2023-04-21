@@ -74,8 +74,16 @@ function prevImage() {
   imagesContainer.value.style.transform =
     "translateX(" + -currentIndex.value * 100 + "%)";
 }
+function setCurrentIndex(index) {
+  currentIndex.value = index;
+  imagesContainer.value.style.transform =
+    "translateX(" + -currentIndex.value * 100 + "%)";
+}
 
 const currentImage = computed(() => images[currentIndex.value]);
+setInterval(() => {
+  setCurrentIndex((currentIndex.value + 1) % images.length);
+}, 5000);
 
 // Lấy ra phần tử .images-container vào biến imagesContainer
 const slider = ref(null);

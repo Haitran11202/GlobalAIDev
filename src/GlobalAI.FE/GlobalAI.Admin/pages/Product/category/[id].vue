@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col">
     <div class="">
-      <h1 class="text-[24px] font-bold mb-[-20px] mt-5 ml-4 uppercase">{{ props ? props.category.label : titleCategory }}</h1>
+      <h1 class="text-[24px] font-bold mb-[-20px] ml-4 uppercase">{{ props ? props.category.label : titleCategory}}</h1>
       <card-list-product :products="products" />
     </div>
     <div class="flex items-center justify-center">
@@ -30,21 +30,39 @@ const pageSize = 10;
 const pageNumber = ref(1);
 const skip = ref(0);
 const titleCategory = ref('')
+const categoryId = ref('');
+
+const updateProducts = (categoryId) => {
+  getSanPhamDanhMucPhanTrang(categoryId, pageSize, pageNumber.value, skip.value)
+    .then((res) => {
+      products.value = res?.data?.data.items;
+      console.log(products.value);
+    })
+    .catch(() => {
+      products.value = [];
+    });
+};
 
 watchEffect(() => {
-  const categoryId = props.category.id || router.currentRoute.value.params.id
-  getSanPhamDanhMucPhanTrang(categoryId , pageSize ,pageNumber.value , skip.value )
-      .then((res) => {
-          products.value = res?.data?.data.items;
-          console.log(products.value)
-        })
-      .catch(() => {});
-})
+  categoryId.value = props.category.id ? props.category.id : router.currentRoute.value.params.id;
+  updateProducts(categoryId.value);
+});
+
 // const displayedItems = computed(() => {
 //   const startIndex = (currentPage.value - 1) * itemsPerPage;
 //   const endIndex = startIndex + itemsPerPage;
 //   return products.value.slice(startIndex, endIndex);
 // });
+
+watchEffect(() => {
+    if(router.currentRoute.value.params.id == '1'){
+      titleCategory.value = 'Đồng Hồ'
+      console.log(titleCategory.value);
+    }
+    else if(router.currentRoute.value.params.id == '4'){
+      titleCategory.value = 'Thời Trang Nam'
+    }
+})
 
 watchEffect(() => {
   getFullSanPham()
