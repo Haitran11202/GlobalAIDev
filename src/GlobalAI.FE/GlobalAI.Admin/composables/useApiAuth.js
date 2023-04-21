@@ -1,75 +1,72 @@
-import axios from 'axios';
-import { API_ENDPOINT } from '~~/api/api.endpoint';
-import { useUserStorage } from '~~/stores/user';
+import axios from "axios";
+import { API_ENDPOINT } from "~~/api/api.endpoint";
+import { useUserStorage } from "~~/stores/user";
 
 /**
  * LOGIN
- * @param {*} param0 
- * @returns 
+ * @param {*} param0
+ * @returns
  */
-export const useApiLogin = ({ username = '', password = '' }) => {
+export const useApiLogin = ({ username = "", password = "" }) => {
+  const env = useRuntimeConfig();
 
-    const env = useRuntimeConfig();
+  const baseURL = env.public.authEndpoit || "";
+  const grantTypeLogin = env.public.apiGrantType || "";
+  const scope = env.public.apiAuthScope || "";
+  const tokenEndpoint = `${baseURL}/${API_ENDPOINT.login}`;
 
-    const baseURL = env.public.authEndpoit || '';
-    const grantTypeLogin = env.public.apiGrantType || '';
-    const scope = env.public.apiAuthScope || '';
-    const tokenEndpoint = `${baseURL}/${API_ENDPOINT.login}`;
+  const config = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
 
-    const config = {
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    };
+  const params = new URLSearchParams();
+  params.append("grant_type", grantTypeLogin);
+  params.append("username", username);
+  params.append("password", password);
+  params.append("scope", scope);
 
-    const params = new URLSearchParams();
-    params.append('grant_type', grantTypeLogin);
-    params.append('username', username);
-    params.append('password', password);
-    params.append('scope', scope);
-
-    return axios.post(tokenEndpoint, params, config);
+  return axios.post(tokenEndpoint, params, config);
 };
 
 /**
  * REFRESH TOKEN
- * @param {*} refreshToken 
+ * @param {*} refreshToken
  */
-export const useApiRefreshToken = async (refreshToken = '') => {
+export const useApiRefreshToken = async (refreshToken = "") => {
+  const env = useRuntimeConfig();
+  const baseURL = env.public.authEndpoit || "";
 
-    const env = useRuntimeConfig();
-    const baseURL = env.public.authEndpoit || '';
+  const config = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
 
-    const config = {
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    };
+  const params = new URLSearchParams();
 
-    const params = new URLSearchParams();
+  params.append("grant_type", "refresh_token");
+  params.append("refresh_token", refreshToken);
 
-    params.append('grant_type', 'refresh_token');
-    params.append('refresh_token', refreshToken);
+  const tokenEndpoint = `${baseURL}/${API_ENDPOINT.refreshToken}`;
 
-    const tokenEndpoint = `${baseURL}/${API_ENDPOINT.refreshToken}`;
+  try {
+    const res = await axios.post(tokenEndpoint, params, config);
 
-    try {
-        const res = await axios.post(tokenEndpoint, params, config);
+    if (res.status === 200) {
+      const userStorage = useUserStorage();
 
-        if (res.status === 200) {
-            const userStorage = useUserStorage();
-
-            userStorage.login({
-                accessToken: res.data.access_token,
-                refreshToken: res.data.refresh_token,
-            });
-        }
-        else {
-            // store.commit(USER_MUTATIONS.LOGOUT);
-            window.location.href = '/auth/login';
-        }
-    } catch (error) {
-        // store.commit(USER_MUTATIONS.LOGOUT);
-        window.location.href = '/auth/login';
+      userStorage.login({
+        accessToken: res.data.access_token,
+        refreshToken: res.data.refresh_token,
+      });
+    } else {
+      // store.commit(USER_MUTATIONS.LOGOUT);
+      window.location.href = "/auth/login";
     }
-}
+  } catch (error) {
+    // store.commit(USER_MUTATIONS.LOGOUT);
+    window.location.href = "/auth/login";
+  }
+};

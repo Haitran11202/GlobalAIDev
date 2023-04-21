@@ -1,5 +1,5 @@
 <template>
-  <div class="mt-[20px]">
+  <div class="mt-[20px] h-[100vh]">
     <div
       class="flex items-center gap-[10px] cursor-pointer px-1"
       @click="handleBack"
@@ -19,7 +19,7 @@
           <span>Chọn tất cả</span>
         </div>
         <div
-          class="mt-[20px] py-[15px] px-[20px] w-full flex flex-col rounded-md bg-white"
+          class="mt-[20px] py-[15px] px-[20px] w-full flex flex-col rounded-md overflow-y-auto bg-white"
         >
           <div
             v-for="(sanpham, index) in products"
@@ -362,7 +362,33 @@
                 {{ formatMoneyAll(totalPrice.tongThanhToan) }}
               </p>
             </div>
-            <button
+            <div class="mt-5 float-right">
+              <label for="my-modal" class="btn btn-outline w-full"
+                >Tạo đơn</label
+              >
+
+              <!-- Put this part before </body> tag -->
+              <input type="checkbox" id="my-modal" class="modal-toggle" />
+              <div class="modal">
+                <div class="modal-box">
+                  <div class="modal-action">
+                    <label
+                      for="my-modal"
+                      class="btn btn-sm btn-circle absolute right-2 top-2"
+                      >✕</label
+                    >
+                  </div>
+                  <h3 class="font-bold text-lg">Bạn vừa tạo đơn hàng</h3>
+                  <p class="py-4">Bạn có muốn xác nhận đơn hàng chứ ?</p>
+                  <div class="modal-action">
+                    <label @click="checkOut" for="my-modal" class="btn"
+                      >Đồng ý</label
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- <button
               @click="checkOut"
               :class="
                 selectedProducts.length > 0
@@ -371,7 +397,7 @@
               "
             >
               Tạo Đơn
-            </button>
+            </button> -->
           </div>
           <!-- <div class="flex justify-between mt-[15px]">
               <p class="text-sm text-[16px] text-gray-700">

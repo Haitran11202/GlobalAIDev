@@ -100,8 +100,12 @@
             required
           />
         </div>
-        <div class="flex items-center">
-          <h1>Ảnh sản phẩm</h1>
+        <div class="">
+          <label
+            for="image"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Image</label
+          >
           <div class="flex items-center justify-between relative">
             <input
               type="file"
@@ -113,7 +117,7 @@
             <img
               alt="Product Image"
               class="w-[50px] h-[50px] border absolute right-0 rounded"
-              :src="imageUrl"
+              :src="getImageUrl(thumbnail)"
             />
           </div>
         </div>
@@ -143,12 +147,47 @@ import { useRouter } from "vue-router";
 import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
 definePageMeta({
   layout: "admin",
-  name: "Form",
+  name: "Product",
 });
 
 const product = ref({});
 const router = useRouter();
 const productId = ref([]);
+
+const thumbnail = ref("");
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiEndpoint;
+
+// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
+};
+
+async function uploadImage(event) {
+  console.log(event.target.files[0].name);
+  console.log(event.target.files[0].name);
+  try {
+    const formData = new FormData();
+    formData.append("file", event.target.files[0]);
+    postImage(formData)
+      .then((response) => {
+        console.log(response);
+        thumbnail.value = response.data.split("=")[2];
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 onMounted(() => {
   productId.value = router.currentRoute.value.params.id;
@@ -162,30 +201,12 @@ onMounted(() => {
     }
   });
 });
-async function uploadImage(event) {
-  console.log(event.target.files[0].name);
-  try {
-    const formData = new FormData();
-    formData.append("file", event.target.files[0]);
-    postImage(formData)
-      .then((response) => {
-        console.log(response);
-        product.value.thumbnail = response.data.split("=")[2];
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 const submitForm = () => {
   updateProduct(productId.value, product.value)
     .then((data) => {
       console.log(data);
       toast.success("Cập nhật sản phẩm thành công");
-      router.push("/admin/tables");
+      router.push("/admin/product");
     })
     .catch((error) => {
       console.log(error);

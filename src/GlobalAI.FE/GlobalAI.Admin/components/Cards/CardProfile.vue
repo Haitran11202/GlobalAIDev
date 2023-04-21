@@ -43,9 +43,7 @@
         </div>
       </div>
       <div class="text-center mt-12">
-        <h3
-          class="text-xl font-semibold leading-normal mb-2 text-slate-700"
-        >
+        <h3 class="text-xl font-semibold leading-normal mb-2 text-slate-700">
           Jenna Stones
         </h3>
         <div
@@ -56,7 +54,7 @@
         </div>
         <div class="mb-2 text-slate-600 mt-10">
           <i class="fas fa-briefcase mr-2 text-lg text-slate-400"></i>
-          Solution Manager - Creative Tim Officer
+          Solution Manager -Global AI Officer
         </div>
         <div class="mb-2 text-slate-600">
           <i class="fas fa-university mr-2 text-lg text-slate-400"></i>
