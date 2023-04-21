@@ -1,13 +1,16 @@
 <template>
   <div class="mt-[20px]">
-    <div class="flex items-center gap-[10px] cursor-pointer px-1">
+    <div
+      class="flex items-center gap-[10px] cursor-pointer px-1"
+      @click="handleBack"
+    >
       <div class="float-left flex items-center gap-2">
         <font-awesome-icon
           class="text-black text-[18px]"
           :icon="['fas', 'angle-left']"
         />
       </div>
-      <span class="text-[18px] text-[#cc3366]">Trở lại</span>
+      <a href="/gsaler/home" class="text-[18px] text-[#cc3366]">Trở lại</a>
     </div>
     <div class="flex w-full gap-[30px] lg:flex-row flex-col">
       <div class="lg:w-[65%] mt-[20px] rounded-md overflow-hidden">
@@ -66,7 +69,7 @@
                       sanpham.giaBan
                     )
                   "
-                  class="text-[16px] mt-0 font-[600] text-[#3478f6]"
+                  class="cursor-pointer text-[16px] mt-0 font-[600] text-[#3478f6]"
                 >
                   Sửa
                 </p>

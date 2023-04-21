@@ -1,10 +1,10 @@
 <template>
   <!-- Navbar -->
   <nav
-    class="z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start items-center p-4"
+    class="z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start items-center py-4"
   >
     <div
-      class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
+      class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap"
     >
       <!-- Brand -->
       <!-- Form -->

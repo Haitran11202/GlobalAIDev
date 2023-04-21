@@ -168,13 +168,13 @@ async function uploadImage(event) {
     const formData = new FormData();
     formData.append("file", event.target.files[0]);
     postImage(formData)
-    .then((response) => {
-      console.log(response);
-      product.value.thumbnail = response.data.split('=')[2];
-    }).catch((error) => {
-      console.log(error);
-    })
-
+      .then((response) => {
+        console.log(response);
+        product.value.thumbnail = response.data.split("=")[2];
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   } catch (error) {
     console.error(error);
   }
