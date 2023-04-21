@@ -129,7 +129,6 @@ namespace GlobalAI.ProductAPI.Controllers
             try
             {
                 var result = _sanPhamServices.GetById(id);
-
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)
