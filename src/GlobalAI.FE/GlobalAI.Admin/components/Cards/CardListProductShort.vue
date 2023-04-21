@@ -69,6 +69,7 @@ const props = defineProps({
     discount: String,
   },
 });
+
 const detail = (id) => {
   router.push({ name: "ProductDetail", params: { id } });
 };

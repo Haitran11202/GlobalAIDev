@@ -31,6 +31,7 @@ import {
   faBars,
   faTimes,
   faTruckMoving,
+  faArrowRight
 
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -59,7 +60,8 @@ library.add(
   faInfo,
   faCircleInfo,
   faBars,
-  faTimes
+  faTimes,
+  faArrowRight
 
 );
 

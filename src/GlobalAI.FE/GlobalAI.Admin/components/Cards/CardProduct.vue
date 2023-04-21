@@ -219,7 +219,11 @@
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{ product.ngayDangKi ? $moment(product.ngayDangKi).format('DD/MM/YYYY') : '' }}
+              {{
+                product.ngayDangKi
+                  ? $moment(product.ngayDangKi).format("DD/MM/YYYY")
+                  : ""
+              }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
@@ -299,7 +303,6 @@ import team2 from "../../assets/img/team-2-800x800.jpg";
 import team3 from "../../assets/img/team-3-800x800.jpg";
 import team4 from "../../assets/img/team-4-470x470.png";
 import { toast } from "vue3-toastify";
-
 
 export default {
   data() {

@@ -1,10 +1,11 @@
 <template>
-  <ul
-    class="flex flex-wrap px-[85px] gap-[10px] mt-[20px] mb-[40px] hidden sm:block"
+  <div
+    class="flex flex-wrap px-8 mx-auto gap-[10px] mt-[20px] mb-[40px] sm:block"
   >
-    <button
-      class="py-[10px] px-[20px] bg-white rounded-md"
+    <marquee behavior="" direction=""><button
+      class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] py-[10px] px-[20px] ml-2 mt-2 uppercase bg-white rounded-md"
       v-for="(item, idx) in listItems"
+      :style="{ color: item.color }"
       :key="idx"
       :class="
         item.id == setColor
@@ -14,118 +15,124 @@
       @click="selectedCategory(item)"
     >
       {{ item.label }}
-    </button>
-  </ul>
+    </button></marquee>
+  </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-import NotificationDropdown from "../../components/Dropdowns/NotificationDropdown.vue";
-import UserDropdown from "../../components/Dropdowns/UserDropdown.vue";
 import { defineEmits } from "vue";
 import { DANH_MUC } from "~~/lib/danhMuc";
 let collapseShow = ref("hidden");
 
 const listItems = [
   {
-    label: "Sản phẩm mới",
-    id: DANH_MUC.SAN_PHAM_MOI,
+    label: "đồng hồ",
+    id: DANH_MUC.DONG_HO,
     active: false,
+    color: "#e9148b",
   },
   {
-    label: "Sản phẩm bán chạy",
-    id: DANH_MUC.SAN_PHAM_BAN_CHAY,
+    label: "trang sức",
+    id: DANH_MUC.TRANG_SUC,
     active: false,
+    color: "#54d2d4",
   },
   {
-    label: "Sản phẩm chiết khấu cao",
+    label: "Sản phẩm chiết khấu ao",
     id: DANH_MUC.SAN_PHAM_CHIET_KHAU_CAO,
     active: false,
+    color: "#fd9c15",
   },
   {
-    label: "Thời Trang",
-    id: DANH_MUC.THOI_TRANG,
+    label: "Thời Trang nữ",
+    id: DANH_MUC.THOI_TRANG_NU,
     active: false,
+    color: "#78a367",
   },
   {
-    label: "Điện Thoại",
+    label: "Điện thoại",
     id: DANH_MUC.DIEN_THOAI,
     active: false,
+    color: "#00aaf0",
   },
   {
-    label: "Thể Thao Du Lịch",
+    label: "Phụ kiện",
+    id: DANH_MUC.PHU_KIEN,
+    active: false,
+    color: "#505bda",
+  },
+  {
+    label: "Thể thao ,du lịch",
     id: DANH_MUC.THE_THAO_DU_LICH,
     active: false,
+    color: "#e9148b",
   },
   {
-    label: "Phụ Kiện ",
-    id: DANH_MUC.PHU_KIEN,
+    label: "Thời trang nam",
+    id: DANH_MUC.THOI_TRANG_NAM,
     active: false,
+    color: "#54d2d4",
   },
   {
-    label: "Điện Thoại",
-    id: DANH_MUC.DIEN_THOAI,
+    label: "Sách",
+    id: DANH_MUC.SACH,
     active: false,
+    color: "#fd9c15",
   },
   {
-    label: "Phụ Kiện ",
-    id: DANH_MUC.PHU_KIEN,
+    label: "Túi",
+    id: DANH_MUC.TUI_VI,
     active: false,
+    color: "#78a367",
   },
   {
-    label: "Điện Thoại",
-    id: DANH_MUC.DIEN_THOAI,
+    label: "Đồ điện tử",
+    id: DANH_MUC.DO_DIEN_TU,
     active: false,
+    color: "#00aaf0",
   },
   {
-    label: "Phụ Kiện ",
-    id: DANH_MUC.PHU_KIEN,
+    label: "Thời trang trẻ em",
+    id: DANH_MUC.THOI_TRANG_TRE_EM,
     active: false,
+    color: "#505bda",
   },
   {
-    label: "Điện Thoại",
-    id: DANH_MUC.DIEN_THOAI,
+    label: "giày dép",
+    id: DANH_MUC.GIAY_DEP,
     active: false,
+    color: "#e9148b",
   },
   {
-    label: "Phụ Kiện ",
-    id: DANH_MUC.PHU_KIEN,
+    label: "bảo hiểm",
+    id: DANH_MUC.BAO_HIEM,
     active: false,
+    color: "#fd9c15",
   },
   {
-    label: "Điện Thoại",
-    id: DANH_MUC.DIEN_THOAI,
+    label: "Thiết bị gia dụng",
+    id: DANH_MUC.THIET_BI_GIA_DUNG,
     active: false,
+    color: "#78a367",
   },
   {
-    label: "Thể Thao Du Lịch",
-    id: DANH_MUC.THE_THAO_DU_LICH,
+    label: "Ưu đãi",
+    id: DANH_MUC.UU_DAI,
     active: false,
+    color: "#00aaf0",
   },
   {
-    label: "Phụ Kiện ",
-    id: DANH_MUC.PHU_KIEN,
+    label: "Camera",
+    id: DANH_MUC.CAMERA,
     active: false,
+    color: "#505bda",
   },
   {
-    label: "Điện Thoại",
-    id: DANH_MUC.DIEN_THOAI,
+    label: "Chăm sóc nhà cửa",
+    id: DANH_MUC.CHAM_SOC_NHA_CUA,
     active: false,
-  },
-  {
-    label: "Phụ Kiện ",
-    id: DANH_MUC.PHU_KIEN,
-    active: false,
-  },
-  {
-    label: "Điện Thoại",
-    id: DANH_MUC.DIEN_THOAI,
-    active: false,
-  },
-  {
-    label: "Phone ",
-    id: DANH_MUC.PHU_KIEN,
-    active: false,
+    color: "#e9148b",
   },
 ];
 
