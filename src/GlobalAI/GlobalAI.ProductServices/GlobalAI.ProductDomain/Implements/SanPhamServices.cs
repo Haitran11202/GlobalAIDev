@@ -56,6 +56,7 @@ namespace GlobalAI.ProductDomain.Implements
         {
             var newSanPham = _mapper.Map<SanPham>(sanPham);
             _repositorySanPham.Add(newSanPham);
+            newSanPham.NgayDangKi = DateTime.Now;
             newSanPham.Deleted = false;
             newSanPham.IdGStore = CommonUtils.GetCurrentUserId(_httpContext);
             newSanPham.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);
