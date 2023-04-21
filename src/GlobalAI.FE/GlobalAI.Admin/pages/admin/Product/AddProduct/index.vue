@@ -34,6 +34,7 @@
           />
         </div>
         <div>
+          <!-- <number-input name="giaBan" v-model="giaBan" label="Giá bán" /> -->
           <label
             for="giaBan"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -141,6 +142,7 @@ import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { postProduct } from "~~/composables/useApiProduct";
 import { ref } from "vue";
+import NumberInput from "~~/components/Input/NumberInput.vue";
 
 definePageMeta({
   layout: "admin",
