@@ -1,5 +1,5 @@
 <template lang="">
-  <div :class="showColor ? 'bg-white' : 'bg-slate-100'">
+  <div :class="showColor ? '#f2f1f2' : 'bg-slate-100'">
     <header-default />
     <sidebar
       v-if="useSideBar.getShowSideBar"
@@ -30,6 +30,7 @@ const changeSideBarShow = () => {
     router.currentRoute.value.name !== "ProductDetail"
   ) {
     console.log(1);
+    console.log(router.currentRoute.value.name);
     useSideBar.changeShowSideBar(true);
   } else {
     useSideBar.changeShowSideBar(false);
@@ -37,6 +38,7 @@ const changeSideBarShow = () => {
 };
 
 watchEffect(() => {
+ 
   changeSideBarShow();
 });
 const handleCategoryClick = (category) => {
@@ -45,14 +47,6 @@ const handleCategoryClick = (category) => {
   console.log(selectedCategory.value);
 };
 
-// watchEffect(() =>{
-//     if(router.currentRoute.value.name !== 'ProductDetail' && router.currentRoute.value.name !== 'ManageCart'){
-//       showSidebar.value = true
-//     }
-//     else {
-//       showSidebar.value = false
-//     }
-// })
 
 watchEffect(() => {
   if (router.currentRoute.value.name == "ProductDetail") {

@@ -69,7 +69,7 @@
                       sanpham.giaBan
                     )
                   "
-                  class="text-[16px] mt-0 font-[600] text-[#3478f6]"
+                  class="cursor-pointer text-[16px] mt-0 font-[600] text-[#3478f6]"
                 >
                   Sửa
                 </p>
