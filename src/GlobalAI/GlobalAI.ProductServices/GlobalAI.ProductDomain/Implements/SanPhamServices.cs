@@ -137,6 +137,7 @@ namespace GlobalAI.ProductDomain.Implements
             var Result = _repositorySanPham.FindById(id);
             if (Result != null)
             {
+                Result.NgayDuyet = DateTime.Now;
                 Result.Status = TrangThaiSanPham.DA_DUYET;
                 _dbContext.SaveChanges();
             }
