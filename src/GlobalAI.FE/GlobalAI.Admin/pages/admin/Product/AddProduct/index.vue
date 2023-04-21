@@ -75,9 +75,21 @@
             required
           >
             <option value="">-- Lựa chọn danh mục --</option>
-            <option value="quanao">Quần áo</option>
-            <option value="giaydep">Giày dép</option>
-            <option value="phukien">Phụ kiện</option>
+            <option value="1">Đồng hồ</option>
+            <option value="2">Trang sức</option>
+            <option value="3">Sản phẩm chiết khấu cao</option>
+            <option value="4">Thời trang nữ</option>
+            <option value="5">Điện thoại</option>
+            <option value="6">Phụ kiện</option>
+            <option value="7">Thể thao du lịch</option>
+            <option value="8">Thời trang nam</option>
+            <option value="9">Sách</option>
+            <option value="10">Đồ điện tử</option>
+            <option value="11">Thời trang trẻ em</option>
+            <option value="12">Túi ví</option>
+            <option value="13">Giày dép</option>
+            <option value="14">Bảo hiểm</option>
+            <option value="15">Thiết bị gia dụng</option>
           </select>
         </div>
         <div class="">
