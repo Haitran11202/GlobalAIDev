@@ -5,7 +5,7 @@
       v-if="useSideBar.getShowSideBar"
       v-on:category-clicked="handleCategoryClick"
     />
-    <div class="container mx-auto lg:px-[185px]">
+    <div class="container  mx-auto lg:px-[185px]">
       <div class="flex-1 lg:px-1 flex-col">
         <!-- Slot tượng trưng cho từng layout trong trang web -->
         <NuxtPage :category="selectedCategory" />

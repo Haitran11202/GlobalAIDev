@@ -19,7 +19,7 @@
               href="https://www.creative-tim.com?ref=vn-footer-small"
               class="text-white hover:text-slate-300 text-sm font-semibold py-1"
             >
-              Creative Tim
+             Global AI
             </a>
           </div>
         </div>
@@ -30,7 +30,7 @@
                 href="https://www.creative-tim.com?ref=vn-footer-small"
                 class="text-white hover:text-slate-300 text-sm font-semibold block py-1 px-3"
               >
-                Creative Tim
+               Global AI
               </a>
             </li>
             <li>
