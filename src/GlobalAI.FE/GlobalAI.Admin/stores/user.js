@@ -22,10 +22,10 @@ export const useUserStorage = defineStore('user', {
         updatePermissions(payload) {
             this.permissions = Array.isArray(payload) ? payload : []
         },
-        logout(state) {
-            // Object.keys(this.$state).forEach(key => {
-            //     state[key] = null;
-            // })
+        logout() {
+            this.accessToken = null;
+            this.refreshToken = null;
+            this.permissions = null;
         },
     },
     persist: true, 
