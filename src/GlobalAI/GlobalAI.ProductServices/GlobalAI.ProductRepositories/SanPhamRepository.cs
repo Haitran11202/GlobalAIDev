@@ -10,6 +10,7 @@ using GlobalAI.ProductEntities.Dto.Product;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.Internal;
 using System.Net.WebSockets;
+using GlobalAI.Utils.ConstantVariables.Product;
 
 namespace GlobalAI.ProductRepositories
 {
@@ -143,5 +144,6 @@ namespace GlobalAI.ProductRepositories
             
             return result;
         }
+
     }
 }

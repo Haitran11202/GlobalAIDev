@@ -156,5 +156,22 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Duyệt sản phẩm theo id
+        /// </summary>
+        [HttpPut("duyet-sp/{id}")]
+        public APIResponse AppproveSanPham(int id)
+        {
+            try
+            {
+                _sanPhamServices.ApproveSanPham(id);
+
+                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
     }
 }
