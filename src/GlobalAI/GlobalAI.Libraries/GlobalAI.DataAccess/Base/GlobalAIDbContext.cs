@@ -16,6 +16,11 @@ namespace GlobalAI.DataAccess.Base
         public DbSet<User> Users { get; set; }
         #endregion
 
+        #region Bài tin
+        public DbSet<BaiTin> BaiTins { get; set; }
+        public DbSet<DanhMucBaiTin> DanhMucBaiTins { get; set; }
+        #endregion
+
         #region Product
         public DbSet<SanPham> SanPhams { get; set; }
         public DbSet<DanhMuc> DanhMucs { get; set; }
