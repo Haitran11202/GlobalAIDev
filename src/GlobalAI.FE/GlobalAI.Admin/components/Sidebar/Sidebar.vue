@@ -2,7 +2,7 @@
   <div
     class="flex flex-wrap px-8 mx-auto gap-[10px] mt-[20px] mb-[40px] sm:block"
   >
-    <button
+    <marquee behavior="" direction=""><button
       class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] py-[10px] px-[20px] ml-2 mt-2 uppercase bg-white rounded-md"
       v-for="(item, idx) in listItems"
       :style="{ color: item.color }"
@@ -15,7 +15,7 @@
       @click="selectedCategory(item)"
     >
       {{ item.label }}
-    </button>
+    </button></marquee>
   </div>
 </template>
 
