@@ -139,6 +139,7 @@ services.AddScoped<IDonHangServices, DonHangServices>();
 services.AddScoped<IChiTietDonHangServices, ChiTietDonHangServices>();
 services.AddScoped<ITraGiaServices, TraGiaServices>();
 services.AddScoped<IGioHangServices, GioHangServices>();
+services.AddScoped<IBaiTinServices, BaiTinServices>();
 #endregion
 #region Add Auto Mapper
 services.AddAutoMapper(typeof(MappingProfile));
