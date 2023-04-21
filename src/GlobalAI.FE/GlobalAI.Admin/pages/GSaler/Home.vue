@@ -26,6 +26,8 @@ import Sliderncc from "./Sliderncc.vue";
 import Advisement from "./Advisement.vue";
 import { DANH_MUC } from "~~/lib/danhMuc";
 import { ref } from "vue";
+import NumberInput from "~~/components/Input/NumberInput.vue";
+
 definePageMeta({
   layout: "layout-default",
 });
