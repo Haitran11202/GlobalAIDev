@@ -176,6 +176,7 @@ const thumbnail = ref("");
 async function uploadImage(event) {
   console.log(event.target.files[0].name);
   console.log(event.target.files[0].name);
+  console.log(event.target.files[0].name);
   try {
     const formData = new FormData();
     formData.append("file", event.target.files[0]);
@@ -192,6 +193,12 @@ async function uploadImage(event) {
       .catch((error) => {
         console.log(error);
       });
+    const response = await axios.post(
+      "http://localhost:5003/api/file/upload?folder=image",
+      formData
+    );
+    console.log(response)
+    thumbnail.value = response.data.data.split('=')[2];
   } catch (error) {
     console.error(error);
   }
@@ -205,6 +212,7 @@ function handlePostProduct() {
     giaBan: giaBan.value,
     giaChietKhau: giaChietKhau.value,
     idDanhMuc: idDanhMuc.value,
+    thumbnail: thumbnail.value,
     thumbnail: thumbnail.value,
   };
 
