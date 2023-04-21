@@ -1,6 +1,9 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <form class="m-auto shadow-2xl p-12 h-[670px]">
+    <form
+      @submit.prevent="handlePostOrder"
+      class="m-auto shadow-2xl p-12 h-[670px]"
+    >
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div>
           <label
@@ -9,6 +12,7 @@
             >Mã đơn hàng</label
           >
           <input
+            v-model="maDonHang"
             type="text"
             id="maDonHang"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -22,7 +26,8 @@
             >Ngày hoàn thành</label
           >
           <input
-            type="text"
+            v-model="ngayHoanThanh"
+            type="date"
             id="ngayHoanThanh"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
@@ -35,6 +40,7 @@
             >ID G-Store</label
           >
           <input
+            v-model="idGStore"
             type="number"
             id="idGStore"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -48,6 +54,7 @@
             >ID người mua</label
           >
           <input
+            v-model="idNguoiMua"
             type="number"
             id="idNguoiMua"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -61,6 +68,7 @@
             >Số tiền</label
           >
           <input
+            v-model="soTien"
             type="number"
             id="soTien"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -74,7 +82,8 @@
             >Hình thức thanh toán</label
           >
           <input
-            type="number"
+            v-model="hinhThucThanhToan"
+            type="text"
             id="hinhThucThanhToan"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
@@ -83,10 +92,13 @@
       </div>
       <div class="flex justify-end gap-5">
         <button type="submit" class="btn btn-outline float-right">
-          Cập nhật đơn hàng
+          Thêm đơn hàng
         </button>
         <button class="btn btn-outline btn-success">Duyệt đơn hàng</button>
-        <button class="btn btn-outline btn-error">
+        <button
+          @click="this.$router.push('/admin/order')"
+          class="btn btn-outline btn-error"
+        >
           <span class="flex">Quay về</span>
         </button>
       </div>
@@ -95,14 +107,42 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
 definePageMeta({
   layout: "admin",
-  name: "Order",
 });
+import Vue3Toastify, { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css";
+import { postOrder } from "~~/composables/useApiOrder";
 
-const order = ref({});
-const router = useRouter();
-const orderId = ref([]);
+const maDonHang = ref("");
+const ngayHoanThanh = ref("");
+const idGStore = ref(0);
+const idNguoiMua = ref(0);
+const soTien = ref(0);
+const status = ref(0);
+const hinhThucThanhToan = ref("");
+
+const handlePostOrder = () => {
+  const orderData = {
+    maDonHang: maDonHang.value,
+    ngayHoanThanh: ngayHoanThanh.value,
+    idGStore: idGStore.value,
+    idNguoiMua: idNguoiMua.value,
+    soTien: soTien.value,
+    status: status.value,
+    hinhThucThanhToan: hinhThucThanhToan.value,
+  };
+
+  postOrder(orderData)
+    .then((res) => {
+      console.log(res);
+      toast.success("Thêm đơn hàng thành công");
+    })
+    .catch((err) => {
+      console.error(err);
+      toast.error("Thêm đơn hàng thất bại. Vui lòng thử lại!");
+    });
+};
 </script>
+
+<style></style>

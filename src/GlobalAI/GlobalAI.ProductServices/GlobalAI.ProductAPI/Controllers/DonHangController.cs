@@ -10,7 +10,7 @@ using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/product/donhang")]
     [ApiController]
     public class DonHangController : BaseController
@@ -94,11 +94,11 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(APIResponse<int>), (int)HttpStatusCode.OK)]
-        public APIResponse DeleteDonHangFull([FromQuery] int maDonHang)
+        public APIResponse DeleteDonHangFull(int id)
         {
             try
             {
-                _donHangServices.DeleteDonHangById(maDonHang);
+                _donHangServices.DeleteDonHangById(id);
                 return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
             }
             catch (Exception ex)

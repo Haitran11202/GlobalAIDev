@@ -138,7 +138,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="product in products" :key="product.id">
+          <tr
+            v-for="product in products"
+            :key="product.id"
+            class="hover:bg-gray-100"
+          >
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
@@ -154,13 +158,13 @@
               />
             </td>
             <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+              class="whitespace-normal border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4"
             >
               {{ product.tenSanPham }}
             </td>
             <td
               style="vertical-align: middle"
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 whitespace-pre-wrap"
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 whitespace-pre"
             >
               <div v-if="product.moTa && product.moTa.length > 20">
                 <template v-if="!showMore[product.id]">
@@ -180,19 +184,27 @@
                   >
                 </template>
               </div>
-              <div v-else>
-                {{ product.moTa }}
-              </div>
+              <div v-else>{{ product.moTa }}</div>
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{ product.giaBan }}
+              {{
+                product.giaBan.toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })
+              }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{ product.giaChietKhau }}
+              {{
+                product.giaChietKhau.toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })
+              }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
@@ -207,7 +219,7 @@
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
-              {{ product.ngayDangKi }}
+              {{ product.ngayDangKi ? $moment(product.ngayDangKi).format('DD/MM/YYYY') : '' }}
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
@@ -220,9 +232,8 @@
               <span
                 class="text-blue-500 cursor-pointer text-xl h-4"
                 @click="toggleAction(product.id)"
+                >...</span
               >
-                ...
-              </span>
               <div class="absolute right-10 z-50" v-if="showAction[product.id]">
                 <div
                   class="bg-white flex flex-col shadow-2xl border px-10 py-5 rounded-lg overflow-hidden"
@@ -257,30 +268,15 @@
     <nav
       class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
     >
-      <div class="hidden sm:block">
-        <p class="text-sm text-gray-700">
-          Showing
-          <span class="font-medium">{{ (pageNumber - 1) * pageSize + 1 }}</span>
-          to
-          <span class="font-medium">{{
-            Math.min(pageNumber * pageSize, products.length)
-          }}</span>
-          of
-          <span class="font-medium">{{ products.length }}</span>
-          results
-        </p>
-      </div>
       <div class="flex-1 flex justify-between sm:justify-end">
         <button
           @click="previousPage"
-          :disabled="pageNumber === 1"
           class="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
         >
           &#10094;
         </button>
         <button
           @click="nextPage"
-          :disabled="pageNumber === Math.ceil(products.length / pageSize)"
           class="relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
         >
           &#10095;
@@ -303,6 +299,8 @@ import team2 from "../../assets/img/team-2-800x800.jpg";
 import team3 from "../../assets/img/team-3-800x800.jpg";
 import team4 from "../../assets/img/team-4-470x470.png";
 import { toast } from "vue3-toastify";
+
+
 export default {
   data() {
     return {
@@ -341,6 +339,9 @@ import {
   deleteProduct,
   getProductById,
 } from "~~/composables/useApiProduct.js";
+
+const { $moment } = useNuxtApp();
+
 const router = useRouter();
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
@@ -355,6 +356,12 @@ const products = ref([]);
 const deletedProduct = ref(null);
 const showAction = ref({});
 const showMore = ref({});
+
+function formatGia(gia) {
+  return gia.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+}
+
+const giaBanFormatted = computed(() => formatGia(giaBan.value));
 
 // Lấy tất cả sản phẩm
 const fetchData = async () => {
@@ -379,18 +386,22 @@ const getImageUrl = (imageUrl) => {
   return url;
 };
 
-// Chuyển sang trang mới
-const nextPage = () => {
-  pageNumber.value += 1;
-  skip.value = (pageNumber.value - 1) * pageSize;
-};
-
-// Quay lại trang cũ
 const previousPage = () => {
+  if (pageNumber.value === 1) {
+    // Kiểm tra xem đã đạt trang đầu tiên hay chưa
+    return;
+  }
   pageNumber.value -= 1;
-  skip.value = (pageNumber.value - 1) * pageSize;
 };
 
+const nextPage = () => {
+  console.log(1);
+  if (products.value.length < pageSize) {
+    // Kiểm tra xem có đủ sản phẩm để hiển thị trên trang tiếp theo hay không
+    return;
+  }
+  pageNumber.value += 1;
+};
 // Gọi hàm xóa sản phẩm khi người dùng click vào nút Xóa
 const onDeleteButtonClick = (id) => {
   deleteProduct(id)
@@ -407,7 +418,7 @@ const onDeleteButtonClick = (id) => {
 
 // Gọi hàm sửa bắn dữ liệu và form
 const onEditButtonClick = (id) => {
-  router.push({ name: "Form", params: { id: id } });
+  router.push({ name: "Product", params: { id: id } });
   getProductById(id)
     .then((res) => {
       res.data;
