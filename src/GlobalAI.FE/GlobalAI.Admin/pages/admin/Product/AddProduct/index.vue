@@ -47,6 +47,7 @@
             required
           />
         </div>
+
         <div>
           <label
             for="giaChietKhau"
@@ -85,7 +86,7 @@
             <option value="9">Sách</option>
             <option value="10">Đồ điện tử</option>
             <option value="11">Thời trang trẻ em</option>
-            <option value="12">Túi ví </option>
+            <option value="12">Túi ví</option>
             <option value="13">Giày dép</option>
             <option value="14">Bảo hiểm</option>
             <option value="15">Thiết bị gia dụng</option>
@@ -108,7 +109,7 @@
             <img
               alt="Product Image"
               class="w-[50px] h-[50px] border absolute right-0 rounded"
-              :src="imageUrl"
+              :src="getImageUrl(thumbnail)"
             />
           </div>
         </div>
@@ -128,7 +129,13 @@
         </div>
       </div>
       <div class="flex justify-end gap-5">
-        <button type="submit" class="btn btn-outline">Thêm sản phẩm</button>
+        <button
+          @click="this.$router.push('/admin/product')"
+          type="submit"
+          class="btn btn-outline"
+        >
+          Thêm sản phẩm
+        </button>
         <button class="btn btn-outline btn-success">Duyệt sản phẩm</button>
         <button
           @click="this.$router.push('/admin/product')"
@@ -142,12 +149,10 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
-// import { postProduct } from "../../composables/useApiProduct.js";
 import { postProduct } from "~~/composables/useApiProduct";
-import { ref, computed, watch } from "vue";
+import { ref } from "vue";
 
 definePageMeta({
   layout: "admin",
@@ -160,18 +165,8 @@ const giaChietKhau = ref(0);
 const idDanhMuc = ref("");
 const thumbnail = ref("");
 
-// const image = ref(null);
-// const imageUrl = computed(() => {
-//   if (image.value) {
-//     return URL.createObjectURL(image.value);
-//   }
-// });
-// const image = ref(null);
-// const imageUrl = computed(() => {
-//   if (image.value) {
-//     return URL.createObjectURL(image.value);
-//   }
-// });
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiEndpoint;
 
 async function uploadImage(event) {
   console.log(event.target.files[0].name);
@@ -180,15 +175,11 @@ async function uploadImage(event) {
   try {
     const formData = new FormData();
     formData.append("file", event.target.files[0]);
-    // const response = await axios.post(
-    //   "http://localhost:5003/api/file/upload?folder=image",
-    //   formData
-    // );
-    // console.log(response)
     postImage(formData)
       .then((response) => {
         console.log(response);
         thumbnail.value = response.data.split("=")[2];
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -197,12 +188,23 @@ async function uploadImage(event) {
       "http://localhost:5003/api/file/upload?folder=image",
       formData
     );
-    console.log(response)
-    thumbnail.value = response.data.data.split('=')[2];
+    console.log(response);
+    thumbnail.value = response.data.data.split("=")[2];
   } catch (error) {
     console.error(error);
   }
 }
+
+// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
+};
 
 function handlePostProduct() {
   const productData = {

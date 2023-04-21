@@ -2,20 +2,22 @@
   <div
     class="flex flex-wrap px-8 mx-auto gap-[10px] mt-[20px] mb-[40px] sm:block"
   >
-    <button
-      class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] py-[10px] px-[20px] ml-2 mt-2 uppercase bg-white rounded-md"
-      v-for="(item, idx) in listItems"
-      :style="{ color: item.color }"
-      :key="idx"
-      :class="
-        item.id == setColor
-          ? 'items-center cursor-pointer text-red-500'
-          : 'items-center cursor-pointer'
-      "
-      @click="selectedCategory(item)"
+    <marquee behavior="" direction=""
+      ><button
+        class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] py-[10px] px-[20px] ml-2 mt-2 uppercase bg-white rounded-md"
+        v-for="(item, idx) in listItems"
+        :style="{ color: item.color }"
+        :key="idx"
+        :class="
+          item.id == setColor
+            ? 'items-center cursor-pointer text-red-500'
+            : 'items-center cursor-pointer'
+        "
+        @click="selectedCategory(item)"
+      >
+        {{ item.label }}
+      </button></marquee
     >
-      {{ item.label }}
-    </button>
   </div>
 </template>
 

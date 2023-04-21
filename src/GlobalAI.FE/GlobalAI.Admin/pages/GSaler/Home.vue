@@ -38,6 +38,7 @@ watchEffect(() => {
   getSanPhamDanhMuc(DANH_MUC.DONG_HO)
     .then((res) => {
       products.value = res?.data?.data.items;
+      console.log(products.value);
       return getSanPhamDanhMuc(DANH_MUC.THOI_TRANG_NU);
     })
     .then((res) => {

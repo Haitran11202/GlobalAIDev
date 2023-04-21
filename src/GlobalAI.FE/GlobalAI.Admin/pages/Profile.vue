@@ -16,7 +16,7 @@
         </div>
         <div
           class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
-          style="transform: translateZ(0);"
+          style="transform: translateZ(0)"
         >
           <svg
             class="absolute bottom-0 overflow-hidden"
@@ -111,7 +111,7 @@
                   <i
                     class="fas fa-briefcase mr-2 text-lg text-blueGray-400"
                   ></i>
-                  Solution Manager - Creative Tim Officer
+                  Solution Manager -Global AI Officer
                 </div>
                 <div class="mb-2 text-blueGray-600">
                   <i
