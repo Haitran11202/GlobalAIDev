@@ -15,4 +15,7 @@ export const API_ENDPOINT = {
     getChiTietYeuCau: idYeuCauDichVu => `api/yeu-cau-dich-vu/chi-tiet-yeu-cau-dich-vu?idYeuCauDichVu=${idYeuCauDichVu}`,
     getLogByYeuCau: idYeuCauDichVu => `api/log/yeu-cau-dich-vu/${idYeuCauDichVu}`,
     getMyPermissions: `api/user/permissions`,
+    getListProductCategoryOne : `api/product/sanpham/danh-muc/1`,
+    getListProductCategoryTwo : `api/product/sanpham/danh-muc/2`
+
 }

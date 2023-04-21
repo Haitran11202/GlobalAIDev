@@ -40,7 +40,7 @@
             >Giá bán</label
           >
           <input
-            v-model="giaBan"
+            v-model.number="giaBan"
             type="number"
             id="giaBan"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -54,7 +54,7 @@
             >Giá chiết khấu</label
           >
           <input
-            v-model="giaChietKhau"
+            v-model.number="giaChietKhau"
             type="number"
             id="giaChietKhau"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -67,55 +67,38 @@
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
             >Mã danh mục</label
           >
-          <input
+          <select
             v-model="idDanhMuc"
-            type="text"
             id="idDanhMuc"
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
-          />
-        </div>
-        <!-- <div>
-              <label
-                for="idGStore"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Mã G-Store</label
-              >
-              <input
-                v-model="idGStore"
-                type="number"
-                id="idGStore"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                required
-              />
-            </div> -->
-        <div>
-          <label
-            for="ngayDangKi"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Ngày đăng kí</label
           >
-          <input
-            v-model="ngayDangKi"
-            type="date"
-            id="ngayDangKi"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
+            <option value="">-- Lựa chọn danh mục --</option>
+            <option value="quanao">Quần áo</option>
+            <option value="giaydep">Giày dép</option>
+            <option value="phukien">Phụ kiện</option>
+          </select>
         </div>
-        <div>
+        <div class="">
           <label
-            for="ngayDuyet"
+            for="image"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Ngày duyệt</label
+            >Image</label
           >
-          <input
-            v-model="ngayDuyet"
-            type="date"
-            id="ngayDuyet"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
-          />
+          <div class="flex items-center justify-between relative">
+            <input
+              type="file"
+              id="image"
+              class="text-gray-900 border text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              required
+              @change="uploadImage"
+            />
+            <img
+              alt="Product Image"
+              class="w-[50px] h-[50px] border absolute right-0 rounded"
+              :src="imageUrl"
+            />
+          </div>
         </div>
         <div class="mb-6">
           <label
@@ -152,6 +135,7 @@ import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 // import { postProduct } from "../../composables/useApiProduct.js";
 import { postProduct } from "~~/composables/useApiProduct";
+import { ref, computed, watch } from "vue";
 
 definePageMeta({
   layout: "admin",
@@ -162,8 +146,44 @@ const moTa = ref("");
 const giaBan = ref(0);
 const giaChietKhau = ref(0);
 const idDanhMuc = ref("");
-const ngayDangKi = ref("");
-const ngayDuyet = ref("");
+const thumbnail = ref("");
+
+// const image = ref(null);
+// const imageUrl = computed(() => {
+//   if (image.value) {
+//     return URL.createObjectURL(image.value);
+//   }
+// });
+// const image = ref(null);
+// const imageUrl = computed(() => {
+//   if (image.value) {
+//     return URL.createObjectURL(image.value);
+//   }
+// });
+
+async function uploadImage(event) {
+  console.log(event.target.files[0].name);
+  console.log(event.target.files[0].name);
+  try {
+    const formData = new FormData();
+    formData.append("file", event.target.files[0]);
+    // const response = await axios.post(
+    //   "http://localhost:5003/api/file/upload?folder=image",
+    //   formData
+    // );
+    // console.log(response)
+    postImage(formData)
+      .then((response) => {
+        console.log(response);
+        thumbnail.value = response.data.split("=")[2];
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 function handlePostProduct() {
   const productData = {
@@ -173,8 +193,7 @@ function handlePostProduct() {
     giaBan: giaBan.value,
     giaChietKhau: giaChietKhau.value,
     idDanhMuc: idDanhMuc.value,
-    ngayDangKi: ngayDangKi.value,
-    ngayDuyet: ngayDuyet.value,
+    thumbnail: thumbnail.value,
   };
 
   postProduct(productData)

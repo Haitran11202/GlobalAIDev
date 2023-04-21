@@ -45,6 +45,16 @@
                   : 'bg-emerald-800 text-emerald-300 border-emerald-700',
               ]"
             >
+              Hình ảnh
+            </th>
+            <th
+              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
+              :class="[
+                color === 'light'
+                  ? 'bg-slate-50 text-slate-500 border-slate-100'
+                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
+              ]"
+            >
               Tên sản phẩm
             </th>
             <th
@@ -137,6 +147,15 @@
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
             >
+              <img
+                class="w-[50px] h-[50px] object-contain"
+                :src="getImageUrl(product.thumbnail)"
+                alt=""
+              />
+            </td>
+            <td
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
+            >
               {{ product.tenSanPham }}
             </td>
             <td
@@ -144,24 +163,26 @@
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 whitespace-pre-wrap"
             >
               <div v-if="product.moTa && product.moTa.length > 20">
-                <div v-if="!showMore[product.id]">
+                <template v-if="!showMore[product.id]">
                   {{ product.moTa.slice(0, 20) }}...
                   <span
                     @click="showMore[product.id] = true"
                     class="font-bold cursor-pointer"
                     >Xem thêm</span
                   >
-                </div>
-                <div v-else>
+                </template>
+                <template v-else>
                   {{ product.moTa }}
                   <span
                     @click="showMore[product.id] = false"
                     class="font-bold cursor-pointer"
                     >Thu gọn</span
                   >
-                </div>
+                </template>
               </div>
-              <div v-if="product.moTa">{{ product.moTa }}</div>
+              <div v-else>
+                {{ product.moTa }}
+              </div>
             </td>
             <td
               class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
@@ -202,7 +223,7 @@
               >
                 ...
               </span>
-              <div class="fixed right-10 z-30" v-if="showAction[product.id]">
+              <div class="absolute right-10 z-50" v-if="showAction[product.id]">
                 <div
                   class="bg-white flex flex-col shadow-2xl border px-10 py-5 rounded-lg overflow-hidden"
                 >
@@ -221,7 +242,6 @@
                   </button>
                   <hr />
                   <button
-                    @click="onDeleteButtonClick(product.id)"
                     class="text-black font-bold py-2 flex px-10 rounded hover:bg-[#039669] hover:text-white"
                   >
                     Duyệt
@@ -322,6 +342,8 @@ import {
   getProductById,
 } from "~~/composables/useApiProduct.js";
 const router = useRouter();
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiEndpoint;
 
 // Khởi tạo giá trị mặc định phân trang 5 1 0
 const pageSize = 5;
@@ -332,6 +354,7 @@ const skip = ref(0);
 const products = ref([]);
 const deletedProduct = ref(null);
 const showAction = ref({});
+const showMore = ref({});
 
 // Lấy tất cả sản phẩm
 const fetchData = async () => {
@@ -344,6 +367,16 @@ const fetchData = async () => {
     .catch((err) => {
       console.error(err);
     });
+};
+// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
 };
 
 // Chuyển sang trang mới

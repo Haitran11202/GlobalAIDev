@@ -20,10 +20,15 @@ export default defineNuxtConfig({
         }
     },
     plugins: [
+        // {
+        //     src: '~/plugins/fontawesome.client.js',
+        //     mode: 'client'
+        // },
+        // Thêm plugins signalr
         {
-            src: '~/plugins/fontawesome.client.js',
-            mode: 'client'
-        },
+            src: '~/plugins/signalr.js',
+            mode: 'client' // nếu chỉ chạy trên client
+          }
     ],
 
     pinia: {

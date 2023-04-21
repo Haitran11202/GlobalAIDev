@@ -1,7 +1,7 @@
 <template>
   <!-- Navbar -->
   <nav
-    class="z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start flex items-center p-4"
+    class="z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start items-center p-4"
   >
     <div
       class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap md:px-10 px-4"
@@ -33,14 +33,59 @@
             </div>
           </form>
         </li>
-        <li class="flex items-center">
+        <li
+          class="flex items-center relative"
+          @mouseover="isHovering = true"
+          @mouseleave="isHovering = false"
+        >
           <a
             class="hover:text-slate-500 text-slate-700 px-3 py-2 flex items-center text-xs uppercase font-bold"
-            href="/Cart/ManageCart"
+            href="/Cart/ManageCart/1"
           >
             <i class="text-slate-400 fab fa-facebook text-lg leading-lg" />
             <img class="w-7" :src="CartSvg" />
+            <div
+              class="absolute flex items-center justify-center border-2 bg-[#16a249] text-white border-slate-300 top-[-8px] left-[30px] w-[25px] h-[25px] rounded-[50%]"
+            >
+              {{ quantityProducts.length }}
+            </div>
           </a>
+          <div
+            v-show="isHovering"
+            class="w-[400px] min-h-[200px] rounded-md overflow-hidden bg-white shadow-2xl py-[20px] absolute top-[42px] right-0"
+          >
+            <h2 class="mb-5 ml-[15px] text-[#ccc]">Sản phẩm mới thêm</h2>
+            <div
+              v-for="quantityProduct in quantityProducts"
+              :key="quantityProduct"
+            >
+              <div
+                class="flex justify-between py-[10px] px-[15px] cursor-pointer"
+                :class="{ 'bg-[#ccc]': hoverState[quantityProduct.id] }"
+                @mouseover="hoverState[quantityProduct.id] = true"
+                @mouseleave="hoverState[quantityProduct.id] = false"
+                @click="handleDetail(quantityProduct.id)"
+              >
+                <div class="flex gap-[10px]">
+                  <div class="w-[60px] h-[60px]">
+                    <img
+                      src="https://vapa.vn/wp-content/uploads/2022/12/anh-3d-thien-nhien.jpeg"
+                      class="object-cover"
+                    />
+                  </div>
+                  <h2>{{ quantityProduct.tenSanPham }}</h2>
+                </div>
+                <span class="text-red-500">{{ quantityProduct.giaBan }} đ</span>
+              </div>
+            </div>
+
+            <button
+              @click="NextManageCart"
+              class="float-right px-[20px] py-[8px] mt-[20px] mr-[15px] text-white border bg-[#16a249] rounded-md overflow-hidden border-slate-400"
+            >
+              Xem giỏ hàng
+            </button>
+          </div>
         </li>
         <li class="flex items-center">
           <user-dropdown />
@@ -63,4 +108,26 @@
 <script setup>
 import UserDropdown from "../../components/Dropdowns/UserDropdown.vue";
 import CartSvg from "../../assets/svg/shop-cart-svgrepo-com.svg";
+import { useRouter } from "vue-router";
+const quantityProducts = ref([]);
+const router = useRouter();
+const hoverState = ref({});
+const isHovering = ref(false);
+
+onMounted(() => {
+  getSanPhamByNguoiMua()
+    .then((res) => (quantityProducts.value = res?.data?.data))
+    .catch((error) => {
+      console.log(error);
+    });
+});
+const NextManageCart = () => {
+  router.push({
+    name: "ManageCart",
+  });
+};
+const handleDetail = (id) => {
+  isHovering.value = false;
+  router.push({ name: "ProductDetail", params: { id } });
+};
 </script>

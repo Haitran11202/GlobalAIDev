@@ -1,21 +1,5 @@
-<!-- 
-  <template>
-  <div>
-    <header-stats />
-    <div class="container mx-auto lg:flex bg-slate-100">
-      <div class="" v-if="showSideBar">
-        <sidebar-admin v-on:category-clicked="handleCategoryClick" />
-      </div>
-      <div class="p-2">
-        <NuxtPage :category="selectedCategory" />
-      </div>
-    </div>
-    <footer-admin />
-  </div>
-</template>
--->
 
-<template>
+  <template>
   <div>
     <sidebar-admin />
     <div class="relative md:ml-64 bg-blueGray-100">
@@ -33,7 +17,7 @@
 import AdminNavbar from "../components/Navbars/AdminNavbar.vue";
 import HeaderStats from "../components/Headers/HeaderStats.vue";
 import FooterAdmin from "../components/Footers/FooterAdmin.vue";
-import SidebarAdmin from "../components/Sidebar/SidebarAdmin.vue";
+import SidebarAdmin from "~~/components/Sidebar/SidebarAdmin.vue";
 import { onBeforeRouteUpdate } from "vue-router";
 import { ref } from "vue";
 const router = useRouter();

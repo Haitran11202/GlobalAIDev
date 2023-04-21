@@ -10,13 +10,14 @@ namespace GlobalAI.ProductEntities.Dto.Product
 {
     public class GetSanPhamDto
     {
-        public int Id { get; set; }
+        public int Id { get; set; } 
         public string MaSanPham { get; set; }
         public string TenSanPham { get; set; }
         public string MoTa { get; set; } = String.Empty;
         public decimal GiaBan { get; set; }
         public decimal GiaChietKhau { get; set; }
         public string IdDanhMuc { get; set; }
+        public string thumbnail { get;set; }
         public int IdGStore { get; set; }
         public DateTime NgayDangKi { get; set; }
         public DateTime NgayDuyet { get; set; }
