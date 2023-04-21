@@ -9,8 +9,11 @@ import {
   faDownload,
   faPrint,
   faFileWord,
+  faAngleLeft,
   faUserSecret,
   faFileExcel,
+  faCircleXmark,
+  faStar,
   faSearch,
   faArrowLeft,
   faDoorOpen,
@@ -27,16 +30,22 @@ import {
   faCircleInfo,
   faBars,
   faTimes,
+  faTruckMoving,
+
 } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
 library.add(
   faFileWord,
+  faStar,
   faDownload,
   faPrint,
+  faAngleLeft,
   faUserSecret,
   faFileExcel,
+  faCircleXmark,
   faSearch,
+  faTruckMoving,
   faArrowLeft,
   faDoorOpen,
   faClose,
@@ -50,9 +59,10 @@ library.add(
   faInfo,
   faCircleInfo,
   faBars,
-  faTimes,
+  faTimes
+
 );
 
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.component("font-awesome-icon", FontAwesomeIcon);
+    nuxtApp.vueApp.component("font-awesome-icon", FontAwesomeIcon);
 });

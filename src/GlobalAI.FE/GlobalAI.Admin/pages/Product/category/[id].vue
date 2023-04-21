@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col">
     <div class="flex pt-20 lg:pt-2 flex-wrap">
-      <card-list-product title="sản phẩm mới" :products="products" />
+      <card-list-product :title="props.category.label" :products="products" />
     </div>
     <div class="flex items-center justify-center">
       <card-pagination
@@ -20,7 +20,9 @@ import CardPagination from "~~/components/Cards/CardPagination.vue";
 import { ref } from "vue";
 import {getSanPhamDanhMuc} from "~~/composables/useApiProduct.js"
 import { PAGINATION } from "~~/lib/danhMuc";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const products = ref([]);
 const totalPages = ref(1);
 const pageSize = 10;
@@ -28,9 +30,7 @@ const pageNumber = ref(1);
 const skip = ref(0);
 
 watchEffect(() => {
-  const categoryId = props.category || 1;
-  console.log(categoryId)
-
+  const categoryId = props.category.id || router.currentRoute.value.params.id
   getSanPhamDanhMucPhanTrang(categoryId , pageSize ,pageNumber.value , skip.value )
       .then((res) => {
           products.value = res?.data?.data.items;
@@ -71,7 +71,7 @@ const prevPage =() =>{
 }
 const props = defineProps({
   category: {
-    type: Number,
+    type: Object,
     required: true,
   },
 });
