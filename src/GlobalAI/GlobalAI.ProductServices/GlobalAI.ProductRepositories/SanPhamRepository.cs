@@ -145,15 +145,5 @@ namespace GlobalAI.ProductRepositories
             return result;
         }
 
-        /// <summary>
-        /// Lấy ra sản phẩm đang ở trạng thái chờ duyệt
-        /// </summary>
-        /// <param></param>
-        /// <returns>Results</returns>
-        public List<SanPham> ApproveSanPham()
-        {
-            var Results = _dbSet.Where(Sp => Sp.Status == TrangThaiSanPham.CHO_DUYET).ToList();
-            return Results;
-        }
     }
 }

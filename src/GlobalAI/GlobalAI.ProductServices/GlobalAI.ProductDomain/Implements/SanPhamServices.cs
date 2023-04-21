@@ -134,14 +134,11 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns></returns>
         public void ApproveSanPham(int id)
         {
-            var Results = _repositorySanPham.ApproveSanPham();
-            foreach(var Result in Results)
+            var Result = _repositorySanPham.FindById(id);
+            if (Result != null)
             {
-                if (Result.Id == id && Result.Status == TrangThaiSanPham.CHO_DUYET)
-                {
-                    Result.Status = TrangThaiSanPham.DA_DUYET;
-                    _dbContext.SaveChanges();
-                }
+                Result.Status = TrangThaiSanPham.DA_DUYET;
+                _dbContext.SaveChanges();
             }
         }
     }
