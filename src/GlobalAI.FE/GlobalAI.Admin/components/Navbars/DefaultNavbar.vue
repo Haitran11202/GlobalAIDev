@@ -69,11 +69,11 @@
                 <div class="flex gap-[10px]">
                   <div class="w-[60px] h-[60px]">
                     <img
-                      src="https://vapa.vn/wp-content/uploads/2022/12/anh-3d-thien-nhien.jpeg"
+                      :src="getImageUrl(quantityProduct.thumbnail)"
                       class="object-cover"
                     />
                   </div>
-                  <h2>{{ quantityProduct.tenSanPham }}</h2>
+                  <h2 class="text-[16px] leading-[1.3] h-[41.6px] text-ellipsis line-clamp-2 mr-2 ">{{ quantityProduct.tenSanPham }}</h2>
                 </div>
                 <span class="text-red-500">{{ quantityProduct.giaBan }} đ</span>
               </div>
@@ -81,7 +81,7 @@
 
             <button
               @click="NextManageCart"
-              class="float-right px-[20px] py-[8px] mt-[20px] mr-[15px] text-white border bg-[#16a249] rounded-md overflow-hidden border-slate-400"
+              class="float-right hover:bg-lightBlue-400 px-[20px] py-[8px] mt-[20px] mr-[15px] text-white border bg-[#16a249] rounded-md overflow-hidden border-slate-400"
             >
               Xem giỏ hàng
             </button>
@@ -109,22 +109,44 @@
 import UserDropdown from "../../components/Dropdowns/UserDropdown.vue";
 import CartSvg from "../../assets/svg/shop-cart-svgrepo-com.svg";
 import { useRouter } from "vue-router";
+import jwt_decode from "jwt-decode";
+import { useUserStorage } from "~~/stores/user";
+const token = useUserStorage();
+const accesstoken = token.accessToken;
 const quantityProducts = ref([]);
 const router = useRouter();
 const hoverState = ref({});
 const isHovering = ref(false);
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiEndpoint;
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
+};
 
 onMounted(() => {
   getSanPhamByNguoiMua()
-    .then((res) => (quantityProducts.value = res?.data?.data))
+    .then((res) => {
+      console.log(res);
+      quantityProducts.value = res?.data?.data
+    })
     .catch((error) => {
       console.log(error);
     });
 });
+const getUserInfor = () => {
+  const userInfor = jwt_decode(accesstoken);
+  return userInfor;
+};
 const NextManageCart = () => {
-  router.push({
-    name: "ManageCart",
-  });
+  const userId = getUserInfor().user_id;
+  console.log(userId);
+  router.push({ name: "ManageCart", params: { id: userId } });
 };
 const handleDetail = (id) => {
   isHovering.value = false;
