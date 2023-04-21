@@ -1,7 +1,8 @@
 <template>
   <div class="flex flex-col">
-    <div class="flex pt-20 lg:pt-2 flex-wrap">
-      <card-list-product :title="props.category.label" :products="products" />
+    <div class="">
+      <h1 class="text-[24px] font-bold mb-[-20px] mt-5 ml-4 uppercase">{{ props ? props.category.label : titleCategory }}</h1>
+      <card-list-product :products="products" />
     </div>
     <div class="flex items-center justify-center">
       <card-pagination
@@ -28,6 +29,7 @@ const totalPages = ref(1);
 const pageSize = 10;
 const pageNumber = ref(1);
 const skip = ref(0);
+const titleCategory = ref('')
 
 watchEffect(() => {
   const categoryId = props.category.id || router.currentRoute.value.params.id
@@ -47,13 +49,12 @@ watchEffect(() => {
 watchEffect(() => {
   getFullSanPham()
    .then((res) => {
-      totalPages.value = res?.data?.data.length
+      totalPages.value = res?.data?.data.items.length/pageSize
     })
    .catch((error) => {
     console.log(error)
    });
 })
-
 const nextPage = ()=> {
      pageNumber.value++;
      skip.value = (pageNumber.value - 1) * pageSize;

@@ -275,14 +275,16 @@
           </div>
         </div>
       </div>
-      <div class="flex-1 bg-white mt-[20px] rounded-md px-[20px] py-[15px]">
+      <div
+        class="flex-1 bg-white mt-[20px] rounded-md h-[550px] px-[20px] py-[15px]"
+      >
         <div class="w-full">
           <div class="w-full flex justify-between mb-[15px]">
             <h2 class="text-[18px] font-bold">Địa chỉ</h2>
             <span class="text-blue-500 underline">Thay đổi</span>
           </div>
           <div class="mb-[10px]">
-            <p>Văn Phòng 369 Chương Định , Giáp Bát , Hà Nội</p>
+            <input type="text" v-model="diaChi" />
           </div>
         </div>
         <div>
@@ -359,7 +361,7 @@
               <h1 class="mt-2 text-[18px] font-bold">Tổng Thanh Toán</h1>
               <p class="text-lg text-[18px] font-bold text-[#cc3366]">
                 <!-- {{ totalPrice.chietKhau }} -->
-                {{ formatMoneyAll(totalPrice.tongThanhToan) }}
+                {{ formatMoneyAll(totalPrice.chietKhau) }}
               </p>
             </div>
             <div class="mt-5 float-right">
@@ -389,22 +391,22 @@
               </div>
             </div>
             <!-- <button
-                @click="checkOut"
-                :class="
-                  selectedProducts.length > 0
-                    ? 'mt-[40px] w-full py-[15px] text-white bg-[#cc3366] rounded-xl '
-                    : 'mt-[40px] w-full py-[15px] text-white bg-[#9b9fac] rounded-xl '
-                "
-              >
-                Tạo Đơn
-              </button> -->
+              @click="checkOut"
+              :class="
+                selectedProducts.length > 0
+                  ? 'mt-[40px] w-full py-[15px] text-white bg-[#cc3366] rounded-xl '
+                  : 'mt-[40px] w-full py-[15px] text-white bg-[#9b9fac] rounded-xl '
+              "
+            >
+              Tạo Đơn
+            </button> -->
           </div>
           <!-- <div class="flex justify-between mt-[15px]">
-                <p class="text-sm text-[16px] text-gray-700">
-                Tiết kiệm:
-              </p>
-              <p> {{ totalPrice.tongThanhToan }}</p>
-              </div> -->
+              <p class="text-sm text-[16px] text-gray-700">
+              Tiết kiệm:
+            </p>
+            <p> {{ totalPrice.tongThanhToan }}</p>
+            </div> -->
         </div>
       </div>
     </div>
@@ -425,6 +427,7 @@ const isShowModelCart = ref("");
 const selectedProducts = ref([]);
 const soLuongUpdate = ref(0);
 const giaBan = ref(0);
+const diaChi = ref("Trương Định, Hà Nội");
 const isshowModalDelete = ref(false);
 const isShowModalOpacity = ref(false);
 const idDelete = ref("");

@@ -7,7 +7,7 @@
           GlobalAI
         </a>
         <button class="block lg:hidden focus:outline-none">
-          <i class="fas fa-bars"></i>
+          <FontAwesomeIcon icon="fas fa-bars" />
         </button>
       </div>
     </div>
@@ -34,14 +34,7 @@
             </a>
           </div>
         </a>
-        <button
-          class="hidden lg:block cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent outline-none focus:outline-none"
-          type="button"
-        >
-          <i class="fas fa-bars"></i>
-        </button>
       </div>
-
       <div class="flex flex-wrap">
         <DefaultNavbar></DefaultNavbar>
       </div>
@@ -53,6 +46,7 @@
 </template>
 
 <script setup>
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import CardStats from "../../components/Cards/CardStats.vue";
 import DefaultNavbar from "../Navbars/DefaultNavbar.vue";
 </script>

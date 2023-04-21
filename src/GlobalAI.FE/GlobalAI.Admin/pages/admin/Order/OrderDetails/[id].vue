@@ -292,6 +292,12 @@
                   trực thuộc TW)
                 </p>
               </div>
+              <div class="w-full flex items-center justify-center">
+                <button v-if="isStatus == 1" @click="ConfirmOrder" class="px-[15px] py-[8px] bg-[#10b981] text-white rounded-md">
+                  Xác Nhận Đơn Hàng
+                </button>
+                <button v-if="isStatus == 2" class="bg-[#ec4899] px-[15px] py-[8px] text-white rounded-md " @click="toast.success('Đơn hàng đã được chuyển giao vận chuyển')">Hoàn Thành</button>
+              </div>
             </div>
           </div>
         </div>
@@ -343,10 +349,13 @@ export default {
 </script>
 
 <script setup>
+import { toast } from 'vue3-toastify';
 definePageMeta({
   layout: "admin",
   name: "orderdetails",
 });
+const isStatus = ref(1);
+
 
 const orderProducts = [
   {
@@ -390,4 +399,13 @@ const orderProducts = [
       "https://hinhgaixinh.com/wp-content/uploads/2021/11/hinh-anh-gai-xinh-deo-mat-kinh-dep-nhat-the-gioi.jpg",
   },
 ];
+const ConfirmOrder = () => {
+  // const body = {
+  //   id : id,
+  //   status:2
+  // }
+  // // Gọi API xác nhận đơn hàng 
+  toast.success('Đơn hàng đã được xác nhận')
+  isStatus.value = 2;
+}
 </script>
