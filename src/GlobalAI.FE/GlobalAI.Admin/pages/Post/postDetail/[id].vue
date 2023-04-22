@@ -25,7 +25,7 @@
         </div>
         <div class="border p-5">
           <img
-            class="w-full object-cover"
+            class="w-[1024px] object-cover"
             :src="getImageUrl(baiTin.thumbnail)"
             alt=""
           />
@@ -172,8 +172,8 @@ definePageMeta({
   name: "PostDetail",
 });
 //url test
-// const baseUrl = "http://globalai-staging.huce.edu.vn:8089";
-const baseUrl = useRuntimeConfig().public.apiEndpoint;
+const baseUrl = "http://globalai-staging.huce.edu.vn:8089";
+// const baseUrl = useRuntimeConfig().public.apiEndpoint;
 const router = useRouter();
 const baiTin = ref([]);
 const baiTinLienQuan = ref([]);

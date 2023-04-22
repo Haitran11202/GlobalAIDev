@@ -99,7 +99,9 @@
           </div>
           <div class="grid grid-cols-12 sm:px-5 gap-x-8 gap-y-16">
             <div
+              v-for="baitin in datas"
               class="flex flex-col items-start col-span-12 space-y-3 sm:col-span-6 xl:col-span-4"
+              @click="handleClick(baitin.id)"
             >
               <img
                 src="https://images.unsplash.com/photo-1626318305863-bb23d0297c0b?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=60"
@@ -108,11 +110,11 @@
               <p
                 class="bg-green-500 flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3 rounded-full uppercase inline-block"
               >
-                Giải trí
+                {{ baitin.slug }}
               </p>
-              <a class="text-lg font-bold sm:text-xl md:text-2xl"
-                >Câu lạc bộ bóng đá Liverpool</a
-              >
+              <a class="text-lg font-bold sm:text-xl md:text-2xl">{{
+                baitin.tieuDe
+              }}</a>
               <p class="text-sm text-black">
                 Tin tức mới nhất về Liverpool: Thông tin, hình ảnh, sự kiện và
                 video nổi bật liên quan Liverpool được cập nhật nhanh và liên
@@ -122,10 +124,10 @@
                 <p class="text-sm font-medium inline">Tác giả:</p>
                 <a
                   class="inline text-sm font-medium mt-0 mr-1 mb-0 ml-1 underline"
-                  >Hidden</a
+                  >{{ baitin.createdBy }}</a
                 >
                 <p class="inline text-sm font-medium mt-0 mr-1 mb-0 ml-1">
-                  · 31/03/2023 ·
+                  · {{ baitin.createdDate }} ·
                 </p>
                 <p
                   class="text-gray-200 text-sm font-medium inline mt-0 mr-1 mb-0 ml-1"
@@ -216,9 +218,19 @@
 <script setup>
 import { useRouter } from "vue-router";
 const router = useRouter();
-
-const handleClick = () => {
+const datas = ref([]);
+const newBaiTin = ref({});
+onMounted(() => {
+  getBaiTinPhanTrang()
+    .then((res) => {
+      datas.value = res?.data?.data?.items;
+      // datas.value.find(s => s.createdDate )
+    })
+    .catch(() => {});
+});
+const handleClick = (id) => {
   console.log("click");
-  router.push({ name: "PostDetail", params: { id: 22 } });
+
+  router.push({ name: "PostDetail", params: { id: id } });
 };
 </script>
