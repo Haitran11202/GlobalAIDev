@@ -24,10 +24,7 @@ const file = ref(null);
 const uploadImage = () => {
     const f = file.value.files[0];
 
-    console.log(f);
-
     postFile(f).then(res => {
-        console.log(res);
         emits('upload-image-success', res.data)
     }).catch(() => {
 

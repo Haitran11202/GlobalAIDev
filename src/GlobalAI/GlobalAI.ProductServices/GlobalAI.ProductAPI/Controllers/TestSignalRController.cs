@@ -1,11 +1,11 @@
-﻿using GlobalAI.ProductAPI.HubFolder;
+﻿/*using GlobalAI.ProductAPI.HubFolder;*/
 using GlobalAI.Utils.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    [Route("api/product")]
+    /*[Route("api/product")]
     [ApiController]
     public class TestSignalRController : BaseController
     {
@@ -22,5 +22,5 @@ namespace GlobalAI.ProductAPI.Controllers
             _messageHub.Clients.All.SendMessageToUser(mess);
             return Ok("Gửi thành công");
         }
-    }
+    }*/
 }

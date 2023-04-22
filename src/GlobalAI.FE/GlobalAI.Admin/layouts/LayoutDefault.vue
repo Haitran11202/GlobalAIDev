@@ -38,7 +38,6 @@ const changeSideBarShow = () => {
 };
 
 watchEffect(() => {
- 
   changeSideBarShow();
 });
 const handleCategoryClick = (category) => {

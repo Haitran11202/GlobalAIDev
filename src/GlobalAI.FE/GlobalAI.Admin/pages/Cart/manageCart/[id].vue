@@ -37,7 +37,7 @@
                 class="flex flex-col mt-[20px] w-[102px] h-[102px] items-center justify-center"
               >
                 <img
-                  src="https://media.sellycdn.net/files/sm_2023_03_17_04_32_55_0700_ArddHLwscN.jpg"
+                  :src="getImageUrl(sanpham.thumbnail)"
                   class="mt-1 rounded-md object-cover"
                   alt=""
                 />
@@ -51,7 +51,6 @@
                 {{ sanpham.tenSanPham }}
               </h2>
               <span class="text-[14px] text-[#6C757D]">Phân loại : Trắng</span>
-
               <span class="text-left text-[#cc3366] text-[16px] font-[400]"
                 >Tổng giá :
                 {{
@@ -108,7 +107,7 @@
                 <div class="flex gap-[20px]">
                   <div class="w-[72px] h-[72px] rounded-xl overflow-hidden">
                     <img
-                      src="https://media.sellycdn.net/files/sm_2022_08_13_03_19_20_0700_xJPPQPefAX.jpg"
+                     :src="getImageUrl(sanpham.thumbnail)"
                       class="object-cover"
                       alt=""
                     />
@@ -166,7 +165,7 @@
                   >
                     <button
                       @click="decrement(sanpham.id)"
-                      class="w-[20px] h-[20px] flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
+                      class="w-[20px] h-[20px] hover:bg-black flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
                     >
                       -
                     </button>
@@ -177,7 +176,7 @@
                     />
                     <button
                       @click="increment(sanpham.id)"
-                      class="w-[20px] h-[20px] flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
+                      class="w-[20px] h-[20px] hover:bg-black flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
                     >
                       +
                     </button>
@@ -188,7 +187,7 @@
                   <div
                     class="px-[10px] py-[8px] w-[165px] rounded-xl border-[1px] border-coolGray-500"
                   >
-                    <p class="float-right font-medium">{{ giaBan }}</p>
+                    <p class="float-right font-medium">{{formatMoneyAll(giaBan)}}</p>
                   </div>
                 </div>
                 <div class="flex justify-between items-center mt-[40px]">
@@ -217,7 +216,7 @@
             </div>
             <div
               v-if="isShowModalOpacity == true"
-              @click="isShowModelCart = false"
+              @click="handleCloseModalFull"
               class="fixed top-0 lef-0 right-0 w-full h-full bg-black opacity-25 z-20"
             ></div>
             <div
@@ -281,10 +280,9 @@
         <div class="w-full">
           <div class="w-full flex justify-between mb-[15px]">
             <h2 class="text-[18px] font-bold">Địa chỉ</h2>
-            <span class="text-blue-500 underline">Thay đổi</span>
           </div>
           <div class="mb-[10px]">
-            <input type="text" v-model="diaChi" />
+            <input type="text" v-model="diaChi" class="border-b border-[#ccc]" />
           </div>
         </div>
         <div>
@@ -443,12 +441,25 @@ const bodyData = ref({
   },
   chiTietDonHangFullDtos: [],
 });
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiEndpoint;
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
+};
 //biến lưu giá trị hình thức thanh toán
 const selectedPaymentType = ref("cash");
 const checkAll = ref(false);
 watchEffect(() => {
   getSanPhamByNguoiMua()
-    .then((res) => (products.value = res?.data?.data))
+    .then((res) => {
+      console.log(res);
+      products.value = res?.data?.data})
     .catch(() => {});
   getGioHang()
     .then((res) => (datas.value = res?.data?.data.gioHang))
@@ -645,6 +656,10 @@ const hadleReturnModelCart = () => {
   isShowModalOpacity.value = false;
   isshowModalDelete.value = false;
 };
+const handleCloseModalFull = () => {
+  isShowModelCart.value = false;
+  isShowModalOpacity.value = false;
+}
 const handleDelete = () => {
   isShowModalOpacity.value = false;
   isshowModalDelete.value = false;

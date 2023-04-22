@@ -7,6 +7,8 @@ using GlobalAI.ProductEntities.Dto.GioHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.ProductEntities.Dto.TraGia;
 using System.Collections.Generic;
+using GlobalAI.ProductEntities.Dto.BaiTin;
+using GlobalAI.ProductEntities.Dto.DanhMucBaiTin;
 
 namespace GlobalAI.ProductEntities.DataEntities.Mapper
 {
@@ -38,6 +40,10 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<ChiTietTraGia, AddChiTietTraGiaDto>().ReverseMap();
             CreateMap<ChiTietTraGia, ChiTietTraGiaDto>().ReverseMap();
             CreateMap<TraGia, TraGiaDto>().ReverseMap();
+            CreateMap<BaiTin, CreateBaiTin>().ReverseMap();
+            CreateMap<BaiTin, BaiTinDto>().ReverseMap();
+            CreateMap<DanhMucBaiTin, CreateDanhMucBaiTin>().ReverseMap();
+            CreateMap<DanhMucBaiTin, DanhMucBaiTinDto>().ReverseMap();
         }
     }
 }

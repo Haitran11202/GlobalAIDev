@@ -4,7 +4,7 @@
       <h1 class="lg:text-[24px] text-[#384059] uppercase font-bold">
         {{ props.title }}
       </h1>
-      <h2
+      <RouterLink
         :to="`/product/category/${props.id}`"
         class="font-[500] flex gap-2 items-center justify-center text-[#384059] lg:text-[16px]"
       >
@@ -12,7 +12,7 @@
         <span class="text-[18px] mt-1">
           <font-awesome-icon :icon="['fas', 'angle-right']" />
         </span>
-      </h2>
+      </RouterLink>
     </div>
     <div class="grid-container">
       <div
@@ -30,17 +30,17 @@
         </div>
         <div class="bg-white flex flex-col gap-[4px] pt-2">
           <div class="px-[10px]">
-            <h2 class="text-[18px] uppercase text-[#384059]">
+            <h2 class="text-[18px] leading-[1.3] h-[46.8px] text-ellipsis line-clamp-2 uppercase text-[#384059]">
               {{ item.tenSanPham }}
             </h2>
-            <p class="text-[12px] text-[#384059]">
-              Price From :
+            <p class="text-[13px] mt-3 text-[#384059]">
+              Giá gốc :
               <span class="text-[18px] text-[#cc3366]">{{
                 formatMoneyAll(item.giaBan)
               }}</span>
             </p>
-            <p class="text-[12px]">
-              Commission : {{ formatMoneyAll(item.giaChietKhau) }}
+            <p class="text-[13px]">
+              Giá chiết khấu : {{ formatMoneyAll(item.giaChietKhau) }}
             </p>
             <div class="text-[12px] mt-3 flex justify-between items-center">
               <div class="flex gap-1 text-[#f8ac59] text-[10px] items-center">

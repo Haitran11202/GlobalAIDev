@@ -20,6 +20,7 @@
     "tailwindcss": "^3.0.24"
   },
   "dependencies": {
+    "@coders-tm/vue-number-format": "^3.27.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-regular-svg-icons": "^6.4.0",

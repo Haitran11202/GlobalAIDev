@@ -37,7 +37,7 @@
                 class="flex flex-col mt-[20px] w-[102px] h-[102px] items-center justify-center"
               >
                 <img
-                  src="https://media.sellycdn.net/files/sm_2023_03_17_04_32_55_0700_ArddHLwscN.jpg"
+                :src="getImageUrl(sanpham.thumbnail)"
                   class="mt-1 rounded-md object-cover"
                   alt=""
                 />
@@ -429,6 +429,19 @@ const isshowModalDelete = ref(false);
 const isShowModalOpacity = ref(false);
 const idDelete = ref("");
 //body call api tạo đơn hàng full
+
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiEndpoint;
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
+};
+
 const bodyData = ref({
   donHang: {
     maDonHang: "",
@@ -445,7 +458,9 @@ const selectedPaymentType = ref("cash");
 const checkAll = ref(false);
 watchEffect(() => {
   getSanPhamByNguoiMua()
-    .then((res) => (products.value = res?.data?.data))
+    .then((res) => {
+      products.value = res?.data?.data
+    })
     .catch(() => {});
   getGioHang()
     .then((res) => (datas.value = res?.data?.data.gioHang))

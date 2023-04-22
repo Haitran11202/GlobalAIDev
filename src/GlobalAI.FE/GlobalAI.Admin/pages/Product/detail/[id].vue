@@ -3,7 +3,7 @@
     <div class="lg:w-[42%] flex">
       <div class="lg:w-full lg:h-[454px] flex lg:rounded-xl overflow-hidden">
         <img
-          src="https://media.sellycdn.net/files/sm_2022_08_13_03_19_20_0700_xJPPQPefAX.jpg"
+          :src="imagelink"
           class="object-cover"
           alt=""
         />
@@ -325,7 +325,7 @@
       <div class="flex gap-[20px]">
         <div class="w-[72px] h-[72px] rounded-xl overflow-hidden">
           <img
-            src="https://media.sellycdn.net/files/sm_2022_08_13_03_19_20_0700_xJPPQPefAX.jpg"
+            :src="imagelink"
             class="object-cover"
             alt=""
           />
@@ -347,7 +347,7 @@
         >
           <button
             @click="decrement"
-            class="w-[20px] h-[20px] flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
+            class="w-[20px] h-[20px] hover:bg-black flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
           >
             -
           </button>
@@ -358,7 +358,7 @@
           />
           <button
             @click="increment"
-            class="w-[20px] h-[20px] flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
+            class="w-[20px] h-[20px] hover:bg-black flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
           >
             +
           </button>
@@ -369,12 +369,12 @@
         <div
           class="px-[10px] py-[6px] w-[165px] rounded-xl border-2 border-coolGray-400"
         >
-          <p class="float-right font-medium">{{ products.giaBan }}</p>
+          <p class="float-right font-medium"> {{formatMoneyAll(products.giaBan)}}</p>
         </div>
       </div>
       <div class="flex justify-between items-center mt-[30px]">
         <h2 class="font-bold text-[16px] text-[#384059]">Tổng giá</h2>
-        <p class="float-right font-medium">{{ tongGiaBan }}</p>
+        <p class="float-right font-medium">{{formatMoneyAll(tongGiaBan)}}</p>
       </div>
       <div class="px-[40px] mt-[30px] flex items-center justify-center">
         <button
@@ -432,25 +432,31 @@ const products = ref({});
 const isChecked = ref(false);
 const isShowModelCart = ref(false);
 const soLuong = ref(1);
+const imagelink = ref('');
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
-watchEffect(() => {
-  axios
-    .get(
-      `${baseUrl}/api/file/get?folder=test&file=globalai-0b272053460d4fb2b99c8e328f30e398.jpg`
-    )
-    .then((res) => console.log(res.data))
-    .catch(() => {});
-});
+
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
+};
 watchEffect(() => {
   productId.value = router.currentRoute.value.params.id;
   getSanPhamById(productId.value)
     .then((res) => {
       products.value = res?.data?.data;
+      imagelink.value = getImageUrl(products.value.thumbnail)
     })
     .catch(() => {});
 });
 watchEffect(() => {});
+
+
 const tongGiaBan = computed(() => {
   return products.value.giaBan * soLuong.value;
 });
