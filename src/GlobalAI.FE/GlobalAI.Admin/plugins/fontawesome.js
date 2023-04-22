@@ -35,6 +35,7 @@ import {
   faBars,
   faTimes,
   faTruckMoving,
+  faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
@@ -66,7 +67,8 @@ library.add(
   faInfo,
   faCircleInfo,
   faBars,
-  faTimes
+  faTimes,
+  faArrowRight
 );
 
 export default defineNuxtPlugin((nuxtApp) => {
