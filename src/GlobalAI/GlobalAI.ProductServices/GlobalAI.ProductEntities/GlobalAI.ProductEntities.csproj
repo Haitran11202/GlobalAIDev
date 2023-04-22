@@ -15,8 +15,4 @@
     <ProjectReference Include="..\..\GlobalAI.Libraries\GlobalAI.Utils\GlobalAI.Utils.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Dto\DanhMucBaiTin\" />
-  </ItemGroup>
-
 </Project>

@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using GlobalAI.DataAccess.Base;
+using GlobalAI.DataAccess.Models;
 using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.BaiTin;
+using GlobalAI.ProductEntities.Dto.DanhMucBaiTin;
 using GlobalAI.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -28,28 +31,45 @@ namespace GlobalAI.ProductRepositories
             return _dbSet.Add(input).Entity;
         }
 
-        //public void DeleteByBaiTinId(int id, string username)
-        //{
-        //    if (_dbSet.Any(e => e.IdTraGia == id))
-        //    {
-        //        _dbSet.Where(e => e.IdTraGia == id)
-        //            .ToList()
-        //            .ForEach(e => {
-        //                e.DeletedBy = username;
-        //                e.DeletedDate = DateTime.Now;
-        //                e.Deleted = true;
-        //            });
-        //    }
-        //}
+        public void DeleteById(int id, string username)
+        {
+            if (_dbSet.Any(e => e.Id == id))
+            {
+                _dbSet.Where(e => e.Id == id)
+                    .ToList()
+                    .ForEach(e =>
+                    {
+                        e.DeletedBy = username;
+                        e.DeletedDate = DateTime.Now;
+                        e.Deleted = true;
+                    });
+            }
+        }
 
-        //public DanhMucBaiTin FindById(int id)
-        //{
-        //    return _dbSet.FirstOrDefault(d => d.Id == id && d.Deleted == DeletedBool.NO);
-        //}
+        public DanhMucBaiTin FindById(int id)
+        {
+            return _dbSet.FirstOrDefault(d => d.Id == id && d.Deleted == DeletedBool.NO);
+        }
 
-        //public IQueryable<DanhMucBaiTin> GetAll(int idBaiTin)
-        //{
-        //    return _dbSet.Where(b => b.id == idBaiTin && b.Deleted == DeletedBool.NO);
-        //}
+        public PagingResult<DanhMucBaiTin> FindAll(FilterDanhMucBaiTinDto input, int? userId = null)
+        {
+            PagingResult<DanhMucBaiTin> result = new();
+
+            var baiTinQuery = (from baiTin in _dbSet
+                               where baiTin.Deleted == DeletedBool.NO
+
+                                     && (input.Status == null || input.Status == baiTin.Status)
+                               select baiTin);
+
+            result.TotalItems = baiTinQuery.Count();
+            baiTinQuery = baiTinQuery.OrderByDescending(d => d.Id);
+            if (input.PageSize != -1)
+            {
+                baiTinQuery = baiTinQuery.Skip(input.Skip).Take(input.PageSize);
+            }
+            result.Items = baiTinQuery;
+            return result;
+        }
+
     }
 }
