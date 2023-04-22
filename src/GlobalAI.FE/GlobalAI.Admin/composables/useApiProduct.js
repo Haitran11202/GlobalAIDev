@@ -1,4 +1,3 @@
-
 import { faShareAltSquare } from "@fortawesome/free-solid-svg-icons";
 import http from "./useApi";
 import { API_ENDPOINT } from "~~/api/api.endpoint";
@@ -191,7 +190,25 @@ export const postImage = async (formData) => {
   try {
     const res = await http.post(API_ENDPOINT.postImages, formData);
     return Promise.resolve(res.data);
-   }catch(err){
+  } catch (err) {
     return Promise.reject(err);
-   }
+  }
+};
+
+export const getPostById = async (id) => {
+  try {
+    const res = await http.get(API_ENDPOINT.getPostById(id));
+    return Promise.resolve(res);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const getSanBaiTinPhanTrang = async (slug) => {
+  try {
+    const res = await http.get(API_ENDPOINT.getSanBaiTinPhanTrang(slug));
+    return Promise.resolve(res);
+  } catch (err) {
+    return Promise.reject(err);
+  }
 };

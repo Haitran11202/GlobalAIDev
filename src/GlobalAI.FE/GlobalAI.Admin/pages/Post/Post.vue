@@ -67,6 +67,7 @@
                   <p class="inline text-xs font-medium">Mới nhất</p>
                 </div>
                 <a
+                  @click="handleClick"
                   class="text-4xl font-bold leading-none lg:text-5xl xl:text-6xl"
                   >Hoa quả tươi ? Có tốt cho sức khỏe</a
                 >
@@ -212,4 +213,12 @@
     <footer-component />
   </div>
 </template>
-<script></script>
+<script setup>
+import { useRouter } from "vue-router";
+const router = useRouter();
+
+const handleClick = () => {
+  console.log("click");
+  router.push({ name: "PostDetail", params: { id: 22 } });
+};
+</script>

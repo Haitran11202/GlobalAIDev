@@ -142,7 +142,7 @@ const routes = [
         },
     },
     {
-        path: "/post/postDetail/:slug",
+        path: "/post/postDetail/:id",
         name: 'PostDetail',
         component: PostDetail,
         meta: {

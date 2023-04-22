@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <div>
     <index-navbar />
   </div>

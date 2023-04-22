@@ -8,7 +8,8 @@ export const API_ENDPOINT = {
     `api/product/sanpham/danh-muc/${id}?pageSize=10&pageNumber=1&Skip=0`,
   getSanPhamDanhMucPhanTrang: (categoryId, pageSize, pageNumber, Skip) =>
     `api/product/sanpham/danh-muc/${categoryId}?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
-  getFullSanPham: "http://localhost:5003/api/product/sanpham/danh-muc/1?pageSize=100000000&pageNumber=1&Skip=0",
+  getFullSanPham:
+    "http://localhost:5003/api/product/sanpham/danh-muc/1?pageSize=100000000&pageNumber=1&Skip=0",
   getGioHang: "api/product/giohang",
   getSanPhamById: (id) => `api/product/sanpham/${id}`,
   getSanPhamByNguoiMua: "api/product/giohang/sanpham-giohang",
@@ -40,4 +41,8 @@ export const API_ENDPOINT = {
   },
 
   getOrderById: (id) => `api/product/donhang/${id}`,
+  // Api Bài đăng
+  getPostById: (id) => `/api/product/bai-tin/${id}`,
+  getSanBaiTinPhanTrang: (slug) =>
+    `http://localhost:5003/api/product/bai-tin/find-all?slug=${slug}&pageSize=11&pageNumber=1`,
 };

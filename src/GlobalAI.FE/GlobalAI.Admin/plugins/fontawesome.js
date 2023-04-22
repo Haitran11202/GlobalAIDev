@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
   faDownload,
   faPrint,
+  faUser,
   faBook,
   faFileWord,
   faAngleLeft,
@@ -42,6 +43,7 @@ library.add(
   faStar,
   faDownload,
   faPrint,
+  faUser,
   faAngleLeft,
   faUserSecret,
   faFileExcel,
