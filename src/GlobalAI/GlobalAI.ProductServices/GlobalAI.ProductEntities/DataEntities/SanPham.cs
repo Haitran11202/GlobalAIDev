@@ -98,6 +98,19 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(Thumbnail))]
         public string Thumbnail { get; set; }
 
+        /// <summary>
+        /// Lượt xem sp
+        /// </summary>
+        [ColumnSnackCase(nameof(LuotXem))]
+        public int? LuotXem { get; set; }
+
+        /// <summary>
+        /// Lượt bán sp
+        /// </summary>
+        [ColumnSnackCase(nameof(LuotBan))]
+        public int? LuotBan { get; set; }
+
+
         #region audit
         [MaxLength(50)]
         [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]
