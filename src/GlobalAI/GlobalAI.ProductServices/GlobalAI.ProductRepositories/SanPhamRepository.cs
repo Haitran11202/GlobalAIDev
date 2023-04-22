@@ -11,6 +11,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Http.Internal;
 using System.Net.WebSockets;
 using Microsoft.AspNetCore.Mvc;
+using GlobalAI.Utils.ConstantVariables.Product;
 
 namespace GlobalAI.ProductRepositories
 {
@@ -140,5 +141,6 @@ namespace GlobalAI.ProductRepositories
             
             return result;
         }
+
     }
 }
