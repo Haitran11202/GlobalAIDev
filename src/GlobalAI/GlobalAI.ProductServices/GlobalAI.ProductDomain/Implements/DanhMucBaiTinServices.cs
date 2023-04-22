@@ -58,6 +58,7 @@ namespace GlobalAI.ProductDomain.Implements
             inputInsert.CreatedBy = username;
 
             inputInsert.Status = TrangThaiBaiTin.KICH_HOAT;
+
             inputInsert = _danhMucBaiTinRepository.Add(inputInsert);
             _dbContext.SaveChanges();
             return inputInsert;

@@ -8,7 +8,7 @@ namespace GlobalAI.ProductEntities.Dto.DanhMucBaiTin
 {
     public class CreateDanhMucBaiTin
     {
-        public int MaDanhMuc { get; set; }
+        public string MaDanhMuc { get; set; }
         public string TenDanhMuc { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using GlobalAI.ProductEntities.Dto.DanhMucBaiTin;
 namespace GlobalAI.ProductAPI.Controllers
 {
     [Authorize]
-    [Route("api/product/bai-tin")]
+    [Route("api/product/danh-muc-bai-tin")]
     [ApiController]
     public class DanhMucBaiTinController : BaseController
     {
@@ -21,7 +21,7 @@ namespace GlobalAI.ProductAPI.Controllers
             _danhMucBaiTinServices = danhMucBaiTinServices;
         }
         /// <summary>
-        /// Người mua tạo giỏ hàng và 1 lân trả giá chi tiết
+        /// them 
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>

@@ -137,7 +137,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns></returns>
         public void ApproveSanPham(int id)
         {
-            var Result = _repositorySanPham.FindById(id);
+            var Result = _repositorySanPham.FindByIdSanPham(id);
             if (Result != null)
             {
                 Result.NgayDuyet = DateTime.Now;

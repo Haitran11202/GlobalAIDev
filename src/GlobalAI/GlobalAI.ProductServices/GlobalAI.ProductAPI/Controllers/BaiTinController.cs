@@ -23,7 +23,7 @@ namespace GlobalAI.ProductAPI.Controllers
             _baiTinServices = traGiaServices;
         }
         /// <summary>
-        /// Người mua tạo giỏ hàng và 1 lân trả giá chi tiết
+        /// them
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
