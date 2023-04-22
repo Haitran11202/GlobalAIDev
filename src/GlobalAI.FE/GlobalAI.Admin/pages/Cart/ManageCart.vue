@@ -413,6 +413,7 @@
 
 <script setup>
 import { getGioHang } from "~~/composables/useApiProduct";
+import { useCartStorage } from "~~/stores/giohang";
 import { toast } from "vue3-toastify";
 // const router = useRouter();
 definePageMeta({
@@ -425,6 +426,7 @@ const isShowModelCart = ref("");
 const selectedProducts = ref([]);
 const soLuongUpdate = ref(0);
 const giaBan = ref(0);
+const useCart = useCartStorage();
 const isshowModalDelete = ref(false);
 const isShowModalOpacity = ref(false);
 const idDelete = ref("");
@@ -665,6 +667,7 @@ const handleDelete = () => {
   deleteGioHang(gioHangsanpham.id)
     .then((res) => {
       console.log(res.data);
+      useCart.removeItembyID(gioHangsanpham.id);
       getSanPhamByNguoiMua()
         .then((res) => (products.value = res?.data?.data))
         .catch(() => {});

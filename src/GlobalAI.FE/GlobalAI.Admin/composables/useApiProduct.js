@@ -33,8 +33,8 @@ export const getSanPhamDanhMuc = async (id) => {
   }
 };
 // Lấy sản phẩm dựa theo ID
-export const getFullSanPham = async () => {
-  const res = await http.get(API_ENDPOINT.getFullSanPham);
+export const getFullSanPham = async (id) => {
+  const res = await http.get(API_ENDPOINT.getFullSanPham(id));
   try {
     return Promise.resolve(res);
   } catch (err) {

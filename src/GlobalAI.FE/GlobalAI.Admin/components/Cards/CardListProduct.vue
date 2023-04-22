@@ -25,12 +25,12 @@
                 {{ item.tenSanPham }}
               </h2>
               <p class="text-[12px] text-[#384059]">
-                Price From :
+                Giá gốc :
                 <span class="text-[18px] text-[#cc3366]">{{
-                  item.giaBan
+                  formatMoneyAll(item.giaBan)
                 }}</span>
               </p>
-              <p class="text-[12px]">Commission : {{ item.giaChietKhau }}</p>
+              <p class="text-[12px]">Giá chiết khấu : {{ formatMoneyAll(item.giaChietKhau)}}</p>
               <div class="text-[12px] mt-3 flex justify-between items-center">
                 <div class="flex gap-1 text-[#f8ac59] text-[10px] items-center">
                   <font-awesome-icon :icon="['fas', 'star']" />
@@ -115,6 +115,9 @@ const props = defineProps({
     discount: String,
   },
 });
+const formatMoneyAll = (money) => {
+  return money.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+};
 const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
