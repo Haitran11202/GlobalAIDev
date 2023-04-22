@@ -1,8 +1,8 @@
 <template>
   <div
-    class="flex flex-wrap px-8 mx-auto gap-[10px] mt-[20px] mb-[40px] sm:block"
+    class="flex flex-wrap px-8 mx-auto gap-[10px] mt-[20px] mb-[20px] sm:block"
   >
-    <marquee behavior="" direction=""
+    <marquee behavior="" direction="" class="py-1"
       ><button
         class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] py-[10px] px-[20px] ml-2 mt-2 uppercase bg-white rounded-md"
         v-for="(item, idx) in listItems"

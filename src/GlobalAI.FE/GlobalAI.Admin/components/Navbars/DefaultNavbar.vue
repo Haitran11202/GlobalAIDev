@@ -73,7 +73,11 @@
                       class="object-cover"
                     />
                   </div>
-                  <h2 class="text-[16px] leading-[1.3] h-[41.6px] text-ellipsis line-clamp-2 mr-2 ">{{ quantityProduct.tenSanPham }}</h2>
+                  <h2
+                    class="text-[16px] leading-[1.3] h-[41.6px] text-ellipsis line-clamp-2 mr-2"
+                  >
+                    {{ quantityProduct.tenSanPham }}
+                  </h2>
                 </div>
                 <span class="text-red-500">{{ quantityProduct.giaBan }} đ</span>
               </div>
@@ -111,6 +115,8 @@ import CartSvg from "../../assets/svg/shop-cart-svgrepo-com.svg";
 import { useRouter } from "vue-router";
 import jwt_decode from "jwt-decode";
 import { useUserStorage } from "~~/stores/user";
+
+import { getSanPhamByNguoiMua } from "~/composables/useApiProduct";
 const token = useUserStorage();
 const accesstoken = token.accessToken;
 const quantityProducts = ref([]);
@@ -133,7 +139,7 @@ onMounted(() => {
   getSanPhamByNguoiMua()
     .then((res) => {
       console.log(res);
-      quantityProducts.value = res?.data?.data
+      quantityProducts.value = res?.data?.data;
     })
     .catch((error) => {
       console.log(error);
