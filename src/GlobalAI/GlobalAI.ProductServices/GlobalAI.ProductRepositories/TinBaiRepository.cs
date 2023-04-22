@@ -50,7 +50,7 @@ public class TinBaiRepository : BaseEFRepository<BaiTin>
 
         var baiTinQuery = (from baiTin in _dbSet
                            where baiTin.Deleted == DeletedBool.NO
-                         
+                                && (input.Slug == null || input.Slug == baiTin.Slug)
                                  && (input.Status == null || input.Status == baiTin.Status)
                            select baiTin);
 
