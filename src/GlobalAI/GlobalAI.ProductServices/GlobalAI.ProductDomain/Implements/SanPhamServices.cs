@@ -71,7 +71,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns>Trả về sản phẩm vừa xóa(Trường deleted = true)</returns>
         public SanPham DeleteSanPham(int idSanPham)
         {
-            var findSanPham = _repositorySanPham.FindById(idSanPham);
+            var findSanPham = _repositorySanPham.FindByIdSanPham(idSanPham);
             if (findSanPham != null)
             {
                 _repositorySanPham.Delete(findSanPham);
@@ -86,7 +86,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns>Trả về sản phẩm đã được sửa</returns>
         public SanPham EditSanPham(int id, AddSanPhamDto newSanPham)
         {
-            var findSanPham = _repositorySanPham.FindById(id);
+            var findSanPham = _repositorySanPham.FindByIdSanPham(id);
             if (findSanPham != null)
             {
                 _repositorySanPham.EditSanPham(newSanPham, findSanPham);

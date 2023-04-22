@@ -3,7 +3,7 @@
     <div class="lg:w-[42%] flex">
       <div class="lg:w-full lg:h-[454px] flex lg:rounded-xl overflow-hidden">
         <img
-          src="https://media.sellycdn.net/files/sm_2022_08_13_03_19_20_0700_xJPPQPefAX.jpg"
+          :src="imagelink"
           class="object-cover"
           alt=""
         />
@@ -12,14 +12,14 @@
     <div class="flex-1 px-1">
       <h1 class="text-[30px] font-bold uppercase">{{ products.tenSanPham }}</h1>
       <div class="flex items-center">
-        <span class="text-[#cc3366] text-[20px]">Giá Bán :</span>
+        <span class="text-[#cc3366] text-[20px] mr-1">Giá Bán :</span>
         <span class="text-[30px] text-[#cc3366] font-bold">{{
-          products.giaBan
+          formatMoneyAll(products.giaBan)
         }}</span>
       </div>
       <div class="flex items-center gap-[10px]">
         <span>Giá Chiết Khấu : </span>
-        <p class="text-[18px]">{{ products.giaChietKhau }}</p>
+        <p class="text-[18px]">{{ formatMoneyAll(products.giaChietKhau) }}</p>
       </div>
       <div class="flex gap-1 mt-2 text-[#f8ac59] text-[18px] items-center">
         <font-awesome-icon :icon="['fas', 'star']" />
@@ -49,7 +49,7 @@
       <div class="w-full px-[20px] py-[20px] mt-[20px] bg-[#fafafa] rounded-md">
         <div class="flex justify-between border-b-2 border-[#ccc] pb-[20px]">
           <button
-            class="py-[10px] px-[10px] h-[40px] flex items-center rounded-md text-white bg-[#23c6c8]"
+            class="py-[10px] px-[10px] h-[40px] hover:bg-green-400 flex items-center rounded-md text-white bg-[#23c6c8]"
           >
             <span> Freeship 80K </span>
           </button>
@@ -86,13 +86,13 @@
       >
         <button
           @click="handleshowModelCart"
-          class="bg-[#16A249] lg:rounded-md text-white py-4 px-5 lg:w-1/3 w-2/3"
+          class="bg-[#16A249] lg:rounded-md hover:text-white transition-colors hover:bg-red-600 text-white py-4 px-5 lg:w-1/3 w-2/3"
         >
           Thêm Vào Giỏ Hàng
         </button>
         <button
           @click="handleBuyClick"
-          class="bg-[#cc3366] text-white lg:rounded-md py-4 px-5 w-1/3"
+          class="bg-[#cc3366] hover:bg-blue-500 transition text-white lg:rounded-md py-4 px-5 w-1/3"
         >
           Mua Hàng
         </button>
@@ -325,7 +325,7 @@
       <div class="flex gap-[20px]">
         <div class="w-[72px] h-[72px] rounded-xl overflow-hidden">
           <img
-            src="https://media.sellycdn.net/files/sm_2022_08_13_03_19_20_0700_xJPPQPefAX.jpg"
+            :src="imagelink"
             class="object-cover"
             alt=""
           />
@@ -347,7 +347,7 @@
         >
           <button
             @click="decrement"
-            class="w-[20px] h-[20px] flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
+            class="w-[20px] h-[20px] hover:bg-black flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
           >
             -
           </button>
@@ -358,7 +358,7 @@
           />
           <button
             @click="increment"
-            class="w-[20px] h-[20px] flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
+            class="w-[20px] h-[20px] hover:bg-black flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
           >
             +
           </button>
@@ -369,17 +369,17 @@
         <div
           class="px-[10px] py-[6px] w-[165px] rounded-xl border-2 border-coolGray-400"
         >
-          <p class="float-right font-medium">{{ products.giaBan }}</p>
+          <p class="float-right font-medium"> {{formatMoneyAll(products.giaBan)}}</p>
         </div>
       </div>
       <div class="flex justify-between items-center mt-[30px]">
         <h2 class="font-bold text-[16px] text-[#384059]">Tổng giá</h2>
-        <p class="float-right font-medium">{{ tongGiaBan }}</p>
+        <p class="float-right font-medium">{{formatMoneyAll(tongGiaBan)}}</p>
       </div>
       <div class="px-[40px] mt-[30px] flex items-center justify-center">
         <button
           @click="handleAddProductCart"
-          class="lg:py-[10px] py-[5px] rounded-md px-[20px] flex items-center bg-[#cc3366] text-white font-bold"
+          class="lg:py-[10px] py-[5px] hover:bg-green-600 rounded-md px-[20px] flex items-center bg-[#cc3366] text-white font-bold"
         >
           Thêm vào giỏ hàng
         </button>
@@ -395,10 +395,12 @@
 </template>
 <script setup>
 import axios from "axios";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { useRouter } from "vue-router";
-import img8 from "~/assets/img/product/sg-11134201-22120-un5b5kp9xskvd0.jpg";
 import { toast } from "vue3-toastify";
+import jwt_decode from "jwt-decode";
+import { useUserStorage } from "~~/stores/user";
+const token = useUserStorage();
+const accesstoken = token.accessToken;
 const idColor = ref("");
 
 const ListColor = [
@@ -430,32 +432,41 @@ const products = ref({});
 const isChecked = ref(false);
 const isShowModelCart = ref(false);
 const soLuong = ref(1);
+const imagelink = ref('');
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
-watchEffect(() => {
-  axios
-    .get(
-      `${baseUrl}/api/file/get?folder=test&file=globalai-0b272053460d4fb2b99c8e328f30e398.jpg`
-    )
-    .then((res) => console.log(res.data))
-    .catch(() => {});
-});
 
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
+};
 watchEffect(() => {
   productId.value = router.currentRoute.value.params.id;
   getSanPhamById(productId.value)
     .then((res) => {
       products.value = res?.data?.data;
+      imagelink.value = getImageUrl(products.value.thumbnail)
     })
     .catch(() => {});
 });
 watchEffect(() => {});
+
+
 const tongGiaBan = computed(() => {
   return products.value.giaBan * soLuong.value;
 });
 
 let openTab = ref(1);
 
+const getUserInfor = () => {
+  const userInfor = jwt_decode(accesstoken);
+  return userInfor;
+};
 const handleBuyClick = () => {
   console.log("creating...");
   console.log(productId.value);
@@ -470,13 +481,18 @@ const handleBuyClick = () => {
       console.log(res);
     })
     .catch(() => {});
-  router.push({ name: "ManageCart" });
+  const userId = getUserInfor().user_id;
+  router.push({ name: "ManageCart", params: { id: userId } });
 };
 
 const increment = () => {
   soLuong.value++;
 };
 
+const formatMoneyAll = (money) => {
+  money = Number(money);
+  return money.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+};
 const decrement = () => {
   if (soLuong.value <= 1) {
     soLuong.value = 1;
@@ -484,7 +500,6 @@ const decrement = () => {
     soLuong.value--;
   }
 };
-
 // Thêm sản phẩm vào giỏ hàng
 const handleshowModelCart = () => {
   isShowModelCart.value = true;
@@ -501,7 +516,8 @@ const handleAddProductCart = () => {
       toast.success("Thêm sản phẩm vào giỏ hàng thành công !", {
         autoClose: 1000,
         onClose: () => {
-          router.push({ name: "ManageCart" });
+          const userId = getUserInfor().user_id;
+          router.push({ name: "ManageCart", params: { id: userId } });
         },
       });
     })

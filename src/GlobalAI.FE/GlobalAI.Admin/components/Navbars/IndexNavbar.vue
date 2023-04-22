@@ -21,7 +21,7 @@
           type="button"
           @click="setNavbarOpen"
         >
-          <i class="fas fa-bars"></i>
+          <FontAwesomeIcon icon="fa fa-bars" />
         </button>
       </div>
       <div
@@ -49,7 +49,7 @@
               href="#"
             >
               <i class="text-slate-400 fab fa-facebook text-lg leading-lg" />
-              <img class="w-8" :src="UserSvg">
+              <img class="w-8" :src="UserSvg" />
             </a>
           </li>
 
@@ -91,10 +91,11 @@
 import IndexDropdown from "../Dropdowns/IndexDropdown.vue";
 import UserSvg from "../../assets/svg/user.svg";
 import { ref } from "vue";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 let navbarOpen = ref(false);
 
 const setNavbarOpen = () => {
   navbarOpen.value = !navbarOpen.value;
-}
+};
 </script>

@@ -14,7 +14,7 @@
               href="https://www.creative-tim.com?ref=vn-footer-admin"
               class="text-slate-500 hover:text-slate-700 text-sm font-semibold py-1"
             >
-              Creative Tim
+             Global AI
             </a>
           </div>
         </div>
@@ -25,7 +25,7 @@
                 href="https://www.creative-tim.com?ref=vn-footer-admin"
                 class="text-slate-600 hover:text-slate-800 text-sm font-semibold block py-1 px-3"
               >
-                Creative Tim
+               Global AI
               </a>
             </li>
             <li>

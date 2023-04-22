@@ -182,6 +182,5 @@ app.Run();
 
 app.UseCors("Cors");
 app.UseEndpoints(endpoints => {
-    endpoints.MapControllers();
-    endpoints.MapHub<ChatHub>("/offers");
+    endpoints.MapHub<ChatHub>("/chatHub");
 });
