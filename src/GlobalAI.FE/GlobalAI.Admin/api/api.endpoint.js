@@ -40,4 +40,10 @@ export const API_ENDPOINT = {
   },
 
   getOrderById: (id) => `api/product/donhang/${id}`,
+  // Api Bài đăng
+  getPostById: (id) => `/api/product/bai-tin/${id}`,
+  getSanBaiTinPhanTrang: (slug) =>
+    `/api/product/bai-tin/find-all?slug=${slug}&pageSize=11&pageNumber=1`,
+  getBaiTinPhanTrang: () =>
+    `/api/product/bai-tin/find-all?pageSize=11&pageNumber=1`,
 };

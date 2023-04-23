@@ -22,6 +22,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GlobalAI.Utils;
+using GlobalAI.Utils.ConstantVariables.Product;
 
 namespace GlobalAI.ProductDomain.Implements
 {
@@ -56,6 +57,7 @@ namespace GlobalAI.ProductDomain.Implements
         {
             var newSanPham = _mapper.Map<SanPham>(sanPham);
             _repositorySanPham.Add(newSanPham);
+            newSanPham.NgayDangKi = DateTime.Now;
             newSanPham.Deleted = false;
             newSanPham.IdGStore = CommonUtils.GetCurrentUserId(_httpContext);
             newSanPham.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);
@@ -70,7 +72,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns>Trả về sản phẩm vừa xóa(Trường deleted = true)</returns>
         public SanPham DeleteSanPham(int idSanPham)
         {
-            var findSanPham = _repositorySanPham.FindById(idSanPham);
+            var findSanPham = _repositorySanPham.FindByIdSanPham(idSanPham);
             if (findSanPham != null)
             {
                 _repositorySanPham.Delete(findSanPham);
@@ -85,7 +87,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns>Trả về sản phẩm đã được sửa</returns>
         public SanPham EditSanPham(int id, AddSanPhamDto newSanPham)
         {
-            var findSanPham = _repositorySanPham.FindById(id);
+            var findSanPham = _repositorySanPham.FindByIdSanPham(id);
             if (findSanPham != null)
             {
                 _repositorySanPham.EditSanPham(newSanPham, findSanPham);
@@ -128,7 +130,20 @@ namespace GlobalAI.ProductDomain.Implements
             return _repositorySanPham.GetByCategory(idDanhMuc, input);
         }
 
-
-
+        /// <summary>
+        /// Duyệt sản phẩm theo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public void ApproveSanPham(int id)
+        {
+            var Result = _repositorySanPham.FindByIdSanPham(id);
+            if (Result != null)
+            {
+                Result.NgayDuyet = DateTime.Now;
+                Result.Status = TrangThaiSanPham.DA_DUYET;
+                _dbContext.SaveChanges();
+            }
+        }
     }
 }

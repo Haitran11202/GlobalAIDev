@@ -32,6 +32,7 @@ definePageMeta({
 });
 const products = ref([]);
 const productsSeller = ref([]);
+let content = ref("");
 
 // Lấy tất cả sản phẩm theo danh mục
 onMounted(() => {
