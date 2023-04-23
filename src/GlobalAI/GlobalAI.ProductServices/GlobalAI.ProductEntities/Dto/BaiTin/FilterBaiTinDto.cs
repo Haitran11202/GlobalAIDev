@@ -18,5 +18,7 @@ namespace GlobalAI.ProductEntities.Dto.BaiTin
         public int? Status { get; set; }
         [FromQuery(Name = "slug")]
         public string? Slug { get; set; }
+        [FromQuery(Name = "tieuDe")]
+        public string? TieuDe { get; set; }
     }
 }

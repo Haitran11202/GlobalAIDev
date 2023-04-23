@@ -100,5 +100,24 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+        /// <summary>
+        /// get by slug
+        /// </summary>
+        /// <param name="slug"></param>
+        /// <returns></returns>
+        [HttpGet("find/slug/{slug}")]
+        [ProducesResponseType(typeof(APIResponse), (int)HttpStatusCode.OK)]
+        public APIResponse GetBySlug(string slug)
+        {
+            try
+            {
+                var result = _baiTinServices.GetBySlug(slug);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
     }
 }

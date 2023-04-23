@@ -18,5 +18,6 @@ namespace GlobalAI.ProductDomain.Interfaces
         void Delete(int id);
         PagingResult<BaiTinDto> FindAll(FilterBaiTinDto input);
         BaiTinDto GetById(int id);
+        BaiTinDto GetBySlug(string slug);
     }
 }
