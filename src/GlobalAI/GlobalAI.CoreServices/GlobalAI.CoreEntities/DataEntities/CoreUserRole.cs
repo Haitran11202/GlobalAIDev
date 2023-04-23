@@ -10,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.CoreEntities.DataEntities
 {
+    [Table("C_USER_ROLE")]
     public class CoreUserRole
     {
         [Key]
         [ColumnSnackCase(nameof(Id))]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]   
         public int Id { get; set; }
 
         /// <summary>

@@ -3,6 +3,7 @@ using System;
 using GlobalAI.DataAccess.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    partial class GlobalAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230423080026_rm-tbl-role")]
+    partial class rmtblrole
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,112 +86,6 @@ namespace GlobalAI.HostConsole.Migrations
                         {
                             t.HasComment("Bảng role");
                         });
-                });
-
-            modelBuilder.Entity("GlobalAI.CoreEntities.DataEntities.CoreRolePermisison", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("ID");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR2")
-                        .HasColumnName("CREATED_BY");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("DATE")
-                        .HasColumnName("CREATED_DATE");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("NUMBER(1)")
-                        .HasColumnName("DELETED");
-
-                    b.Property<string>("DeletedBy")
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR2")
-                        .HasColumnName("DELETED_BY");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("DATE")
-                        .HasColumnName("DELETED_DATE");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR2")
-                        .HasColumnName("MODIFIED_BY");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("DATE")
-                        .HasColumnName("MODIFIED_DATE");
-
-                    b.Property<string>("PermissionKey")
-                        .HasColumnType("NVARCHAR2(2000)")
-                        .HasColumnName("PERMISSION_KEY");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("ROLE_ID");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("C_ROLE_PERMISSION");
-                });
-
-            modelBuilder.Entity("GlobalAI.CoreEntities.DataEntities.CoreUserRole", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("ID");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR2")
-                        .HasColumnName("CREATED_BY");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("DATE")
-                        .HasColumnName("CREATED_DATE");
-
-                    b.Property<bool>("Deleted")
-                        .HasColumnType("NUMBER(1)")
-                        .HasColumnName("DELETED");
-
-                    b.Property<string>("DeletedBy")
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR2")
-                        .HasColumnName("DELETED_BY");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("DATE")
-                        .HasColumnName("DELETED_DATE");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasMaxLength(50)
-                        .HasColumnType("VARCHAR2")
-                        .HasColumnName("MODIFIED_BY");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("DATE")
-                        .HasColumnName("MODIFIED_DATE");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("ROLE_ID");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("USER_ID");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("C_USER_ROLE");
                 });
 
             modelBuilder.Entity("GlobalAI.CoreEntities.DataEntities.User", b =>
