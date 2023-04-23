@@ -86,7 +86,7 @@
             required
           />
         </div>
-        <div class="mb-6">
+        <!-- <div class="mb-6">
           <label
             for="moTa"
             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -99,7 +99,7 @@
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             required
           />
-        </div>
+        </div> -->
         <div class="">
           <label
             for="image"
@@ -117,8 +117,18 @@
             <img
               alt="Product Image"
               class="w-[50px] h-[50px] border absolute right-0 rounded"
-              :src="getImageUrl(thumbnail)"
+              :src="getImageUrl(product.thumbnail)"
             />
+          </div>
+        </div>
+        <div class="mb-6">
+          <label
+            for="moTa"
+            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >Mô tả</label
+          >
+          <div class="w-full">
+            <tiptap v-model="product.moTa" />
           </div>
         </div>
       </div>
@@ -145,6 +155,7 @@ import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
 import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
+import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 definePageMeta({
   layout: "admin",
   name: "Product",

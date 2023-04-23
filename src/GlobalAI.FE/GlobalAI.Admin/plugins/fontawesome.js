@@ -31,7 +31,17 @@ import {
   faBars,
   faTimes,
   faTruckMoving,
-  faArrowRight
+  faArrowRight,
+  faBold,
+  faItalic,
+  faStrikethrough,
+  faCode,
+  faParagraph,
+  faQuoteLeft,
+  faList,
+  faImage,
+  faUndo,
+  faRedo
 
 } from "@fortawesome/free-solid-svg-icons";
 
@@ -61,7 +71,22 @@ library.add(
   faCircleInfo,
   faBars,
   faTimes,
-  faArrowRight
+  faArrowRight,
+  faBold,
+  faItalic,
+  faStrikethrough,
+  faCode,
+  faParagraph,
+  faQuoteLeft,
+  faList,
+  faImage,
+  faUndo,
+  faRedo
+
+
+
+  
+
 
 );
 

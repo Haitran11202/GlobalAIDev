@@ -1,3 +1,4 @@
+import { toast } from "vue3-toastify";
 import { useUserStorage } from "~~/stores/user";
 
 const PATH_LOGIN = '/auth/login';
