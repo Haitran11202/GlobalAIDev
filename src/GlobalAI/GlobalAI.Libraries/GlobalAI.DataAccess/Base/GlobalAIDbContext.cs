@@ -12,8 +12,11 @@ namespace GlobalAI.DataAccess.Base
 {
     public partial class GlobalAIDbContext : DbContext
     {
-        #region User
+        #region Core
         public DbSet<User> Users { get; set; }
+        public DbSet<CoreRole> CoreRoles { get; set; }
+        public DbSet<CoreUserRole> CoreUserRoles { get; set; }
+        public DbSet<CoreRolePermisison> CoreRolePermisisons { get; set; }
         #endregion
 
         #region Bài tin
