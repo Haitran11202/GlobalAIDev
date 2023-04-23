@@ -41,6 +41,10 @@ namespace GlobalAI.CoreEntities.DataEntities
         public string Description { get; set; } = String.Empty;
 
         #region audit
+        [ColumnSnackCase(nameof(Deleted))]
+        public bool Deleted { get; set; }
+
+
         [MaxLength(50)]
         [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]
         public string? CreatedBy { get; set; } = String.Empty;

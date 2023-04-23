@@ -1,4 +1,5 @@
 ﻿using GlobalAI.CoreDomain.Interfaces;
+using GlobalAI.CoreEntities.Dto.Role;
 using GlobalAI.CoreEntities.Dto.User;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
@@ -10,30 +11,30 @@ using System.Net;
 namespace GlobalAI.CoreAPI.Controllers
 {
     [Authorize]
-    [Route("api/core/user")]
+    [Route("api/core/role")]
     [ApiController]
-    public class UserController : BaseController
+    public class RoleController : BaseController
     {
-        private readonly IUserServices _userServices;
+        private readonly IRoleServices _roleServices;
 
-        public UserController(ILogger<UserController> logger, IUserServices userServices)
+        public RoleController(ILogger<RoleController> logger, IRoleServices roleServices)
         {
             _logger = logger;
-            _userServices = userServices;
+            _roleServices = roleServices;
         }
 
         /// <summary>
-        /// Đăng ký người dùng
+        /// Tạo mới role
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpPost("register")]
+        [HttpPost("")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public APIResponse Add([FromBody] AddUserDto input)
+        public APIResponse Add([FromBody] AddRoleDto input)
         {
             try
             {
-                _userServices.CreateUser(input);
+                _roleServices.AddRole(input);
                 return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
             }
             catch (Exception ex)
@@ -43,17 +44,17 @@ namespace GlobalAI.CoreAPI.Controllers
         }
 
         /// <summary>
-        /// Cập nhật list role
+        /// Update role
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
-        [HttpPut("role")]
+        [HttpPut("")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public APIResponse UpdateRole([FromBody] UpdateUserRoleDto dto)
+        public APIResponse UpdateRole([FromBody] UpdateRoleDto dto)
         {
             try
             {
-                _userServices.UpdateListRole(dto);
+                _roleServices.UpdateRole(dto);
                 return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
             }
             catch (Exception ex)
@@ -63,37 +64,17 @@ namespace GlobalAI.CoreAPI.Controllers
         }
 
         /// <summary>
-        /// Lấy list role theo user id truyền vào
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
-        [HttpGet("{userId}/roles")]
-        [ProducesResponseType(typeof(ViewUserRoleDto), (int)HttpStatusCode.OK)]
-        public APIResponse GetRoleByUserId(int userId)
-        {
-            try
-            {
-                var data = _userServices.FindUserRoleByUserId(userId);
-                return new APIResponse(Utils.StatusCode.Success, data, 200, "Ok");
-            }
-            catch (Exception ex)
-            {
-                return OkException(ex);
-            }
-        }
-
-        /// <summary>
-        /// Lấy list user phân trang
+        /// Lấy list role phân trang
         /// </summary>
         /// <param name="dto"></param>
         /// <returns></returns>
         [HttpGet("")]
-        [ProducesResponseType(typeof(ViewUserDto), (int)HttpStatusCode.OK)]
-        public APIResponse FindUser([FromQuery] FindUserDto dto)
+        [ProducesResponseType(typeof(ViewRoleDto), (int)HttpStatusCode.OK)]
+        public APIResponse FindUser([FromQuery] FindRolePagingDto dto)
         {
             try
             {
-                var data = _userServices.FindUserPaging(dto);
+                var data = _roleServices.FindRolePaging(dto);
                 return new APIResponse(Utils.StatusCode.Success, data, 200, "Ok");
             }
             catch (Exception ex)

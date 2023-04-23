@@ -37,6 +37,9 @@ namespace GlobalAI.CoreEntities.DataEntities
         [ColumnSnackCase(nameof(CreatedDate), TypeName = "DATE")]
         public DateTime? CreatedDate { get; set; }
 
+        [ColumnSnackCase(nameof(Deleted))]
+        public bool Deleted { get; set; }
+
         [MaxLength(50)]
         [ColumnSnackCase(nameof(DeletedBy), TypeName = "VARCHAR2")]
         public string? DeletedBy { get; set; } = String.Empty;
