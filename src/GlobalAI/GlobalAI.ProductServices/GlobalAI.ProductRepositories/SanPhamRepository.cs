@@ -10,6 +10,8 @@ using GlobalAI.ProductEntities.Dto.Product;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.Internal;
 using System.Net.WebSockets;
+using Microsoft.AspNetCore.Mvc;
+using GlobalAI.Utils.ConstantVariables.Product;
 
 namespace GlobalAI.ProductRepositories
 {
@@ -21,7 +23,7 @@ namespace GlobalAI.ProductRepositories
             _mapper = mapper;
         }
         public List<GetSanPhamDto> GetFullSanPham() {
-            var result = _dbSet.ToList();
+            var result = _dbSet.AsNoTracking().Where(p => p.Deleted == false).ToList();
             return _mapper.Map<List<GetSanPhamDto>>(result);
         }
         /// <summary>
@@ -51,7 +53,7 @@ namespace GlobalAI.ProductRepositories
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
             PagingResult<GetSanPhamDto> result = new();
-            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.Id).Where(p => !p.Deleted)
+            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.Id).Where(p => p.Deleted == false)
                 .Where(r => (input.Keyword == null || r.TenSanPham.Contains(input.Keyword)));
             if (input.PageSize != -1)
             {
@@ -76,8 +78,11 @@ namespace GlobalAI.ProductRepositories
         public SanPham GetById(int idSanPham)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(idSanPham)}");
-            var sanpham = _dbSet.AsNoTracking().Where(sp => !sp.Deleted).FirstOrDefault(sp => sp.Id == idSanPham);
-
+            var sanpham = _dbSet.AsNoTracking().Where(sp => sp.Deleted == false).FirstOrDefault(sp => sp.Id == idSanPham);
+            if (sanpham == null)
+            {
+                throw new Exception("San pham khong ton tai");
+            }
             return sanpham;
         }
         /// <summary>
@@ -90,11 +95,15 @@ namespace GlobalAI.ProductRepositories
 
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(GetByCategory)}: input = {JsonSerializer.Serialize(idDanhMuc)}");
             PagingResult<GetSanPhamDto> result = new();
-            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.Id).Where(p => !p.Deleted && p.IdDanhMuc == idDanhMuc)
+            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.Id).Where(p => p.Deleted == false && p.IdDanhMuc == idDanhMuc)
                 .Where(r => (input.Keyword == null || r.TenSanPham.Contains(input.Keyword)));
             if (input.PageSize != -1)
             {
                 projectQuery = projectQuery.Skip(input.Skip).Take(input.PageSize);
+            }
+            if (projectQuery.Count() <= 0)
+            {
+                throw new Exception("San pham khong ton tai");
             }
             result.TotalItems = projectQuery.Count();
             var sanphams = projectQuery;
@@ -112,28 +121,17 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public SanPham FindByIdSanPham(string idSanPham)
+        public SanPham FindByIdSanPham(int idSanPham)
         {
 
-            var result = _dbSet.SingleOrDefault(sp => sp.MaSanPham == idSanPham);
-
-            if(result != null && result.Deleted == true) 
+            var result = _dbSet.SingleOrDefault(sp => sp.Id == idSanPham);
+            if(result == null)
             {
-                return null;
+                throw new Exception("San pham khong ton tai");
             }
-            return result;
-        }
-        /// <summary>
-        /// Tìm sản phầm cần sửa theo id lưu trong Database
-        /// </summary>
-        /// <param name="idSanPham"></param>
-        /// <returns></returns>
-        public SanPham FindById(int idDonHang)
-        {
-            var result = _dbSet.SingleOrDefault(sp => sp.Id == idDonHang);
-            if (result != null && result.Deleted == true)
+            else if(result.Deleted == true)
             {
-                return null;
+                throw new Exception("San pham khong ton tai");
             }
             return result;
         }
@@ -143,5 +141,6 @@ namespace GlobalAI.ProductRepositories
             
             return result;
         }
+
     }
 }

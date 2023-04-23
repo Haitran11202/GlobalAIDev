@@ -74,14 +74,28 @@ function prevImage() {
   imagesContainer.value.style.transform =
     "translateX(" + -currentIndex.value * 100 + "%)";
 }
+function setCurrentIndex(index) {
+  currentIndex.value = index;
+  imagesContainer.value.style.transform =
+    "translateX(" + -currentIndex.value * 100 + "%)";
+}
 
 const currentImage = computed(() => images[currentIndex.value]);
+setInterval(() => {
+  setCurrentIndex((currentIndex.value + 1) % images.length);
+}, 5000);
 
 // Lấy ra phần tử .images-container vào biến imagesContainer
 const slider = ref(null);
 const imagesContainer = ref(null);
 onMounted(() => {
-  imagesContainer.value = slider.value.querySelector(".images-container");
+  console.log(slider.value);
+  console.log(imagesContainer.value);
+});
+watchEffect(() => {
+  if (slider.value && imagesContainer.value) {
+    imagesContainer.value = slider.value.querySelector(".images-container");
+  }
 });
 </script>
 <style scoped>

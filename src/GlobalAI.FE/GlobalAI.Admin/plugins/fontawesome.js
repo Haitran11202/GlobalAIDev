@@ -41,8 +41,7 @@ import {
   faList,
   faImage,
   faUndo,
-  faRedo
-
+  faRedo,
 } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
@@ -91,5 +90,5 @@ library.add(
 );
 
 export default defineNuxtPlugin((nuxtApp) => {
-    nuxtApp.vueApp.component("font-awesome-icon", FontAwesomeIcon);
+  nuxtApp.vueApp.component("font-awesome-icon", FontAwesomeIcon);
 });

@@ -50,10 +50,10 @@ export const useApiRefreshToken = async (refreshToken = "") => {
   params.append("refresh_token", refreshToken);
 
   const tokenEndpoint = `${baseURL}/${API_ENDPOINT.refreshToken}`;
-
+  const userStorage = useUserStorage();
   try {
     const res = await axios.post(tokenEndpoint, params, config);
-
+    const userStorage = useUserStorage();
     if (res.status === 200) {
       const userStorage = useUserStorage();
 
@@ -62,11 +62,15 @@ export const useApiRefreshToken = async (refreshToken = "") => {
         refreshToken: res.data.refresh_token,
       });
     } else {
+      userStorage.logout();
       // store.commit(USER_MUTATIONS.LOGOUT);
       window.location.href = "/auth/login";
     }
   } catch (error) {
     // store.commit(USER_MUTATIONS.LOGOUT);
+    console.error("REFRESH TOKEN => ", error);
+
+    userStorage.logout();
     window.location.href = "/auth/login";
   }
 };

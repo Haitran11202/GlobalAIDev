@@ -194,3 +194,30 @@ export const postImage = async (formData) => {
     return Promise.reject(err);
   }
 };
+
+export const getPostById = async (id) => {
+  try {
+    const res = await http.get(API_ENDPOINT.getPostById(id));
+    return Promise.resolve(res);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const getSanBaiTinPhanTrang = async (slug) => {
+  try {
+    const res = await http.get(API_ENDPOINT.getSanBaiTinPhanTrang(slug));
+    return Promise.resolve(res);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const getBaiTinPhanTrang = async () => {
+  try {
+    const res = await http.get(API_ENDPOINT.getBaiTinPhanTrang());
+    return Promise.resolve(res);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};

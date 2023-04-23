@@ -452,7 +452,7 @@
                 <h5 class="text-xl font-semibold pb-4 text-center">
                   Thời trang
                 </h5>
-                <nuxt-link to="/auth/login">
+                <nuxt-link to="/product/category/1">
                   <div
                     class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
                   >
@@ -469,7 +469,7 @@
                 <h5 class="text-xl font-semibold pb-4 text-center">
                   Điện máy, điện tử
                 </h5>
-                <nuxt-link to="/auth/login">
+                <nuxt-link to="/product/category/1">
                   <div
                     class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
                   >

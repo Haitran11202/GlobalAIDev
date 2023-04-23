@@ -125,6 +125,7 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 import { useUserStorage } from "~~/stores/user";
 import { useApiLogin } from "~~/composables/useApiAuth";
+import { toast } from "vue3-toastify";
 
 definePageMeta({
   layout: "",
@@ -136,7 +137,7 @@ const router = useRouter();
 // const apiUser = useApiUser();
 // const { apiLogin } = useApiAuth();
 // const { apiLogin } = useApiAuth();
-// $toast.warn("Vui lòng đăng nhập tài khoản và mật khẩu");
+const { login } = useUserStorage();
 
 const loginBody = yup.object({
   username: yup.string().required("Tên đăng nhập không được bỏ trống").trim(),

@@ -37,7 +37,7 @@
                 class="flex flex-col mt-[20px] w-[102px] h-[102px] items-center justify-center"
               >
                 <img
-                  src="https://media.sellycdn.net/files/sm_2023_03_17_04_32_55_0700_ArddHLwscN.jpg"
+                :src="getImageUrl(sanpham.thumbnail)"
                   class="mt-1 rounded-md object-cover"
                   alt=""
                 />
@@ -69,7 +69,7 @@
                       sanpham.giaBan
                     )
                   "
-                  class="text-[16px] mt-0 font-[600] text-[#3478f6]"
+                  class="cursor-pointer text-[16px] mt-0 font-[600] text-[#3478f6]"
                 >
                   Sửa
                 </p>
@@ -389,22 +389,22 @@
               </div>
             </div>
             <!-- <button
-              @click="checkOut"
-              :class="
-                selectedProducts.length > 0
-                  ? 'mt-[40px] w-full py-[15px] text-white bg-[#cc3366] rounded-xl '
-                  : 'mt-[40px] w-full py-[15px] text-white bg-[#9b9fac] rounded-xl '
-              "
-            >
-              Tạo Đơn
-            </button> -->
+                @click="checkOut"
+                :class="
+                  selectedProducts.length > 0
+                    ? 'mt-[40px] w-full py-[15px] text-white bg-[#cc3366] rounded-xl '
+                    : 'mt-[40px] w-full py-[15px] text-white bg-[#9b9fac] rounded-xl '
+                "
+              >
+                Tạo Đơn
+              </button> -->
           </div>
           <!-- <div class="flex justify-between mt-[15px]">
-              <p class="text-sm text-[16px] text-gray-700">
-              Tiết kiệm:
-            </p>
-            <p> {{ totalPrice.tongThanhToan }}</p>
-            </div> -->
+                <p class="text-sm text-[16px] text-gray-700">
+                Tiết kiệm:
+              </p>
+              <p> {{ totalPrice.tongThanhToan }}</p>
+              </div> -->
         </div>
       </div>
     </div>
@@ -429,6 +429,19 @@ const isshowModalDelete = ref(false);
 const isShowModalOpacity = ref(false);
 const idDelete = ref("");
 //body call api tạo đơn hàng full
+
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiEndpoint;
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
+};
+
 const bodyData = ref({
   donHang: {
     maDonHang: "",
@@ -445,7 +458,9 @@ const selectedPaymentType = ref("cash");
 const checkAll = ref(false);
 watchEffect(() => {
   getSanPhamByNguoiMua()
-    .then((res) => (products.value = res?.data?.data))
+    .then((res) => {
+      products.value = res?.data?.data
+    })
     .catch(() => {});
   getGioHang()
     .then((res) => (datas.value = res?.data?.data.gioHang))
@@ -557,6 +572,7 @@ const formatMoney = (soLuong, giaBan) => {
   });
 };
 const formatMoneyAll = (money) => {
+  money = Number(money);
   return money.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
 };
 const removeDuplicates = (arr) => {

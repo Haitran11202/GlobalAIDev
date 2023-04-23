@@ -4,11 +4,8 @@
     class="z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start items-center py-4"
   >
     <div
-      class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap"
+      class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap gap-5"
     >
-      <!-- Brand -->
-      <!-- Form -->
-      <!-- User -->
       <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
         <li class="flex items-center">
           <form
@@ -88,17 +85,7 @@
             </button>
           </div>
         </li>
-
-        <!-- <li class="flex items-center">
-            <button
-              class="bg-emerald-500 text-white active:bg-emerald-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
-              type="button"
-            >
-              <i class="fas fa-arrow-alt-circle-down"></i> Download
-            </button>
-          </li> -->
       </ul>
-      <!-- User -->
       <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
         <user-dropdown />
       </ul>

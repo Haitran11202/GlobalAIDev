@@ -13,6 +13,19 @@
         </div>
       </div>
     </div>
+  <!-- Header -->
+  <div class="sticky top-0 bg-white z-20 shadow px-4 lg:hidden">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center py-3">
+        <a href="/" class="text-slate-700 text-xl font-bold leading-relaxed">
+          GlobalAI
+        </a>
+        <button class="block lg:hidden focus:outline-none">
+          <FontAwesomeIcon icon="fas fa-bars" />
+        </button>
+      </div>
+    </div>
+  </div>
 
     <div
       class="sticky hidden lg:block relative top-0 border-y-2 bg-white z-20 shadow px-4"
@@ -55,6 +68,7 @@
 </template>
 
 <script setup>
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import CardStats from "../../components/Cards/CardStats.vue";
 import DefaultNavbar from "../Navbars/DefaultNavbar.vue";
 </script>
