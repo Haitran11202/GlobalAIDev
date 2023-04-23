@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16"
+    class="relative flex flex-col min-w-0 break-words bg-slate-100 w-full mb-6 shadow-xl rounded-lg mt-16"
   >
     <div class="px-6">
       <div class="flex flex-wrap justify-center">
@@ -82,7 +82,9 @@
 <script>
 import team2 from "../../assets/img/team-2-800x800.jpg";
 import lewy from "../../assets/img/lewy.png";
-
+definePageMeta({
+  layout: "layout-default",
+});
 export default {
   data() {
     return {
@@ -92,3 +94,5 @@ export default {
   },
 };
 </script>
+
+

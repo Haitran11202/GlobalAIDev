@@ -8,17 +8,13 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
   faDownload,
   faPrint,
-  faUser,
-  faBook,
   faFileWord,
   faAngleLeft,
   faUserSecret,
-  faAngleRight,
   faFileExcel,
   faCircleXmark,
   faStar,
   faSearch,
-  faClock,
   faArrowLeft,
   faDoorOpen,
   faClose,
@@ -36,6 +32,16 @@ import {
   faTimes,
   faTruckMoving,
   faArrowRight,
+  faBold,
+  faItalic,
+  faStrikethrough,
+  faCode,
+  faParagraph,
+  faQuoteLeft,
+  faList,
+  faImage,
+  faUndo,
+  faRedo,
 } from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
@@ -44,16 +50,12 @@ library.add(
   faStar,
   faDownload,
   faPrint,
-  faUser,
   faAngleLeft,
   faUserSecret,
   faFileExcel,
   faCircleXmark,
-  faClock,
   faSearch,
-  faBook,
   faTruckMoving,
-  faAngleRight,
   faArrowLeft,
   faDoorOpen,
   faClose,
@@ -68,7 +70,23 @@ library.add(
   faCircleInfo,
   faBars,
   faTimes,
-  faArrowRight
+  faArrowRight,
+  faBold,
+  faItalic,
+  faStrikethrough,
+  faCode,
+  faParagraph,
+  faQuoteLeft,
+  faList,
+  faImage,
+  faUndo,
+  faRedo
+
+
+
+  
+
+
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

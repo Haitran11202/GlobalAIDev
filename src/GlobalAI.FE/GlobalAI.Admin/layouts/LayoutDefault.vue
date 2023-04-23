@@ -5,13 +5,15 @@
       v-if="useSideBar.getShowSideBar"
       v-on:category-clicked="handleCategoryClick"
     />
-    <div class="container  mx-auto lg:px-[185px]">
+    <div class="container mx-auto lg:px-[185px]">
       <div class="flex-1 lg:px-1 flex-col">
         <!-- Slot tượng trưng cho từng layout trong trang web -->
         <NuxtPage :category="selectedCategory" />
       </div>
     </div>
-    <!-- <footer-admin /> -->
+    <div class="mt-5">
+      <footer-admin />
+    </div>
   </div>
 </template>
 <script setup>
@@ -45,7 +47,6 @@ const handleCategoryClick = (category) => {
   selectedCategory.value = category;
   console.log(selectedCategory.value);
 };
-
 
 watchEffect(() => {
   if (router.currentRoute.value.name == "ProductDetail") {

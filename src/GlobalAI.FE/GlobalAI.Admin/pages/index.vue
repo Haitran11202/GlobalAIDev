@@ -2,17 +2,15 @@
   <div>
     <index-navbar />
     <section
-      class="header relative pt-16 items-center flex h-screen max-h-860-px lg:flex-row flex-col"
+      class="header relative pt-16 items-center flex h-screen max-h-860-px"
     >
       <div class="container mx-auto items-center flex flex-wrap">
         <div class="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
-          <div class="lg:pt-32 pt-[100px]">
-            <h2 class="font-semibold text-4xl lg:text-slate-600 text-slate-300">
+          <div class="pt-32 sm:pt-0">
+            <h2 class="font-semibold text-4xl text-slate-600">
               Global AI - Sàn thương mại điện tử.
             </h2>
-            <p
-              class="mt-4 text-lg leading-relaxed lg:text-slate-500 text-slate-200"
-            >
+            <p class="mt-4 text-lg leading-relaxed text-slate-500">
               Sàn thương mại điện tử Global AI là một nền tảng trực tuyến kết
               nối các nhà cung cấp và các nhà phân phối với nhau, cho phép các
               nhà cung cấp và các nhà phân phối mua bán hàng hóa và dịch vụ với
@@ -37,7 +35,7 @@
       </div>
 
       <img
-        class="absolute lg:top-0 lg:opacity-[1] opacity-[0.2] top-[200px] b-auto right-0 pt-16 sm:w-6/12 -mt-48 sm:mt-0 w-full max-h-860-px"
+        class="absolute top-0 b-auto right-0 pt-16 sm:w-6/12 -mt-48 sm:mt-0 w-10/12 max-h-860-px"
         :src="patternVue"
         alt="..."
       />
@@ -428,21 +426,23 @@
         </div>
       </div>
     </section>
+
+    <!-- Thêm click vào đây -->
     <section class="block relative z-1 bg-slate-600">
       <div class="container mx-auto">
         <div class="justify-center flex flex-wrap">
           <div class="w-full lg:w-12/12 px-4 -mt-24">
             <div class="flex flex-wrap">
               <div class="w-full lg:w-4/12 px-4">
-                <h5 class="text-xl font-semibold pb-4 text-center">Mỹ Phẩm</h5>
+                <h5 class="text-xl font-semibold pb-4 text-center">Mỹ phẩm</h5>
                 <nuxt-link to="/product/category/1">
                   <div
                     class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
                   >
                     <img
                       alt="..."
-                      class="align-middle border-none max-w-full h-auto rounded-lg"
-                      :src="login"
+                      class="align-middle border-none max-w-full h-[320px] shadow-md rounded-lg w-full"
+                      :src="mypham"
                     />
                   </div>
                 </nuxt-link>
@@ -452,14 +452,14 @@
                 <h5 class="text-xl font-semibold pb-4 text-center">
                   Thời trang
                 </h5>
-                <nuxt-link to="/auth/login">
+                <nuxt-link to="/product/category/1">
                   <div
                     class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
                   >
                     <img
                       alt="..."
-                      class="align-middle border-none max-w-full h-auto rounded-lg"
-                      :src="profile"
+                      class="align-middle border-none max-w-full h-[320px] shadow-md rounded-lg w-full"
+                      :src="thoitrang"
                     />
                   </div>
                 </nuxt-link>
@@ -469,14 +469,14 @@
                 <h5 class="text-xl font-semibold pb-4 text-center">
                   Điện máy, điện tử
                 </h5>
-                <nuxt-link to="/auth/login">
+                <nuxt-link to="/product/category/1">
                   <div
                     class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
                   >
                     <img
                       alt="..."
-                      class="align-middle border-none max-w-full h-auto rounded-lg"
-                      :src="landing"
+                      class="align-middle border-none max-w-full h-[320px] shadow-md rounded-lg w-full"
+                      :src="dientu"
                     />
                   </div>
                 </nuxt-link>
@@ -553,4 +553,8 @@ import freeShopping from "../assets/z4225887963689_bcc32d4fe527e8a0cc92d16d234b0
 import login from "../assets/img/login.jpg";
 import profile from "../assets/img/profile.jpg";
 import landing from "../assets/img/landing.jpg";
+
+import mypham from "../assets/img/mypham.jpg";
+import thoitrang from "../assets/img/thoitrang.jpg";
+import dientu from "../assets/img/dientu.jpg";
 </script>

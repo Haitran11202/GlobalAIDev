@@ -4,14 +4,8 @@
     class="z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start items-center py-4"
   >
     <div
-      class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap"
+      class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap gap-5"
     >
-      <!-- Brand -->
-      <!-- Form -->
-      <!-- User -->
-      <!-- <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
-              <user-dropdown />
-          </ul> -->
       <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
         <li class="flex items-center">
           <form
@@ -87,17 +81,26 @@
             </button>
           </div>
         </li>
-        <li class="flex items-center">
-          <user-dropdown />
-        </li>
+      </ul>
+      <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
+        <user-dropdown />
       </ul>
     </div>
   </nav>
   <!-- End Navbar -->
 </template>
 
-<script setup>
+<script>
 import UserDropdown from "../../components/Dropdowns/UserDropdown.vue";
+
+export default {
+  components: {
+    UserDropdown,
+  },
+};
+</script>
+
+<script setup>
 import CartSvg from "../../assets/svg/shop-cart-svgrepo-com.svg";
 import { useRouter } from "vue-router";
 import jwt_decode from "jwt-decode";
