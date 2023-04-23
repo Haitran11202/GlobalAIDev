@@ -97,5 +97,13 @@ namespace GlobalAI.ProductDomain.Implements
             var result = _mapper.Map<BaiTinDto>(baiTin);
             return result;
         }
+
+        public BaiTinDto GetBySlug(string slug)
+        {
+            int? userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var baiTin = _baiTinRepository.FindBySlug(slug);
+            var result = _mapper.Map<BaiTinDto>(baiTin);
+            return result;
+        }
     }
 }
