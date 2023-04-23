@@ -3,7 +3,9 @@
 //using GlobalAI.DataAccess.Base;
 //using GlobalAI.DataAccess.Base;
 using GlobalAI.CoreEntities.DataEntities;
+using GlobalAI.CoreEntities.Dto.User;
 using GlobalAI.DataAccess.Base;
+using GlobalAI.DataAccess.Models;
 using GlobalAI.Utils;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -84,6 +86,47 @@ namespace GlobalAI.CoreRepositories
 
             string encryptedPassword = CommonUtils.CreateMD5(password);
             return _dbSet.AsNoTracking().FirstOrDefault(x => x.Username == username && x.Password == encryptedPassword && !x.Deleted);
+        }
+
+        /// <summary>
+        /// Tìm kiếm user phân trang
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        public PagingResult<ViewUserDto> FindUser(FindUserDto dto)
+        {
+            _logger.LogInformation($"{nameof(FindUser)}: dto = {JsonSerializer.Serialize(dto)}");
+
+            var query = from user in _globalAIDbContext.Users.AsNoTracking()
+                        where !user.Deleted && (
+                            dto.Keyword == null || user.FirstName.ToLower().Contains(dto.Keyword.ToLower()) || user.LastName.ToLower().Contains(dto.Keyword.ToLower())
+                            || user.Email.ToLower().Contains(dto.Keyword.ToLower()) || user.Phone.ToLower().Contains(dto.Keyword.ToLower()) ||
+                            user.DisplayName.ToLower().Contains(dto.Keyword.ToLower())
+                        )
+                        orderby user.UserId descending
+                        select new ViewUserDto
+                        {
+                            FirstName = user.FirstName,
+                            LastName = user.LastName,
+                            CreatedBy = user.CreatedBy,
+                            CreatedDate = user.CreatedDate,
+                            DisplayName = user.DisplayName,
+                            Email = user.Email,
+                            IsVerifiedEmail = user.IsVerifiedEmail,
+                            LastFailedLogin = user.LastFailedLogin,
+                            LastLogin = user.LastLogin,
+                            Phone = user.Phone,
+                            Status = user.Status,
+                            UserId = user.UserId,
+                            Username = user.Username,
+                            UserType = user.UserType
+                        };
+
+            return new PagingResult<ViewUserDto>
+            {
+                Items = query.Skip(dto.Skip).Take(dto.PageSize),
+                TotalItems = query.Count()
+            };
         }
     }
 }

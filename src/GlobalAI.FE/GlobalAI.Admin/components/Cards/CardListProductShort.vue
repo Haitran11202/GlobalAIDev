@@ -110,12 +110,14 @@ const router = useRouter();
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 const getImageUrl = (imageUrl) => {
+  console.log(imageUrl);
   if (!imageUrl) {
     return "https://placehold.it/50x50";
   }
   const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
     imageUrl
   )}&download=false`;
+  console.log(url);
   return url;
 };
 

@@ -1,10 +1,12 @@
 using GlobalAI.CoreDomain.Implements;
 using GlobalAI.CoreDomain.Interfaces;
+using GlobalAI.CoreEntities.Mapper;
 using GlobalAI.DataAccess.Base;
 using GlobalAI.Entites;
 using GlobalAI.Utils.ConstantVariables.Shared;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
@@ -100,33 +102,21 @@ services.AddSwaggerGen(option =>
                     }
                 });
 
-    // Set the comments path for the Swagger JSON and UI.**
-    var xmlFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
-    if (File.Exists(xmlFile))
-    {
-        option.IncludeXmlComments(xmlFile);
-    }
-    var projectDependencies = Assembly.GetEntryAssembly().CustomAttributes
-        .SelectMany(c => c.ConstructorArguments.Select(ca => ca.Value?.ToString()))
-        .Where(o => o != null)
-        .ToList();
-    foreach (var assembly in projectDependencies)
-    {
-        var otherXml = Path.Combine(AppContext.BaseDirectory, $"{assembly}.xml");
-        if (File.Exists(otherXml))
-        {
-            option.IncludeXmlComments(otherXml);
-        }
-    }
-    option.CustomSchemaIds(x => x.FullName);
+    // Set the comments path for the Swagger JSON and UI.
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    option.IncludeXmlComments(xmlPath);
 
 });
 #endregion
 
 #region Add services
 services.AddScoped<IUserServices, UserServices>();
+services.AddScoped<IRoleServices, RoleServices>();
+services.AddScoped<IPermissionServices, PermissionServices>();
 #endregion
 
+services.AddAutoMapper(typeof(CoreMappingProfile));
 services.AddHttpContextAccessor();
 services.AddAuthorization();
 

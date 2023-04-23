@@ -51,6 +51,7 @@ public class TinBaiRepository : BaseEFRepository<BaiTin>
         var baiTinQuery = (from baiTin in _dbSet
                            where baiTin.Deleted == DeletedBool.NO
                                 && (input.Slug == null || input.Slug == baiTin.Slug)
+                                && (input.TieuDe == null || input.TieuDe == baiTin.TieuDe)
                                  && (input.Status == null || input.Status == baiTin.Status)
                            select baiTin);
 
@@ -78,5 +79,10 @@ public class TinBaiRepository : BaseEFRepository<BaiTin>
     public BaiTin FindById(int id, int? userId = null)
     {
         return _dbSet.FirstOrDefault(d => d.Id == id && d.Deleted == DeletedBool.NO);
+    }
+
+    public BaiTin FindBySlug(string slug)
+    {
+        return _dbSet.FirstOrDefault(d => d.Slug == slug && d.Deleted == DeletedBool.NO);
     }
 }
