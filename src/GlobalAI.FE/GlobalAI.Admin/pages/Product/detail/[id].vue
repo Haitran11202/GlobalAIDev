@@ -4,7 +4,7 @@
       <div class="lg:w-full lg:h-[454px] flex lg:rounded-xl overflow-hidden">
         <img
           :src="imagelink"
-          class="object-cover"
+          class="object-cover rounded-xl"
           alt=""
         />
       </div>
@@ -291,7 +291,7 @@ definePageMeta({
 });
 
 const router = useRouter();
-const productId = ref([]);
+const productId = ref('');
 const products = ref({});
 const isChecked = ref(false);
 const isShowModelCart = ref(false);
@@ -311,6 +311,7 @@ const getImageUrl = (imageUrl) => {
 };
 watchEffect(() => {
   productId.value = router.currentRoute.value.params.id;
+  console.log(productId.value);
   getSanPhamById(productId.value)
     .then((res) => {
       products.value = res?.data?.data;
@@ -319,7 +320,6 @@ watchEffect(() => {
     })
     .catch(() => {});
 });
-watchEffect(() => {});
 
 
 const tongGiaBan = computed(() => {
@@ -370,28 +370,36 @@ const decrement = () => {
 const handleshowModelCart = () => {
   isShowModelCart.value = true;
 };
-const handleAddProductCart = () => {
-  const body = {
-    idSanPham: productId.value,
-    soLuong: soLuong.value,
-    status: 1,
-  };
-  createGioHang(body)
-    .then((res) => {
-      useCart.getGioHang();
-      isShowModelCart.value = false;
-      toast.success("Thêm sản phẩm vào giỏ hàng thành công !", {
-        autoClose: 1000,
-        onClose: () => {
-          const userId = getUserInfor().user_id;
-          router.push({ name: "ManageCart", params: { id: userId } });
-        },
-      });
-    })
-    .catch(() => {
-      alert("Thêm sản phẩm vào giỏ hàng thất bại");
+const handleAddProductCart = async () => {
+  try {
+    const body = {
+      idSanPham: productId.value,
+      soLuong: soLuong.value,
+      status: 1,
+    };
+    console.log(body);
+    
+    // Send a POST request to create a new item in the cart
+    const res = await createGioHang(body);
+    console.log(res);
+
+    // Update the cart and display a success message on successful response
+    await useCart.getGioHang();
+    isShowModelCart.value = false;
+    toast.success("Thêm sản phẩm vào giỏ hàng thành công !", {
+      autoClose: 1000,
+      onClose: () => {
+        const userId = getUserInfor().user_id;
+
+        // Redirect the user to the cart page after adding the product
+        router.push({ name: "ManageCart", params: { id: userId } });
+      },
     });
+  } catch (error) {
+    toast.error("Thêm sản phẩm vào giỏ hàng thất bại");
+  }
 };
+
 
 const toggleTabs = function (tabNumber) {
   openTab.value = tabNumber;

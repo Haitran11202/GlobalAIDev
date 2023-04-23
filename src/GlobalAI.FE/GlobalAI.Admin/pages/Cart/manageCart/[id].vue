@@ -17,7 +17,7 @@
     <div class="flex w-full gap-[30px] lg:flex-row flex-col">
       <div class="lg:w-[65%] mb-[40px] mt-[20px] rounded-md overflow-hidden">
         <div class="flex gap-[20px] items-center  shadow-md  px-[20px] py-[10px] bg-white">
-          <input type="checkbox" v-model="checkAll" @change="checkAllGioHang" />
+          <input type="checkbox" class="scale-x-150 scale-y-150" v-model="checkAll" @change="checkAllGioHang" />
           <span>Chọn tất cả</span>
         </div>
         <div
@@ -31,6 +31,7 @@
             <div class="flex items-center gap-[20px]">
               <input
                 :id="sanpham.id"
+                class="scale-x-150 scale-y-150"
                 :value="sanpham.id"
                 v-model="selectedProducts"
                 type="checkbox"
@@ -287,58 +288,124 @@
              <span>Trương Định , Hà Nội</span>
              <span @click="handleShowModalAddress" class="underline text-blue-400 text-[16px] cursor-pointer">Thay đổi</span>
           </div>
-          <div v-if="isShowModalAddress" class="ModalUpdateCart z-50 shadow-md fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white rounded-md pb-[40px] pt-[10px]">
-            <div class="float-right cursor-pointer" @click="handleCloseModalData">
-              <font-awesome-icon class="text-slate-400 mr-[10px] text-[30px] px-2 py-2 rounded-[50%] flex items-center justify-center" :icon="['fas', 'circle-xmark']" />
+            <form @submit.prevent="handleSubmitFormAddress"
+            v-show="isShowModalAddress"
+            class="ModalUpdateCart z-50 shadow-md fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white rounded-md pb-[40px] pt-[10px]"
+          >
+            <div
+              class="float-right cursor-pointer"
+              @click="handleCloseModalData"
+            >
+              <font-awesome-icon
+                class="text-slate-400 mr-[10px] text-[30px] px-2 py-2 rounded-[50%] flex items-center justify-center"
+                :icon="['fas', 'circle-xmark']"
+              />
             </div>
-            <div class=" px-[40px]">
-              <h1 class="text-[24px] uppercase leading-6 mt-[50px] text-[#384059] font-bold">Thông tin giao hàng</h1>
-              <div class="mt-4 flex gap-[30px]">
-                <div class="w-[50%] px-[10px]">
-                  <h2 class="text-[16px]  text-[#384059] font-[500]">Địa chỉ</h2>
+            <div class="px-[40px]">
+              <h1
+                class="text-[24px] uppercase leading-6 mt-[50px] text-[#384059] font-bold"
+              >
+                Thông tin giao hàng
+              </h1>
+              <div class="mt-4">
+                <div class="w-full lg:flex gap-[30px]">
+                  <div class="w-[50%] px-[10px]">
+                    <h2 class="text-[16px] text-[#384059] font-[500]">
+                      Địa chỉ
+                    </h2>
                     <div class="w-full">
-                   <div class="w-full">
-                    <select name="city" id="" class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border-[1px] border-[#333] rounded-md">
-                    <option value="">Tỉnh / Thành Phố <span class="text-red-500">*</span></option>
-                    <option value="Hanoi">Hà Nội</option>
-                    <option value="Danang">Đà Nẵng</option>
-                    <option value="Hochiminh">Hồ Chí Minh</option>
-                    <option value="Cantho">Cần Thơ</option>
-                    <option value="Haiphong">Hải Phòng</option>
-                    <option value="Binhphuoc">An Giang</option>
-                    <option value="CaMau">Cà Mau</option>
-                    <option value="Vinh">Vinh</option>
-                    <option value="Caobang">Cao Bằng</option>
-                    <option value="Bentre">Bến Tre</option>
-                   </select>
-                   </div>
-                  <div>
-                    <select name="city" id="" class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]">
-                    <option value="">Quận / Huyện <span class="text-red-500">*</span></option>
-                    <option value="MyDuc">Mỹ Đức</option>
-                    <option value="DongAnh">Đông Anh</option>
-                    <option value="Gialam">Gia Lâm</option>
-                    <option value="HoaiDuc">Hòai Đức</option>
-                   </select>
-                  </div>
-                   <select name="city" id="" class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]">
-                    <option value="">Phường / Xã <span class="text-red-500">*</span></option>
-                    <option value="MyDuc">Hương Sơn</option>
-                    <option value="DangXa">Đặng Xá</option>
-                    <option value="DinhXuyen">Đình Xuyên</option>
-                    <option value="Phuthi">Phú Thị</option>
-                   </select>
+                      <div class="w-full">
+                        <select
+                          name="city"
+                          v-model="selectedOption1"
+                          id=""
+                          class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border-[1px] border-[#333] rounded-md"
+                        >
+                          <option value="">
+                            Tỉnh / Thành Phố <span class="text-red-500">*</span>
+                          </option>
+                          <option value="Hanoi">Hà Nội</option>
+                          <option value="Danang">Đà Nẵng</option>
+                          <option value="Hochiminh">Hồ Chí Minh</option>
+                          <option value="Cantho">Cần Thơ</option>
+                          <option value="Haiphong">Hải Phòng</option>
+                          <option value="Binhphuoc">An Giang</option>
+                          <option value="CaMau">Cà Mau</option>
+                          <option value="Vinh">Vinh</option>
+                          <option value="Caobang">Cao Bằng</option>
+                          <option value="Bentre">Bến Tre</option>
+                        </select>
+                      </div>
+                      <div>
+                        <select
+                          name="city"
+                          v-model="selectedOption2"
+                          id=""
+                          class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]"
+                        >
+                          <option value="">
+                            Quận / Huyện <span class="text-red-500">*</span>
+                          </option>
+                          <option value="MyDuc">Mỹ Đức</option>
+                          <option value="DongAnh">Đông Anh</option>
+                          <option value="Gialam">Gia Lâm</option>
+                          <option value="HoaiDuc">Hòai Đức</option>
+                        </select>
+                      </div>
+                      <select
+                        name="city"
+                        v-model="selectedOption3"
+                        id=""
+                        class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]"
+                      >
+                        <option value="">
+                          Phường / Xã <span class="text-red-500">*</span>
+                        </option>
+                        <option value="MyDuc">Hương Sơn</option>
+                        <option value="DangXa">Đặng Xá</option>
+                        <option value="DinhXuyen">Đình Xuyên</option>
+                        <option value="Phuthi">Phú Thị</option>
+                      </select>
                     </div>
-                   <input type="text" class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]" placeholder="Số nhà , tên đường">
+                    <input
+                      type="text"
+                      name="sonha"
+                      v-model="addressText"
+                      class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]"
+                      placeholder="Số nhà , tên đường"
+                    />
+                  </div>
+                  <div class="flex-1">
+                    <h2>Người nhận hàng</h2>
+                    <input
+                      type="text"
+                      name="name"
+                      v-model="nameText"
+                      class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]"
+                      placeholder="Họ Và Tên"
+                    />
+                    <input
+                      type="text"
+                      name="phone"
+                      v-model="phoneText"
+                      class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]"
+                      placeholder="Số điện thoại"
+                    />
+                  </div>
                 </div>
-                <div class="flex-1">
-                  <h2>Người nhận hàng</h2>
-                  <input type="text" class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]" placeholder="Họ Và Tên">
-                  <input type="text" class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]" placeholder="Số điện thoại">
+                <div class="w-full flex cursor-pointer items-center mt-[40px]">
+                  <button
+                    type="submit"
+                   :disabled="!isFormValid"
+                    :class="isFormValid ? 'bg-red-500 transition delay-150 duration-300 ease-in-out px-[20px] py-[10px] rounded-md text-[18px] text-white font-medium w-[60%] mx-auto':'px-[20px] py-[10px] rounded-md text-[18px] text-white font-medium bg-slate-400 w-[60%] mx-auto'"
+                  >
+                    Hoàn Tất
+                    <font-awesome-icon :icon="['fas', 'angle-right']" class="float-right mt-1" />
+                  </button>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         </div>
         <div>
           <div>
@@ -469,6 +536,12 @@ const giaBan = ref(0);
 const useCart  = useCartStorage();
 const isshowModalDelete = ref(false);
 const isShowModalOpacity = ref(false);
+const selectedOption1 = ref('');
+const selectedOption2 = ref('');
+const selectedOption3 = ref('');
+const addressText = ref('');
+const nameText = ref('');
+const phoneText = ref('');
 const idDelete = ref("");//body call api tạo đơn hàng full
 const bodyData = ref({
   donHang: {
@@ -495,7 +568,7 @@ const getImageUrl = (imageUrl) => {
 //biến lưu giá trị hình thức thanh toán
 const selectedPaymentType = ref("cash");
 const checkAll = ref(false);
-watchEffect(async () => {
+onMounted(async () => {
   try {
     const res1 = await getSanPhamByNguoiMua();
     products.value = res1?.data?.data;
@@ -725,6 +798,32 @@ const handleDelete = () => {
 const handleShowModalAddress = () => {
   isShowModalAddress.value = true;
   isShowModalOpacity.value = true;
+}
+const isFormValid = computed(() => {
+  return selectedOption1.value && selectedOption2.value && selectedOption3.value && addressText.value && nameText.value && phoneText.value
+})
+// Xử lý submit form 
+const handleSubmitFormAddress = () => {
+  const vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+  if(vnf_regex.test(phoneText.value) == false){
+    toast.error("Số điện thoại không đúng định dạng, vui lòng nhập lại");
+    return;
+  }
+  else{
+    const bodyForm = {
+    Tinh : selectedOption1.value,
+    Quan :selectedOption2.value,
+    Phuong :selectedOption3.value,
+    SoNha: addressText.value,
+    Ten :nameText.value,
+    SoDienThoai : phoneText.value
+    
+  }
+  console.log(bodyForm);
+  isShowModalAddress.value = false;
+  isShowModalOpacity.value = false;
+  toast.success('Cập nhật địa chỉ thành công')
+  }
 }
 </script>
 <style lang="css">

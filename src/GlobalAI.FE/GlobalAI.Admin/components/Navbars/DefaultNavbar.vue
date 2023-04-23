@@ -126,16 +126,6 @@ onMounted(() => {
   useCart.getGioHang()
 })
 
-watch(() => {
-    getSanPhamByNguoiMua()
-    .then((res) => {
-      console.log(res);
-      quantityProducts.value = res?.data?.data
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
 const getUserInfor = () => {
   const userInfor = jwt_decode(accesstoken);
   return userInfor;
