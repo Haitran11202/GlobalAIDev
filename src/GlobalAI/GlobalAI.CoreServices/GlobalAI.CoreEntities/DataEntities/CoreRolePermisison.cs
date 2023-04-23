@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.CoreEntities.DataEntities
 {
+    [Table("C_ROLE_PERMISSION")]
     public class CoreRolePermisison
     {
         [Key]
