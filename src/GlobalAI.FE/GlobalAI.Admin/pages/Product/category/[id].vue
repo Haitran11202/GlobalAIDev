@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col min-h-[100vh] py-4">
     <div class="">
       <h1 class="text-[24px] font-bold mb-[-20px] ml-4 uppercase">{{ props ? props.category.label : titleCategory}}</h1>
       <card-list-product :products="products" />
@@ -19,7 +19,6 @@ import CardListProduct from "../../../components/Cards/CardListProduct.vue";
 import CardPagination from "~~/components/Cards/CardPagination.vue";
 // import { defineProps } from "vue";
 import { ref } from "vue";
-import {getSanPhamDanhMuc} from "~~/composables/useApiProduct.js"
 import { PAGINATION } from "~~/lib/danhMuc";
 import { useRouter } from "vue-router";
 
@@ -35,6 +34,7 @@ const categoryId = ref('');
 const updateProducts = (categoryId) => {
   getSanPhamDanhMucPhanTrang(categoryId, pageSize, pageNumber.value, skip.value)
     .then((res) => {
+      console.log(res);
       products.value = res?.data?.data.items;
       console.log(products.value);
     })
@@ -42,10 +42,22 @@ const updateProducts = (categoryId) => {
       products.value = [];
     });
 };
+const getTongSanPham = (categoryId) => {
+  getFullSanPham(categoryId)
+   .then((res) => {
+      console.log(res);
+      totalPages.value = Math.floor(res?.data?.data.items.length/pageSize) + 1;
+      console.log(totalPages.value);
+    })
+   .catch((error) => {
+    console.log(error)
+   });
+}
 
 watchEffect(() => {
   categoryId.value = props.category.id ? props.category.id : router.currentRoute.value.params.id;
   updateProducts(categoryId.value);
+  getTongSanPham(categoryId.value)
 });
 
 // const displayedItems = computed(() => {
@@ -64,15 +76,7 @@ watchEffect(() => {
     }
 })
 
-watchEffect(() => {
-  getFullSanPham()
-   .then((res) => {
-      totalPages.value = res?.data?.data.items.length/pageSize
-    })
-   .catch((error) => {
-    console.log(error)
-   });
-})
+
 const nextPage = ()=> {
      pageNumber.value++;
      skip.value = (pageNumber.value - 1) * pageSize;
