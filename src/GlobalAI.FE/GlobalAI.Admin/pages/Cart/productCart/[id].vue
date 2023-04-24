@@ -201,12 +201,14 @@
 </template>
 
 <script setup>
+import { getGioHangByIdSanPham } from "~/composables/useApiProduct";
+import { useRouter } from "vue-router";
 definePageMeta({
   layout: "layout-default",
   name: "ProductCart",
 });
-const products = ref([]);
-const datas = ref([]);
+const product = ref([]);
+const giohang = ref([]);
 const isShowModelCart = ref("");
 const selectedProducts = ref([]);
 const soLuongUpdate = ref(0);
@@ -229,6 +231,7 @@ const bodyData = ref({
 });
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
+const router = useRouter();
 const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
@@ -239,6 +242,20 @@ const getImageUrl = (imageUrl) => {
   return url;
 };
 //biến lưu giá trị hình thức thanh toán
+
+onMounted(() => {
+  const idSanPham = router.currentRoute.value.params.id;
+  getGioHangByIdSanPham(idSanPham)
+    .then((res) => {
+      console.log(res.data.data);
+      giohang.value = res?.data?.data;
+      getSanPhamById(idSanPham)
+      .then(res => {
+        console.log(res)
+      } )
+    })
+    .catch(() => {});
+});
 </script>
 <style lang="css">
 input[type="number"]::-webkit-inner-spin-button,
