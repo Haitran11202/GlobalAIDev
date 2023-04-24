@@ -11,6 +11,9 @@ export const API_ENDPOINT = {
   getFullSanPham:
     "http://localhost:5003/api/product/sanpham/danh-muc/1?pageSize=100000000&pageNumber=1&Skip=0",
   getGioHang: "api/product/giohang",
+
+  // getGioHangByIdSanPham: id =>
+
   getSanPhamById: (id) => `api/product/sanpham/${id}`,
   getSanPhamByNguoiMua: "api/product/giohang/sanpham-giohang",
   createGioHangbyIdSanPham: "api/product/giohang",
@@ -28,7 +31,7 @@ export const API_ENDPOINT = {
   putProduct: (id) => `api/product/sanpham/${id}`,
 
   //Image
-  postImages: "api/file/upload?folder=image",
+  postImages: "api/filFe/upload?folder=image",
 
   // Quản lý đơn hàng
   getAllOrder: (pageSize, pageNumber, skip) =>
