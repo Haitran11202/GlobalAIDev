@@ -164,7 +164,7 @@
             </td>
             <td
               style="vertical-align: middle"
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 whitespace-pre"
+              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 whitespace-pre-line"
             >
               <div v-if="product.moTa && product.moTa.length > 20">
                 <template v-if="!showMore[product.id]">

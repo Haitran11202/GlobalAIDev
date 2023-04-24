@@ -4,14 +4,8 @@
     class="z-10 bg-transparent md:flex-row md:flex-nowrap md:justify-start items-center py-4"
   >
     <div
-      class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap"
+      class="w-full mx-autp items-center flex justify-between md:flex-nowrap flex-wrap gap-5"
     >
-      <!-- Brand -->
-      <!-- Form -->
-      <!-- User -->
-      <!-- <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
-              <user-dropdown />
-          </ul> -->
       <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
         <li class="flex items-center">
           <form
@@ -47,39 +41,35 @@
             <div
               class="absolute flex items-center justify-center border-2 bg-[#16a249] text-white border-slate-300 top-[-8px] left-[30px] w-[25px] h-[25px] rounded-[50%]"
             >
-              {{ quantityProducts.length }}
+              {{useCart.getFullSanPham.length }}
             </div>
           </a>
           <div
             v-show="isHovering"
-            class="w-[400px] min-h-[200px] rounded-md overflow-hidden bg-white shadow-2xl py-[20px] absolute top-[42px] right-0"
+            class="w-[400px] min-h-[200px] max-h-[550px] overflow-y-auto rounded-md  bg-white shadow-2xl py-[20px] absolute top-[42px] right-0"
           >
             <h2 class="mb-5 ml-[15px] text-[#ccc]">Sản phẩm mới thêm</h2>
             <div
-              v-for="quantityProduct in quantityProducts"
+              v-for="quantityProduct in useCart.getFullSanPham"
               :key="quantityProduct"
             >
               <div
                 class="flex justify-between py-[10px] px-[15px] cursor-pointer"
-                :class="{ 'bg-[#ccc]': hoverState[quantityProduct.id] }"
+                :class="{ 'bg-[#eee]': hoverState[quantityProduct.id] }"
                 @mouseover="hoverState[quantityProduct.id] = true"
                 @mouseleave="hoverState[quantityProduct.id] = false"
                 @click="handleDetail(quantityProduct.id)"
               >
                 <div class="flex gap-[10px]">
-                  <div class="w-[60px] h-[60px]">
+                  <div class="w-[60px] h-[60px] bg-red-500 rounded-sm overflow-hidden">
                     <img
                       :src="getImageUrl(quantityProduct.thumbnail)"
                       class="object-cover"
                     />
                   </div>
-                  <h2
-                    class="text-[16px] leading-[1.3] h-[41.6px] text-ellipsis line-clamp-2 mr-2"
-                  >
-                    {{ quantityProduct.tenSanPham }}
-                  </h2>
+                  <h2 class="text-[14px] leading-[1.3] w-[180px] h-[20.08px] text-ellipsis line-clamp-1 mr-2 ">{{ quantityProduct.tenSanPham }}</h2>
                 </div>
-                <span class="text-red-500">{{ quantityProduct.giaBan }} đ</span>
+                <span class="text-[14px] text-red-500">{{ formatMoneyAll(quantityProduct.giaBan)}} đ</span>
               </div>
             </div>
 
@@ -91,33 +81,33 @@
             </button>
           </div>
         </li>
-        <li class="flex items-center">
-          <user-dropdown />
-        </li>
-
-        <!-- <li class="flex items-center">
-            <button
-              class="bg-emerald-500 text-white active:bg-emerald-600 text-xs font-bold uppercase px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3 ease-linear transition-all duration-150"
-              type="button"
-            >
-              <i class="fas fa-arrow-alt-circle-down"></i> Download
-            </button>
-          </li> -->
+      </ul>
+      <ul class="flex-col md:flex-row list-none items-center hidden md:flex">
+        <user-dropdown />
       </ul>
     </div>
   </nav>
   <!-- End Navbar -->
 </template>
 
-<script setup>
+<script>
 import UserDropdown from "../../components/Dropdowns/UserDropdown.vue";
+
+export default {
+  components: {
+    UserDropdown,
+  },
+};
+</script>
+
+<script setup>
 import CartSvg from "../../assets/svg/shop-cart-svgrepo-com.svg";
 import { useRouter } from "vue-router";
 import jwt_decode from "jwt-decode";
 import { useUserStorage } from "~~/stores/user";
-
-import { getSanPhamByNguoiMua } from "~/composables/useApiProduct";
+import { useCartStorage } from "~~/stores/giohang";
 const token = useUserStorage();
+const useCart = useCartStorage();
 const accesstoken = token.accessToken;
 const quantityProducts = ref([]);
 const router = useRouter();
@@ -136,18 +126,16 @@ const getImageUrl = (imageUrl) => {
 };
 
 onMounted(() => {
-  getSanPhamByNguoiMua()
-    .then((res) => {
-      console.log(res);
-      quantityProducts.value = res?.data?.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
+  useCart.getGioHang()
+})
+
 const getUserInfor = () => {
   const userInfor = jwt_decode(accesstoken);
   return userInfor;
+};
+const formatMoneyAll = (money) => {
+  money = Number(money);
+  return money.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
 };
 const NextManageCart = () => {
   const userId = getUserInfor().user_id;

@@ -2,7 +2,7 @@
   <footer class="relative bg-slate-200 pt-8 pb-6">
     <div
       class="bottom-auto top-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden -mt-20 h-20"
-      style="transform: translateZ(0);"
+      style="transform: translateZ(0)"
     >
       <svg
         class="absolute bottom-0 overflow-hidden"
@@ -23,27 +23,25 @@
       <div class="flex flex-wrap text-center lg:text-left">
         <div class="w-full lg:w-6/12 px-4">
           <h4 class="text-3xl font-semibold">Global AI</h4>
-          <h5 class="text-lg mt-0 mb-2 text-slate-600">
-           
-          </h5>
+          <h5 class="text-lg mt-0 mb-2 text-slate-600"></h5>
           <div class="mt-6 lg:mb-0 mb-6">
             <button
               class="bg-white text-sky-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
               type="button"
             >
-              <img :src="fb">
+              <img :src="fb" />
             </button>
             <button
               class="bg-white text-sky-600 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
               type="button"
             >
-            <img :src="ig">
+              <img :src="ig" />
             </button>
             <button
               class="bg-white text-pink-400 shadow-lg font-normal h-10 w-10 items-center justify-center align-center rounded-full outline-none focus:outline-none mr-2"
               type="button"
             >
-            <img :src="youtube">
+              <img :src="youtube" />
             </button>
           </div>
         </div>
@@ -155,9 +153,9 @@
   </footer>
 </template>
 <script setup>
-import fb from '../../assets/icons8-facebook-48.png';
-import ig from '../../assets/icons8-instagram-48.png';
-import youtube from '../../assets/icons8-youtube-48.png';
+import fb from "../../assets/icons8-facebook-48.png";
+import ig from "../../assets/icons8-instagram-48.png";
+import youtube from "../../assets/icons8-youtube-48.png";
 
-const date = new Date().getFullYear(); 
+const date = new Date().getFullYear();
 </script>

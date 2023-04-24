@@ -1,34 +1,37 @@
 <template>
-  <div class="mt-[20px] h-[100vh]">
+  <div class="mt-[20px] min-h-[100vh]">
     <div
       class="flex items-center gap-[10px] cursor-pointer px-1"
       @click="handleBack"
     >
-      <div class="float-left flex items-center gap-2">
+      <RouterLink to="/gsaler/home" class="float-left flex items-center gap-2">
+        <div to="/gsaler/home">
         <font-awesome-icon
           class="text-black text-[18px]"
           :icon="['fas', 'angle-left']"
         />
       </div>
-      <a href="/gsaler/home" class="text-[18px] text-[#cc3366]">Trở lại</a>
+      <span class="text-[18px] text-[#cc3366]">Trở lại</span>
+      </RouterLink>
     </div>
     <div class="flex w-full gap-[30px] lg:flex-row flex-col">
-      <div class="lg:w-[65%] mt-[20px] rounded-md overflow-hidden">
-        <div class="flex gap-[20px] items-center px-[20px] py-[10px] bg-white">
-          <input type="checkbox" v-model="checkAll" @change="checkAllGioHang" />
+      <div class="lg:w-[65%] mb-[40px] mt-[20px] rounded-md overflow-hidden">
+        <div class="flex gap-[20px] items-center  shadow-md  px-[20px] py-[10px] bg-white">
+          <input type="checkbox" class="scale-x-150 scale-y-150" v-model="checkAll" @change="checkAllGioHang" />
           <span>Chọn tất cả</span>
         </div>
         <div
-          class="mt-[20px] py-[15px] px-[20px] w-full flex flex-col rounded-md overflow-y-auto bg-white"
+          class="mt-[20px] py-[15px] shadow-md px-[20px] w-full flex flex-col rounded-md bg-white"
         >
           <div
-            v-for="(sanpham, index) in products"
-            :key="index"
+            v-for="sanpham in products"
+            :key="sanpham.id"
             class="flex w-full items-start gap-[10px] mb-[30px]"
           >
             <div class="flex items-center gap-[20px]">
               <input
                 :id="sanpham.id"
+                class="scale-x-150 scale-y-150"
                 :value="sanpham.id"
                 v-model="selectedProducts"
                 type="checkbox"
@@ -47,7 +50,7 @@
               </div>
             </div>
             <div class="ml-[18px] flex flex-col w-full gap-[3px]">
-              <h2 class="text-[16px] font-bold uppercase text-[#384059]">
+              <h2 class="text-[16px] leading-[1.6] text-ellipsis line-clamp-1 h-[25.6px] font-bold uppercase text-[#384059]">
                 {{ sanpham.tenSanPham }}
               </h2>
               <span class="text-[14px] text-[#6C757D]">Phân loại : Trắng</span>
@@ -275,15 +278,134 @@
         </div>
       </div>
       <div
-        class="flex-1 bg-white mt-[20px] rounded-md h-[550px] px-[20px] py-[15px]"
+        class="flex-1 shadow-lg bg-white mt-[20px] rounded-md h-[550px] px-[20px] py-[15px]"
       >
         <div class="w-full">
           <div class="w-full flex justify-between mb-[15px]">
             <h2 class="text-[18px] font-bold">Địa chỉ</h2>
           </div>
-          <div class="mb-[10px]">
-            <input type="text" v-model="diaChi" class="border-b border-[#ccc]" />
+          <div class="mb-[10px] flex justify-between items-center">
+             <span>Trương Định , Hà Nội</span>
+             <span @click="handleShowModalAddress" class="underline text-blue-400 text-[16px] cursor-pointer">Thay đổi</span>
           </div>
+            <form @submit.prevent="handleSubmitFormAddress"
+            v-show="isShowModalAddress"
+            class="ModalUpdateCart z-50 shadow-md fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white rounded-md pb-[40px] pt-[10px]"
+          >
+            <div
+              class="float-right cursor-pointer"
+              @click="handleCloseModalData"
+            >
+              <font-awesome-icon
+                class="text-slate-400 mr-[10px] text-[30px] px-2 py-2 rounded-[50%] flex items-center justify-center"
+                :icon="['fas', 'circle-xmark']"
+              />
+            </div>
+            <div class="px-[40px]">
+              <h1
+                class="text-[24px] uppercase leading-6 mt-[50px] text-[#384059] font-bold"
+              >
+                Thông tin giao hàng
+              </h1>
+              <div class="mt-4">
+                <div class="w-full lg:flex gap-[30px]">
+                  <div class="w-[50%] px-[10px]">
+                    <h2 class="text-[16px] text-[#384059] font-[500]">
+                      Địa chỉ
+                    </h2>
+                    <div class="w-full">
+                      <div class="w-full">
+                        <select
+                          name="city"
+                          v-model="selectedOption1"
+                          id=""
+                          class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border-[1px] border-[#333] rounded-md"
+                        >
+                          <option value="">
+                            Tỉnh / Thành Phố <span class="text-red-500">*</span>
+                          </option>
+                          <option value="Hanoi">Hà Nội</option>
+                          <option value="Danang">Đà Nẵng</option>
+                          <option value="Hochiminh">Hồ Chí Minh</option>
+                          <option value="Cantho">Cần Thơ</option>
+                          <option value="Haiphong">Hải Phòng</option>
+                          <option value="Binhphuoc">An Giang</option>
+                          <option value="CaMau">Cà Mau</option>
+                          <option value="Vinh">Vinh</option>
+                          <option value="Caobang">Cao Bằng</option>
+                          <option value="Bentre">Bến Tre</option>
+                        </select>
+                      </div>
+                      <div>
+                        <select
+                          name="city"
+                          v-model="selectedOption2"
+                          id=""
+                          class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]"
+                        >
+                          <option value="">
+                            Quận / Huyện <span class="text-red-500">*</span>
+                          </option>
+                          <option value="MyDuc">Mỹ Đức</option>
+                          <option value="DongAnh">Đông Anh</option>
+                          <option value="Gialam">Gia Lâm</option>
+                          <option value="HoaiDuc">Hòai Đức</option>
+                        </select>
+                      </div>
+                      <select
+                        name="city"
+                        v-model="selectedOption3"
+                        id=""
+                        class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]"
+                      >
+                        <option value="">
+                          Phường / Xã <span class="text-red-500">*</span>
+                        </option>
+                        <option value="MyDuc">Hương Sơn</option>
+                        <option value="DangXa">Đặng Xá</option>
+                        <option value="DinhXuyen">Đình Xuyên</option>
+                        <option value="Phuthi">Phú Thị</option>
+                      </select>
+                    </div>
+                    <input
+                      type="text"
+                      name="sonha"
+                      v-model="addressText"
+                      class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]"
+                      placeholder="Số nhà , tên đường"
+                    />
+                  </div>
+                  <div class="flex-1">
+                    <h2>Người nhận hàng</h2>
+                    <input
+                      type="text"
+                      name="name"
+                      v-model="nameText"
+                      class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]"
+                      placeholder="Họ Và Tên"
+                    />
+                    <input
+                      type="text"
+                      name="phone"
+                      v-model="phoneText"
+                      class="mt-[20px] w-full py-[20px] px-[20px] text-[#384059] border rounded-md border-[#333]"
+                      placeholder="Số điện thoại"
+                    />
+                  </div>
+                </div>
+                <div class="w-full flex cursor-pointer items-center mt-[40px]">
+                  <button
+                    type="submit"
+                   :disabled="!isFormValid"
+                    :class="isFormValid ? 'bg-red-500 transition delay-150 duration-300 ease-in-out px-[20px] py-[10px] rounded-md text-[18px] text-white font-medium w-[60%] mx-auto':'px-[20px] py-[10px] rounded-md text-[18px] text-white font-medium bg-slate-400 w-[60%] mx-auto'"
+                  >
+                    Hoàn Tất
+                    <font-awesome-icon :icon="['fas', 'angle-right']" class="float-right mt-1" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
         <div>
           <div>
@@ -388,23 +510,7 @@
                 </div>
               </div>
             </div>
-            <!-- <button
-              @click="checkOut"
-              :class="
-                selectedProducts.length > 0
-                  ? 'mt-[40px] w-full py-[15px] text-white bg-[#cc3366] rounded-xl '
-                  : 'mt-[40px] w-full py-[15px] text-white bg-[#9b9fac] rounded-xl '
-              "
-            >
-              Tạo Đơn
-            </button> -->
           </div>
-          <!-- <div class="flex justify-between mt-[15px]">
-              <p class="text-sm text-[16px] text-gray-700">
-              Tiết kiệm:
-            </p>
-            <p> {{ totalPrice.tongThanhToan }}</p>
-            </div> -->
         </div>
       </div>
     </div>
@@ -414,6 +520,7 @@
 <script setup>
 import { getGioHang } from "~~/composables/useApiProduct";
 import { toast } from "vue3-toastify";
+import { useCartStorage } from "~~/stores/giohang";
 // const router = useRouter();
 definePageMeta({
   layout: "layout-default",
@@ -421,15 +528,21 @@ definePageMeta({
 });
 const products = ref([]);
 const datas = ref([]);
+const isShowModalAddress = ref(false);
 const isShowModelCart = ref("");
 const selectedProducts = ref([]);
 const soLuongUpdate = ref(0);
 const giaBan = ref(0);
-const diaChi = ref("Trương Định, Hà Nội");
+const useCart  = useCartStorage();
 const isshowModalDelete = ref(false);
 const isShowModalOpacity = ref(false);
-const idDelete = ref("");
-//body call api tạo đơn hàng full
+const selectedOption1 = ref('');
+const selectedOption2 = ref('');
+const selectedOption3 = ref('');
+const addressText = ref('');
+const nameText = ref('');
+const phoneText = ref('');
+const idDelete = ref("");//body call api tạo đơn hàng full
 const bodyData = ref({
   donHang: {
     maDonHang: "",
@@ -455,15 +568,16 @@ const getImageUrl = (imageUrl) => {
 //biến lưu giá trị hình thức thanh toán
 const selectedPaymentType = ref("cash");
 const checkAll = ref(false);
-watchEffect(() => {
-  getSanPhamByNguoiMua()
-    .then((res) => {
-      console.log(res);
-      products.value = res?.data?.data})
-    .catch(() => {});
-  getGioHang()
-    .then((res) => (datas.value = res?.data?.data.gioHang))
-    .catch(() => {});
+onMounted(async () => {
+  try {
+    const res1 = await getSanPhamByNguoiMua();
+    products.value = res1?.data?.data;
+    console.log(res1?.data.data);
+    const res2 = await getGioHang();
+    datas.value = res2?.data?.data.gioHang;
+  } catch (error) {
+    console.log(error);
+  }
 });
 //lấy số lượng theo sản phẩm
 const getCartItemQuantity = (id, soLuongNew = 0) => {
@@ -651,6 +765,7 @@ const handleCloseModalData = () => {
   isshowModalDelete.value = false;
   isShowModalOpacity.value = false;
   isShowModelCart.value = "";
+  isShowModalAddress.value = false;
 };
 const hadleReturnModelCart = () => {
   isShowModalOpacity.value = false;
@@ -658,16 +773,19 @@ const hadleReturnModelCart = () => {
 };
 const handleCloseModalFull = () => {
   isShowModelCart.value = false;
+  isShowModalAddress.value = false;
   isShowModalOpacity.value = false;
 }
 const handleDelete = () => {
   isShowModalOpacity.value = false;
   isshowModalDelete.value = false;
   const gioHangsanpham = datas.value.find((s) => s.idSanPham == idDelete.value);
-  console.log(gioHangsanpham.id);
+  console.log(idDelete.value);
+  console.log(gioHangsanpham);
   deleteGioHang(gioHangsanpham.id)
     .then((res) => {
       console.log(res.data);
+      useCart.getGioHang()
       getSanPhamByNguoiMua()
         .then((res) => (products.value = res?.data?.data))
         .catch(() => {});
@@ -677,6 +795,36 @@ const handleDelete = () => {
     })
     .catch(() => {});
 };
+const handleShowModalAddress = () => {
+  isShowModalAddress.value = true;
+  isShowModalOpacity.value = true;
+}
+const isFormValid = computed(() => {
+  return selectedOption1.value && selectedOption2.value && selectedOption3.value && addressText.value && nameText.value && phoneText.value
+})
+// Xử lý submit form 
+const handleSubmitFormAddress = () => {
+  const vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+  if(vnf_regex.test(phoneText.value) == false){
+    toast.error("Số điện thoại không đúng định dạng, vui lòng nhập lại");
+    return;
+  }
+  else{
+    const bodyForm = {
+    Tinh : selectedOption1.value,
+    Quan :selectedOption2.value,
+    Phuong :selectedOption3.value,
+    SoNha: addressText.value,
+    Ten :nameText.value,
+    SoDienThoai : phoneText.value
+    
+  }
+  console.log(bodyForm);
+  isShowModalAddress.value = false;
+  isShowModalOpacity.value = false;
+  toast.success('Cập nhật địa chỉ thành công')
+  }
+}
 </script>
 <style lang="css">
 input[type="number"]::-webkit-inner-spin-button,

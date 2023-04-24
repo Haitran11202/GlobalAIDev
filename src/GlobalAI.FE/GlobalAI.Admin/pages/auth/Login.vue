@@ -78,7 +78,7 @@
 
               <div>
                 <button
-                type="submit"
+                  type="submit"
                   class="w-full flex justify-center bg-green-400 hover:bg-green-500 text-gray-100 p-3 rounded-full tracking-wide font-semibold shadow-lg cursor-pointer transition ease-in duration-500"
                 >
                   Đăng nhập
@@ -125,6 +125,7 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 import { useUserStorage } from "~~/stores/user";
 import { useApiLogin } from "~~/composables/useApiAuth";
+import { toast } from "vue3-toastify";
 
 definePageMeta({
   layout: "",
@@ -136,6 +137,7 @@ const router = useRouter();
 // const apiUser = useApiUser();
 // const { apiLogin } = useApiAuth();
 // const { apiLogin } = useApiAuth();
+const { login } = useUserStorage();
 
 const loginBody = yup.object({
   username: yup.string().required("Tên đăng nhập không được bỏ trống").trim(),

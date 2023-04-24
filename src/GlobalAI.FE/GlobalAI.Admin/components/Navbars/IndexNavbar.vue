@@ -21,7 +21,7 @@
           type="button"
           @click="setNavbarOpen"
         >
-          <FontAwesomeIcon icon="fa fa-bars" />
+          <i class="fas fa-bars"></i>
         </button>
       </div>
       <div
@@ -91,7 +91,6 @@
 import IndexDropdown from "../Dropdowns/IndexDropdown.vue";
 import UserSvg from "../../assets/svg/user.svg";
 import { ref } from "vue";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 let navbarOpen = ref(false);
 

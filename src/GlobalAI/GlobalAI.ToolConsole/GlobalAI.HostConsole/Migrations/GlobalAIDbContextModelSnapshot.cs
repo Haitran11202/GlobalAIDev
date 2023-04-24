@@ -22,6 +22,175 @@ namespace GlobalAI.HostConsole.Migrations
 
             OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("GlobalAI.CoreEntities.DataEntities.CoreRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("ID");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .HasMaxLength(25)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("CODE");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("CREATED_DATE");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("NUMBER(1)")
+                        .HasColumnName("DELETED");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("DELETED_BY");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("DELETED_DATE");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("DESCRIPTION");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("MODIFIED_BY");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("MODIFIED_DATE");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(100)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("NAME");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("C_ROLE", t =>
+                        {
+                            t.HasComment("Bảng role");
+                        });
+                });
+
+            modelBuilder.Entity("GlobalAI.CoreEntities.DataEntities.CoreRolePermisison", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("ID");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("CREATED_DATE");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("NUMBER(1)")
+                        .HasColumnName("DELETED");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("DELETED_BY");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("DELETED_DATE");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("MODIFIED_BY");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("MODIFIED_DATE");
+
+                    b.Property<string>("PermissionKey")
+                        .HasColumnType("NVARCHAR2(2000)")
+                        .HasColumnName("PERMISSION_KEY");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("ROLE_ID");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("C_ROLE_PERMISSION");
+                });
+
+            modelBuilder.Entity("GlobalAI.CoreEntities.DataEntities.CoreUserRole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("ID");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("CREATED_BY");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("CREATED_DATE");
+
+                    b.Property<bool>("Deleted")
+                        .HasColumnType("NUMBER(1)")
+                        .HasColumnName("DELETED");
+
+                    b.Property<string>("DeletedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("DELETED_BY");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("DELETED_DATE");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(50)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("MODIFIED_BY");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("DATE")
+                        .HasColumnName("MODIFIED_DATE");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("ROLE_ID");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("NUMBER(10)")
+                        .HasColumnName("USER_ID");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("C_USER_ROLE");
+                });
+
             modelBuilder.Entity("GlobalAI.CoreEntities.DataEntities.User", b =>
                 {
                     b.Property<int>("UserId")
@@ -59,7 +228,6 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnName("DISPLAY_NAME");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("EMAIL");
@@ -69,7 +237,6 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnName("FAIL_ATTEMP");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("FIRST_NAME");
@@ -95,7 +262,6 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnName("LAST_LOGIN");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("LAST_NAME");
@@ -110,13 +276,11 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnName("MODIFIED_DATE");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("PASSWORD");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("PHONE");
@@ -136,13 +300,11 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnName("STATUS");
 
                     b.Property<string>("UserType")
-                        .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("USER_TYPE");
 
                     b.Property<string>("Username")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("USERNAME");

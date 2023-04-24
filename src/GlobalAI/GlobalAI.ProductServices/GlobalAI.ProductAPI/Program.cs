@@ -110,26 +110,6 @@ services.AddSwaggerGen(option =>
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
     option.IncludeXmlComments(xmlPath);
 
-    // Set the comments path for the Swagger JSON and UI.**
-    //var xmlFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
-    //if (File.Exists(xmlFile))
-    //{
-    //    option.IncludeXmlComments(xmlFile);
-    //}
-    //var projectDependencies = Assembly.GetEntryAssembly().CustomAttributes
-    //    .SelectMany(c => c.ConstructorArguments.Select(ca => ca.Value?.ToString()))
-    //    .Where(o => o != null)
-    //    .ToList();
-    //foreach (var assembly in projectDependencies)
-    //{
-    //    var otherXml = Path.Combine(AppContext.BaseDirectory, $"{assembly}.xml");
-    //    if (File.Exists(otherXml))
-    //    {
-    //        option.IncludeXmlComments(otherXml);
-    //    }
-    //}
-    //option.CustomSchemaIds(x => x.FullName);
-
 });
 #endregion
 

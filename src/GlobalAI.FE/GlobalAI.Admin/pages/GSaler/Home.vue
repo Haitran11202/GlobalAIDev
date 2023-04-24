@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="m-h-[100vh] pb-[40px]">
     <div class="flex flex-wrap relative">
       <Advisement />
       <div>
@@ -26,7 +26,6 @@ import Sliderncc from "./Sliderncc.vue";
 import Advisement from "./Advisement.vue";
 import { DANH_MUC } from "~~/lib/danhMuc";
 import { ref } from "vue";
-import NumberInput from "~~/components/Input/NumberInput.vue";
 
 definePageMeta({
   layout: "layout-default",
@@ -36,7 +35,7 @@ const productsSeller = ref([]);
 let content = ref("");
 
 // Lấy tất cả sản phẩm theo danh mục
-watchEffect(() => {
+onMounted(() => {
   getSanPhamDanhMuc(DANH_MUC.DONG_HO)
     .then((res) => {
       products.value = res?.data?.data.items;
