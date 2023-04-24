@@ -35,6 +35,7 @@ namespace GlobalAI.Utils
         UserEmailDuplicated = 1002,
         UserPhoneDuplicated = 1003,
         UserLoginNotFound = 1004,
+        UserRoleNotFound = 1005,
 
         /// file
         FileExtensionNoAllow = 5001,

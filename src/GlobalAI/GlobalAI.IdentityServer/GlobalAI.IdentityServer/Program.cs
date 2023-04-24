@@ -11,7 +11,11 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", false, true)
+    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true, true)
+    .AddEnvironmentVariables();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -24,6 +28,8 @@ var services = builder.Services;
 RsaSecurityKey key;
 
 var path = Configuration.GetValue<string>("JwtKey");
+var accessTokenLifeTime = Configuration.GetValue<int>("Authorize:AccessTokenLifetime");
+var refreshTokenLifeTime = Configuration.GetValue<int>("Authorize:RefreshTokenLifetime");
 
 using (var stream = new FileStream(path, FileMode.Open, FileAccess.Read))
 using (var reader = new PemReader(stream))
@@ -65,7 +71,11 @@ services
             options.SetTokenEndpointUris("connect/token");
 
             // Enable the client credentials flow.
-            options.AllowPasswordFlow().AllowClientCredentialsFlow();
+            options.AllowPasswordFlow()
+                    .AllowRefreshTokenFlow()
+                    .SetAccessTokenLifetime(TimeSpan.FromMinutes(accessTokenLifeTime))
+                    .SetRefreshTokenLifetime(TimeSpan.FromDays(refreshTokenLifeTime));
+            ;
 
             // Accept anonymous clients (i.e clients that don't send a client_id).
             options.AcceptAnonymousClients();

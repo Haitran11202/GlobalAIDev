@@ -1,4 +1,5 @@
 ﻿using GlobalAI.CoreDomain.Interfaces;
+using GlobalAI.CoreEntities.DataEntities;
 using GlobalAI.IdentitiyServerEntities.Dto;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
@@ -9,6 +10,7 @@ using OpenIddict.Server.AspNetCore;
 using System.Collections.Immutable;
 using System.Security.Claims;
 using static OpenIddict.Abstractions.OpenIddictConstants;
+using Shared = GlobalAI.Utils.ConstantVariables.Shared;
 
 namespace GlobalAI.IdentityServer.Controllers
 {
@@ -47,24 +49,7 @@ namespace GlobalAI.IdentityServer.Controllers
                         roleType: Claims.Role
                     );
 
-                    // Add the claims that will be persisted in the tokens.
-                    identity.SetClaim(Claims.Username, user.Username)
-                            .SetClaim(Claims.Subject, user.Username)
-                            .SetAudiences(new string[] { "http://localhost:5002" })
-                            .SetClaim(Claims.Email, user.Email)
-                            .SetClaim(Claims.Name, $"{user.FirstName} {user.LastName}")
-                            .SetClaims(Claims.Role, (new List<string> { user.UserType }).ToImmutableArray());
-
-                    // Set the list of scopes granted to the client application.
-                    identity.SetScopes(new[]
-                    {
-                        Scopes.OpenId,
-                        Scopes.Email,
-                        Scopes.Profile,
-                        Scopes.Roles
-                    }.Intersect(request.GetScopes()));
-
-                    identity.SetDestinations(GetDestinations);
+                    AddClaim(identity, request, user);
 
                     return SignIn(new ClaimsPrincipal(identity), OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
                 }
@@ -74,7 +59,27 @@ namespace GlobalAI.IdentityServer.Controllers
                 }
                 
             }
+            else if (request.IsRefreshTokenGrantType())
+            {
+                // Retrieve the claims principal stored in the refresh token.
+                var result = await HttpContext.AuthenticateAsync(OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+                var user = _userServices.FindByUsername(result.Principal.GetClaim(Claims.Username));
 
+                if (user != null)
+                {
+                    // Create the claims-based identity that will be used by OpenIddict to generate tokens.
+                    var identity = new ClaimsIdentity(
+                        result.Principal.Claims,
+                        authenticationType: TokenValidationParameters.DefaultAuthenticationType,
+                        nameType: Claims.Name,
+                        roleType: Claims.Role
+                    );
+
+                    AddClaim(identity, request, user);
+
+                    return SignIn(new ClaimsPrincipal(identity), OpenIddictServerAspNetCoreDefaults.AuthenticationScheme);
+                }
+            }
             throw new NotImplementedException("The specified grant type is not implemented.");
         }
 
@@ -117,6 +122,31 @@ namespace GlobalAI.IdentityServer.Controllers
                     yield return Destinations.AccessToken;
                     yield break;
             }
+        }
+
+        private void AddClaim(ClaimsIdentity identity, OpenIddictRequest request, User user)
+        {
+            // Add the claims that will be persisted in the tokens.
+            identity.SetClaim(Claims.Username, user.Username)
+                    .SetClaim(Claims.Subject, user.Username)
+                    .SetAudiences(new string[] { "http://localhost:5002", "http://localhost:5004" })
+            .SetClaim(Claims.Email, user.Email)
+            .SetClaim(Claims.Name, $"{user.FirstName} {user.LastName}")
+                    .SetClaims(Claims.Role, (new List<string> { user.UserType }).ToImmutableArray())
+                    .SetClaim(Shared.ClaimTypes.UserId, $"{user.UserId}")
+                    .SetClaims(Shared.ClaimTypes.UserType, (new List<string> { user.UserType }).ToImmutableArray());
+
+            // Set the list of scopes granted to the client application.
+            identity.SetScopes(new[]
+            {
+                Scopes.OpenId,
+                Scopes.Email,
+                Scopes.Profile,
+                Scopes.Roles,
+                Scopes.OfflineAccess,
+            }.Intersect(request.GetScopes()));
+
+            identity.SetDestinations(GetDestinations);
         }
     }
 }

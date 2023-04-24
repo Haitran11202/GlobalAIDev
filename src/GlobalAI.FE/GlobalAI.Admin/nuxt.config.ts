@@ -6,19 +6,31 @@ export default defineNuxtConfig({
         '@pinia/nuxt',
         '@pinia-plugin-persistedstate/nuxt',
     ],
+    target: 'static',
+    mode: 'universal',
     devServer: {
         port: 8001
     },
+    runtimeConfig: {
+        public: {
+            apiEndpoint: process.env.API_ENDPOINT,
+            authEndpoit: process.env.AUTH_ENDPOINT,
+            apiGrantType: process.env.API_GRANT_TYPE,
+            apiAuthScope: process.env.API_AUTH_SCOPE
+        }
+    },
     plugins: [
-        {
-            src: '~/plugins/fontawesome.client.js',
-            mode: 'client'
-        },
         // {
-        //     src: '~/plugins/vee-validate.js',
+        //     src: '~/plugins/fontawesome.client.js',
         //     mode: 'client'
         // },
+        // Thêm plugins signalr
+        {
+            src: '~/plugins/signalr.js',
+            mode: 'client' // nếu chỉ chạy trên client
+          }
     ],
+
     pinia: {
         autoImports: [
             // automatically imports `defineStore`

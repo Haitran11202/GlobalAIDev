@@ -8,7 +8,7 @@
           <div class="relative">
             <img
               alt="..."
-              :src="team2"
+              :src="lewy"
               class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
             />
           </div>
@@ -21,7 +21,7 @@
               >
                 22
               </span>
-              <span class="text-sm text-slate-400">Friends</span>
+              <span class="text-sm text-slate-400">Bạn bè</span>
             </div>
             <div class="mr-4 p-3 text-center">
               <span
@@ -29,7 +29,7 @@
               >
                 10
               </span>
-              <span class="text-sm text-slate-400">Photos</span>
+              <span class="text-sm text-slate-400">Ảnh</span>
             </div>
             <div class="lg:mr-4 p-3 text-center">
               <span
@@ -37,26 +37,24 @@
               >
                 89
               </span>
-              <span class="text-sm text-slate-400">Comments</span>
+              <span class="text-sm text-slate-400">Bình luận</span>
             </div>
           </div>
         </div>
       </div>
       <div class="text-center mt-12">
-        <h3
-          class="text-xl font-semibold leading-normal mb-2 text-slate-700"
-        >
-          Jenna Stones
+        <h3 class="text-xl font-semibold leading-normal mb-2 text-slate-700">
+          Robert Lewandowski
         </h3>
         <div
           class="text-sm leading-normal mt-0 mb-2 text-slate-400 font-bold uppercase"
         >
           <i class="fas fa-map-marker-alt mr-2 text-lg text-slate-400"></i>
-          Los Angeles, California
+          55 Giải Phóng, Hai Bà Trưng, Hà Nội
         </div>
         <div class="mb-2 text-slate-600 mt-10">
           <i class="fas fa-briefcase mr-2 text-lg text-slate-400"></i>
-          Solution Manager - Creative Tim Officer
+          Solution Manager -Global AI Officer
         </div>
         <div class="mb-2 text-slate-600">
           <i class="fas fa-university mr-2 text-lg text-slate-400"></i>
@@ -83,11 +81,13 @@
 </template>
 <script>
 import team2 from "../../assets/img/team-2-800x800.jpg";
+import lewy from "../../assets/img/lewy.png";
 
 export default {
   data() {
     return {
       team2,
+      lewy,
     };
   },
 };

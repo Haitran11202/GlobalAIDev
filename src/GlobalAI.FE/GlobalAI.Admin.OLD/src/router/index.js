@@ -20,7 +20,7 @@ const RegisterGSaler = defineAsyncComponent(() => import('/src/pages/auth/Regist
 const Landing = defineAsyncComponent(() => import('/src/pages/Landing.vue'));
 const Profile = defineAsyncComponent(() => import('/src/pages/Profile.vue'));
 const Layout404 = defineAsyncComponent(() => import('/src/layouts/Layout404.vue'));
-const Post = defineAsyncComponent(() => import('/src/pages/Post.vue'));
+const Post = defineAsyncComponent(() => import('/src/pages/Posts.vue'));
 
 // GSALER
 const GSalerHome = defineAsyncComponent(() => import('/src/pages/GSaler/Home.GSaler.vue'));
@@ -32,7 +32,9 @@ const ProductDetail = defineAsyncComponent(() => import('/src/pages/Product/Prod
 const ProductCategory = defineAsyncComponent(() => import('/src/pages/Product/ProductCategory.vue'));
 
 //CART
-const ManageCart = defineAsyncComponent(() => import('/src/pages/Cart/ManageCart.vue'));
+const ManageCart = defineAsyncComponent(() => import('/src/pages/Cart/ManageCart.vue'))
+
+const Form = defineAsyncComponent(() => import('/src/pages/admin/Form.vue'));
 
 // INDEX
 const Index = defineAsyncComponent(() => import('/src/pages/Index.vue'));
@@ -41,6 +43,7 @@ const PostDetail = defineAsyncComponent(() => import('/src/pages/Post/PostDetail
 
 //ADMIN
 const Dashboard = defineAsyncComponent(() => import('/src/pages/admin/Dashboard.vue'));
+
 
 const routes = [
     // {
@@ -103,7 +106,16 @@ const routes = [
         },
     },
     {
-        path: "/gsaler/cart",
+        path: '/admin/form/:id',
+        name: 'Form',
+        component: Form,
+        meta: {
+            layout: Admin,
+            requiredLogin: false,
+        },
+    },
+    {
+        path: "/card/manageCart/:id",
         name: 'ManageCart',
         component: ManageCart,
         meta: {
@@ -130,6 +142,42 @@ const routes = [
         },
     },
     {
+        path: "/post/postDetail/:id",
+        name: 'PostDetail',
+        component: PostDetail,
+        meta: {
+            layout: Admin,
+            requiredLogin: false,
+        },
+    },
+    {
+        path: "/post/",
+        name: 'Post',
+        component: PostDetail,
+        meta: {
+            layout: Admin,
+            requiredLogin: false,
+        },
+    },
+    {
+        path: "/gstore/profile/:id",
+        name: 'GstoreProfile',
+        component: GstoreProfile,
+        meta: {
+            layout: Admin,
+            requiredLogin: false,
+        },
+    },
+    {
+        path: "/post/Posts",
+        name: 'Post',
+        component: Post,
+        meta: {
+            layout: Admin,
+            requiredLogin: false,
+        },
+    },
+    {
         path: "/gstore/profile/:id",
         name: 'GstoreProfile',
         component: GstoreProfile,
@@ -147,17 +195,10 @@ const routes = [
         path: "/dashboard",
         component: Dashboard,
     },
-    {
-        path: "/post",
-        component: PostDetail,
-    },
+    
     {
         path: "/profile",
         component: Profile,
-    },
-    {
-        path: "/post",
-        component: Post,
     },
     { path: '/:pathMatch(.*)*', component: Layout404 },
 ];

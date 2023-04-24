@@ -1,14 +1,14 @@
 <template>
   <div>
     <a
-      class="text-slate-500 block"
+      class="text-blueGray-500 block"
       href="#pablo"
       ref="btnDropdownRef"
       v-on:click="toggleDropdown($event)"
     >
       <div class="items-center flex">
         <span
-          class="w-12 h-12 text-sm text-white bg-slate-200 inline-flex items-center justify-center rounded-full"
+          class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
         >
           <img
             alt="..."
@@ -18,39 +18,29 @@
         </span>
       </div>
     </a>
-    <div
-      ref="popoverDropdownRef"
-      class="bg-white text-base z-50 float-left py-2 list-none text-left rounded shadow-lg min-w-48"
-      v-bind:class="{
-        hidden: !dropdownPopoverShow,
-        block: dropdownPopoverShow,
-      }"
-    >
-      <a
-        href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
+    <div>
+      <div
+        ref="popoverDropdownRef"
+        class="bg-white text-base z-50 float-left list-none text-left border rounded shadow-lg min-w-48"
+        v-bind:class="{
+          hidden: !dropdownPopoverShow,
+          block: dropdownPopoverShow,
+        }"
       >
-        Action
-      </a>
-      <a
-        href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
-      >
-        Another action
-      </a>
-      <a
-        href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
-      >
-        Something else here
-      </a>
-      <div class="h-0 my-2 border border-solid border-slate-100" />
-      <a
-        href="javascript:void(0);"
-        class="text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
-      >
-        Seprated link
-      </a>
+        <span
+          @click="router.push('/gsaler/profile')"
+          class="text-sm font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
+        >
+          Hồ sơ
+        </span>
+        <hr />
+        <span
+          @click="handleLogout"
+          class="text-sm font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
+        >
+          Đăng xuất
+        </span>
+      </div>
     </div>
   </div>
 </template>
@@ -58,7 +48,7 @@
 <script>
 import { createPopper } from "@popperjs/core";
 
-import image from "../../assets/img/team-1-800x800.jpg";
+import image from "@/assets/img/team-1-800x800.jpg";
 
 export default {
   data() {
@@ -80,5 +70,18 @@ export default {
       }
     },
   },
+};
+</script>
+
+<script setup>
+import { useUserStorage } from "~~/stores/user";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const { $toast } = useNuxtApp();
+const { logout } = useUserStorage();
+const handleLogout = () => {
+  logout();
+  $toast.success("Đăng xuất thành công");
+  router.push("/auth/login");
 };
 </script>

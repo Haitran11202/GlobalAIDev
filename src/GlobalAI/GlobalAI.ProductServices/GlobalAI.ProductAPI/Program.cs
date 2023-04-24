@@ -1,21 +1,28 @@
 using GlobalAI.DataAccess.Base;
-using GlobalAI.DemoDomain.Implements;
-using GlobalAI.DemoDomain.Interfaces;
+using GlobalAI.ProductDomain.Implements;
+using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.Entites;
-using GlobalAI.Utils.ConstantVariables.Shared;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 //using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OpenIddict.Validation.AspNetCore;
-using PemUtils;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Reflection;
-using ThirdParty.BouncyCastle.OpenSsl;
 using PemReader = PemUtils.PemReader;
+using AutoMapper;
+using GlobalAI.ProductEntities.DataEntities.Mapper;
+// using Microsoft.Owin;
+// using Owin;
+using GlobalAI.ProductAPI.HubFolder;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", false, true)
+    .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true, true)
+    .AddEnvironmentVariables();
 var Configuration = builder.Configuration;
 var services = builder.Services;
 
@@ -53,7 +60,7 @@ builder.Services.AddOpenIddict()
         // Note: the validation handler uses OpenID Connect discovery
         // to retrieve the address of the introspection endpoint.
         options.SetIssuer("http://localhost:5001/");
-        options.AddAudiences("http://localhost:5002");
+        options.AddAudiences("http://localhost:5004");
         options.AddEncryptionKey(key);
 
         // Register the System.Net.Http integration.
@@ -98,33 +105,37 @@ services.AddSwaggerGen(option =>
                     }
                 });
 
-    // Set the comments path for the Swagger JSON and UI.**
-    var xmlFile = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
-    if (File.Exists(xmlFile))
-    {
-        option.IncludeXmlComments(xmlFile);
-    }
-    var projectDependencies = Assembly.GetEntryAssembly().CustomAttributes
-        .SelectMany(c => c.ConstructorArguments.Select(ca => ca.Value?.ToString()))
-        .Where(o => o != null)
-        .ToList();
-    foreach (var assembly in projectDependencies)
-    {
-        var otherXml = Path.Combine(AppContext.BaseDirectory, $"{assembly}.xml");
-        if (File.Exists(otherXml))
-        {
-            option.IncludeXmlComments(otherXml);
-        }
-    }
-    option.CustomSchemaIds(x => x.FullName);
+    // Set the comments path for the Swagger JSON and UI.
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    option.IncludeXmlComments(xmlPath);
 
 });
 #endregion
 
 #region Add services
-services.AddScoped<IDemoProductServices, DemoProductServices>();
+services.AddScoped<ISanPhamServices, SanPhamServices>();
+services.AddScoped<IDonHangServices, DonHangServices>();
+services.AddScoped<IChiTietDonHangServices, ChiTietDonHangServices>();
+services.AddScoped<ITraGiaServices, TraGiaServices>();
+services.AddScoped<IGioHangServices, GioHangServices>();
+services.AddScoped<IBaiTinServices, BaiTinServices>();
+services.AddScoped<IDanhMucBaiTinServices, DanhMucBaiTinServices>();
 #endregion
-
+#region Add Auto Mapper
+services.AddAutoMapper(typeof(MappingProfile));
+#endregion
+#region Add SignalR v� CORS policy
+services.AddCors(options => options.AddPolicy("Cors", builder =>
+{
+    builder
+      .AllowAnyMethod()
+      .AllowAnyHeader()
+      .AllowCredentials()
+      .WithOrigins("http://localhost:5003"); 
+}));
+services.AddSignalR();
+#endregion
 services.AddHttpContextAccessor();
 services.AddAuthorization();
 
@@ -140,9 +151,6 @@ if (!builder.Environment.IsProduction())
         options.DocExpansion(DocExpansion.None);
     });
 }
-
-
-
 // Configure the HTTP request pipeline.
 app.UseRouting();
 
@@ -152,3 +160,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.Run();
+
+app.UseCors("Cors");
+app.UseEndpoints(endpoints => {
+    endpoints.MapHub<ChatHub>("/chatHub");
+});

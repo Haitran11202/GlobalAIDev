@@ -135,7 +135,14 @@ namespace GlobalAI.Utils
         public const string TEMP = "T";
         public const string LOCKED = "L";
     }
-    
+
+    public static class DeletedBool
+    {
+        public const bool YES = true;
+        public const bool NO = false;
+  
+    }
+
     public static class YesNo
     {
         public const string YES = "Y";

@@ -34,6 +34,7 @@ module.exports = {
 				'login': "url('assets/login-form-background.png')",
 				'footer': "url('assets/footer-background.png')",
 				'list-dichvu': "url('assets/bg/service-background.png')",
+				'user' : "url('assets/user.svg)"
 			},
 			fontSize: {
 				'32px': '32px',
@@ -113,6 +114,6 @@ module.exports = {
 		logs: true,
 		rtl: false,
 		prefix: "",
-		darkTheme: "dark",
+		// darkTheme: "dark",
 	  },
 };
