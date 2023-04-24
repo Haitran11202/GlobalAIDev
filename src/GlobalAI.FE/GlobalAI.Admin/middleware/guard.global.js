@@ -1,29 +1,44 @@
+import { PERMISSIONS_ROUTE_CONFIG } from "~~/lib/permissions";
+import { NOT_REQUIRED_LOGIN, ROUTES } from "~~/lib/routeConfig";
 import { useUserStorage } from "~~/stores/user";
 
-const PATH_LOGIN = "/auth/login";
-const PATH_HOME = "/gsaler/home";
+export default defineNuxtRouteMiddleware(async (to, from) => {
+    if (process.server) return;
 
-const NOT_REQUIRED_LOGIN = [
-  "/",
-  "/landing",
-  "/auth/login",
-  "/auth/register",
-  "/auth/registermaster",
-  "/auth/registergsaler",
-];
+    const userStorage = useUserStorage();
+    const { $toast } = useNuxtApp();
 
-export default defineNuxtRouteMiddleware((to, from) => {
-  if (process.server) return;
+    if (!userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(to.fullPath)) {
+        $toast.warn("Vui lòng đăng nhập tài khoản và mật khẩu");
+        return navigateTo(ROUTES.LOGIN);
+    } else if (userStorage.isLoggedIn && to.fullPath === ROUTES.LOGIN) {
+        return navigateTo(ROUTES.HOME);
+    } else if (userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(to.fullPath)) {
+        let allowNavigate = false;
 
-  const userStorage = useUserStorage();
-  const { $toast } = useNuxtApp();
+        if (!PERMISSIONS_ROUTE_CONFIG[to.path]) {
+            allowNavigate = false;
+        } else {
+            const userPermission = userStorage.permissions;
+            const permissionRoute = PERMISSIONS_ROUTE_CONFIG[to.path];
+            
+            if (userPermission && Array.isArray(userPermission)) {
+                let count = 0;
+                permissionRoute.forEach(per => {
+                    if (userPermission.includes(per)) {
+                        count++;
+                    }
+                });
 
-  if (!userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(to.fullPath)) {
-    $toast.warn("Vui lòng đăng nhập tài khoản và mật khẩu");
-    return navigateTo(PATH_LOGIN);
-  }
+                allowNavigate = count === permissionRoute.length;
+            }
 
-  if (userStorage.isLoggedIn && to.fullPath === PATH_LOGIN) {
-    return navigateTo(PATH_HOME);
-  }
+        }
+
+        if (!allowNavigate) {
+            $toast.warn("Bạn không có quyền truy cập trang này");
+            return navigateTo(ROUTES.ERROR_FORBIDDEN);
+        }
+    }
+
 });
