@@ -9,12 +9,9 @@
       </div>
       <a href="/gsaler/home" class="text-[18px] text-[#cc3366]">Trở lại</a>
     </div>
+
     <div class="flex w-full gap-[30px] lg:flex-row flex-col">
       <div class="lg:w-[65%] mt-[20px] rounded-md overflow-hidden">
-        <div class="flex gap-[20px] items-center px-[20px] py-[10px] bg-white">
-          <input type="checkbox" v-model="checkAll" @change="checkAllGioHang" />
-          <span>Chọn tất cả</span>
-        </div>
         <div
           class="mt-[20px] py-[15px] px-[20px] w-full flex flex-col rounded-md overflow-y-auto bg-white"
         >
@@ -24,8 +21,14 @@
               <div
                 class="flex flex-col mt-[20px] w-[102px] h-[102px] items-center justify-center"
               >
-                <img class="mt-1 rounded-md object-cover" alt="" />
-                <span class="mt-[10px] text-[16px] text-[#6c757d]">SL : </span>
+                <img
+                  :src="getImageUrl(product.thumbnail)"
+                  class="mt-1 rounded-md object-cover"
+                  alt="Hình Ảnh"
+                />
+                <span class="mt-[10px] text-[16px] text-[#6c757d]"
+                  >SL : {{ giohang.soLuong }}
+                </span>
               </div>
             </div>
             <div class="ml-[18px] flex flex-col w-full gap-[3px]">
@@ -33,6 +36,7 @@
               <span class="text-[14px] text-[#6C757D]">Phân loại : Trắng</span>
               <span class="text-left text-[#cc3366] text-[16px] font-[400]"
                 >Tổng giá :
+                {{ formatMoneyAll(product.giaBan * giohang.soLuong) }}
               </span>
               <div class="flex justify-between items-center">
                 <p
@@ -203,6 +207,7 @@
 <script setup>
 import { getGioHangByIdSanPham } from "~/composables/useApiProduct";
 import { useRouter } from "vue-router";
+import vueNumberFormat from "~~/plugins/vue-number-format";
 definePageMeta({
   layout: "layout-default",
   name: "ProductCart",
@@ -249,13 +254,17 @@ onMounted(() => {
     .then((res) => {
       console.log(res.data.data);
       giohang.value = res?.data?.data;
-      getSanPhamById(idSanPham)
-      .then(res => {
-        console.log(res)
-      } )
+      getSanPhamById(idSanPham).then((res) => {
+        product.value = res?.data?.data;
+      });
     })
     .catch(() => {});
 });
+
+const formatMoneyAll = (money) => {
+  money = Number(money);
+  return money.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+};
 </script>
 <style lang="css">
 input[type="number"]::-webkit-inner-spin-button,
