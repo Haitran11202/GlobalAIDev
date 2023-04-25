@@ -1,6 +1,7 @@
 // const config = useRuntimeConfig();
 // const baseUrl = config.public.apiEndpoint;
 export const API_ENDPOINT = {
+
     login: "connect/token",
     refreshToken: "connect/token",
     userRegister: "api/core/user/register",
