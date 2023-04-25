@@ -101,7 +101,7 @@
             <div
               v-for="baitin in datas"
               class="flex flex-col items-start col-span-12 space-y-3 sm:col-span-6 xl:col-span-4"
-              @click="handleClick(baitin.id)"
+              @click="handleClick(baitin.slug)"
             >
               <img
                 src="https://images.unsplash.com/photo-1626318305863-bb23d0297c0b?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=60"
@@ -228,9 +228,9 @@ onMounted(() => {
     })
     .catch(() => {});
 });
-const handleClick = (id) => {
+const handleClick = (slug) => {
   console.log("click");
 
-  router.push({ name: "PostDetail", params: { id: id } });
+  router.push({ name: "PostDetail", params: { slug: slug } });
 };
 </script>

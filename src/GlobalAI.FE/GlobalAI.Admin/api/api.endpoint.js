@@ -11,6 +11,9 @@ export const API_ENDPOINT = {
   getFullSanPham: (id) =>
     `api/product/sanpham/danh-muc/${id}?pageSize=10000000&pageNumber=1&Skip=0`,
   getGioHang: "api/product/giohang",
+
+  getGioHangByIdSanPham: (id) => `api/product/giohang/giohangByIdSanPham/${id}`,
+
   getSanPhamById: (id) => `api/product/sanpham/${id}`,
   getSanPhamByNguoiMua: "api/product/giohang/sanpham-giohang",
   createGioHangbyIdSanPham: "api/product/giohang",
@@ -28,7 +31,7 @@ export const API_ENDPOINT = {
   putProduct: (id) => `api/product/sanpham/${id}`,
 
   //Image
-  postImages: "api/file/upload?folder=image",
+  postImages: "api/filFe/upload?folder=image",
 
   // Quản lý đơn hàng
   getAllOrder: (pageSize, pageNumber, skip) =>
@@ -43,8 +46,7 @@ export const API_ENDPOINT = {
   getOrderById: (id) => `api/product/donhang/${id}`,
   // Api Bài đăng
   getPostById: (id) => `/api/product/bai-tin/${id}`,
-  getSanBaiTinPhanTrang: (slug) =>
-    `/api/product/bai-tin/find-all?slug=${slug}&pageSize=11&pageNumber=1`,
+  getBaiTinBySlug: (slug) => `/api/product/bai-tin/find/slug/${slug}`,
   getBaiTinPhanTrang: () =>
     `/api/product/bai-tin/find-all?pageSize=11&pageNumber=1`,
 };
