@@ -47,6 +47,9 @@ namespace GlobalAI.Utils.RolePermissions
             {
                 Permissions.ProductGsalerSliderNcc, new PermissionContent(){ Description = "Trang slider ncc" }
             },
+            {
+                Permissions.ProductProfile, new PermissionContent(){ Description = "Trang profile" }
+            },
             #endregion
 
         };

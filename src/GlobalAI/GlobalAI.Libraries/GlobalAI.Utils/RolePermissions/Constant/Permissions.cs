@@ -32,7 +32,12 @@ namespace GlobalAI.Utils.RolePermissions.Constant
         public const string ProductGsalerProfile = ProductModule + Page + "gsaler_profile";
         public const string ProductGsalerSliderNcc = ProductModule + Page + "gsaler_sliderncc";
         public const string ProductManageCart = ProductModule + Page + "manage_cart";
+        public const string ProductProfile = ProductModule + Page + "profile";
         #endregion
 
+        #region product
+        private const string CoreModule = "core.";
+        public const string CoreAdminUser = ProductModule + Page + "user";
+        #endregion
     }
 }

@@ -8,37 +8,42 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     const userStorage = useUserStorage();
     const { $toast } = useNuxtApp();
 
-    if (!userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(to.fullPath)) {
-        $toast.warn("Vui lòng đăng nhập tài khoản và mật khẩu");
-        return navigateTo(ROUTES.LOGIN);
-    } else if (userStorage.isLoggedIn && to.fullPath === ROUTES.LOGIN) {
-        return navigateTo(ROUTES.HOME);
-    } else if (userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(to.fullPath)) {
-        let allowNavigate = false;
+    console.log('hihi => ', to);
+    const matchedPath = to.matched[0]?.path?.toLowerCase();
 
-        if (!PERMISSIONS_ROUTE_CONFIG[to.path]) {
-            allowNavigate = false;
-        } else {
-            const userPermission = userStorage.permissions;
-            const permissionRoute = PERMISSIONS_ROUTE_CONFIG[to.path];
-            
-            if (userPermission && Array.isArray(userPermission)) {
-                let count = 0;
-                permissionRoute.forEach(per => {
-                    if (userPermission.includes(per)) {
-                        count++;
-                    }
-                });
-
-                allowNavigate = count === permissionRoute.length;
+    if (matchedPath) {
+        if (!userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(matchedPath)) {
+            $toast.warn("Vui lòng đăng nhập tài khoản và mật khẩu");
+            return navigateTo(ROUTES.LOGIN);
+        } else if (userStorage.isLoggedIn && matchedPath === ROUTES.LOGIN) {
+            return navigateTo(ROUTES.HOME);
+        } else if (userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(matchedPath)) {
+            let allowNavigate = false;
+    
+            if (!PERMISSIONS_ROUTE_CONFIG[matchedPath]) {
+                allowNavigate = false;
+            } else {
+                const userPermission = userStorage.permissions;
+                const permissionRoute = PERMISSIONS_ROUTE_CONFIG[matchedPath];
+                
+                if (userPermission && Array.isArray(userPermission)) {
+                    let count = 0;
+                    permissionRoute.forEach(per => {
+                        if (userPermission.includes(per)) {
+                            count++;
+                        }
+                    });
+    
+                    allowNavigate = count === permissionRoute.length;
+                }
+    
             }
-
-        }
-
-        if (!allowNavigate) {
-            $toast.warn("Bạn không có quyền truy cập trang này");
-            return navigateTo(ROUTES.ERROR_FORBIDDEN);
-        }
+    
+            if (!allowNavigate) {
+                $toast.warn("Bạn không có quyền truy cập trang này");
+                return navigateTo(ROUTES.ERROR_FORBIDDEN);
+            }
+        }   
     }
 
 });

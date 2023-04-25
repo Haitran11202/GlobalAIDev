@@ -26,6 +26,7 @@ export const PERMISSIONS = {
     PRODUCT_GSALER_ADVISEMENT: `${productModule}${page}gsaler_advisement`,
     PRODUCT_GSALER_PROFILE: `${productModule}${page}gsaler_profile`,
     PRODUCT_GSALER_SLIDERNCC: `${productModule}${page}gsaler_sliderncc`,
+    PRODUCT_PROFILE: `${productModule}${page}profile`,
 };
 
 /**
@@ -45,4 +46,5 @@ export const PERMISSIONS_ROUTE_CONFIG = {
     [ROUTES.GSALER_PROFILE]: [PERMISSIONS.PRODUCT_GSALER_PROFILE],
     [ROUTES.GSALER_SLIDER_NCC]: [PERMISSIONS.GSALER_SLIDER_NCC],
     [ROUTES.MANAGE_CART]: [PERMISSIONS.PRODUCT_MANAGE_CART],
+    [ROUTES.PROFILE]: [PERMISSIONS.PRODUCT_PROFILE],
 };
