@@ -93,5 +93,11 @@ namespace GlobalAI.ProductDomain.Implements
             var sanPhams = _repositoryGioHang.GetSanPhamByNguoiMua(userId);
             return sanPhams;
         }
+        public GetGioHangDto GetGioHangTheoIdSanPham(int idSanPham)
+        {
+            
+            var sanPhams = _repositoryGioHang.GetGioHangByIdSanPham(idSanPham);
+            return sanPhams;
+        }
     }
 }

@@ -16,5 +16,6 @@ namespace GlobalAI.ProductDomain.Interfaces
         public GioHang EditGiohang(int idGioHang, EditGioHangDto newGioHang);
         public GioHang DeleteGiohang(int idGioHang);
         public List<GetSanPhamDto> getSanPhamTheoNguoiMua();
+        public GetGioHangDto GetGioHangTheoIdSanPham(int idSanPham);
     }
 }

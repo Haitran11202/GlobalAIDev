@@ -204,9 +204,9 @@ export const getPostById = async (id) => {
   }
 };
 
-export const getSanBaiTinPhanTrang = async (slug) => {
+export const getBaiTinByLSlug = async (slug) => {
   try {
-    const res = await http.get(API_ENDPOINT.getSanBaiTinPhanTrang(slug));
+    const res = await http.get(API_ENDPOINT.getBaiTinBySlug(slug));
     return Promise.resolve(res);
   } catch (err) {
     return Promise.reject(err);
@@ -216,6 +216,14 @@ export const getSanBaiTinPhanTrang = async (slug) => {
 export const getBaiTinPhanTrang = async () => {
   try {
     const res = await http.get(API_ENDPOINT.getBaiTinPhanTrang());
+    return Promise.resolve(res);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+export const getGioHangByIdSanPham = async (id) => {
+  try {
+    const res = await http.get(API_ENDPOINT.getGioHangByIdSanPham(id));
     return Promise.resolve(res);
   } catch (err) {
     return Promise.reject(err);
