@@ -1,7 +1,24 @@
 <template>
   <div>
     <div class="overflow-x-auto relative w-full">
-      <table class="table w-full">
+      <div class="mb-0 rounded-md px-4 py-3 bg-[#fff] border-0">
+        <div class="flex flex-wrap items-center">
+          <div
+            class="relative w-full px-4 max-w-full flex justify-between items-center"
+          >
+            <h3 class="font-semibold text-lg text-slate-800 uppercase">
+              Danh sách sản phẩm
+            </h3>
+            <button
+              @click="this.$router.push('/admin/product/addproduct')"
+              class="btn btn-outline"
+            >
+              Thêm sản phẩm
+            </button>
+          </div>
+        </div>
+      </div>
+      <table class="table w-full mt-2">
         <!-- head -->
         <thead>
           <tr>
@@ -24,7 +41,7 @@
         </thead>
         <tbody>
           <tr
-            class="text-sm hover:bg-gray-100"
+            class="text-sm"
             v-for="product in products"
             :key="product.id"
           >
@@ -144,14 +161,6 @@
           </tr>
         </tbody>
       </table>
-    </div>
-    <div class="float-right mt-2">
-      <button
-        @click="this.$router.push('/admin/product/addproduct')"
-        class="btn btn-outline"
-      >
-        Thêm sản phẩm
-      </button>
     </div>
     <div class="btn-group flex justify-center mt-2">
       <button @click="previousPage" class="btn">«</button>

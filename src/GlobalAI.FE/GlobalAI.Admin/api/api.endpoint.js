@@ -47,6 +47,9 @@ export const API_ENDPOINT = {
   // Api Bài đăng
   getPostById: (id) => `/api/product/bai-tin/${id}`,
   getBaiTinBySlug: (slug) => `/api/product/bai-tin/find/slug/${slug}`,
-  getBaiTinPhanTrang: () =>
-    `/api/product/bai-tin/find-all?pageSize=11&pageNumber=1`,
+  getBaiTinPhanTrang: (pageSize, pageNumber) =>
+    `/api/product/bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}`,
+
+  getAllPostPhanTrang: (pageSize, pageNumber, skip) =>
+    `http://localhost:5003/api/product/bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
 };

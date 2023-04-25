@@ -3,12 +3,13 @@ using GlobalAI.ProductEntities.Dto.GioHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/product/giohang")]
     [ApiController]
     public class GioHangController : BaseController

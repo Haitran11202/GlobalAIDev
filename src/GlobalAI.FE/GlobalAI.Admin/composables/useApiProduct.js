@@ -49,7 +49,7 @@ export const getFullSanPham = async (id) => {
 export const getGioHang = async () => {
   const res = await http.get(API_ENDPOINT.getGioHang);
   try {
-    return Promise.resolve(res);
+    return Promise.resolve(res.data);
   } catch (err) {
     return Promise.reject(err);
   }
