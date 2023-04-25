@@ -12,8 +12,9 @@ namespace GlobalAI.ProductDomain.Interfaces
     public interface IVoucherServices
     {
         Voucher Add(CreateVoucherDto input);
-        //void Delete(int id);
-        //PagingResult<DanhMucBaiTinDto> FindAll(FilterDanhMucBaiTinDto input);
-        //DanhMucBaiTinDto GetById(int id);
+        void Delete(int id);
+        PagingResult<VoucherDto> FindAll(FilterVoucherDto input);
+        VoucherDto GetById(int id);
+        void Update(UpdateVoucherDto input);
     }
 }

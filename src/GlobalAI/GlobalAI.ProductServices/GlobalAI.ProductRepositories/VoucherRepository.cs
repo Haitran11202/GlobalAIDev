@@ -70,5 +70,18 @@ namespace GlobalAI.ProductRepositories
             return result;
         }
 
+        public void Update(Voucher input)
+        {
+            var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
+            bargainQuery.ModifiedDate = DateTime.Now;
+            bargainQuery.Name = input.Name;
+            bargainQuery.ModifiedBy = input.ModifiedBy;
+            bargainQuery.Avatar = input.Avatar;
+            bargainQuery.GiaTri = input.GiaTri;
+            bargainQuery.SoLuong = input.SoLuong;
+            bargainQuery.NgayHetHan = input.NgayHetHan;
+            bargainQuery.Status = input.Status;
+        }
+
     }
 }

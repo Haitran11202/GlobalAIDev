@@ -64,38 +64,49 @@ namespace GlobalAI.ProductDomain.Implements
 
 
 
-        //public void Delete(int id)
-        //{
-        //    var username = CommonUtils.GetCurrentUsername(_httpContext);
-        //    _voucherRepository.DeleteById(id, username);
-        //    _dbContext.SaveChanges();
-        //}
+        public void Delete(int id)
+        {
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+            _voucherRepository.DeleteById(id, username);
+            _dbContext.SaveChanges();
+        }
 
-        ///// <summary>
-        ///// Danh sach 
-        ///// </summary>
-        ///// <param name="input"></param>
-        ///// <returns></returns>
-        //public PagingResult<VoucherDto> FindAll(FilterVoucherDto input)
-        //{
-        //    int? userId = CommonUtils.GetCurrentUserId(_httpContext);
-        //    var usertype = CommonUtils.GetCurrentRole(_httpContext);
+        /// <summary>
+        /// Danh sach 
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public PagingResult<VoucherDto> FindAll(FilterVoucherDto input)
+        {
+            int? userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var usertype = CommonUtils.GetCurrentRole(_httpContext);
 
-        //    var result = new PagingResult<VoucherDto>();
-        //    var baiTinQuery = _voucherRepository.FindAll(input, userId);
+            var result = new PagingResult<VoucherDto>();
+            var baiTinQuery = _voucherRepository.FindAll(input, userId);
 
-        //    result.Items = _mapper.Map<List<VoucherDto>>(baiTinQuery.Items);
-        //    result.TotalItems = baiTinQuery.TotalItems;
+            result.Items = _mapper.Map<List<VoucherDto>>(baiTinQuery.Items);
+            result.TotalItems = baiTinQuery.TotalItems;
 
-        //    return result;
-        //}
+            return result;
+        }
 
-        //public VoucherDto GetById(int id)
-        //{
-        //    int? userId = CommonUtils.GetCurrentUserId(_httpContext);
-        //    var baiTin = _voucherRepository.FindById(id);
-        //    var result = _mapper.Map<VoucherDto>(baiTin);
-        //    return result;
-        //}
+        public VoucherDto GetById(int id)
+        {
+            int? userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var baiTin = _voucherRepository.FindById(id);
+            var result = _mapper.Map<VoucherDto>(baiTin);
+            return result;
+        }
+
+        public void Update(UpdateVoucherDto input)
+        {
+            var userType = CommonUtils.GetCurrentRole(_httpContext);
+            var userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+            var inputUpdate = _mapper.Map<Voucher>(input);
+            inputUpdate.ModifiedBy = username;
+            _voucherRepository.Update(inputUpdate);
+            _dbContext.SaveChanges();
+        }
     }
 }

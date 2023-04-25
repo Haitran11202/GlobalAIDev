@@ -49,7 +49,8 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<DanhMuc, CreateDanhMucDto>().ReverseMap();
             CreateMap<DanhMuc, DanhMucDto>().ReverseMap();
             CreateMap<Voucher, CreateVoucherDto>().ReverseMap();
-            //CreateMap<Voucher, VoucherDto>().ReverseMap();
+            CreateMap<Voucher, VoucherDto>().ReverseMap();
+            CreateMap<Voucher, UpdateVoucherDto>().ReverseMap();
         }
     }
 }
