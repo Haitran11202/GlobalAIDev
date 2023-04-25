@@ -1,68 +1,82 @@
-import axios from 'axios';
-import { useUserStorage } from '~~/stores/user';
-import { useApiRefreshToken } from './useApiAuth';
+import axios from "axios";
+import { useUserStorage } from "~~/stores/user";
+import { useApiRefreshToken } from "./useApiAuth";
+import toast from "vue3-toastify";
 
 const instance = axios.create();
 
 /**
  * INTERCEPT VÀO REQUEST CALL API
  */
-instance.interceptors.request.use(config => {
+instance.interceptors.request.use((config) => {
+  const env = useRuntimeConfig();
+  const userStorage = useUserStorage();
 
-    const env = useRuntimeConfig();
-    const userStorage = useUserStorage();
+  const baseURL = env.public.apiEndpoint || "";
 
-    const baseURL = env.public.apiEndpoint || '';
+  config.baseURL = baseURL;
+  config.headers.Authorization = `Bearer ${userStorage.accessToken}`;
 
-    config.baseURL = baseURL;
-    config.headers.Authorization = `Bearer ${userStorage.accessToken}`;
-
-    return config;
+  return config;
 });
 
 /**
  * INTERCEPT VÀO RESPONSE TRẢ VỀ
  */
-instance.interceptors.response.use(response => {
+instance.interceptors.response.use(
+  (response) => {
     // Any status code within the range of 2xx cause this function to trigger
     // Do something with response data
-    if (response.status === 200 && response.data.code !== 200 && response?.data?.message) {
-        toast.error
-        return response;
+    if (
+      response.status === 200 &&
+      response.data.code !== 200 &&
+      response?.data?.message
+    ) {
+      toast.error;
+      return response;
     }
 
     return response;
-}, async (error) => {
-
+  },
+  async (error) => {
     const originalRequest = error.config;
     const userStorage = useUserStorage();
 
     // Xử lý lấy access token mới
-    if (error.response.status === 401 && !originalRequest._retry
-        && userStorage.refreshToken
+    if (
+      error.response.status === 401 &&
+      !originalRequest._retry &&
+      userStorage.refreshToken
     ) {
-        originalRequest._retry = true;
-        
-        const refreshToken = userStorage.refreshToken;
-        await useApiRefreshToken(refreshToken);
+      originalRequest._retry = true;
 
-        originalRequest.headers.Authorization = `Bearer ${useUserStorage().accessToken}`;
-        instance.defaults.headers = {
-            Authorization: `Bearer ${useUserStorage().accessToken}`
-        };
+      const refreshToken = userStorage.refreshToken;
+      await useApiRefreshToken(refreshToken);
 
-        return instance(originalRequest);
+      originalRequest.headers.Authorization = `Bearer ${
+        useUserStorage().accessToken
+      }`;
+      instance.defaults.headers = {
+        Authorization: `Bearer ${useUserStorage().accessToken}`,
+      };
+
+      return instance(originalRequest);
     }
 
     // Xử lý lỗi 401 do api validate các trường dữ liệu
     const deepError = error?.response?.data;
-    if (error.response.status === 400 && deepError.errors && Object.keys(deepError.errors).length > 0) {
-        const msg = deepError.errors[Object.keys(deepError.errors)[0]][0];
-        toast.error(msg);
-        return Promise.resolve({ status: -1 });
+    if (
+      error.response.status === 400 &&
+      deepError.errors &&
+      Object.keys(deepError.errors).length > 0
+    ) {
+      const msg = deepError.errors[Object.keys(deepError.errors)[0]][0];
+      toast.error(msg);
+      return Promise.resolve({ status: -1 });
     }
 
     return Promise.reject(error);
-});
+  }
+);
 
 export default instance;

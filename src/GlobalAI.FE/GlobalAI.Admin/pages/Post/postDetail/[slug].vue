@@ -119,7 +119,7 @@
               <div
                 class="w-1/3 flex flex-col gap-2"
                 v-for="(item, idx) in baiTinLienQuan"
-                @click="handleClick(item.id)"
+                @click="handleClick(item.slug)"
                 :key="idx"
               >
                 <img
@@ -181,27 +181,16 @@ const accesToken = useUserStorage().accessToken;
 const userInfor = ref([]);
 onMounted(() => {
   console.log(router.currentRoute.value.params);
-  getPostById(router.currentRoute.value.params.id)
+  getBaiTinByLSlug(router.currentRoute.value.params.slug)
     .then((res) => {
       console.log(res.data.data);
       baiTin.value = res?.data?.data;
-      console.log(baiTin.value.slug);
-      getSanBaiTinPhanTrang(baiTin.value.slug)
-        .then((res) => {
-          baiTinLienQuan.value = res?.data?.data.items;
-          var filtered = baiTinLienQuan.value.filter(
-            (bt) => bt.id != router.currentRoute.value.params.id
-          );
-          console.log(filtered);
-          baiTinLienQuan.value = filtered;
-          console.log(baiTinLienQuan.value);
-        })
-        .catch(() => {});
+      console.log(baiTin.value);
     })
     .catch(() => {});
 });
-const handleClick = (id) => {
-  router.push({ name: "PostDetail", params: { id: id } });
+const handleClick = (slug) => {
+  router.push({ name: "PostDetail", params: { slug: slug } });
 };
 const getUserInfor = () => {
   userInfor.value = jwtDecode(accesToken);

@@ -82,5 +82,15 @@ namespace GlobalAI.ProductRepositories
             var sanPhams = _globalAIDbContext.SanPhams.Where(sp => sanPhamIds.Contains(sp.Id)).ToList();
             return _mapper.Map<List<GetSanPhamDto>>(sanPhams);
         }
+        public GetGioHangDto GetGioHangByIdSanPham(int idSanPhamId)
+        {
+            var gioHang = _dbSet.FirstOrDefault(gh => gh.IdSanPham == idSanPhamId && !gh.Deleted);
+            if (gioHang == null)
+            {
+                throw new Exception("Không tìm thấy giỏ hàng này");
+            }
+            return _mapper.Map<GetGioHangDto>(gioHang);
+
+        }
     }
 }
