@@ -27,7 +27,7 @@ namespace GlobalAI.ProductAPI.Controllers
         }
 
         /// <summary>
-        /// them danh muc cua san pham
+        /// them danh muc cua san pham ( luc them san pham dang dung IdDanhMuc )
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
