@@ -92,6 +92,15 @@
         >
           Mua Hàng
         </button>
+        <button
+         @click="isCheckedChat= true"
+          class="bg-yellow-500 hover:bg-blue-500 transition text-white lg:rounded-md py-4 px-5 w-1/3"
+        >
+           Trả giá
+        </button>
+        <div v-if="isCheckedChat" class="fixed bottom-0 right-[5%] bg-white border-[1px] shadow-md rounded-t-md px-[15px] py-[15px]">
+          <Chatbox v-on:close-box="handleCloseBoxChat" :nameProduct="products.tenSanPham" :priceProduct="products.giaBan"/>
+        </div>
       </div>
     </div>
   </div>
@@ -256,6 +265,7 @@ import { toast } from "vue3-toastify";
 import jwt_decode from "jwt-decode";
 import { useUserStorage } from "~~/stores/user";
 import { useCartStorage } from "~~/stores/giohang";
+import Chatbox from "~~/components/Cards/Chatbox.vue";
 const token = useUserStorage();
 const useCart = useCartStorage();
 const accesstoken = token.accessToken;
@@ -287,7 +297,7 @@ definePageMeta({
 const router = useRouter();
 const productId = ref("");
 const products = ref({});
-const isChecked = ref(false);
+const isCheckedChat = ref(false);
 const isShowModelCart = ref(false);
 const soLuong = ref(1);
 const imagelink = ref("");
@@ -392,6 +402,10 @@ const handleAddProductCart = async () => {
     toast.error("Thêm sản phẩm vào giỏ hàng thất bại");
   }
 };
+
+const handleCloseBoxChat = () => {
+  isCheckedChat.value = false;
+}
 
 const toggleTabs = function (tabNumber) {
   openTab.value = tabNumber;
