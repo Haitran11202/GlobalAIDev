@@ -145,7 +145,7 @@
         </tbody>
       </table>
     </div>
-    <div class="float-left mt-2">
+    <div class="float-right mt-2">
       <button
         @click="this.$router.push('/admin/product/addproduct')"
         class="btn btn-outline"
