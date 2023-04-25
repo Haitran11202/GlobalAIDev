@@ -6,18 +6,25 @@
     >
       <RouterLink to="/gsaler/home" class="float-left flex items-center gap-2">
         <div to="/gsaler/home">
-        <font-awesome-icon
-          class="text-black text-[18px]"
-          :icon="['fas', 'angle-left']"
-        />
-      </div>
-      <span class="text-[18px] text-[#cc3366]">Trở lại</span>
+          <font-awesome-icon
+            class="text-black text-[18px]"
+            :icon="['fas', 'angle-left']"
+          />
+        </div>
+        <span class="text-[18px] text-[#cc3366]">Trở lại</span>
       </RouterLink>
     </div>
     <div class="flex w-full gap-[30px] lg:flex-row flex-col">
       <div class="lg:w-[65%] mb-[40px] mt-[20px] rounded-md overflow-hidden">
-        <div class="flex gap-[20px] items-center  shadow-md  px-[20px] py-[10px] bg-white">
-          <input type="checkbox" class="scale-x-150 scale-y-150" v-model="checkAll" @change="checkAllGioHang" />
+        <div
+          class="flex gap-[20px] items-center shadow-md px-[20px] py-[10px] bg-white"
+        >
+          <input
+            type="checkbox"
+            class="scale-x-150 scale-y-150"
+            v-model="checkAll"
+            @change="checkAllGioHang"
+          />
           <span>Chọn tất cả</span>
         </div>
         <div
@@ -50,7 +57,9 @@
               </div>
             </div>
             <div class="ml-[18px] flex flex-col w-full gap-[3px]">
-              <h2 class="text-[16px] leading-[1.6] text-ellipsis line-clamp-1 h-[25.6px] font-bold uppercase text-[#384059]">
+              <h2
+                class="text-[16px] leading-[1.6] text-ellipsis line-clamp-1 h-[25.6px] font-bold uppercase text-[#384059]"
+              >
                 {{ sanpham.tenSanPham }}
               </h2>
               <span class="text-[14px] text-[#6C757D]">Phân loại : Trắng</span>
@@ -110,7 +119,7 @@
                 <div class="flex gap-[20px]">
                   <div class="w-[72px] h-[72px] rounded-xl overflow-hidden">
                     <img
-                     :src="getImageUrl(sanpham.thumbnail)"
+                      :src="getImageUrl(sanpham.thumbnail)"
                       class="object-cover"
                       alt=""
                     />
@@ -190,7 +199,9 @@
                   <div
                     class="px-[10px] py-[8px] w-[165px] rounded-xl border-[1px] border-coolGray-500"
                   >
-                    <p class="float-right font-medium">{{formatMoneyAll(giaBan)}}</p>
+                    <p class="float-right font-medium">
+                      {{ formatMoneyAll(giaBan) }}
+                    </p>
                   </div>
                 </div>
                 <div class="flex justify-between items-center mt-[40px]">
@@ -285,10 +296,15 @@
             <h2 class="text-[18px] font-bold">Địa chỉ</h2>
           </div>
           <div class="mb-[10px] flex justify-between items-center">
-             <span>Trương Định , Hà Nội</span>
-             <span @click="handleShowModalAddress" class="underline text-blue-400 text-[16px] cursor-pointer">Thay đổi</span>
+            <span>Trương Định , Hà Nội</span>
+            <span
+              @click="handleShowModalAddress"
+              class="underline text-blue-400 text-[16px] cursor-pointer"
+              >Thay đổi</span
+            >
           </div>
-            <form @submit.prevent="handleSubmitFormAddress"
+          <form
+            @submit.prevent="handleSubmitFormAddress"
             v-show="isShowModalAddress"
             class="ModalUpdateCart z-50 shadow-md fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bg-white rounded-md pb-[40px] pt-[10px]"
           >
@@ -396,11 +412,18 @@
                 <div class="w-full flex cursor-pointer items-center mt-[40px]">
                   <button
                     type="submit"
-                   :disabled="!isFormValid"
-                    :class="isFormValid ? 'bg-red-500 transition delay-150 duration-300 ease-in-out px-[20px] py-[10px] rounded-md text-[18px] text-white font-medium w-[60%] mx-auto':'px-[20px] py-[10px] rounded-md text-[18px] text-white font-medium bg-slate-400 w-[60%] mx-auto'"
+                    :disabled="!isFormValid"
+                    :class="
+                      isFormValid
+                        ? 'bg-red-500 transition delay-150 duration-300 ease-in-out px-[20px] py-[10px] rounded-md text-[18px] text-white font-medium w-[60%] mx-auto'
+                        : 'px-[20px] py-[10px] rounded-md text-[18px] text-white font-medium bg-slate-400 w-[60%] mx-auto'
+                    "
                   >
                     Hoàn Tất
-                    <font-awesome-icon :icon="['fas', 'angle-right']" class="float-right mt-1" />
+                    <font-awesome-icon
+                      :icon="['fas', 'angle-right']"
+                      class="float-right mt-1"
+                    />
                   </button>
                 </div>
               </div>
@@ -533,16 +556,16 @@ const isShowModelCart = ref("");
 const selectedProducts = ref([]);
 const soLuongUpdate = ref(0);
 const giaBan = ref(0);
-const useCart  = useCartStorage();
+const useCart = useCartStorage();
 const isshowModalDelete = ref(false);
 const isShowModalOpacity = ref(false);
-const selectedOption1 = ref('');
-const selectedOption2 = ref('');
-const selectedOption3 = ref('');
-const addressText = ref('');
-const nameText = ref('');
-const phoneText = ref('');
-const idDelete = ref("");//body call api tạo đơn hàng full
+const selectedOption1 = ref("");
+const selectedOption2 = ref("");
+const selectedOption3 = ref("");
+const addressText = ref("");
+const nameText = ref("");
+const phoneText = ref("");
+const idDelete = ref(""); //body call api tạo đơn hàng full
 const bodyData = ref({
   donHang: {
     maDonHang: "",
@@ -775,7 +798,7 @@ const handleCloseModalFull = () => {
   isShowModelCart.value = false;
   isShowModalAddress.value = false;
   isShowModalOpacity.value = false;
-}
+};
 const handleDelete = () => {
   isShowModalOpacity.value = false;
   isshowModalDelete.value = false;
@@ -785,7 +808,7 @@ const handleDelete = () => {
   deleteGioHang(gioHangsanpham.id)
     .then((res) => {
       console.log(res.data);
-      useCart.getGioHang()
+      useCart.getGioHang();
       getSanPhamByNguoiMua()
         .then((res) => (products.value = res?.data?.data))
         .catch(() => {});
@@ -798,33 +821,38 @@ const handleDelete = () => {
 const handleShowModalAddress = () => {
   isShowModalAddress.value = true;
   isShowModalOpacity.value = true;
-}
+};
 const isFormValid = computed(() => {
-  return selectedOption1.value && selectedOption2.value && selectedOption3.value && addressText.value && nameText.value && phoneText.value
-})
-// Xử lý submit form 
+  return (
+    selectedOption1.value &&
+    selectedOption2.value &&
+    selectedOption3.value &&
+    addressText.value &&
+    nameText.value &&
+    phoneText.value
+  );
+});
+// Xử lý submit form
 const handleSubmitFormAddress = () => {
   const vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
-  if(vnf_regex.test(phoneText.value) == false){
+  if (vnf_regex.test(phoneText.value) == false) {
     toast.error("Số điện thoại không đúng định dạng, vui lòng nhập lại");
     return;
-  }
-  else{
+  } else {
     const bodyForm = {
-    Tinh : selectedOption1.value,
-    Quan :selectedOption2.value,
-    Phuong :selectedOption3.value,
-    SoNha: addressText.value,
-    Ten :nameText.value,
-    SoDienThoai : phoneText.value
-    
+      Tinh: selectedOption1.value,
+      Quan: selectedOption2.value,
+      Phuong: selectedOption3.value,
+      SoNha: addressText.value,
+      Ten: nameText.value,
+      SoDienThoai: phoneText.value,
+    };
+    console.log(bodyForm);
+    isShowModalAddress.value = false;
+    isShowModalOpacity.value = false;
+    toast.success("Cập nhật địa chỉ thành công");
   }
-  console.log(bodyForm);
-  isShowModalAddress.value = false;
-  isShowModalOpacity.value = false;
-  toast.success('Cập nhật địa chỉ thành công')
-  }
-}
+};
 </script>
 <style lang="css">
 input[type="number"]::-webkit-inner-spin-button,

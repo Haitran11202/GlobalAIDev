@@ -25,7 +25,6 @@
           style="transform: translateZ(0)"
         ></div>
       </section>
-
       <!-- component -->
       <div class="text-gray-900 pt-12 pr-0 pb-14 pl-0 bg-white">
         <div
@@ -126,27 +125,26 @@ import HeaderDefault from "~~/components/Headers/HeaderDefault.vue";
 const router = useRouter();
 const datas = ref([]);
 const newBaiTin = ref({});
-
+const idDanhMucBaiTin = ref([]);
 const danhMuc = ref([]);
 const selectedDanhMuc = ref(0);
 definePageMeta({
-  name: "Post",
+  name: "PostDanhMuc",
 });
 onMounted(() => {
-  getBaiTinPhanTrang()
-    .then((res) => {
-      datas.value = res?.data?.data?.items;
-      console.log(datas.value);
-    })
-    .catch(() => {});
   getAllDanhMucBaiTin()
     .then((res) => {
       danhMuc.value = res?.data?.data?.items;
     })
     .catch(() => {});
+  console.log(router.currentRoute.value.params.id);
+  getBaiTinTheoDanhMuc(router.currentRoute.value.params.id)
+    .then((res) => {
+      console.log(res.data.data);
+    })
+    .catch(() => {});
 });
 const selectCategory = (idDanhMucBaiTin) => {
-  console.log("push");
   router.push({ name: "PostDanhMuc", params: { id: idDanhMucBaiTin } });
 };
 const handleClick = (slug) => {

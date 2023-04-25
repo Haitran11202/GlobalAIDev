@@ -323,6 +323,7 @@ let openTab = ref(1);
 
 const getUserInfor = () => {
   const userInfor = jwt_decode(accesstoken);
+  console.log(userInfor);
   return userInfor;
 };
 const handleBuyClick = () => {
@@ -341,7 +342,7 @@ const handleBuyClick = () => {
     })
     .catch(() => {});
   const userId = getUserInfor().user_id;
-  router.push({ name: "ProductCart", params: { id: productId.value } });
+  router.push({ name: "ManageCart", params: { id: getUserInfor().user_id } });
 };
 
 const increment = () => {
@@ -381,12 +382,6 @@ const handleAddProductCart = async () => {
     isShowModelCart.value = false;
     toast.success("Thêm sản phẩm vào giỏ hàng thành công !", {
       autoClose: 1000,
-      onClose: () => {
-        const userId = getUserInfor().user_id;
-
-        // Redirect the user to the cart page after adding the product
-        router.push({ name: "ProductCart", params: { id: userId } });
-      },
     });
   } catch (error) {
     toast.error("Thêm sản phẩm vào giỏ hàng thất bại");

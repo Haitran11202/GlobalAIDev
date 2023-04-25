@@ -229,3 +229,21 @@ export const getGioHangByIdSanPham = async (id) => {
     return Promise.reject(err);
   }
 };
+
+export const getAllDanhMucBaiTin = async () => {
+  try {
+    const res = await http.get(API_ENDPOINT.getAllDanhMucBaiTin());
+    return Promise.resolve(res);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const getBaiTinTheoDanhMuc = async (id) => {
+  try {
+    const res = await http.get(API_ENDPOINT.getBaiTinTheoDanhMuc(id));
+    return Promise.resolve(res);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};

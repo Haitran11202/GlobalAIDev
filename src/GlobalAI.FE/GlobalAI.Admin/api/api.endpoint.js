@@ -49,4 +49,8 @@ export const API_ENDPOINT = {
   getBaiTinBySlug: (slug) => `/api/product/bai-tin/find/slug/${slug}`,
   getBaiTinPhanTrang: () =>
     `/api/product/bai-tin/find-all?pageSize=11&pageNumber=1`,
+  getAllDanhMucBaiTin: () =>
+    "/api/product/danh-muc-bai-tin/find-all?pageSize=25&pageNumber=1",
+  getBaiTinTheoDanhMuc: (id) =>
+    `/api/product/bai-tin/find-all?idDanhMuc=${id}&pageSize=-1`,
 };
