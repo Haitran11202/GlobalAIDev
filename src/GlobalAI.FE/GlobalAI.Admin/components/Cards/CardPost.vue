@@ -9,7 +9,7 @@
             Danh sách bài tin
           </h3>
           <button
-            @click="this.$router.push('/admin/post/addpost')"
+            @click="router.push('/admin/post/addpost')"
             class="btn btn-outline"
           >
             Thêm bài tin
