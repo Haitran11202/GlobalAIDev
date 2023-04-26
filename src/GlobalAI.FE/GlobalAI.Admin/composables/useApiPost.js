@@ -65,3 +65,14 @@ export const getAllDanhMucBaiTin = async (pageSize, pageNumber, skip) => {
     return Promise.reject(err);
   }
 };
+
+export const getBaiTinPhanTrang = async (pageSize, pageNumber, skip) => {
+  try {
+    const response = await http.get(
+      API_ENDPOINT.getBaiTinPhanTrang(pageSize, pageNumber, skip)
+    );
+    return Promise.resolve(response.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
