@@ -63,6 +63,25 @@ namespace GlobalAI.ProductAPI.Controllers
         }
 
         /// <summary>
+        /// status 1 de tu kich hoat ve khoi tạo, status 2 de duyet
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPut("approve")]
+        public APIResponse Approve([FromBody] ApproveBaiTinDto input)
+        {
+            try
+            {
+                _baiTinServices.Approve(input);
+                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
+        /// <summary>
         /// danh sach 
         /// </summary>
         /// <param name="input"></param>
