@@ -1,10 +1,11 @@
 <template>
-  <div class="flex flex-col w-[100%]">
+  <div class="flex flex-col w-[100%] justify-center">
     <HeaderDefault />
     <!-- <Advisement /> -->
     <Sidebar />
+
     <div
-      class="w-full px-[150px] flex flex-row-reverse gap-10 bg-[#F1F5F9] py-2"
+      class="w-full justify-center flex flex-row-reverse gap-10 bg-[#F1F5F9] py-2"
     >
       <!-- <div class="w-1/4">right-bar</div> -->
       <div class="w-4/4 bg-white">
@@ -119,7 +120,7 @@
               <div
                 class="w-1/3 flex flex-col gap-2"
                 v-for="(item, idx) in baiTinLienQuan"
-                @click="handleClick(item.id)"
+                @click="handleClick(item.slug)"
                 :key="idx"
               >
                 <img
@@ -179,29 +180,22 @@ const baiTin = ref([]);
 const baiTinLienQuan = ref([]);
 const accesToken = useUserStorage().accessToken;
 const userInfor = ref([]);
+
 onMounted(() => {
   console.log(router.currentRoute.value.params);
-  getPostById(router.currentRoute.value.params.id)
+  getBaiTinByLSlug(router.currentRoute.value.params.slug)
     .then((res) => {
       console.log(res.data.data);
       baiTin.value = res?.data?.data;
-      console.log(baiTin.value.slug);
-      getSanBaiTinPhanTrang(baiTin.value.slug)
-        .then((res) => {
-          baiTinLienQuan.value = res?.data?.data.items;
-          var filtered = baiTinLienQuan.value.filter(
-            (bt) => bt.id != router.currentRoute.value.params.id
-          );
-          console.log(filtered);
-          baiTinLienQuan.value = filtered;
-          console.log(baiTinLienQuan.value);
-        })
-        .catch(() => {});
+      console.log(baiTin.value);
     })
     .catch(() => {});
 });
-const handleClick = (id) => {
-  router.push({ name: "PostDetail", params: { id: id } });
+const selectedCategory = (index) => {
+  selectedDanhMuc.value = index;
+};
+const handleClick = (slug) => {
+  router.push({ name: "PostDetail", params: { slug: slug } });
 };
 const getUserInfor = () => {
   userInfor.value = jwtDecode(accesToken);

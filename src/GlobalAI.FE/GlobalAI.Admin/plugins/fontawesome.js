@@ -43,7 +43,6 @@ import {
   faUndo,
   faRedo,
 } from "@fortawesome/free-solid-svg-icons";
-
 /* add icons to the library */
 library.add(
   faFileWord,
@@ -81,12 +80,6 @@ library.add(
   faImage,
   faUndo,
   faRedo
-
-
-
-  
-
-
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

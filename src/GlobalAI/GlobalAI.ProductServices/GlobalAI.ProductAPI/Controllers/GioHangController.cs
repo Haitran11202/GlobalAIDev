@@ -1,19 +1,15 @@
-﻿using GlobalAI.DemoEntities.Dto.Product;
-using GlobalAI.ProductDomain.Implements;
-using GlobalAI.ProductDomain.Interfaces;
-using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
+﻿using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.Dto.GioHang;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/product/giohang")]
     [ApiController]
     public class GioHangController : BaseController
@@ -121,6 +117,24 @@ namespace GlobalAI.ProductAPI.Controllers
             try
             {
                 var result = _gioHangServices.getSanPhamTheoNguoiMua();
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+        /// <summary>
+        /// Lấy ra sản phẩm theo giỏ hàng
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("giohangByIdSanPham/{id}")]
+        [ProducesResponseType(typeof(APIResponse<List<GetSanPhamDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse GetGioHangByIdSanPham([FromRoute] int id)
+        {
+            try
+            {
+                var result = _gioHangServices.GetGioHangTheoIdSanPham(id);
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)

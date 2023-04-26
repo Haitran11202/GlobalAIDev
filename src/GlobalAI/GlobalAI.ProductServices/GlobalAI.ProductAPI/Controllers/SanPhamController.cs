@@ -1,6 +1,9 @@
 ﻿using GlobalAI.DemoEntities.Dto.Product;
+using GlobalAI.ProductDomain.Implements;
 using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.DanhMuc;
+using GlobalAI.ProductEntities.Dto.DanhMucBaiTin;
 using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
@@ -16,10 +19,62 @@ namespace GlobalAI.ProductAPI.Controllers
     public class SanPhamController : BaseController
     {
         private readonly ISanPhamServices _sanPhamServices;
-        public SanPhamController(ISanPhamServices sanPhamServices) 
+        private readonly IDanhMucServices _danhMucServices;
+        public SanPhamController(ISanPhamServices sanPhamServices, IDanhMucServices danhMucServices ) 
         {
             _sanPhamServices = sanPhamServices;
+            _danhMucServices = danhMucServices;
         }
+
+        /// <summary>
+        /// them danh muc cua san pham ( luc them san pham dang dung IdDanhMuc )
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpPost("danh-muc")]
+        public APIResponse Add([FromBody] CreateDanhMucDto input)
+        {
+            try
+            {
+                var result = _danhMucServices.Add(input);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+        /// <summary>
+        /// get danh sach danh muc
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet("danh-muc")]
+        [ProducesResponseType(typeof(APIResponse<List<DanhMucDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse FindAll([FromQuery] FilterDanhMucDto input)
+        {
+            try
+            {
+                var result = _danhMucServices.FindAll(input);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
+        /// <summary>
+        /// xoa danh muc
+        /// </summary>
+        /// <param name="id"></param>
+        [HttpDelete("danh-muc")]
+        public void DeleteDanhMuc(int id)
+        {
+            _danhMucServices.Delete(id);
+        }
+
+
         [HttpGet("sanPham-full")]
         [ProducesResponseType(typeof(APIResponse<GetSanPhamDto>), (int)HttpStatusCode.OK)]
         public APIResponse Add()

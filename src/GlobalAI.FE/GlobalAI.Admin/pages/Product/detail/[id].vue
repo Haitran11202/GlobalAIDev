@@ -2,11 +2,7 @@
   <div class="w-full mt-[40px] flex gap-[20px] lg:flex-row flex-col">
     <div class="lg:w-[42%] flex">
       <div class="lg:w-full lg:h-[454px] flex lg:rounded-xl overflow-hidden">
-        <img
-          :src="imagelink"
-          class="object-cover rounded-xl"
-          alt=""
-        />
+        <img :src="imagelink" class="object-cover rounded-xl" alt="" />
       </div>
     </div>
     <div class="flex-1 px-1">
@@ -145,7 +141,7 @@
         <div class="px-4 py-5 flex-auto">
           <div class="tab-content tab-space">
             <div :class="{ hidden: openTab !== 1, block: openTab === 1 }">
-             <p>{{products.moTa}}</p>
+              <p>{{ products.moTa }}</p>
             </div>
             <div :class="{ hidden: openTab !== 2, block: openTab === 2 }">
               <p>
@@ -186,11 +182,7 @@
     <div class="px-[35px] mt-[60px]">
       <div class="flex gap-[20px]">
         <div class="w-[72px] h-[72px] rounded-xl overflow-hidden">
-          <img
-            :src="imagelink"
-            class="object-cover"
-            alt=""
-          />
+          <img :src="imagelink" class="object-cover" alt="" />
         </div>
         <div>
           <h1 class="text-[18px] uppercase text-[#384059] font-bold">
@@ -231,12 +223,14 @@
         <div
           class="px-[10px] py-[6px] w-[165px] rounded-xl border-2 border-coolGray-400"
         >
-          <p class="float-right font-medium"> {{formatMoneyAll(products.giaBan)}}</p>
+          <p class="float-right font-medium">
+            {{ formatMoneyAll(products.giaBan) }}
+          </p>
         </div>
       </div>
       <div class="flex justify-between items-center mt-[30px]">
         <h2 class="font-bold text-[16px] text-[#384059]">Tổng giá</h2>
-        <p class="float-right font-medium">{{formatMoneyAll(tongGiaBan)}}</p>
+        <p class="float-right font-medium">{{ formatMoneyAll(tongGiaBan) }}</p>
       </div>
       <div class="px-[40px] mt-[30px] flex items-center justify-center">
         <button
@@ -291,12 +285,12 @@ definePageMeta({
 });
 
 const router = useRouter();
-const productId = ref('');
+const productId = ref("");
 const products = ref({});
 const isChecked = ref(false);
 const isShowModelCart = ref(false);
 const soLuong = ref(1);
-const imagelink = ref('');
+const imagelink = ref("");
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
@@ -316,11 +310,10 @@ watchEffect(() => {
     .then((res) => {
       products.value = res?.data?.data;
       console.log(products.value);
-      imagelink.value = getImageUrl(products.value.thumbnail)
+      imagelink.value = getImageUrl(products.value.thumbnail);
     })
     .catch(() => {});
 });
-
 
 const tongGiaBan = computed(() => {
   return products.value.giaBan * soLuong.value;
@@ -330,6 +323,7 @@ let openTab = ref(1);
 
 const getUserInfor = () => {
   const userInfor = jwt_decode(accesstoken);
+  console.log(userInfor);
   return userInfor;
 };
 const handleBuyClick = () => {
@@ -348,7 +342,7 @@ const handleBuyClick = () => {
     })
     .catch(() => {});
   const userId = getUserInfor().user_id;
-  router.push({ name: "ManageCart", params: { id: userId } });
+  router.push({ name: "ManageCart", params: { id: getUserInfor().user_id } });
 };
 
 const increment = () => {
@@ -378,7 +372,7 @@ const handleAddProductCart = async () => {
       status: 1,
     };
     console.log(body);
-    
+
     // Send a POST request to create a new item in the cart
     const res = await createGioHang(body);
     console.log(res);
@@ -388,18 +382,11 @@ const handleAddProductCart = async () => {
     isShowModelCart.value = false;
     toast.success("Thêm sản phẩm vào giỏ hàng thành công !", {
       autoClose: 1000,
-      onClose: () => {
-        const userId = getUserInfor().user_id;
-
-        // Redirect the user to the cart page after adding the product
-        router.push({ name: "ManageCart", params: { id: userId } });
-      },
     });
   } catch (error) {
     toast.error("Thêm sản phẩm vào giỏ hàng thất bại");
   }
 };
-
 
 const toggleTabs = function (tabNumber) {
   openTab.value = tabNumber;

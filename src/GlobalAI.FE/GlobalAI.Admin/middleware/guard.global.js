@@ -1,29 +1,49 @@
+import { PERMISSIONS_ROUTE_CONFIG } from "~~/lib/permissions";
+import { NOT_REQUIRED_LOGIN, ROUTES } from "~~/lib/routeConfig";
 import { useUserStorage } from "~~/stores/user";
 
-const PATH_LOGIN = "/auth/login";
-const PATH_HOME = "/gsaler/home";
+export default defineNuxtRouteMiddleware(async (to, from) => {
+    if (process.server) return;
 
-const NOT_REQUIRED_LOGIN = [
-  "/",
-  "/landing",
-  "/auth/login",
-  "/auth/register",
-  "/auth/registermaster",
-  "/auth/registergsaler",
-];
+    const userStorage = useUserStorage();
+    const { $toast } = useNuxtApp();
 
-export default defineNuxtRouteMiddleware((to, from) => {
-  if (process.server) return;
+    console.log('hihi => ', to);
+    const matchedPath = to.matched[0]?.path?.toLowerCase();
 
-  const userStorage = useUserStorage();
-  const { $toast } = useNuxtApp();
+    if (matchedPath) {
+        if (!userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(matchedPath)) {
+            $toast.warn("Vui lòng đăng nhập tài khoản và mật khẩu");
+            return navigateTo(ROUTES.LOGIN);
+        } else if (userStorage.isLoggedIn && matchedPath === ROUTES.LOGIN) {
+            return navigateTo(ROUTES.HOME);
+        } else if (userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(matchedPath)) {
+            let allowNavigate = false;
+    
+            if (!PERMISSIONS_ROUTE_CONFIG[matchedPath]) {
+                allowNavigate = false;
+            } else {
+                const userPermission = userStorage.permissions;
+                const permissionRoute = PERMISSIONS_ROUTE_CONFIG[matchedPath];
+                
+                if (userPermission && Array.isArray(userPermission)) {
+                    let count = 0;
+                    permissionRoute.forEach(per => {
+                        if (userPermission.includes(per)) {
+                            count++;
+                        }
+                    });
+    
+                    allowNavigate = count === permissionRoute.length;
+                }
+    
+            }
+    
+            if (!allowNavigate) {
+                $toast.warn("Bạn không có quyền truy cập trang này");
+                return navigateTo(ROUTES.ERROR_FORBIDDEN);
+            }
+        }   
+    }
 
-  if (!userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(to.fullPath)) {
-    $toast.warn("Vui lòng đăng nhập tài khoản và mật khẩu");
-    return navigateTo(PATH_LOGIN);
-  }
-
-  if (userStorage.isLoggedIn && to.fullPath === PATH_LOGIN) {
-    return navigateTo(PATH_HOME);
-  }
 });
