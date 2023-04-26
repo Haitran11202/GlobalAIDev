@@ -54,9 +54,6 @@ instance.interceptors.response.use(
         await useApiRefreshToken(refreshToken);
         await getPermissions();
 
-      const refreshToken = userStorage.refreshToken;
-      await useApiRefreshToken(refreshToken);
-
       originalRequest.headers.Authorization = `Bearer ${
         useUserStorage().accessToken
       }`;
