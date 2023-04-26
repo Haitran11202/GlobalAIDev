@@ -90,7 +90,7 @@
             <div class="overlay">
               <div class="overlay-panel overlay-left flex gap-10">
                 <div class="flex flex-col gap-1">
-                  <h1 class="text-5xl font-bold">G.sales </h1>
+                  <h1 class="text-5xl font-bold">G.sales</h1>
                   <p>
                     Là nhà phân phối, mua hàng với giá chiết khấu từ G.store,
                     sau khi đăng ký tài khoản có thể trực tiếp mua hàng luôn.

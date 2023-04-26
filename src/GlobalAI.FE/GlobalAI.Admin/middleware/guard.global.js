@@ -3,6 +3,7 @@ import { NOT_REQUIRED_LOGIN, ROUTES } from "~~/lib/routeConfig";
 import { useUserStorage } from "~~/stores/user";
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
+
     if (process.server) return;
 
     const userStorage = useUserStorage();
@@ -17,7 +18,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
             return navigateTo(ROUTES.LOGIN);
         } else if (userStorage.isLoggedIn && matchedPath === ROUTES.LOGIN) {
             return navigateTo(ROUTES.HOME);
-        } else if (userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(matchedPath)) {
+        }
+        else if (userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(matchedPath)) {
             let allowNavigate = false;
     
             if (!PERMISSIONS_ROUTE_CONFIG[matchedPath]) {
@@ -44,6 +46,12 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
                 return navigateTo(ROUTES.ERROR_FORBIDDEN);
             }
         }   
-    }
+   }
 
+    //     if (!allowNavigate) {
+    //         $toast.warn("Bạn không có quyền truy cập trang này");
+    //         return navigateTo(ROUTES.ERROR_FORBIDDEN);
+    //     }
+    // }
+  }
 });

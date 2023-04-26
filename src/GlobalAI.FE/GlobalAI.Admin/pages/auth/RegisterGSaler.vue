@@ -15,62 +15,81 @@
           </div>
           <div class="flex-auto px-4 lg:px-10 py-10 pt-0">
             <Form @submit="onRegister" :validationSchema="validateSchema">
-              <div class="relative w-full mb-3">
-                <label
-                  class="block uppercase text-slate-600 text-xs font-bold mb-2"
-                  htmlFor="grid-password"
-                >
-                  Họ
-                </label>
-                <Field
-                  name="lastName"
-                  type="text"
-                  class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                />
-                <error-message name="lastName" class="text-red-500" />
-              </div>
-              <div class="relative w-full mb-3">
-                <label
-                  class="block uppercase text-slate-600 text-xs font-bold mb-2"
-                  htmlFor="grid-password"
-                >
-                  Tên
-                </label>
-                <Field
-                  name="firstName"
-                  type="text"
-                  class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                />
-                <error-message name="firstName" class="text-red-500" />
-              </div>
-              <div class="relative w-full mb-3">
-                <label
-                  class="block uppercase text-slate-600 text-xs font-bold mb-2"
-                  htmlFor="grid-password"
-                >
-                  SĐT
-                </label>
-                <Field
-                  name="phone"
-                  type="number"
-                  class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                />
-                <error-message name="phone" class="text-red-500" />
-              </div>
+              <div class="relative w-full mb-3 grid grid-cols-2 gap-4">
+                <div class="col-span-1">
+                  <label
+                    class="block uppercase text-slate-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Họ
+                  </label>
+                  <Field
+                    name="firstName"
+                    type="text"
+                    class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  />
+                  <error-message name="firstName" class="text-red-500" />
+                </div>
 
+                <div class="col-span-1">
+                  <label
+                    class="block uppercase text-slate-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Tên
+                  </label>
+                  <Field
+                    name="lastName"
+                    type="text"
+                    class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  />
+                  <error-message name="lastName" class="text-red-500" />
+                </div>
+              </div>
+              <div class="relative w-full mb-3 grid grid-cols-2 gap-4">
+                <div class="col-span-1">
+                  <label
+                    class="block uppercase text-slate-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    SĐT
+                  </label>
+                  <Field
+                    name="phone"
+                    type="number"
+                    class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  />
+                  <error-message name="phone" class="text-red-500" />
+                </div>
+
+                <div class="col-span-1">
+                  <label
+                    class="block uppercase text-slate-600 text-xs font-bold mb-2"
+                    htmlFor="grid-password"
+                  >
+                    Email
+                  </label>
+                  <Field
+                    name="email"
+                    type="email"
+                    class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                  />
+                  <error-message name="email" class="text-red-500" />
+                </div>
+              </div>
               <div class="relative w-full mb-3">
                 <label
                   class="block uppercase text-slate-600 text-xs font-bold mb-2"
                   htmlFor="grid-password"
                 >
-                  Email
+                  Địa chỉ
                 </label>
                 <Field
-                  name="email"
-                  type="email"
+                  name="address"
+                  type="text"
                   class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 />
-                <error-message name="email" class="text-red-500" />
+                <error-message name="address" class="text-red-500" />
               </div>
 
               <div class="relative w-full mb-3">
@@ -176,6 +195,7 @@ const initValues = {
   lastMame: "",
   email: "",
   phone: "",
+  address: "",
 };
 
 const validateSchema = yup.object({
@@ -198,6 +218,7 @@ const validateSchema = yup.object({
     .email("Email không đúng định dạng")
     .trim(),
   phone: yup.string().required("Số điện thoại không được bỏ trống").trim(),
+  address: yup.string().required("Địa chỉ không được bỏ trống").trim(),
 });
 
 const onRegister = (data) => {

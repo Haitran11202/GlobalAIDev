@@ -40,14 +40,21 @@ export const API_ENDPOINT = {
 
   postOrder: `/api/product/donhang`,
 
-  deleteOrder: (id) => {
-    `/api/product/donhang/${id}`;
-  },
+  deleteOrder: (id) => `/api/product/donhang/${id}`,
 
   getOrderById: (id) => `api/product/donhang/${id}`,
   // Api Bài đăng
   getPostById: (id) => `/api/product/bai-tin/${id}`,
   getBaiTinBySlug: (slug) => `/api/product/bai-tin/find/slug/${slug}`,
-  getBaiTinPhanTrang: () =>
-    `/api/product/bai-tin/find-all?pageSize=11&pageNumber=1`,
+  getBaiTinPhanTrang: (pageSize, pageNumber) =>
+    `/api/product/bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}`,
+
+  getAllPostPhanTrang: (pageSize, pageNumber, skip) =>
+    `/api/product/bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
+
+  deletePost: (id) => `/api/product/bai-tin?id=${id}`,
+
+  postPosts: `/api/product/bai-tin`,
+
+  putPost: (id) => `/api/product/donhang/${id}`,
 };

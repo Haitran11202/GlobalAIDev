@@ -154,6 +154,30 @@
 
           <li class="items-center">
             <router-link
+              to="/admin/category"
+              v-slot="{ href, navigate, isActive }"
+            >
+              <a
+                :href="href"
+                @click="navigate"
+                class="text-xs uppercase py-3 font-bold block"
+                :class="[
+                  isActive
+                    ? 'text-emerald-500 hover:text-emerald-600'
+                    : 'text-blueGray-700 hover:text-blueGray-500',
+                ]"
+              >
+                <i
+                  class="fas fa-table mr-2 text-sm"
+                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
+                ></i>
+                Quản lý danh mục
+              </a>
+            </router-link>
+          </li>
+
+          <li class="items-center">
+            <router-link
               to="/admin/order"
               v-slot="{ href, navigate, isActive }"
             >
@@ -172,6 +196,51 @@
                   :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
                 ></i>
                 Quản lý đơn hàng
+              </a>
+            </router-link>
+          </li>
+
+          <li class="items-center">
+            <router-link to="/admin/post" v-slot="{ href, navigate, isActive }">
+              <a
+                :href="href"
+                @click="navigate"
+                class="text-xs uppercase py-3 font-bold block"
+                :class="[
+                  isActive
+                    ? 'text-emerald-500 hover:text-emerald-600'
+                    : 'text-blueGray-700 hover:text-blueGray-500',
+                ]"
+              >
+                <i
+                  class="fas fa-table mr-2 text-sm"
+                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
+                ></i>
+                Quản lý bài tin
+              </a>
+            </router-link>
+          </li>
+
+          <li class="items-center">
+            <router-link
+              to="/admin/voucher"
+              v-slot="{ href, navigate, isActive }"
+            >
+              <a
+                :href="href"
+                @click="navigate"
+                class="text-xs uppercase py-3 font-bold block"
+                :class="[
+                  isActive
+                    ? 'text-emerald-500 hover:text-emerald-600'
+                    : 'text-blueGray-700 hover:text-blueGray-500',
+                ]"
+              >
+                <i
+                  class="fas fa-table mr-2 text-sm"
+                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
+                ></i>
+                Quản lý Voucher
               </a>
             </router-link>
           </li>
