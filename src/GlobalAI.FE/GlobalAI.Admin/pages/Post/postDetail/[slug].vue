@@ -1,10 +1,11 @@
 <template>
-  <div class="flex flex-col w-[100%]">
+  <div class="flex flex-col w-[100%] justify-center">
     <HeaderDefault />
     <!-- <Advisement /> -->
     <Sidebar />
+
     <div
-      class="w-full px-[150px] flex flex-row-reverse gap-10 bg-[#F1F5F9] py-2"
+      class="w-full justify-center flex flex-row-reverse gap-10 bg-[#F1F5F9] py-2"
     >
       <!-- <div class="w-1/4">right-bar</div> -->
       <div class="w-4/4 bg-white">
@@ -179,6 +180,7 @@ const baiTin = ref([]);
 const baiTinLienQuan = ref([]);
 const accesToken = useUserStorage().accessToken;
 const userInfor = ref([]);
+
 onMounted(() => {
   console.log(router.currentRoute.value.params);
   getBaiTinByLSlug(router.currentRoute.value.params.slug)
@@ -189,6 +191,9 @@ onMounted(() => {
     })
     .catch(() => {});
 });
+const selectedCategory = (index) => {
+  selectedDanhMuc.value = index;
+};
 const handleClick = (slug) => {
   router.push({ name: "PostDetail", params: { slug: slug } });
 };
