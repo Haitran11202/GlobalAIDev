@@ -27,7 +27,7 @@
                 <input type="checkbox" class="checkbox" />
               </label>
             </th>
-            <th>Mã sản phẩm</th>
+            <th>Mã</th>
             <th>Tên sản phẩm</th>
             <th>Giá bán</th>
             <th>Giá chiết khấu</th>
@@ -40,11 +40,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr
-            class="text-sm"
-            v-for="product in products"
-            :key="product.id"
-          >
+          <tr class="text-sm" v-for="product in products" :key="product.id">
             <th>
               <label>
                 <input type="checkbox" class="checkbox" />
@@ -97,7 +93,7 @@
                   : ""
               }}
             </td>
-            <td class="">
+            <td class="whitespace-normal">
               <div v-if="product.moTa && product.moTa.length > 20">
                 <template v-if="!showMore[product.id]">
                   {{ product.moTa.slice(0, 20) }}...
@@ -119,43 +115,21 @@
               <div v-else>{{ product.moTa }}</div>
             </td>
             <td>Đã duyệt</td>
-            <td
-              class="border-t-0 px-5 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap relative"
-            >
-              <button
-                @click="toggleAction(product.id)"
-                class="btn btn-ghost btn-xs"
-              >
-                ...
-              </button>
-              <div
-                class="absolute right-0 mr-12 bottom-0 mb-5 z-50 w-48"
-                v-if="showAction[product.id]"
-              >
-                <div
-                  class="bg-white flex flex-col shadow-2xl border px-4 py-2 rounded-lg overflow-hidden"
+            <td>
+              <div class="dropdown dropdown-left dropdown-end">
+                <label tabindex="0" class="btn m-1 btn-outline" @click="toggleDropdown"
+                  >...</label
                 >
-                  <button
-                    @click="onEditButtonClick(product.id)"
-                    class="text-black items-center justify-center w-full font-bold py-2 flex rounded hover:bg-slate-800 hover:text-white"
-                  >
-                    Sửa
-                  </button>
-                  <hr />
-                  <button
-                    @click="onDeleteButtonClick(product.id)"
-                    class="text-black items-center justify-center w-full font-bold py-2 flex rounded hover:bg-slate-800 hover:text-white"
-                  >
-                    Xoá
-                  </button>
-                  <hr />
-                  <button
-                    class="text-black items-center justify-center w-full font-bold py-2 flex rounded hover:bg-slate-800 hover:text-white"
-                  >
-                    Duyệt
-                  </button>
-                  <hr />
-                </div>
+                <ul
+                  tabindex="0"
+                  class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                  v-if="isOpen"
+                  @click="closeDropdown"
+                >
+                  <li @click="onEditButtonClick(product.id)"><a>Sửa</a></li>
+                  <li @click="onDeleteButtonClick(product.id)"><a>Xoá</a></li>
+                  <li><a>Duyệt</a></li>
+                </ul>
               </div>
             </td>
           </tr>
@@ -239,12 +213,6 @@ const deletedProduct = ref(null);
 const showAction = ref({});
 const showMore = ref({});
 
-function formatGia(gia) {
-  return gia.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
-}
-
-const giaBanFormatted = computed(() => formatGia(giaBan.value));
-
 // Lấy tất cả sản phẩm
 const fetchData = async () => {
   getAllProducts(pageSize, pageNumber.value, skip.value)
@@ -324,5 +292,15 @@ watchEffect(() => {
 // Show Action Sửa và xoá
 const toggleAction = (id) => {
   showAction.value[id] = !showAction.value[id];
+};
+
+const isOpen = ref(false);
+
+const toggleDropdown = () => {
+  isOpen.value = !isOpen.value;
+};
+
+const closeDropdown = () => {
+  isOpen.value = false;
 };
 </script>

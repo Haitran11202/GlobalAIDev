@@ -153,6 +153,7 @@
 </template>
 
 <script setup>
+import axios from "axios";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { postProduct } from "~~/composables/useApiProduct";
@@ -175,6 +176,7 @@ const thumbnail = ref("");
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
+
 async function uploadImage(event) {
   console.log(event.target.files[0].name);
   console.log(event.target.files[0].name);
@@ -192,10 +194,10 @@ async function uploadImage(event) {
         console.log(error);
       });
     const response = await axios.post(
-      "http://localhost:5003/api/file/upload?folder=image",
+      "http://globalai-staging.huce.edu.vn:8089/api/file/upload?folder=image",
       formData
     );
-    console.log(response);
+    console.log(response.data.data.split("=")[2]);
     thumbnail.value = response.data.data.split("=")[2];
   } catch (error) {
     console.error(error);

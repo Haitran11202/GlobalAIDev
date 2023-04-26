@@ -39,9 +39,7 @@ export const API_ENDPOINT = {
 
   postOrder: `/api/product/donhang`,
 
-  deleteOrder: (id) => {
-    `/api/product/donhang/${id}`;
-  },
+  deleteOrder: (id) => `/api/product/donhang/${id}`,
 
   getOrderById: (id) => `api/product/donhang/${id}`,
   // Api Bài đăng
@@ -51,5 +49,11 @@ export const API_ENDPOINT = {
     `/api/product/bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}`,
 
   getAllPostPhanTrang: (pageSize, pageNumber, skip) =>
-    `http://localhost:5003/api/product/bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
+    `/api/product/bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
+
+  deletePost: (id) => `/api/product/bai-tin?id=${id}`,
+
+  postPosts: `/api/product/bai-tin`,
+
+  putPost: (id) => `/api/product/donhang/${id}`,
 };

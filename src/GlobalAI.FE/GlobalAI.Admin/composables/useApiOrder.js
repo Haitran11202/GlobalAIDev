@@ -22,15 +22,17 @@ export const postOrder = async (orderData) => {
   }
 };
 
-// Xoá đơn hàng dựa theo ID
+// Xoá bài tin dựa theo id
 export const deleteOrder = async (id) => {
+  console.log(API_ENDPOINT.deleteOrder(id));
   try {
-    const res = await http.delete(API_ENDPOINT.deleteOrder(id));
-    return Promise.resolve(res.data);
+    const response = await http.delete(API_ENDPOINT.deleteOrder(id));
+    return Promise.resolve(response.data);
   } catch (err) {
     return Promise.reject(err);
   }
 };
+
 
 // Lấy đơn hàng dựa theo ID
 export const getOrderById = async (id) => {

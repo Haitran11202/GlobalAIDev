@@ -1,73 +1,43 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <form @submit.prevent="submitForm" class="m-auto shadow-2xl p-12 h-[670px]">
+    <form
+      @submit.prevent="handlePostPost"
+      class="m-auto shadow-2xl p-12 h-[670px]"
+    >
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
           <label
-            for="maSanPham"
+            for="idDanhMuc"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-            Mã sản phẩm
+            Mã bài tin
           </label>
           <Field
-            v-model="product.id"
-            name="maSanPham"
+            disabled
+            v-model="idDanhMuc"
+            name="idDanhMuc"
             type="text"
-            placeholder="Mã sản phẩm..."
+            placeholder="Mã bài tin..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
-          <error-message name="maSanPham" class="text-red-500" />
+          <error-message name="idDanhMuc" class="text-red-500" />
         </div>
-
         <div class="col-span-1">
           <label
-            for="tenSanPham"
+            for="tieuDe"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-            Tên sản phẩm
+            Tiêu đề
           </label>
           <Field
-            v-model="product.tenSanPham"
-            name="tenSanPham"
+            v-model="tieuDe"
+            name="tieuDe"
             type="text"
-            placeholder="Tên sản phẩm..."
+            placeholder="Tiêu đề..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
-          <error-message name="tenSanPham" class="text-red-500" />
+          <error-message name="tieuDe" class="text-red-500" />
         </div>
-
-        <div class="col-span-1">
-          <label
-            for="giaBan"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-          >
-            Giá bán
-          </label>
-          <Field
-            v-model="product.giaBan"
-            name="giaBan"
-            type="number"
-            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          />
-          <error-message name="giaBan" class="text-red-500" />
-        </div>
-
-        <div class="col-span-1">
-          <label
-            for="giaChietKhau"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-          >
-            Giá chiết khấu
-          </label>
-          <Field
-            v-model="product.giaChietKhau"
-            name="giaChietKhau"
-            type="number"
-            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          />
-          <error-message name="giaChietKhau" class="text-red-500" />
-        </div>
-
         <div>
           <label
             for="idDanhMuc"
@@ -75,7 +45,7 @@
             >Mã danh mục</label
           >
           <select
-            v-model="product.idDanhMuc"
+            v-model="idDanhMuc"
             id="idDanhMuc"
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             required
@@ -110,36 +80,39 @@
               id="image"
               class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
               required
-              @change.prevent="uploadImage"
+              @change="uploadImage"
             />
             <img
               alt="Product Image"
               class="w-[50px] h-[50px] border absolute right-0 rounded"
-              :src="getImageUrl(product.thumbnail)"
+              :src="getImageUrl(thumbnail)"
             />
           </div>
         </div>
       </div>
       <div class="mb-6">
         <label
-          for="moTa"
+          for="noiDung"
           class="block uppercase text-slate-600 text-xs font-bold mb-2"
-          >Mô tả</label
+          >Nội dung</label
         >
         <div class="w-full">
           <tiptap
             class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            v-model="product.moTa"
+            v-model="noiDung"
           />
         </div>
       </div>
       <div class="flex justify-end gap-5">
-        <button type="submit" class="btn btn-outline float-right">
-          Cập nhật sản phẩm
-        </button>
-        <button class="btn btn-outline btn-success">Duyệt sản phẩm</button>
         <button
-          @click="this.$router.push('/admin/product')"
+          @click="this.$router.push('/admin/post')"
+          type="submit"
+          class="btn btn-outline"
+        >
+          Thêm bài tin
+        </button>
+        <button
+          @click="this.$router.push('/admin/post')"
           class="btn btn-outline btn-error"
         >
           <span class="flex">Quay về</span>
@@ -151,38 +124,27 @@
 
 <script setup>
 import axios from "axios";
-import { ref } from "vue";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
-import { useRouter } from "vue-router";
-import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
+import { postPost } from "~~/composables/useApiPost";
+import { ref } from "vue";
+import NumberInput from "~~/components/Input/NumberInput.vue";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import * as yup from "yup";
 definePageMeta({
   layout: "admin",
-  name: "Product",
 });
-
-const product = ref({});
-const router = useRouter();
-const productId = ref([]);
-
+const idDanhMuc = ref(0);
+const tieuDe = ref("");
+const noiDung = ref("");
 const thumbnail = ref("");
+
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
-// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
-const getImageUrl = (imageUrl) => {
-  if (!imageUrl) {
-    return "https://placehold.it/50x50";
-  }
-  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
-  )}&download=false`;
-  return url;
-};
-
 async function uploadImage(event) {
+  console.log(event.target.files[0].name);
   console.log(event.target.files[0].name);
   console.log(event.target.files[0].name);
   try {
@@ -197,33 +159,46 @@ async function uploadImage(event) {
       .catch((error) => {
         console.log(error);
       });
+    const response = await axios.post(
+      "http://globalai-staging.huce.edu.vn:8089/api/file/upload?folder=image",
+      formData
+    );
+    console.log(response.data.data.split("=")[2]);
+    thumbnail.value = response.data.data.split("=")[2];
   } catch (error) {
     console.error(error);
   }
 }
 
-onMounted(() => {
-  productId.value = router.currentRoute.value.params.id;
-  watchEffect(async () => {
-    try {
-      const data = await getProductById(productId.value);
-      product.value = data.data;
-      console.log(product.value);
-    } catch (error) {
-      console.log(error);
-    }
-  });
-});
-const submitForm = () => {
-  updateProduct(productId.value, product.value)
-    .then((data) => {
-      console.log(data);
-      toast.success("Cập nhật sản phẩm thành công");
-      router.push("/admin/product");
+// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
+};
+
+function handlePostPost() {
+  const postData = {
+    idDanhMuc: idDanhMuc.value,
+    tieuDe: tieuDe.value,
+    noiDung: noiDung.value,
+    thumbnail: thumbnail.value,
+  };
+
+  console.log(postData);
+
+  postPost(postData)
+    .then((response) => {
+      console.log("res", response);
+      toast.success("Thêm bài tin thành công");
     })
     .catch((error) => {
-      console.log(error);
-      toast.error("Cập nhật sản phẩm thất bại. Vui lòng thử lại!");
+      console.error(error);
+      toast.error("Thêm bài tin thất bại. Vui lòng thử lại!");
     });
-};
+}
 </script>
