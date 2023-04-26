@@ -30,7 +30,7 @@ export default defineNuxtConfig({
             mode: 'client' // nếu chỉ chạy trên client
         },
         {
-            src: '~/plugins/image-uploader.js',
+            src: '~/plugins/image-uploader.client.js',
             mode: 'client' // nếu chỉ chạy trên client
         },
     ],
