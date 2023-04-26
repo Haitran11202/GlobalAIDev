@@ -52,6 +52,7 @@ public class TinBaiRepository : BaseEFRepository<BaiTin>
                            where baiTin.Deleted == DeletedBool.NO
                                 && (input.Slug == null || input.Slug == baiTin.Slug)
                                 && (input.TieuDe == null || input.TieuDe == baiTin.TieuDe)
+                                 && (input.IdDanhMuc == null || input.IdDanhMuc == baiTin.IdDanhMuc)
                                  && (input.Status == null || input.Status == baiTin.Status)
                            select baiTin);
 
