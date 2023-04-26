@@ -118,5 +118,16 @@ namespace GlobalAI.ProductDomain.Implements
             _baiTinRepository.Update(inputUpdate);
             _dbContext.SaveChanges();
         }
+
+        public void Approve(ApproveBaiTinDto input)
+        {
+            var userType = CommonUtils.GetCurrentRole(_httpContext);
+            var userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+            var query = _baiTinRepository.FindById(input.Id);
+            query.ModifiedBy = username;
+            query.Status = input.Status;
+            _dbContext.SaveChanges();
+        }
     }
 }

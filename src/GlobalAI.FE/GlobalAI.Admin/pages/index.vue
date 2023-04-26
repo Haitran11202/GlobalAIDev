@@ -274,7 +274,7 @@
           <div
             class="mx-auto mt-5 grid max-w-2xl grid-cols-1 gap-y-16 gap-x-8 border-t border-gray-200 pt-10 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3"
           >
-            <article class="flex max-w-xl flex-col items-start justify-between">
+            <article v-for="item in baitin" class="flex max-w-xl flex-col items-start justify-between">
               <div class="flex items-center gap-x-4 text-xs">
                 <time datetime="2020-03-16" class="text-gray-500"
                   >Mar 16, 2020</time
@@ -291,7 +291,7 @@
                 >
                   <a href="#">
                     <span class="absolute inset-0"></span>
-                    AI có phải là tương lai của việc tạo video không?
+                   {{ item.tieuDe }}
                   </a>
                 </h3>
                 <p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
@@ -319,99 +319,6 @@
               </div>
             </article>
 
-            <article class="flex max-w-xl flex-col items-start justify-between">
-              <div class="flex items-center gap-x-4 text-xs">
-                <time datetime="2020-03-16" class="text-gray-500"
-                  >Mar 16, 2020</time
-                >
-                <a
-                  href="#"
-                  class="relative z-10 rounded-full bg-gray-50 py-1.5 px-3 font-medium text-gray-600 hover:bg-gray-100"
-                  >Marketing</a
-                >
-              </div>
-              <div class="group relative">
-                <h3
-                  class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
-                >
-                  <a href="#">
-                    <span class="absolute inset-0"></span>
-                    Dữ liệu từ hơn 600 người tiêu dùng đã thay đổi như thế nào
-                    kể từ năm 2022
-                  </a>
-                </h3>
-                <p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
-                  Để giúp các nhà tiếp thị cũng như các chuyên gia kinh doanh,
-                  chúng tôi đã tiến hành một cuộc khảo sát hai năm một lần với
-                  hơn 600 người trưởng thành ở Hoa Kỳ vào tháng 5 năm 2022 và
-                  tháng 1 năm 2023, đồng thời tìm hiểu sâu về dữ liệu theo từng
-                  thế hệ
-                </p>
-              </div>
-              <div class="relative mt-8 flex items-center gap-x-4">
-                <img
-                  :src="adminMale"
-                  alt=""
-                  class="h-10 w-10 rounded-full bg-gray-50"
-                />
-                <div class="text-sm leading-6">
-                  <p class="font-semibold text-gray-900">
-                    <a href="#">
-                      <span class="absolute inset-0"></span>
-                      Admin
-                    </a>
-                  </p>
-                  <p class="text-gray-600">Creator</p>
-                </div>
-              </div>
-            </article>
-
-            <article class="flex max-w-xl flex-col items-start justify-between">
-              <div class="flex items-center gap-x-4 text-xs">
-                <time datetime="2020-03-16" class="text-gray-500"
-                  >Mar 16, 2020</time
-                >
-                <a
-                  href="#"
-                  class="relative z-10 rounded-full bg-gray-50 py-1.5 px-3 font-medium text-gray-600 hover:bg-gray-100"
-                  >Marketing</a
-                >
-              </div>
-              <div class="group relative">
-                <h3
-                  class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
-                >
-                  <a href="#">
-                    <span class="absolute inset-0"></span>
-                    Cách tìm người có ảnh hưởng để quảng bá doanh nghiệp nhỏ của
-                    bạn vào năm 2023
-                  </a>
-                </h3>
-                <p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
-                  Bạn đang muốn quảng bá doanh nghiệp nhỏ của mình trên mạng xã
-                  hội nhưng không có nhiều ngân sách? Hãy tìm hiểu cách tìm và
-                  làm việc với những người có ảnh hưởng để truyền tải thông điệp
-                  của bạn - với chi phí chỉ bằng một phần nhỏ khi làm việc với
-                  những người nổi tiếng
-                </p>
-              </div>
-              <div class="relative mt-8 flex items-center gap-x-4">
-                <img
-                  :src="adminMale"
-                  alt=""
-                  class="h-10 w-10 rounded-full bg-gray-50"
-                />
-                <div class="text-sm leading-6">
-                  <p class="font-semibold text-gray-900">
-                    <a href="#">
-                      <span class="absolute inset-0"></span>
-                      Admin
-                    </a>
-                  </p>
-                  <p class="text-gray-600">Creator</p>
-                </div>
-              </div>
-            </article>
 
             <!-- More posts... -->
           </div>
@@ -557,4 +464,21 @@ import landing from "../assets/img/landing.jpg";
 import mypham from "../assets/img/mypham.jpg";
 import thoitrang from "../assets/img/thoitrang.jpg";
 import dientu from "../assets/img/dientu.jpg";
+
+const baitin = ref([]);
+const pageSize = 3;
+const pageNumber = ref(1);
+const skip = ref(0);
+
+onMounted(() => {
+  getBaiTinPhanTrang(pageSize, pageNumber.value, skip.value)
+    .then((response) => {
+      baitin.value = response.data.items;
+      console.log('dsadsa',baitin.value)
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
+
 </script>

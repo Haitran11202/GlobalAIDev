@@ -21,5 +21,6 @@ namespace GlobalAI.ProductDomain.Interfaces
         BaiTinDto GetById(int id);
         BaiTinDto GetBySlug(string slug);
         void Update(UpdateBaiTinDto input);
+        void Approve(ApproveBaiTinDto input);
     }
 }

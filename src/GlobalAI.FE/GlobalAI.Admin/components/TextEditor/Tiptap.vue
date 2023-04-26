@@ -133,8 +133,8 @@ const editor = useEditor({
   extensions: [StarterKit, Document, Text, Paragraph, Blockquote, Image],
   content: props.modelValue,
   onUpdate: () => {
-    // emits("update:modelValue", editor.value?.getHTML());
-    emits("update:modelValue", editor.value?.getText());
+    emits("update:modelValue", editor.value?.getHTML());
+    // emits("update:modelValue", editor.value?.getText());
   },
 });
 
