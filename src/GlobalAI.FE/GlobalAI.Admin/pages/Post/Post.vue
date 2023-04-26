@@ -1,39 +1,31 @@
 <template>
-  <div>
+  <HeaderDefault />
+  <div class="flex flex-col">
+    <div class="flex w-full justify-center bg-green-600">
+      <div class="flex justify-between gap-0 h-[50px] bg-slate-500">
+        <div
+          class="hover:bg-green-500 bg-green-600 text-white"
+          v-for="(dm, index) in danhMuc"
+          :key="index"
+          @click="selectCategory(dm.id)"
+        >
+          <div
+            class="text-[18px] px-[20px] cursor-pointer h-full flex items-center font-semibold p-3"
+          >
+            {{ dm.tenDanhMuc }}
+          </div>
+        </div>
+      </div>
+    </div>
     <navbar />
     <main class="profile-page">
-      <section class="relative block h-500-px">
-        <div
-          class="absolute top-0 w-full h-full bg-center bg-cover"
-          style="
-            background-image: url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80');
-          "
-        >
-          <span
-            id="blackOverlay"
-            class="w-full h-full absolute opacity-50 bg-black"
-          ></span>
-        </div>
+      <section class="relative block">
         <div
           class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px"
           style="transform: translateZ(0)"
-        >
-          <!-- <svg
-                  class="absolute bottom-0 overflow-hidden"
-                  xmlns="http://www.w3.org/2000/svg"
-                  preserveAspectRatio="none"
-                  version="1.1"
-                  viewBox="0 0 2560 100"
-                  x="0"
-                  y="0"
-                >
-                  <polygon
-                    class="text-blueGray-200 fill-current"
-                    points="2560 0 2560 100 0 100"
-                  ></polygon>
-                </svg> -->
-        </div>
+        ></div>
       </section>
+
       <!-- component -->
       <div class="text-gray-900 pt-12 pr-0 pb-14 pl-0 bg-white">
         <div
@@ -49,22 +41,7 @@
                 <div
                   class="bg-green-500 flex items-center leading-none rounded-full text-gray-50 pt-1.5 pr-3 pb-1.5 pl-2 uppercase inline-block"
                 >
-                  <p class="inline">
-                    <svg
-                      class="w-3.5 h-3.5 mr-1"
-                      fill="currentColor"
-                      viewbox="0 0 20 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0
-                      00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755
-                      1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1
-                      0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
-                      />
-                    </svg>
-                  </p>
-                  <p class="inline text-xs font-medium">Mới nhất</p>
+                  <p class="inline text-xs font-medium">Mới nhất Nè</p>
                 </div>
                 <a
                   @click="handleClick"
@@ -136,78 +113,6 @@
                 </p>
               </div>
             </div>
-            <div
-              class="flex flex-col items-start col-span-12 space-y-3 sm:col-span-6 xl:col-span-4"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1626285861696-9f0bf5a49c6d?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTl8fHxlbnwwfHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=60"
-                class="object-cover w-full mb-2 overflow-hidden rounded-lg shadow-sm max-h-56 btn-"
-              />
-              <p
-                class="bg-green-500 flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3 rounded-full uppercase inline-block"
-              >
-                Động vật
-              </p>
-              <a class="text-lg font-bold sm:text-xl md:text-2xl"
-                >Chó, là một loài động vật thuộc chi Chó</a
-              >
-              <p class="text-sm text-black">
-                Chó cũng là loài động vật đầu tiên được con người thuần hóa và
-                đã được chọn giống qua hàng thiên niên kỷ với nhiều hành vi, khả
-                năng cảm nhận và đặc tính vật lý ...
-              </p>
-              <div class="pt-2 pr-0 pb-0 pl-0">
-                <p class="text-sm font-medium inline">Tác giả:</p>
-                <a
-                  class="inline text-sm font-medium mt-0 mr-1 mb-0 ml-1 underline"
-                  >Hidden</a
-                >
-                <p class="inline text-sm font-medium mt-0 mr-1 mb-0 ml-1">
-                  · 31/03/2023 ·
-                </p>
-                <p
-                  class="text-gray-200 text-sm font-medium inline mt-0 mr-1 mb-0 ml-1"
-                >
-                  1h 20p
-                </p>
-              </div>
-            </div>
-            <div
-              class="flex flex-col items-start col-span-12 space-y-3 sm:col-span-6 xl:col-span-4"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1626197031507-c17099753214?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MzR8fHxlbnwwfHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=60"
-                class="object-cover w-full mb-2 overflow-hidden rounded-lg shadow-sm max-h-56 btn-"
-              />
-              <p
-                class="bg-green-500 flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3 rounded-full uppercase inline-block"
-              >
-                Tiêu dùng
-              </p>
-              <a class="text-lg font-bold sm:text-xl md:text-2xl"
-                >Những loại bánh ngọt nổi tiếng trên thế giớ</a
-              >
-              <p class="text-sm text-black">
-                Bánh ngọt hay bánh ga-tô là một thuật ngữ chung cho bánh có
-                nguồn gốc từ phương Tây. Bánh một dạng thức ăn ngọt làm từ bột
-                mì, đường và các thành phần khác, thường được nướng.
-              </p>
-              <div class="pt-2 pr-0 pb-0 pl-0">
-                <p class="text-sm font-medium inline">Tác giả:</p>
-                <a
-                  class="inline text-sm font-medium mt-0 mr-1 mb-0 ml-1 underline"
-                  >Hidden</a
-                >
-                <p class="inline text-sm font-medium mt-0 mr-1 mb-0 ml-1">
-                  · 31/03/2023 ·
-                </p>
-                <p
-                  class="text-gray-200 text-sm font-medium inline mt-0 mr-1 mb-0 ml-1"
-                >
-                  1h 20p
-                </p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -217,17 +122,33 @@
 </template>
 <script setup>
 import { useRouter } from "vue-router";
+import HeaderDefault from "~~/components/Headers/HeaderDefault.vue";
 const router = useRouter();
 const datas = ref([]);
 const newBaiTin = ref({});
+
+const danhMuc = ref([]);
+const selectedDanhMuc = ref(0);
+definePageMeta({
+  name: "Post",
+});
 onMounted(() => {
   getBaiTinPhanTrang()
     .then((res) => {
       datas.value = res?.data?.data?.items;
-      // datas.value.find(s => s.createdDate )
+      console.log(datas.value);
+    })
+    .catch(() => {});
+  getAllDanhMucBaiTin()
+    .then((res) => {
+      danhMuc.value = res?.data?.data?.items;
     })
     .catch(() => {});
 });
+const selectCategory = (idDanhMucBaiTin) => {
+  console.log("push");
+  router.push({ name: "PostDanhMuc", params: { id: idDanhMucBaiTin } });
+};
 const handleClick = (slug) => {
   console.log("click");
 
