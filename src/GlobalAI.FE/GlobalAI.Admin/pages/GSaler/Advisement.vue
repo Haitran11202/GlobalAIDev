@@ -76,8 +76,11 @@ function prevImage() {
 }
 function setCurrentIndex(index) {
   currentIndex.value = index;
-  imagesContainer.value.style.transform =
-    "translateX(" + -currentIndex.value * 100 + "%)";
+  if(imagesContainer){
+
+    imagesContainer.value.style.transform =
+      "translateX(" + -currentIndex.value * 100 + "%)";
+  }
 }
 
 const currentImage = computed(() => images[currentIndex.value]);

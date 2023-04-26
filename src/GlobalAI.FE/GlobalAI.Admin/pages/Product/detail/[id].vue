@@ -293,7 +293,7 @@ const soLuong = ref(1);
 const imagelink = ref("");
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
-
+const selectProduct = ref([]);
 const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
@@ -303,6 +303,7 @@ const getImageUrl = (imageUrl) => {
   )}&download=false`;
   return url;
 };
+
 watchEffect(() => {
   productId.value = router.currentRoute.value.params.id;
   console.log(productId.value);
@@ -342,7 +343,7 @@ const handleBuyClick = () => {
     })
     .catch(() => {});
   const userId = getUserInfor().user_id;
-  router.push({ name: "ManageCart", params: { id: getUserInfor().user_id } });
+  router.push({ name: "ProductCart", params: { id: productId.value } });
 };
 
 const increment = () => {
@@ -383,6 +384,7 @@ const handleAddProductCart = async () => {
     toast.success("Thêm sản phẩm vào giỏ hàng thành công !", {
       autoClose: 1000,
     });
+    router.push({name: "ManageCart"})
   } catch (error) {
     toast.error("Thêm sản phẩm vào giỏ hàng thất bại");
   }
