@@ -55,4 +55,8 @@ export const API_ENDPOINT = {
   getBaiTinBySlug: (slug) => `/api/product/bai-tin/find/slug/${slug}`,
   getBaiTinPhanTrang: () =>
     `/api/product/bai-tin/find-all?pageSize=11&pageNumber=1`,
+
+  // API trả giá
+  postProductBid:`api/product/tra-gia`,
+  getProductBidUser:(IdSanPham , GiaTien , status , pageSize , pageNumber , Skip) => `/api/product/tra-gia/find-all?IdSanPham=${IdSanPham}&GiaTien=${GiaTien}&status=${status}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`
 };

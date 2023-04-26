@@ -10,8 +10,8 @@
         </h1>
         <Sliderncc />
       </div>
-      <card-list-product-short :title="productsTitle" :products="products" />
-      <card-list-product-short :title="productSellerTitle"
+      <card-list-product-short :category="productscategory" :products="products" />
+      <card-list-product-short :category="productSellerCategory"
         :products="productsSeller"
       />
     </div>
@@ -29,26 +29,26 @@ definePageMeta({
   layout: "layout-default",
 });
 const products = ref([]);
-const productsTitle = ref('');
-const productSellerTitle = ref('');
+const productscategory = ref('');
+const productSellerCategory = ref('');
 const productsSeller = ref([]);
 let content = ref("");
 const listDanhMuc = ref([]);
 
 // Lấy tất cả sản phẩm theo danh mục
 onMounted(() => {
-  getDanhMucSanPham()
+  getDanhMucSanPhamNews()
     .then((res) =>{
       if (res?.data?.data?.items) {
-        listDanhMuc.value = res.data.data.items.slice(0 , 2);
-        productsTitle.value = listDanhMuc.value[0].tenDanhMuc;
-        productSellerTitle.value = listDanhMuc.value[1].tenDanhMuc;
-        getSanPhamDanhMuc(listDanhMuc.value[0].idDanhMuc)
+        // Lấy 3 danh mục đầu
+        listDanhMuc.value = res.data.data.items.slice(0 , 3);
+        productscategory.value = listDanhMuc.value[2];
+        productSellerCategory.value = listDanhMuc.value[1];
+        getSanPhamDanhMuc(listDanhMuc.value[2].idDanhMuc)
           .then((res) => {
             if (res?.data?.data?.items) {
               products.value = res.data.data.items;
               console.log(products.value);
-
               return getSanPhamDanhMuc(listDanhMuc.value[1].idDanhMuc);
             }
           })

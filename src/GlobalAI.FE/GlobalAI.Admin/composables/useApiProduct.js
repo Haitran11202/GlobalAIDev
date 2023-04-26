@@ -3,7 +3,7 @@ import http from "./useApi";
 import { API_ENDPOINT } from "~~/api/api.endpoint";
 
 
-export const getDanhMucSanPham = async() => {
+export const getDanhMucSanPhamNews = async() => {
   const res = await http.get(API_ENDPOINT.getDanhMucSanPham);
   try {
     return Promise.resolve(res);
@@ -240,3 +240,24 @@ export const getGioHangByIdSanPham = async (id) => {
     return Promise.reject(err);
   }
 };
+
+
+
+// API Trả Giá
+export const postProductBid = async(productPrice) => {
+  try {
+    const res = await http.post(API_ENDPOINT.postProductBid, productPrice);
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+}
+// API get full trả giá
+export const getProductBidUser = async(IdSanPham , GiaTien , status , pageSize , pageNumber , Skip) => {
+  try{
+    const res = await http.get(API_ENDPOINT.getProductBidUser(IdSanPham , GiaTien , status , pageSize , pageNumber , Skip))
+    return Promise.resolve(res.data) 
+  }catch(err){
+    return Promise.reject(err);
+  }
+}

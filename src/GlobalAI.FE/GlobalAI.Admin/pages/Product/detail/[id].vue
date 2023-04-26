@@ -99,7 +99,7 @@
            Trả giá
         </button>
         <div v-if="isCheckedChat" class="fixed bottom-0 right-[5%] bg-white border-[1px] shadow-md rounded-t-md px-[15px] py-[15px]">
-          <Chatbox v-on:close-box="handleCloseBoxChat" :nameProduct="products.tenSanPham" :priceProduct="products.giaBan"/>
+          <Chatbox v-on:close-box="handleCloseBoxChat" :products="products"/>
         </div>
       </div>
     </div>
