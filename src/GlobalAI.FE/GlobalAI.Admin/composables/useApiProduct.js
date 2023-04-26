@@ -1,17 +1,6 @@
 import { faShareAltSquare } from "@fortawesome/free-solid-svg-icons";
 import http from "./useApi";
 import { API_ENDPOINT } from "~~/api/api.endpoint";
-
-
-export const getDanhMucSanPhamNews = async() => {
-  const res = await http.get(API_ENDPOINT.getDanhMucSanPham);
-  try {
-    return Promise.resolve(res);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-}
-
 export const getSanPhamDanhMucPhanTrang = async (
   categoryId,
   pageSize,
@@ -52,6 +41,14 @@ export const getFullSanPham = async (id) => {
   }
 };
 
+export const getDanhMucSanPham = async () => {
+  const res = await http.get(API_ENDPOINT.getDanhMucSanPham)
+  try {
+   return Promise.resolve(res)
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
 // Cương code
 
 // Lấy tất cả sản phẩm và phân trang
@@ -241,23 +238,48 @@ export const getGioHangByIdSanPham = async (id) => {
   }
 };
 
-
-
-// API Trả Giá
-export const postProductBid = async(productPrice) => {
+export const getAllDanhMucBaiTin = async () => {
   try {
-    const res = await http.post(API_ENDPOINT.postProductBid, productPrice);
-    return Promise.resolve(res.data);
+    const res = await http.get(API_ENDPOINT.getAllDanhMucBaiTin());
+    return Promise.resolve(res);
   } catch (err) {
     return Promise.reject(err);
   }
-}
-// API get full trả giá
-export const getProductBidUser = async(IdSanPham , GiaTien , status , pageSize , pageNumber , Skip) => {
+};
+
+export const getBaiTinTheoDanhMuc = async (id) => {
+  try {
+    const res = await http.get(API_ENDPOINT.getBaiTinTheoDanhMuc(id));
+    return Promise.resolve(res);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+
+// trả giá sản phẩm 
+export const postProductBid = async(priceProduct)=>{
   try{
-    const res = await http.get(API_ENDPOINT.getProductBidUser(IdSanPham , GiaTien , status , pageSize , pageNumber , Skip))
-    return Promise.resolve(res.data) 
+    const res = await http.post(API_ENDPOINT.postProductBid , priceProduct)
+    return Promise.resolve(res);
   }catch(err){
     return Promise.reject(err);
+  }
+}
+
+// Lấy chat trả giá 
+export const getDetailedPayment = async(idTraGia) =>{
+  try {
+    const res = await http.get(API_ENDPOINT.getDetailedPayment(idTraGia))    
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
+
+export const getIDPayment = async(idSanPham) => {
+  try {
+    const res = await http.get(API_ENDPOINT.getIDPayment(idSanPham))
+  } catch (error) {
+    return Promise.reject(error)
   }
 }

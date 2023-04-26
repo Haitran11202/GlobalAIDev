@@ -43,11 +43,11 @@ export const API_ENDPOINT = {
   getAllOrder: (pageSize, pageNumber, skip) =>
     `http://localhost:5003/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
 
-  postOrder: `/api/product/donhang`,
+    postOrder: `/api/product/donhang`,
 
-  deleteOrder: (id) => {
-    `/api/product/donhang/${id}`;
-  },
+    deleteOrder: (id) => {
+        `/api/product/donhang/${id}`;
+    },
 
   getOrderById: (id) => `api/product/donhang/${id}`,
   // Api Bài đăng
@@ -58,5 +58,7 @@ export const API_ENDPOINT = {
 
   // API trả giá
   postProductBid:`api/product/tra-gia`,
-  getProductBidUser:(IdSanPham , GiaTien , status , pageSize , pageNumber , Skip) => `/api/product/tra-gia/find-all?IdSanPham=${IdSanPham}&GiaTien=${GiaTien}&status=${status}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`
+  getDetailedPayment:(idTraGia) => `/api/product/tra-gia/${idTraGia}`,
+  getProductBidUser:(IdSanPham , GiaTien , status , pageSize , pageNumber , Skip) => `/api/product/tra-gia/find-all?IdSanPham=${IdSanPham}&GiaTien=${GiaTien}&status=${status}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
+  getIDPayment:(idSanPham) => `/api/product/tra-gia/FindTraGiaBySanPham?idSanPham=${idSanPham}`
 };

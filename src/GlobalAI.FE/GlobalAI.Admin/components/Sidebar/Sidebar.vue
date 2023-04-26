@@ -23,7 +23,7 @@ let collapseShow = ref("hidden");
 const  colors = ['#FFC107', '#9C27B0', '#00BCD4', '#4CAF50', '#E91E63']
 const listDanhMuc = ref([]);
 onMounted(() => {
-  getDanhMucSanPhamNews()
+  getDanhMucSanPham()
    .then((res) =>
       listDanhMuc.value = res?.data?.data?.items
    )

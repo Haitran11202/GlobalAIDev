@@ -82,5 +82,9 @@ namespace GlobalAI.ProductRepositories
         {
             return _dbSet.FirstOrDefault(d => d.Id == id && d.Deleted == DeletedBool.NO);
         }
+        public TraGiaDto FindTraGiaBySanPham(int idSanPham, int? idNguoiMua , int idNguoiban) {
+            var traGia = _dbSet.FirstOrDefault(tg => tg.IdSanPham == idSanPham && tg.IdNguoiBan == idNguoiban && tg.IdNguoiMua == idNguoiMua);
+            return _mapper.Map<TraGiaDto>(traGia);
+        }
     }
 }

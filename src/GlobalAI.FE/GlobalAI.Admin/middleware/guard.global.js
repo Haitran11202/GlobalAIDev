@@ -25,6 +25,11 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         //     } else {
         //         const userPermission = userStorage.permissions;
         //         const permissionRoute = PERMISSIONS_ROUTE_CONFIG[matchedPath];
+        //     if (!PERMISSIONS_ROUTE_CONFIG[matchedPath]) {
+        //         allowNavigate = false;
+        //     } else {
+        //         const userPermission = userStorage.permissions;
+        //         const permissionRoute = PERMISSIONS_ROUTE_CONFIG[matchedPath];
                 
         //         if (userPermission && Array.isArray(userPermission)) {
         //             let count = 0;

@@ -37,7 +37,7 @@ const listDanhMuc = ref([]);
 
 // Lấy tất cả sản phẩm theo danh mục
 onMounted(() => {
-  getDanhMucSanPhamNews()
+  getDanhMucSanPham()
     .then((res) =>{
       if (res?.data?.data?.items) {
         // Lấy 3 danh mục đầu

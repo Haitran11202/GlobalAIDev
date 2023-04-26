@@ -33,16 +33,16 @@
             />
           </div>
           <div class="flex-1 flex gap-[6px] flex-col font-[400]">
-            <h3 class="text-[16px] text-[#000000]">Nguyễn Tiến Dũng</h3>
+            <h3 class="text-[16px] text-[#000000]">{{data.name}}</h3>
             <p
               class="text-[12px] leading-[1.2] h-[14.4px] whitespace-normal text-ellipsis line-clamp-1 text-[#9B9B9B] font-[500]"
             >
-              Bàn phím chính hãng,blue switch
+             {{data.title}}
             </p>
             <p
               class="text-[12px] text-[#9B9B9B] font-[400] leading-[1.2] h-[14.4px] whitespace-normal text-ellipsis line-clamp-1"
             >
-              300K mình không bán được bạn nhé
+              {{data.desc}}
             </p>
           </div>
           <div class="w-[65px] h-[65px] rounded-md overflow-hidden">
@@ -90,7 +90,7 @@
           <p class="text-red-500 text-[14px] mt-1">4800.000đ</p>
         </div>
       </div>
-      <div class="h-[480px] overflow-y-auto">
+      <div class="h-[480px] px-[15px] overflow-y-auto">
         <div
           class="gsaler w-full mt-[20px] flex justify-end items-end gap-[10px]"
         >

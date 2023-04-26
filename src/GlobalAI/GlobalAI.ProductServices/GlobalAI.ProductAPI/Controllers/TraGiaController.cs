@@ -136,5 +136,24 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+        /// <summary>
+        /// chi tiet tra gia
+        /// </summary>
+        /// <param name="configContractCodeId"></param>
+        /// <returns></returns>
+        [HttpGet("FindTraGiaBySanPham")]
+        [ProducesResponseType(typeof(APIResponse), (int)HttpStatusCode.OK)]
+        public APIResponse FindTraGiaBySanPham(int idSanPham)
+        {
+            try
+            {
+                var result = _traGiaServices.FindTraGiaBySanPham(idSanPham);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
     }
 }

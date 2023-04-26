@@ -121,7 +121,7 @@ services.AddScoped<ITraGiaServices, TraGiaServices>();
 services.AddScoped<IGioHangServices, GioHangServices>();
 services.AddScoped<IBaiTinServices, BaiTinServices>();
 services.AddScoped<IDanhMucBaiTinServices, DanhMucBaiTinServices>();
-//services.AddScoped<IVoucherServices, VoucherServices>();
+services.AddScoped<IVoucherServices, VoucherServices>();
 services.AddScoped<IDanhMucServices, DanhMucServices>();
 #endregion
 #region Add Auto Mapper

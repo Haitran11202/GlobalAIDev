@@ -7,9 +7,8 @@
           :icon="['fas', 'angle-left']"
         />
       </div>
-      <a href="/gsaler/home" class="text-[18px] text-[#cc3366]">Trở lại</a>
+      <a @click="handleBack" class="text-[18px] text-[#cc3366]">Trở lại</a>
     </div>
-
     <div class="flex w-full gap-[30px] lg:flex-row flex-col">
       <div class="lg:w-[65%] mt-[20px] rounded-md overflow-hidden">
         <div
@@ -17,7 +16,7 @@
         >
           <div class="flex w-full items-start gap-[10px] mb-[30px]">
             <div class="flex items-center gap-[20px]">
-              <input v-model="selectedProducts" type="checkbox" />
+              <!-- <input v-model="selectedProducts" type="checkbox" /> -->
               <div
                 class="flex flex-col mt-[20px] w-[102px] h-[102px] items-center justify-center"
               >
@@ -36,7 +35,7 @@
               <span class="text-[14px] text-[#6C757D]">Phân loại : Trắng</span>
               <span class="text-left text-[#cc3366] text-[16px] font-[400]"
                 >Tổng giá :
-                {{ formatMoneyAll(product.giaBan * giohang.soLuong) }}
+                {{ formatMoneyAll(getPrice(giohang.soLuong, product.giaBan)) }}
               </span>
               <div class="flex justify-between items-center">
                 <p
@@ -44,7 +43,7 @@
                 >
                   Sửa
                 </p>
-                <button class="flex items-center text-[#3478f6]">
+                <button class="flex items-center text-[#3478f6]" @click="handleDelete(product.id)">
                   <svg
                     class="w-8 h-8 rounded-full p-1"
                     fill="none"
@@ -181,23 +180,9 @@
                 </div>
               </div>
             </div>
-            <!-- <button
-              @click="checkOut"
-              :class="
-                selectedProducts.length > 0
-                  ? 'mt-[40px] w-full py-[15px] text-white bg-[#cc3366] rounded-xl '
-                  : 'mt-[40px] w-full py-[15px] text-white bg-[#9b9fac] rounded-xl '
-              "
-            >
-              Tạo Đơn
-            </button> -->
+           
           </div>
-          <!-- <div class="flex justify-between mt-[15px]">
-              <p class="text-sm text-[16px] text-gray-700">
-              Tiết kiệm:
-            </p>
-            <p> p>
-            </div> -->
+     
         </div>
       </div>
     </div>
@@ -208,20 +193,20 @@
 import { getGioHangByIdSanPham } from "~/composables/useApiProduct";
 import { useRouter } from "vue-router";
 import vueNumberFormat from "~~/plugins/vue-number-format";
+import { toast } from "vue3-toastify";
+import { useUserStorage } from "~~/stores/user";
+import jwtDecode from "jwt-decode";
 definePageMeta({
   layout: "layout-default",
   name: "ProductCart",
 });
 const product = ref([]);
 const giohang = ref([]);
-const isShowModelCart = ref("");
 const selectedProducts = ref([]);
-const soLuongUpdate = ref(0);
-const giaBan = ref(0);
 const diaChi = ref("Trương Định, Hà Nội");
-const isshowModalDelete = ref(false);
-const isShowModalOpacity = ref(false);
-const idDelete = ref("");
+const userStorage = useUserStorage();
+const token = userStorage.getAccessToken;
+
 //body call api tạo đơn hàng full
 const bodyData = ref({
   donHang: {
@@ -254,16 +239,46 @@ onMounted(() => {
     .then((res) => {
       console.log(res.data.data);
       giohang.value = res?.data?.data;
+      console.log(giohang.value);
       getSanPhamById(idSanPham).then((res) => {
         product.value = res?.data?.data;
+        console.log(product.value);
       });
     })
     .catch(() => {});
 });
-
+const getUserId = () => {
+  console.log(token);
+  return jwtDecode(token);
+}
+const getPrice = (soLuong, giaBan) => {
+  console.log(soLuong, giaBan);
+  return giaBan * soLuong;
+};
 const formatMoneyAll = (money) => {
+  console.log(money);
   money = Number(money);
   return money.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
+};
+// Handle Delete gio hang 
+const handleDelete = () => {
+  console.log(giohang.value.id);
+  deleteGioHang(giohang.value.id)
+    .then((res) => {
+      console.log(res.data);
+      toast.success("Xóa giỏ hàng thành công");
+      router.back();
+    })
+    .catch(() => {});
+};
+const handleBack = () => {
+  router.back()
+}
+const checkOut = () => {
+  
+  console.log(getUserId());
+  console.log(product.value.id);
+  router.push({name:"ManageCart",query: {checkedItem: product.value.id}, params: {id: getUserId().user_id}})
 };
 </script>
 <style lang="css">

@@ -23,5 +23,6 @@ namespace GlobalAI.ProductDomain.Interfaces
         void Approve(ApproveTraGiaDto input);
         PagingResult<TraGiaDto> FindAll(FilterTraGiaDto input);
         TraGiaDto GetById(int id);
+        TraGiaDto FindTraGiaBySanPham(int idSanPham);
     }
 }
