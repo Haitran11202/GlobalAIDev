@@ -98,7 +98,7 @@ namespace GlobalAI.ProductDomain.Implements
             var inputInsert = _mapper.Map<Voucher>(input);
 
             inputInsert.CreatedBy = username; 
-            inputInsert.Status = TrangThaiBaiTin.KICH_HOAT;
+            inputInsert.Status = VoucherStatus.KHOI_TAO;
 
             //add voucher
             inputInsert = _voucherRepository.Add(inputInsert);
