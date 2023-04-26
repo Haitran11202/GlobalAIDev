@@ -71,6 +71,13 @@
       </button>
 
       <button
+        :class="{ 'is-active': editor?.isActive('blockquote') }"
+        @click.prevent="toggleHTML()"
+      >
+        HTML
+      </button>
+
+      <button
         :class="{ 'is-active': editor?.isActive('bulletList') }"
         @click.prevent="editor?.chain().focus().toggleBulletList().run()"
       >
@@ -152,6 +159,17 @@ watch(
 const showImageModal = () => {
   $vfm.show("imageModal");
 };
+
+const toggleHTML = () => {
+  const html = editor.value?.getHTML();
+  const text = editor.value?.getText();
+  console.log(html, text);
+
+  // if (text != html) {
+   editor.value?.commands.setContent('<code><h1>1223432432</h1></code>'); 
+  // }
+
+}
 
 const uploadImageSuccess = (data) => {
   const baseUrl = config.public.apiEndpoint;

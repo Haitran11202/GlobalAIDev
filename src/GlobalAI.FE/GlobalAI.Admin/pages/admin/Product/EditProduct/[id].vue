@@ -127,10 +127,11 @@
           >Mô tả</label
         >
         <div class="w-full">
-          <tiptap
+          <TextEditor v-model="moTa" />
+          <!-- <tiptap
             v-model="moTa"
             class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          />
+          /> -->
         </div>
       </div>
       <div class="flex justify-end gap-5">
@@ -156,6 +157,7 @@ import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
 import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
+import TextEditor from "~~/components/TextEditor/TextEditor.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref, watchEffect } from "vue";
 definePageMeta({

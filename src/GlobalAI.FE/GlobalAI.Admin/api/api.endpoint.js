@@ -32,7 +32,7 @@ export const API_ENDPOINT = {
   putProduct: (id) => `api/product/sanpham/${id}`,
 
   //Image
-  postImages: "api/filFe/upload?folder=image",
+  postImages: "api/file/upload?folder=image",
 
   // Quản lý đơn hàng
   getAllOrder: (pageSize, pageNumber, skip) =>

@@ -28,7 +28,11 @@ export default defineNuxtConfig({
         {
             src: '~/plugins/signalr.js',
             mode: 'client' // nếu chỉ chạy trên client
-          }
+        },
+        {
+            src: '~/plugins/image-uploader.js',
+            mode: 'client' // nếu chỉ chạy trên client
+        },
     ],
 
     pinia: {
