@@ -194,5 +194,16 @@ namespace GlobalAI.ProductDomain.Implements
             result.ChiTietTraGias = _mapper.Map<List<ChiTietTraGiaDto>>(_chiTietTraGiaRepository.GetAll(traGia.Id));
             return result;
         }
+        public TraGiaDto FindTraGiaBySanPham(int idSanPham)
+        {
+            int? userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var sanPham = _dbContext.SanPhams.FirstOrDefault(sp => sp.Id == idSanPham);
+            var traGia = _traGiaRepository.FindTraGiaBySanPham(idSanPham, userId, sanPham.IdGStore);
+            var result = _mapper.Map<TraGiaDto>(traGia);
+            result.Type = result.IdNguoiMua == userId ? TypeLoginTraGia.NGUOI_MUA : result.IdNguoiBan == userId ? TypeLoginTraGia.NGUOI_BAN : 0;
+            result.ChiTietTraGias = _mapper.Map<List<ChiTietTraGiaDto>>(_chiTietTraGiaRepository.GetAll(traGia.Id));
+            return result;
+        }
+
     }
 }
