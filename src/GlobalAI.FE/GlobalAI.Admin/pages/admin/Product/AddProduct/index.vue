@@ -176,7 +176,6 @@ const thumbnail = ref("");
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
-
 async function uploadImage(event) {
   console.log(event.target.files[0].name);
   console.log(event.target.files[0].name);
@@ -204,7 +203,7 @@ async function uploadImage(event) {
   }
 }
 
-// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
+// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ
 const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
@@ -223,7 +222,6 @@ function handlePostProduct() {
     giaBan: giaBan.value,
     giaChietKhau: giaChietKhau.value,
     idDanhMuc: idDanhMuc.value,
-    thumbnail: thumbnail.value,
     thumbnail: thumbnail.value,
   };
 

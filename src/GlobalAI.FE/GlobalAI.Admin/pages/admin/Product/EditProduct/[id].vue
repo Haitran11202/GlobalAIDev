@@ -10,9 +10,9 @@
             Mã sản phẩm
           </label>
           <Field
-            v-model="product.id"
             name="maSanPham"
             type="text"
+            v-model="maSanPham"
             placeholder="Mã sản phẩm..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
@@ -27,9 +27,9 @@
             Tên sản phẩm
           </label>
           <Field
-            v-model="product.tenSanPham"
             name="tenSanPham"
             type="text"
+            v-model="tenSanPham"
             placeholder="Tên sản phẩm..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
@@ -44,8 +44,8 @@
             Giá bán
           </label>
           <Field
-            v-model="product.giaBan"
             name="giaBan"
+            v-model="giaBan"
             type="number"
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
@@ -60,9 +60,9 @@
             Giá chiết khấu
           </label>
           <Field
-            v-model="product.giaChietKhau"
             name="giaChietKhau"
             type="number"
+            v-model="giaChietKhau"
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
           <error-message name="giaChietKhau" class="text-red-500" />
@@ -75,8 +75,8 @@
             >Mã danh mục</label
           >
           <select
-            v-model="product.idDanhMuc"
             id="idDanhMuc"
+            v-model="maDanhmuc"
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             required
           >
@@ -115,7 +115,7 @@
             <img
               alt="Product Image"
               class="w-[50px] h-[50px] border absolute right-0 rounded"
-              :src="getImageUrl(product.thumbnail)"
+              :src="getImageUrl(thumbnailNew)"
             />
           </div>
         </div>
@@ -128,8 +128,8 @@
         >
         <div class="w-full">
           <tiptap
+            v-model="moTa"
             class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            v-model="product.moTa"
           />
         </div>
       </div>
@@ -151,38 +151,32 @@
 
 <script setup>
 import axios from "axios";
-import { ref } from "vue";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
 import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import { ref, watchEffect } from "vue";
 definePageMeta({
   layout: "admin",
   name: "Product",
 });
-
-const product = ref({});
 const router = useRouter();
 const productId = ref([]);
-
-const thumbnail = ref("");
+const thumbnailNew = ref("");
 const config = useRuntimeConfig();
+const maSanPham = ref("");
+const giaBan = ref("");
+const tenSanPham = ref("");
+const giaChietKhau = ref("");
+const moTa = ref("");
+const maDanhmuc = ref("");
+
 const baseUrl = config.public.apiEndpoint;
 
-// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
-const getImageUrl = (imageUrl) => {
-  if (!imageUrl) {
-    return "https://placehold.it/50x50";
-  }
-  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
-  )}&download=false`;
-  return url;
-};
-
 async function uploadImage(event) {
+  console.log(event.target.files[0].name);
   console.log(event.target.files[0].name);
   console.log(event.target.files[0].name);
   try {
@@ -191,31 +185,68 @@ async function uploadImage(event) {
     postImage(formData)
       .then((response) => {
         console.log(response);
-        thumbnail.value = response.data.split("=")[2];
+        thumbnailNew.value = response.data.split("=")[2];
         console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
+    const response = await axios.post(
+      "http://globalai-staging.huce.edu.vn:8089/api/file/upload?folder=image",
+      formData
+    );
+    console.log(response.data.data.split("=")[2]);
+    thumbnailNew.value = response.data.data.split("=")[2];
   } catch (error) {
     console.error(error);
   }
 }
+
+// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
+const getImageUrl = (imageUrl) => {
+  console.log(imageUrl);
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  console.log("url", url);
+  return url;
+};
+
+watchEffect(() => {
+  getImageUrl();
+});
 
 onMounted(() => {
   productId.value = router.currentRoute.value.params.id;
   watchEffect(async () => {
     try {
       const data = await getProductById(productId.value);
-      product.value = data.data;
-      console.log(product.value);
+      maSanPham.value = data.data.maSanPham;
+      tenSanPham.value = data.data.tenSanPham;
+      maDanhmuc.value = data.data.idDanhMuc;
+      giaBan.value = data.data.giaBan;
+      moTa.value = data.data.moTa;
+      giaChietKhau.value = data.data.giaChietKhau;
+      thumbnailNew.value = data.data.thumbnail;
     } catch (error) {
       console.log(error);
     }
   });
 });
 const submitForm = () => {
-  updateProduct(productId.value, product.value)
+  const formData = {
+    maSanPham: maSanPham.value,
+    tenSanPham: tenSanPham.value,
+    idDanhMuc: maDanhmuc.value,
+    giaBan: giaBan.value,
+    giaChietKhau: giaChietKhau.value,
+    thumbnail: thumbnailNew.value,
+    moTa: moTa.value,
+  };
+  updateProduct(productId.value, formData)
     .then((data) => {
       console.log(data);
       toast.success("Cập nhật sản phẩm thành công");
