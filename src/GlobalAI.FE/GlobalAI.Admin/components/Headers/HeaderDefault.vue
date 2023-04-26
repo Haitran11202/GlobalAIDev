@@ -1,18 +1,5 @@
 <template>
-  <div>
-    <!-- Header -->
-    <div class="sticky top-0 bg-white z-20 shadow px-4 lg:hidden">
-      <div class="container mx-auto px-4">
-        <div class="flex justify-between items-center py-3">
-          <a href="/" class="text-slate-700 text-xl font-bold leading-relaxed">
-            GlobalAI
-          </a>
-          <button class="block lg:hidden focus:outline-none">
-            <i class="fas fa-bars"></i>
-          </button>
-        </div>
-      </div>
-    </div>
+  <div> 
     <!-- Header -->
     <div>
       <div class="sticky top-0 bg-white z-20 shadow px-4 lg:hidden">
@@ -30,7 +17,6 @@
           </div>
         </div>
       </div>
-
       <div
         class="sticky hidden lg:block relative top-0 border-y-2 bg-white z-20 shadow px-4"
       >

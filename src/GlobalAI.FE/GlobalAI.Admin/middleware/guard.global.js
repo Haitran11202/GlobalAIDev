@@ -17,7 +17,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
             return navigateTo(ROUTES.LOGIN);
         } else if (userStorage.isLoggedIn && matchedPath === ROUTES.LOGIN) {
             return navigateTo(ROUTES.HOME);
-        } else if (userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(matchedPath)) {
+        }
+        else if (userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(matchedPath)) {
             let allowNavigate = false;
     
             if (!PERMISSIONS_ROUTE_CONFIG[matchedPath]) {
@@ -44,6 +45,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
                 return navigateTo(ROUTES.ERROR_FORBIDDEN);
             }
         }   
-    }
+   }
 
 });
