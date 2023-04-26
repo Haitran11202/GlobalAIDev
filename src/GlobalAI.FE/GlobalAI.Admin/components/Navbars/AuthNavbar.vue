@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg"
+    class="top-0 absolute z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-slate-800"
   >
     <div
       class="container px-4 mx-auto flex flex-wrap items-center justify-between"
@@ -9,7 +9,7 @@
         class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"
       >
         <nuxt-link
-          class="text-slate-800 text-base font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
+          class="text-white text-base font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap uppercase"
           to="/"
         >
           Global AI

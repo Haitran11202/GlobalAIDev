@@ -1,171 +1,99 @@
 <template>
-  <div
-    class="relative flex flex-col min-w-0 break-words w-full mb-6 rounded shadow-lg"
-    :class="[color === 'light' ? 'bg-white' : 'bg-emerald-900 text-white']"
-  >
-    <div class="rounded-t mb-0 px-4 py-3 border-0">
-      <div class="flex flex-wrap items-center">
-        <div
-          class="relative w-full px-4 max-w-full flex justify-between items-center"
-        >
-          <h3
-            class="font-semibold text-lg"
-            :class="[color === 'light' ? 'text-slate-700' : 'text-white']"
+  <div>
+    <div class="overflow-x-auto relative w-full">
+      <div class="mb-0 rounded-md px-4 py-3 bg-[#fff] border-0">
+        <div class="flex flex-wrap items-center">
+          <div
+            class="relative w-full px-4 max-w-full flex justify-between items-center"
           >
-            Danh sách sản phẩm
-          </h3>
-          <button
-            @click="this.$router.push('/admin/product/addproduct')"
-            class="btn btn-outline"
-          >
-            Thêm sản phẩm
-          </button>
+            <h3 class="font-semibold text-lg text-slate-800 uppercase">
+              Danh sách sản phẩm
+            </h3>
+            <button
+              @click="this.$router.push('/admin/product/addproduct')"
+              class="btn btn-outline"
+            >
+              Thêm sản phẩm
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="block mt-5 w-full overflow-x-auto">
-      <table class="items-center w-full bg-transparent border-collapse">
+      <table class="table w-full mt-2">
+        <!-- head -->
         <thead>
           <tr>
-            <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-slate-50 text-slate-500 border-slate-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]"
-            >
-              Mã sản phẩm
+            <th>
+              <label>
+                <input type="checkbox" class="checkbox" />
+              </label>
             </th>
-            <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-slate-50 text-slate-500 border-slate-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]"
-            >
-              Hình ảnh
-            </th>
-            <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-slate-50 text-slate-500 border-slate-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]"
-            >
-              Tên sản phẩm
-            </th>
-            <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-slate-50 text-slate-500 border-slate-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]"
-            >
-              Mô tả
-            </th>
-            <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-slate-50 text-slate-500 border-slate-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]"
-            >
-              Giá bán
-            </th>
-            <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-slate-50 text-slate-500 border-slate-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]"
-            >
-              Giá chiết khấu
-            </th>
-            <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-slate-50 text-slate-500 border-slate-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]"
-            >
-              Mã danh mục
-            </th>
-            <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-slate-50 text-slate-500 border-slate-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]"
-            >
-              Mã G - Store
-            </th>
-            <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-slate-50 text-slate-500 border-slate-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]"
-            >
-              Ngày đăng ký
-            </th>
-            <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-slate-50 text-slate-500 border-slate-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]"
-            >
-              Trạng thái sản phẩm
-            </th>
-            <th
-              class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"
-              :class="[
-                color === 'light'
-                  ? 'bg-slate-50 text-slate-500 border-slate-100'
-                  : 'bg-emerald-800 text-emerald-300 border-emerald-700',
-              ]"
-            ></th>
+            <th>Mã</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá bán</th>
+            <th>Giá chiết khấu</th>
+            <th>Mã danh mục</th>
+            <th>Mã GStore</th>
+            <th>Ngày đăng ký</th>
+            <td>Mô tả</td>
+            <th>Trạng thái sản phẩm</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr
-            v-for="product in products"
-            :key="product.id"
-            class="hover:bg-gray-100"
-          >
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              {{ product.id }}
+          <tr class="text-sm" v-for="product in products" :key="product.id">
+            <th>
+              <label>
+                <input type="checkbox" class="checkbox" />
+              </label>
+            </th>
+            <td>{{ product.id }}</td>
+            <td>
+              <div class="flex items-center space-x-3">
+                <div class="avatar">
+                  <div class="mask mask-squircle w-12 h-12">
+                    <img
+                      :src="getImageUrl(product.thumbnail)"
+                      alt="Avatar Tailwind CSS Component"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <div class="font-bold">
+                    {{
+                      product.tenSanPham.length > 20
+                        ? product.tenSanPham.slice(0, 20) + "..."
+                        : product.tenSanPham
+                    }}
+                  </div>
+                </div>
+              </div>
             </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              <img
-                class="w-[50px] h-[50px] object-contain"
-                :src="getImageUrl(product.thumbnail)"
-                alt=""
-              />
+            <td>
+              {{
+                product.giaBan.toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })
+              }}
             </td>
-            <td
-              class="whitespace-normal border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4"
-            >
-              {{ product.tenSanPham }}
+            <td>
+              {{
+                product.giaChietKhau.toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })
+              }}
             </td>
-            <td
-              style="vertical-align: middle"
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs p-4 whitespace-pre-line"
-            >
+            <td>{{ product.idDanhMuc }}</td>
+            <td>{{ product.idGStore }}</td>
+            <td>
+              {{
+                product.ngayDangKi
+                  ? $moment(product.ngayDangKi).format("DD/MM/YYYY")
+                  : ""
+              }}
+            </td>
+            <td class="whitespace-normal">
               <div v-if="product.moTa && product.moTa.length > 20">
                 <template v-if="!showMore[product.id]">
                   {{ product.moTa.slice(0, 20) }}...
@@ -186,97 +114,32 @@
               </div>
               <div v-else>{{ product.moTa }}</div>
             </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              {{ product.giaBan }}
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              {{ product.giaChietKhau }}
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              {{ product.idDanhMuc }}
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              {{ product.idGStore }}
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              {{
-                product.ngayDangKi
-                  ? $moment(product.ngayDangKi).format("DD/MM/YYYY")
-                  : ""
-              }}
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-            >
-              Đã duyệt
-            </td>
-            <td
-              class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap relative"
-            >
-              <span
-                class="text-blue-500 cursor-pointer text-xl h-4"
-                @click="toggleAction(product.id)"
-                >...</span
-              >
-              <div class="absolute right-10 z-50" v-if="showAction[product.id]">
-                <div
-                  class="bg-white flex flex-col shadow-2xl border px-10 py-5 rounded-lg overflow-hidden"
+            <td>Đã duyệt</td>
+            <td>
+              <div class="dropdown dropdown-left dropdown-end">
+                <label tabindex="0" class="btn m-1 btn-outline" @click="toggleDropdown"
+                  >...</label
                 >
-                  <button
-                    @click="onEditButtonClick(product.id)"
-                    class="text-black font-bold py-2 flex px-10 rounded hover:bg-[#039669] hover:text-white"
-                  >
-                    Sửa
-                  </button>
-                  <hr />
-                  <button
-                    @click="onDeleteButtonClick(product.id)"
-                    class="text-black font-bold py-2 flex px-10 rounded hover:bg-[#039669] hover:text-white"
-                  >
-                    Xoá
-                  </button>
-                  <hr />
-                  <button
-                    class="text-black font-bold py-2 flex px-10 rounded hover:bg-[#039669] hover:text-white"
-                  >
-                    Duyệt
-                  </button>
-                  <hr />
-                </div>
+                <ul
+                  tabindex="0"
+                  class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
+                  v-if="isOpen"
+                  @click="closeDropdown"
+                >
+                  <li @click="onEditButtonClick(product.id)"><a>Sửa</a></li>
+                  <li @click="onDeleteButtonClick(product.id)"><a>Xoá</a></li>
+                  <li><a>Duyệt</a></li>
+                </ul>
               </div>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <nav
-      class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
-    >
-      <div class="flex-1 flex justify-between sm:justify-end">
-        <button
-          @click="previousPage"
-          class="relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-        >
-          &#10094;
-        </button>
-        <button
-          @click="nextPage"
-          class="relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-        >
-          &#10095;
-        </button>
-      </div>
-    </nav>
+    <div class="btn-group flex justify-center mt-2">
+      <button @click="previousPage" class="btn">«</button>
+      <button @click="nextPage" class="btn">»</button>
+    </div>
   </div>
 </template>
 <script>
@@ -349,12 +212,6 @@ const products = ref([]);
 const deletedProduct = ref(null);
 const showAction = ref({});
 const showMore = ref({});
-
-function formatGia(gia) {
-  return gia.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
-}
-
-const giaBanFormatted = computed(() => formatGia(giaBan.value));
 
 // Lấy tất cả sản phẩm
 const fetchData = async () => {
@@ -435,5 +292,15 @@ watchEffect(() => {
 // Show Action Sửa và xoá
 const toggleAction = (id) => {
   showAction.value[id] = !showAction.value[id];
+};
+
+const isOpen = ref(false);
+
+const toggleDropdown = () => {
+  isOpen.value = !isOpen.value;
+};
+
+const closeDropdown = () => {
+  isOpen.value = false;
 };
 </script>
