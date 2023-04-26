@@ -7,23 +7,6 @@
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
           <label
-            for="idDanhMuc"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-          >
-            Mã bài tin
-          </label>
-          <Field
-            disabled
-            v-model="idDanhMuc"
-            name="idDanhMuc"
-            type="text"
-            placeholder="Mã bài tin..."
-            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          />
-          <error-message name="idDanhMuc" class="text-red-500" />
-        </div>
-        <div class="col-span-1">
-          <label
             for="tieuDe"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
@@ -42,7 +25,7 @@
           <label
             for="idDanhMuc"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Mã danh mục</label
+            >Danh mục</label
           >
           <select
             v-model="idDanhMuc"
@@ -51,21 +34,8 @@
             required
           >
             <option value="">-- Lựa chọn danh mục --</option>
-            <option value="1">Đồng hồ</option>
-            <option value="2">Trang sức</option>
-            <option value="3">Sản phẩm chiết khấu cao</option>
-            <option value="4">Thời trang nữ</option>
-            <option value="5">Điện thoại</option>
-            <option value="6">Phụ kiện</option>
-            <option value="7">Thể thao du lịch</option>
-            <option value="8">Thời trang nam</option>
-            <option value="9">Sách</option>
-            <option value="10">Đồ điện tử</option>
-            <option value="11">Thời trang trẻ em</option>
-            <option value="12">Túi ví</option>
-            <option value="13">Giày dép</option>
-            <option value="14">Bảo hiểm</option>
-            <option value="15">Thiết bị gia dụng</option>
+            <option v-for="danhmuc in danhmucsp" :value="danhmuc.id" >{{ danhmuc.tieuDe }}</option>
+            
           </select>
         </div>
         <div class="">
@@ -139,6 +109,7 @@ const idDanhMuc = ref(0);
 const tieuDe = ref("");
 const noiDung = ref("");
 const thumbnail = ref("");
+const danhmucsp = ref([]);
 
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
@@ -201,4 +172,20 @@ function handlePostPost() {
       toast.error("Thêm bài tin thất bại. Vui lòng thử lại!");
     });
 }
+
+const pageSize = 5;
+const pageNumber = ref(1);
+const skip = ref(0);
+
+
+onMounted(() => {
+ getAllPostPhanTrang(pageSize, 1, 0)
+    .then((response) => {
+      danhmucsp.value = response.data.items;
+      console.log('dsadsa',danhmucsp.value)
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+});
 </script>

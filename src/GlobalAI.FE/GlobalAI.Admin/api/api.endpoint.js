@@ -57,4 +57,6 @@ export const API_ENDPOINT = {
   postPosts: `/api/product/bai-tin`,
 
   putPost: (id) => `/api/product/donhang/${id}`,
+
+  getAllDanhMucBaiTin:(pageSize, pageNumber, skip)=> `/api/product/danh-muc-bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`
 };
