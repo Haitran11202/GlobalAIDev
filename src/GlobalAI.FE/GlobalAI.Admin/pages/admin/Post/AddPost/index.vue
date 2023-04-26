@@ -34,7 +34,7 @@
             required
           >
             <option value="">-- Lựa chọn danh mục --</option>
-            <option v-for="danhmuc in danhmucsp" :value="danhmuc.id" >{{ danhmuc.tieuDe }}</option>
+            <option v-for="danhmuc in danhmucsp" :value="danhmuc.id" >{{ danhmuc.tenDanhMuc }}</option>
             
           </select>
         </div>
@@ -179,7 +179,7 @@ const skip = ref(0);
 
 
 onMounted(() => {
- getAllPostPhanTrang(pageSize, 1, 0)
+  getAllDanhMucBaiTin(pageSize, pageNumber.value, skip.value)
     .then((response) => {
       danhmucsp.value = response.data.items;
       console.log('dsadsa',danhmucsp.value)
