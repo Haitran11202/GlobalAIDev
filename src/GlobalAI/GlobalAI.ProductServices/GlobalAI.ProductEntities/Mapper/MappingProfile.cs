@@ -9,6 +9,8 @@ using GlobalAI.ProductEntities.Dto.TraGia;
 using System.Collections.Generic;
 using GlobalAI.ProductEntities.Dto.BaiTin;
 using GlobalAI.ProductEntities.Dto.DanhMucBaiTin;
+using GlobalAI.ProductEntities.Dto.Voucher;
+using GlobalAI.ProductEntities.Dto.DanhMuc;
 
 namespace GlobalAI.ProductEntities.DataEntities.Mapper
 {
@@ -44,6 +46,11 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<BaiTin, BaiTinDto>().ReverseMap();
             CreateMap<DanhMucBaiTin, CreateDanhMucBaiTin>().ReverseMap();
             CreateMap<DanhMucBaiTin, DanhMucBaiTinDto>().ReverseMap();
+            CreateMap<DanhMuc, CreateDanhMucDto>().ReverseMap();
+            CreateMap<DanhMuc, DanhMucDto>().ReverseMap();
+            CreateMap<Voucher, CreateVoucherDto>().ReverseMap();
+            CreateMap<Voucher, VoucherDto>().ReverseMap();
+            CreateMap<Voucher, UpdateVoucherDto>().ReverseMap();
         }
     }
 }

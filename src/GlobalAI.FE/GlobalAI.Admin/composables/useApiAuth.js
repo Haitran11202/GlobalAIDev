@@ -61,6 +61,7 @@ export const useApiRefreshToken = async (refreshToken = "") => {
         accessToken: res.data.access_token,
         refreshToken: res.data.refresh_token,
       });
+
     } else {
       userStorage.logout();
       // store.commit(USER_MUTATIONS.LOGOUT);

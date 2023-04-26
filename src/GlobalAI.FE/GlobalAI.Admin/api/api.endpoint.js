@@ -4,6 +4,7 @@ export const API_ENDPOINT = {
   login: "connect/token",
   refreshToken: "connect/token",
   userRegister: "api/core/user/register",
+  getPermission: 'api/core/permission',
   getSanPhamDanhMuc: (id) =>
     `api/product/sanpham/danh-muc/${id}?pageSize=10&pageNumber=1&Skip=0`,
   getSanPhamDanhMucPhanTrang: (categoryId, pageSize, pageNumber, Skip) =>
