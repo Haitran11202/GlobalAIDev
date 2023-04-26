@@ -177,9 +177,6 @@ const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
 async function uploadImage(event) {
-  console.log(event.target.files[0].name);
-  console.log(event.target.files[0].name);
-  console.log(event.target.files[0].name);
   try {
     const formData = new FormData();
     formData.append("file", event.target.files[0]);

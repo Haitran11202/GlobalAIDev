@@ -58,7 +58,7 @@
               </div>
             </div>
           </td>
-          <td>{{ post.noiDung }}</td>
+          <td class="whitespace-normal">{{ post.noiDung }}</td>
 
           <td>
             <div class="dropdown dropdown-left dropdown-end">

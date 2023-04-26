@@ -10,8 +10,8 @@
             Mã bài tin
           </label>
           <Field
+            v-model="idDanhMuc"
             disabled
-            v-model="post.id"
             name="idDanhMuc"
             type="text"
             placeholder="Mã sản phẩm..."
@@ -28,7 +28,7 @@
             Tên sản phẩm
           </label>
           <Field
-            v-model="post.tieuDe"
+            v-model="tieuDe"
             name="tieuDe"
             type="text"
             placeholder="Tên sản phẩm..."
@@ -44,7 +44,7 @@
             >Mã danh mục</label
           >
           <select
-            v-model="post.idDanhMuc"
+            v-model="idDanhMuc"
             id="idDanhMuc"
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             required
@@ -79,12 +79,12 @@
               id="image"
               class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
               required
-              @change="uploadImage"
+              @change.prevent="uploadImage"
             />
             <img
               alt="Product Image"
+              :src="getImageUrl(thumbnailNew)"
               class="w-[50px] h-[50px] border absolute right-0 rounded"
-              :src="getImageUrl(post.thumbnail)"
             />
           </div>
         </div>
@@ -97,8 +97,8 @@
         >
         <div class="w-full">
           <tiptap
+            v-model="noiDung"
             class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            v-model="post.noiDung"
           />
         </div>
       </div>
@@ -125,34 +125,27 @@ import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
 import { getPostById, updatePost } from "~~/composables/useApiPost.js";
+import { postImage } from "~~/composables/useApiImage";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
+
 definePageMeta({
   layout: "admin",
   name: "Post",
 });
 
-const post = ref({});
-const router = useRouter();
 const postId = ref([]);
+const idDanhMuc = ref(0);
+const tieuDe = ref("");
+const noiDung = ref("");
+const thumbnailNew = ref("");
 
-const thumbnail = ref("");
+const router = useRouter();
 const config = useRuntimeConfig();
-console.log(config.public.apiEndpoint);
 const baseUrl = config.public.apiEndpoint;
 
-// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
-const getImageUrl = (imageUrl) => {
-  if (!imageUrl) {
-    return "https://placehold.it/50x50";
-  }
-  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
-  )}&download=false`;
-  return url;
-};
-
 async function uploadImage(event) {
+  console.log(event.target.files[0].name);
   console.log(event.target.files[0].name);
   console.log(event.target.files[0].name);
   try {
@@ -161,7 +154,7 @@ async function uploadImage(event) {
     postImage(formData)
       .then((response) => {
         console.log(response);
-        thumbnail.value = response.data.split("=")[2];
+        thumbnailNew.value = response.data.split("=")[2];
         console.log(response.data);
       })
       .catch((error) => {
@@ -172,21 +165,47 @@ async function uploadImage(event) {
   }
 }
 
+// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
+const getImageUrl = (imageUrl) => {
+  console.log(imageUrl);
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
+};
+
+watchEffect(() => {
+  getImageUrl();
+});
+
 onMounted(() => {
   postId.value = router.currentRoute.value.params.id;
-  console.log(router.currentRoute.value.params.id);
+
   watchEffect(async () => {
     try {
       const data = await getPostById(postId.value);
-      post.value = data.data;
-      console.log(post.value);
+      idDanhMuc.value = data.data.idDanhMuc;
+      tieuDe.value = data.data.tieuDe;
+      noiDung.value = data.data.noiDung;
+      thumbnailNew.value = data.data.thumbnail;
     } catch (error) {
       console.log(error);
     }
   });
 });
+
 const submitForm = () => {
-  updatePost(postId.value, post.value)
+  const formData = {
+    idDanhMuc: idDanhMuc.value,
+    tieuDe: tieuDe.value,
+    noiDung: noiDung.value,
+    thumbnail: thumbnailNew.value,
+  };
+
+  updatePost(postId.value, formData)
     .then((data) => {
       console.log(data);
       toast.success("Cập nhật bài tin thành công");

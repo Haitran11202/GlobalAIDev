@@ -76,7 +76,7 @@
           >
           <select
             id="idDanhMuc"
-            v-model="maDanhmuc"
+            v-model="idDanhMuc"
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             required
           >
@@ -155,6 +155,7 @@ import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
 import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
+import { postImage } from "~~/composables/useApiImage";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref, watchEffect } from "vue";
@@ -162,17 +163,18 @@ definePageMeta({
   layout: "admin",
   name: "Product",
 });
-const router = useRouter();
-const productId = ref([]);
-const thumbnailNew = ref("");
-const config = useRuntimeConfig();
-const maSanPham = ref("");
-const giaBan = ref("");
-const tenSanPham = ref("");
-const giaChietKhau = ref("");
-const moTa = ref("");
-const maDanhmuc = ref("");
 
+const productId = ref([]);
+const maSanPham = ref("");
+const tenSanPham = ref("");
+const moTa = ref("");
+const giaBan = ref("");
+const giaChietKhau = ref("");
+const idDanhMuc = ref("");
+const thumbnailNew = ref("");
+
+const router = useRouter();
+const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
 async function uploadImage(event) {
@@ -191,12 +193,6 @@ async function uploadImage(event) {
       .catch((error) => {
         console.log(error);
       });
-    const response = await axios.post(
-      "http://globalai-staging.huce.edu.vn:8089/api/file/upload?folder=image",
-      formData
-    );
-    console.log(response.data.data.split("=")[2]);
-    thumbnailNew.value = response.data.data.split("=")[2];
   } catch (error) {
     console.error(error);
   }
@@ -211,7 +207,6 @@ const getImageUrl = (imageUrl) => {
   const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
     imageUrl
   )}&download=false`;
-  console.log("url", url);
   return url;
 };
 
@@ -226,10 +221,10 @@ onMounted(() => {
       const data = await getProductById(productId.value);
       maSanPham.value = data.data.maSanPham;
       tenSanPham.value = data.data.tenSanPham;
-      maDanhmuc.value = data.data.idDanhMuc;
-      giaBan.value = data.data.giaBan;
       moTa.value = data.data.moTa;
+      giaBan.value = data.data.giaBan;
       giaChietKhau.value = data.data.giaChietKhau;
+      idDanhMuc.value = data.data.idDanhMuc;
       thumbnailNew.value = data.data.thumbnail;
     } catch (error) {
       console.log(error);
@@ -240,11 +235,11 @@ const submitForm = () => {
   const formData = {
     maSanPham: maSanPham.value,
     tenSanPham: tenSanPham.value,
-    idDanhMuc: maDanhmuc.value,
+    moTa: moTa.value,
     giaBan: giaBan.value,
     giaChietKhau: giaChietKhau.value,
+    idDanhMuc: idDanhMuc.value,
     thumbnail: thumbnailNew.value,
-    moTa: moTa.value,
   };
   updateProduct(productId.value, formData)
     .then((data) => {

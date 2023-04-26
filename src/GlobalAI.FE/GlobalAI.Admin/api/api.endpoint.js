@@ -4,7 +4,7 @@ export const API_ENDPOINT = {
   login: "connect/token",
   refreshToken: "connect/token",
   userRegister: "api/core/user/register",
-  getPermission: 'api/core/permission',
+  getPermission: "api/core/permission",
   getSanPhamDanhMuc: (id) =>
     `api/product/sanpham/danh-muc/${id}?pageSize=10&pageNumber=1&Skip=0`,
   getSanPhamDanhMucPhanTrang: (categoryId, pageSize, pageNumber, Skip) =>
@@ -43,6 +43,7 @@ export const API_ENDPOINT = {
   deleteOrder: (id) => `/api/product/donhang/${id}`,
 
   getOrderById: (id) => `api/product/donhang/${id}`,
+
   // Api Bài đăng
   getPostById: (id) => `/api/product/bai-tin/${id}`,
   getBaiTinBySlug: (slug) => `/api/product/bai-tin/find/slug/${slug}`,
@@ -57,4 +58,7 @@ export const API_ENDPOINT = {
   postPosts: `/api/product/bai-tin`,
 
   putPost: (id) => `/api/product/donhang/${id}`,
+
+  //Image
+  postImage: `/api/file/upload?folder=image`,
 };
