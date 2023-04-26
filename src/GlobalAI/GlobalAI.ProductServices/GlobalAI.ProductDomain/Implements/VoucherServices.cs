@@ -45,7 +45,6 @@ namespace GlobalAI.ProductDomain.Implements
 
         }
 
-
         /// <summary>
         /// random ma voucher
         /// </summary>
@@ -78,6 +77,7 @@ namespace GlobalAI.ProductDomain.Implements
 
             inputInsert.CreatedBy = username;
             inputInsert.Status = VoucherDetailStatus.KHOI_TAO;
+            inputInsert.MaVoucher = FuncVerifyCodeGenerate();
 
             inputInsert = _voucherChiTietRepository.Add(inputInsert);
             _dbContext.SaveChanges();
