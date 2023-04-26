@@ -54,3 +54,25 @@ export const updatePost = async (id, post) => {
     return Promise.reject(err);
   }
 };
+
+export const getAllDanhMucBaiTin = async (pageSize, pageNumber, skip) => {
+  try {
+    const response = await http.get(
+      API_ENDPOINT.getAllDanhMucBaiTin(pageSize, pageNumber, skip)
+    );
+    return Promise.resolve(response.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const getBaiTinPhanTrang = async (pageSize, pageNumber, skip) => {
+  try {
+    const response = await http.get(
+      API_ENDPOINT.getBaiTinPhanTrang(pageSize, pageNumber, skip)
+    );
+    return Promise.resolve(response.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
