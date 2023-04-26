@@ -72,7 +72,7 @@ namespace GlobalAI.ProductEntities.DataEntities
         public string ModifiedBy { get; set; } = String.Empty;
 
         [ColumnSnackCase(nameof(ModifiedDate), TypeName = "DATE")]
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
         #endregion
     }
 }
