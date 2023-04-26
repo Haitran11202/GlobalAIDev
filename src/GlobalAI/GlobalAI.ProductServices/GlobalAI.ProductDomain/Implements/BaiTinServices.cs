@@ -14,6 +14,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GlobalAI.ProductEntities.Dto.BaiTin;
+using GlobalAI.ProductEntities.Dto.Voucher;
+using GlobalAI.ProductRepositories;
 
 namespace GlobalAI.ProductDomain.Implements
 {
@@ -104,6 +106,17 @@ namespace GlobalAI.ProductDomain.Implements
             var baiTin = _baiTinRepository.FindBySlug(slug);
             var result = _mapper.Map<BaiTinDto>(baiTin);
             return result;
+        }
+
+        public void Update(UpdateBaiTinDto input)
+        {
+            var userType = CommonUtils.GetCurrentRole(_httpContext);
+            var userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+            var inputUpdate = _mapper.Map<BaiTin>(input);
+            inputUpdate.ModifiedBy = username;
+            _baiTinRepository.Update(inputUpdate);
+            _dbContext.SaveChanges();
         }
     }
 }
