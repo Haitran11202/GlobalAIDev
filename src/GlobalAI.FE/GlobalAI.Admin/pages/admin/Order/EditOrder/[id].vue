@@ -123,7 +123,7 @@ import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
 import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
-import Tiptap from "~~/components/TextEditor/Tiptap.vue";
+import TextEditor from "~~/components/TextEditor/TextEditor.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 definePageMeta({
   layout: "admin",
