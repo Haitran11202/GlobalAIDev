@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GlobalAI.ProductEntities.Dto.ChiTietTraGia;
+using GlobalAI.ProductEntities.Dto.VoucherChiTiet;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +18,6 @@ namespace GlobalAI.ProductEntities.Dto.Voucher
         public int SoLuong { get; set; }
         public DateTime? NgayHetHan { get; set; }
         public int? Status { get; set; }
+        public List<VoucherChiTietDto> VoucherChiTiets { get; set; }
     }
 }

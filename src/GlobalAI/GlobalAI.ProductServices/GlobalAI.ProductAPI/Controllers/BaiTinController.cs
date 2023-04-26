@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using GlobalAI.ProductDomain.Implements;
 using GlobalAI.ProductEntities.Dto.BaiTin;
+using GlobalAI.ProductEntities.Dto.Voucher;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
@@ -47,19 +48,19 @@ namespace GlobalAI.ProductAPI.Controllers
             _baiTinServices.Delete(id);
         }
 
-        ////[HttpPut("update")]
-        ////public APIResponse Update([FromBody] UpdateTraGiaDto input)
-        ////{
-        ////    try
-        ////    {
-        ////        _baiTinServices.Update(input);
-        ////        return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
-        ////    }
-        ////    catch (Exception ex)
-        ////    {
-        ////        return OkException(ex);
-        ////    }
-        ////}
+        [HttpPut("")]
+        public APIResponse Update([FromBody] UpdateBaiTinDto input)
+        {
+            try
+            {
+                _baiTinServices.Update(input);
+                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
 
         /// <summary>
         /// danh sach 
