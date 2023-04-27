@@ -266,6 +266,7 @@ import jwt_decode from "jwt-decode";
 import { useUserStorage } from "~~/stores/user";
 import { useCartStorage } from "~~/stores/giohang";
 import Chatbox from "~~/components/Cards/Chatbox.vue";
+import {getSanPhamById} from "~/composables/useApiProduct"
 const token = useUserStorage();
 const useCart = useCartStorage();
 const accesstoken = token.accessToken;

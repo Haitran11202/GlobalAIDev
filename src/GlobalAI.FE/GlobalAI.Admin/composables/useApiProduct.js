@@ -258,10 +258,19 @@ export const getBaiTinTheoDanhMuc = async (id) => {
 
 
 // trả giá sản phẩm 
-export const postProductBid = async(priceProduct)=>{
+export const postProductBid = async(body)=>{
   try{
-    const res = await http.post(API_ENDPOINT.postProductBid , priceProduct)
+    const res = await http.post(API_ENDPOINT.postProductBid , body)
     return Promise.resolve(res);
+  }catch(err){
+    return Promise.reject(err);
+  }
+}
+
+export const postTragiaDetail = async(body) => {
+  try{
+    const res = await http.post(API_ENDPOINT.postTragiaDetail , body)
+    return Promise.resolve(res)
   }catch(err){
     return Promise.reject(err);
   }
@@ -271,14 +280,17 @@ export const postProductBid = async(priceProduct)=>{
 export const getDetailedPayment = async(idTraGia) =>{
   try {
     const res = await http.get(API_ENDPOINT.getDetailedPayment(idTraGia))    
+    return Promise.resolve(res);
   } catch (error) {
     return Promise.reject(error)
   }
 }
 
-export const getIDPayment = async(idSanPham) => {
+export const getIDPaymentNews = async(idSanPham) => {
+  console.log(idSanPham);
   try {
     const res = await http.get(API_ENDPOINT.getIDPayment(idSanPham))
+    return Promise.resolve(res);
   } catch (error) {
     return Promise.reject(error)
   }

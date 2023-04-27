@@ -57,7 +57,8 @@ export const API_ENDPOINT = {
     `/api/product/bai-tin/find-all?pageSize=11&pageNumber=1`,
 
   // API trả giá
-  postProductBid:`api/product/tra-gia`,
+  postProductBid:`/api/product/tra-gia`,
+  postTragiaDetail:`/api/product/tra-gia/add-detail`,
   getDetailedPayment:(idTraGia) => `/api/product/tra-gia/${idTraGia}`,
   getProductBidUser:(IdSanPham , GiaTien , status , pageSize , pageNumber , Skip) => `/api/product/tra-gia/find-all?IdSanPham=${IdSanPham}&GiaTien=${GiaTien}&status=${status}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
   getIDPayment:(idSanPham) => `/api/product/tra-gia/FindTraGiaBySanPham?idSanPham=${idSanPham}`

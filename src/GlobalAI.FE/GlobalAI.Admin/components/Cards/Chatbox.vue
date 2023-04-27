@@ -18,10 +18,7 @@
         />
       </div>
     </div>
-    <div
-   
-      class="border-[1px] border-[#ccc] py-4 px-4 rounded-md"
-    >
+    <div class="border-[1px] border-[#ccc] py-4 px-4 rounded-md">
       <div
         class="flex items-start gap-[15px] py-2 border-b-[1px] border-[#ccc]"
       >
@@ -36,7 +33,7 @@
           <h2 class="text-[14px] font-bold uppercase">
             {{ props.products.tenSanPham }}
           </h2>
-          <h1>{{props.products.idGStore}}</h1>
+          <h1>{{ props.products.idGStore }}</h1>
           <div class="flex items-center">
             <span class="text-[#cc3366] text-[14px] mr-1">Giá Bán :</span>
             <span class="text-[12px] text-[#cc3366] font-bold"
@@ -45,8 +42,7 @@
           </div>
         </div>
       </div>
-      <form v-if="isOverflowed"
-      @submit="handleSubmitBidPrice" class="box">
+      <form v-if="isOverflowed" @submit="handleSubmitBidPrice" class="box">
         <div class="flex gap-[15px] items-center py-1 mt-3">
           <label for="" class="w-[30%] text-[16px] font-semibold"
             >Phân Loại</label
@@ -113,30 +109,52 @@
     <!-- Container chat -->
     <div
       ref="containerbox"
+      v-show="isChatting"
       class="w-full overflow-y-auto max-h-[200px]"
     >
       <div
-       v-for="price in boxprice" ::key="price"
-        class="gsaler rounded-md w-[70%] mt-[20px] px-2 py-2 border-[1px] bg-[#fff4d6] flex justify-between items-center gap-[10px]"
+        v-for="price in boxprice"
+        ::key="price"
+        :class="
+          price.loaiTraGia == 1
+            ? 'gsaler float-right rounded-md  w-[70%] mt-[20px] px-2 py-2 border-[1px] bg-[#f4f4f4] flex items-center gap-[10px]'
+            : 'gstore float-left rounded-md  w-[70%] mt-[20px] px-2 py-2 border-[1px] bg-[#fff4d6] flex items-center gap-[10px]'
+        "
       >
         <div class="flex gap-[10px]">
-          <div
-          class="w-[50px] h-[50px] rounded-[md] overflow-hidden"
+          <div class="w-[50px] h-[50px] rounded-[md] overflow-hidden">
+            <img
+              :src="getImageUrl(props.products.thumbnail)"
+              alt=""
+              class="object-cover"
+            />
+          </div>
+          <div>
+            <h2
+              class="text-[14px] font-bold leading-[1.3] w-[180px] h-[20.08px] text-ellipsis line-clamp-1 mr-2"
+            >
+              {{ props.products.tenSanPham }}
+            </h2>
+            <span v-if="price.loaiTraGia === 1"
+              >Trả giá :{{ formatMoneyAll(price.giaTien) }}</span
+            >
+            <span v-else-if="price.loaiTraGia === 2"
+              >Yêu cầu :{{ formatMoneyAll(price.giaTien) }}</span
+            >
+          </div>
+        </div>
+        <button
+          v-if="price.loaiTraGia === 1"
+          class="px-1 py-1 border-[1px] bg-blue-100 rounded-md"
         >
-          <img
-           :src="getImageUrl(props.products.thumbnail)"
-            alt=""
-            class="object-cover"
-          />
-        </div>
-        <div>
-          <h2 class="text-[14px] font-bold leading-[1.3] w-[180px] h-[20.08px] text-ellipsis line-clamp-1 mr-2">
-            {{ props.products.tenSanPham }}
-          </h2>
-          <span>Tra gia :{{price.giaTien}}</span>
-        </div>
-        </div>
-        <button class="px-1 py-1 border-[1px] bg-blue-100  rounded-md">Chỉnh Sửa</button>
+          Chỉnh Sửa
+        </button>
+        <button
+          v-else-if="price.loaiTraGia === 2"
+          class="px-1 py-1 border-[1px] bg-blue-100 rounded-md"
+        >
+          Đồng ý
+        </button>
       </div>
     </div>
     <form
@@ -179,12 +197,20 @@
       </div>
     </div>
   </div>
+  <div
+    v-if="isOpacity"
+    class="fixed top-0 lef-0 right-0 w-full h-full bg-black opacity-25 z-20"
+  ></div>
 </template>
 <script setup>
 import { defineEmits } from "vue";
 import { ref, computed, watchEffect } from "vue";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
+import jwt_decode from "jwt-decode";
+import { useUserStorage } from "~~/stores/user";
+const token = useUserStorage();
+const accesstoken = token.accessToken;
 const containerbox = ref(null);
 const showDialog = ref(false);
 const priceBid = ref(props.products.giaBan);
@@ -195,15 +221,18 @@ const pageSize = ref(10);
 const pageNumber = ref(1);
 const Skip = ref(0);
 const config = useRuntimeConfig();
+const isOpacity = ref(false);
 const baseUrl = config.public.apiEndpoint;
-const storedMessages = localStorage.getItem("messages");
-let messages = [];
+const isChatting = ref(false);
 
-if (storedMessages) {
-  messages = JSON.parse(storedMessages);
-}
+// Lấy user_id
+const getUserInfor = () => {
+  const userInfor = jwt_decode(accesstoken);
+  console.log(userInfor);
+  return userInfor;
+};
 
-const boxprice = ref(messages);
+const boxprice = ref([]);
 
 const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
@@ -215,6 +244,7 @@ const getImageUrl = (imageUrl) => {
   return url;
 };
 
+const listIdTraGia = [];
 
 const numberProduct = ref(1);
 const noteValue = ref("");
@@ -239,9 +269,9 @@ const formatMoneyAll = (money) => {
 
 const handleSubmitBidPrice = (e) => {
   e.preventDefault();
+  isOpacity.value = true;
   showDialog.value = true;
 };
-
 
 const handleDialogYes = async () => {
   const priceProduct = {
@@ -250,27 +280,131 @@ const handleDialogYes = async () => {
     giaCuoi: 0,
     giaTien: priceBid.value,
   };
-  postProductBid(priceProduct)
-   .then((res) => {
-    console.log(res);
-    toast.success('Trả giá thành công , vui lòng đợi phản hồi từ người bán')
-   })
-   .catch((err) => {
-    console.log(err);
-    toast.error('Trả giá thất bại , vui lòng trả lại')
-   })
-  console.log(priceProduct);
-  isOverflowed.value = false;
+  try {
+    const response = await postProductBid(priceProduct);
+    toast.success("Trả giá thành công!");
+    const responseNew = await getDetailedPayment(response.data.data.id);
+    isOverflowed.value = false;
+    isOpacity.value = false;
+    isChatting.value = true;
+    // Add chat mới
+    boxprice.value = boxprice.value.concat(
+      responseNew.data.data.chiTietTraGias
+    );
+    // Sắp xếp theo thời gian đăng
+    boxprice.value.sort((a, b) => {
+      return new Date(a.createdDate) - new Date(b.createdDate);
+    });
+
+    // Kiểm tra nếu tồn tại trong LocalStorage rồi thì không add vào nữa
+    const index = listIdTraGia.findIndex(
+      (item) =>
+        item.idSanPham === props.products.id &&
+        item.idNguoiMua === getUserInfor().user_id
+    );
+
+    if (index === -1) {
+      listIdTraGia.push({
+        idSanPham: props.products.id,
+        idTragia: response.data.data.id,
+        idNguoiMua: getUserInfor().user_id,
+      });
+      localStorage.setItem("listIdTraGia", JSON.stringify(listIdTraGia));
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Trả giá thất bại , vui lòng thử lại");
+  }
+
   showDialog.value = false;
 };
+onMounted(() => {
+  const listIdTraGia = JSON.parse(localStorage.getItem("listIdTraGia")) || [];
+  console.log(listIdTraGia);
+  const index = listIdTraGia.findIndex(
+    (item) =>
+      item.idSanPham === props.products.id &&
+      item.idNguoiMua === getUserInfor().user_id
+  );
+  console.log(index);
+  if (index !== -1) {
+    // Nếu tìm thấy sản phẩm trong mảng listIdTraGia
+    const idTragia = listIdTraGia[index].idTragia;
+    console.log(idTragia);
+    getDetailedPayment(idTragia)
+      .then((res) => {
+        console.log(res);
+        if (res.data.data.idSanPham == props.products.id) {
+          isChatting.value = true;
+        } else {
+          isChatting.value = false;
+        }
+        boxprice.value = res.data.data.chiTietTraGias;
+        boxprice.value.sort((a, b) => {
+          return new Date(a.createdDate) - new Date(b.createdDate);
+        });
+      })
+      .catch((err) => console.log(err));
+  }
+});
+
 const handleDialogNo = () => {
   showDialog.value = false;
+  isOpacity.value = false;
 };
 
+// Xử lý trả giá sau lần trả chi tiết đầu tiên
+const handlePriceChat = async () => {
+  const listIdTraGia = JSON.parse(localStorage.getItem("listIdTraGia")) || [];
+  console.log(listIdTraGia);
+  // Kiểm tra idTraGia cũ có đang lưu không
+  const index = listIdTraGia.findIndex(
+    (item) =>
+      item.idSanPham === props.products.id &&
+      item.idNguoiMua === getUserInfor().user_id
+  );
+  console.log(index);
+  if (index !== -1) {
+    const idTragia = listIdTraGia[index].idTragia;
+    console.log(idTragia);
+    const formData = {
+      idTraGia: idTragia,
+      loaiTraGia: 1,
+      giaTien: priceChat.value,
+    };
+    try {
+      const response = await postTragiaDetail(formData);
+      toast.success("Trả giá thành công!");
+      priceChat.value = ''
+      const responseNew = await getDetailedPayment(response.data.data.idTraGia);
+      isChatting.value = true;
+      boxprice.value = boxprice.value.concat(
+        responseNew.data.data.chiTietTraGias
+      );
+      boxprice.value.sort((a, b) => {
+        return new Date(a.createdDate) - new Date(b.createdDate);
+      });
 
-const handlePriceChat = () => {
-   console.log(priceChat.value);
-}
+      const index = listIdTraGia.findIndex(
+        (item) =>
+          item.idSanPham === props.products.id &&
+          item.idNguoiMua === getUserInfor().user_id
+      );
+
+      if (index === -1) {
+        listIdTraGia.push({
+          idSanPham: props.products.id,
+          idTragia: response.data.data.id,
+          idNguoiMua: getUserInfor().user_id,
+        });
+        localStorage.setItem("listIdTraGia", JSON.stringify(listIdTraGia));
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Trả giá thất bại , vui lòng thử lại");
+    }
+  }
+};
 
 const props = defineProps({
   products: {
@@ -279,14 +413,15 @@ const props = defineProps({
 });
 </script>
 <style lang="css" scoped>
-.box-pricebid{
+.box-pricebid {
   animation: fadeIn ease-in-out 0.5s;
 }
 
 @keyframes fadeIn {
-  from{
+  from {
     opacity: 0;
-  }to{
+  }
+  to {
     opacity: 1;
   }
 }
