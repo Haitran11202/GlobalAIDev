@@ -466,11 +466,11 @@ import dientu from "../assets/img/dientu.jpg";
 
 const baitin = ref([]);
 const pageSize = 3;
-const pageNumber = ref(1);
-const skip = ref(0);
+const pageNumber = 1;
+const skip = 0;
 
 onMounted(() => {
-  getBaiTinPhanTrang(pageSize, pageNumber.value, skip.value)
+  getBaiTinPhanTrang(pageSize, pageNumber, skip)
     .then((response) => {
       baitin.value = response.data.items;
       console.log('dsadsa',baitin.value)

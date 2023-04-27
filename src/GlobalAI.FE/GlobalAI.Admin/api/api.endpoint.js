@@ -50,8 +50,12 @@ export const API_ENDPOINT = {
   // Api Bài đăng
   getPostById: (id) => `/api/product/bai-tin/${id}`,
   getBaiTinBySlug: (slug) => `/api/product/bai-tin/find/slug/${slug}`,
-  getBaiTinPhanTrang: () =>
-    `/api/product/bai-tin/find-all?pageSize=11&pageNumber=1`,
+  getBaiTinPhanTrang: (pageSize, pageNumber, skip) =>
+    `/api/product/bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
+    getAllDanhMucBaiTin: (pageSize, pageNumber, skip) => 
+    `/api/product/danh-muc-bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
+     
+    getBaiTinTheoDanhMuc: (id, pagesize, pageNumber,skip) => `/api/product/bai-tin/find-all?idDanhMuc=${id}&pageSize=${pagesize}&pageNumber=${pageNumber}&Skip=${skip}`,
 
   // API trả giá
   postProductBid:`/api/product/tra-gia`,
@@ -59,4 +63,5 @@ export const API_ENDPOINT = {
   getDetailedPayment:(idTraGia) => `/api/product/tra-gia/${idTraGia}`,
   getProductBidUser:(IdSanPham , GiaTien , status , pageSize , pageNumber , Skip) => `/api/product/tra-gia/find-all?IdSanPham=${IdSanPham}&GiaTien=${GiaTien}&status=${status}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
   getIDPayment:(idSanPham) => `/api/product/tra-gia/FindTraGiaBySanPham?idSanPham=${idSanPham}`
+
 };
