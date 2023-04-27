@@ -745,17 +745,34 @@ const selectedPaymentType = ref("cash");
 const checkAll = ref(false);
 onMounted(async () => {
     selectedProducts.value.push(router.currentRoute.value.query.checkedItem);
-    try {
-        const res1 = await getSanPhamByNguoiMua();
-        products.value = res1?.data?.data;
-        console.log(res1?.data.data);
-        const res2 = await getGioHang();
-        datas.value = res2?.data?.data.gioHang;
-    } catch (error) {
-        console.log(error);
-    }
-    console.log();
+    // try {
+    //     const res1 = await getSanPhamByNguoiMua();
+    //     products.value = res1?.data?.data;
+    //     console.log(res1?.data.data);
+    //     const res2 = await getGioHang();
+    //     datas.value = res2?.data?.data.gioHang;
+    //     console.log(datas.value);
+    // } catch (error) {
+    //     console.log(error);
+    // }
+    // console.log();
     // Thêm những dòng code này
+    getSanPhamByNguoiMua()
+    .then((res) => {
+        console.log(res);
+        products.value = res?.data?.data;
+        getGioHang()
+         .then((res) => {
+            console.log(res);
+            datas.value = res?.data?.gioHang;
+         })
+         .catch((err) => {
+            console.log(err);
+         })
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 });
 //lấy số lượng theo sản phẩm
 const getCartItemQuantity = (id, soLuongNew = 0) => {
@@ -863,14 +880,6 @@ const totalPrice = computed(() => {
 watchEffect(() => {
     totalPrice;
 });
-// format tiền
-const formatMoney = (soLuong, giaBan) => {
-    console.log(products.value);
-    return getPrice(soLuong, giaBan).toLocaleString("vi-VN", {
-        style: "currency",
-        currency: "VND",
-    });
-};
 const formatMoneyAll = (money) => {
     money = Number(money);
     return money.toLocaleString("vi-VN", {
