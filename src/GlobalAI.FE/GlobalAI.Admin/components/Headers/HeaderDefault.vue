@@ -1,4 +1,5 @@
 <template>
+
   <div>
     <!-- Header -->
     <div class="sticky top-0 bg-white z-20 shadow px-4 lg:hidden hidden md:hidden sm:block">
