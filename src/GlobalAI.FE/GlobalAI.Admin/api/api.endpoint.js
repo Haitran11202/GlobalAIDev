@@ -33,6 +33,7 @@ export const API_ENDPOINT = {
 
   //Image
   postImages: "api/file/upload?folder=image",
+  
 
   // Quản lý đơn hàng
   getAllOrder: (pageSize, pageNumber, skip) =>
@@ -62,4 +63,6 @@ export const API_ENDPOINT = {
 
   getAllDanhMucBaiTin: (pageSize, pageNumber, skip) => 
   `/api/product/danh-muc-bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
+
+  getBaiTinTheoDanhMuc: (id, pagesize, pageNumber) => `/api/product/bai-tin/find-all?idDanhMuc=${id}&pageSize=${pagesize}&pageNumber=${pageNumber}`
 };

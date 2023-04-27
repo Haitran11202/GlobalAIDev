@@ -149,18 +149,18 @@ async function uploadImage(event) {
     postImage(formData)
       .then((response) => {
         console.log(response);
-        thumbnail.value = response.data.split("=")[2];
+        thumbnail.value = response.data;
         console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-    const response = await axios.post(
-      "http://globalai-staging.huce.edu.vn:8089/api/file/upload?folder=image",
-      formData
-    );
-    console.log(response.data.data.split("=")[2]);
-    thumbnail.value = response.data.data.split("=")[2];
+    // const response = await axios.post(
+    //   "http://globalai-staging.huce.edu.vn:8089/api/file/upload?folder=image",
+    //   formData
+    // );
+    // console.log(response.data.data.split("=")[2]);
+    // thumbnail.value = response.data.data.split("=")[2];
   } catch (error) {
     console.error(error);
   }
@@ -228,7 +228,7 @@ function handlePostPost() {
     });
 }
 
-const pageSize = 5;
+const pageSize = 15;
 const pageNumber = ref(1);
 const skip = ref(0);
 
