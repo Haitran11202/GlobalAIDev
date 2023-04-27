@@ -28,6 +28,7 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
         private readonly TinBaiRepository _baiTinRepository;
+        private readonly DanhMucBaiTinRepository _danhMucBaiTinRepository;
         private readonly IMapper _mapper;
         public BaiTinServices(GlobalAIDbContext dbContext, 
                 IHttpContextAccessor httpContext, 
@@ -36,6 +37,7 @@ namespace GlobalAI.ProductDomain.Implements
         {
             _mapper = mapper;
             _baiTinRepository = new TinBaiRepository(dbContext, logger, mapper);
+            _danhMucBaiTinRepository = new DanhMucBaiTinRepository(dbContext, logger, mapper);
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
             _dbContext = dbContext;
@@ -88,7 +90,11 @@ namespace GlobalAI.ProductDomain.Implements
 
             result.Items = _mapper.Map<List<BaiTinDto>>(baiTinQuery.Items);
             result.TotalItems = baiTinQuery.TotalItems;
-     
+            foreach (var item in result.Items)
+            {
+                item.TenDanhMuc = _danhMucBaiTinRepository.FindById(item.IdDanhMuc).TenDanhMuc;
+            }
+
             return result;
         }
 
@@ -97,6 +103,7 @@ namespace GlobalAI.ProductDomain.Implements
             int? userId = CommonUtils.GetCurrentUserId(_httpContext);
             var baiTin = _baiTinRepository.FindById(id);
             var result = _mapper.Map<BaiTinDto>(baiTin);
+            result.TenDanhMuc = _danhMucBaiTinRepository.FindById(result.IdDanhMuc).TenDanhMuc;
             return result;
         }
 
