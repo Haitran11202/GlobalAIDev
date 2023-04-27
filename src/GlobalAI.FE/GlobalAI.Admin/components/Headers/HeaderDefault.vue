@@ -1,8 +1,22 @@
 <template>
-  <div> 
+
+  <div>
+    <!-- Header -->
+    <div class="sticky top-0 bg-white z-20 shadow px-4 lg:hidden hidden md:hidden sm:block">
+      <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center py-3">
+          <a href="/" class="text-slate-700 text-xl font-bold leading-relaxed">
+            GlobalAI
+          </a>
+          <button class="block lg:hidden focus:outline-none">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+      </div>
+    </div>
     <!-- Header -->
     <div>
-      <div class="sticky top-0 bg-white z-20 shadow px-4 lg:hidden">
+      <div class="sticky top-0 bg-white z-20 shadow px-4 lg:hidden ">
         <div class="container mx-auto px-4">
           <div class="flex justify-between items-center py-3">
             <a
@@ -51,9 +65,7 @@
           </div>
         </div>
       </div>
-      <!-- <div class="w-full h-[74px] bg-[#cc3366] px-[82px] flex items-center justify-center">
-        <h1 class="font-bold text-white ">GlobalAI</h1>
-    </div> -->
+      
     </div>
   </div>
 </template>
