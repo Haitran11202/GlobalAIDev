@@ -59,15 +59,18 @@
                                     {{ baitin.moTa }}
                                 </p>
                             <div class="pt-2 pr-0 pb-0 pl-0">
-                                
+                                <p class="inline text-sm font-medium mt-0 mr-1 mb-0 ml-1">
+                                    {{
+                                $moment(baitin.cretedDate).format("MMM Do YYYY")
+                  
+              }}
+                                </p>
                                 <p class="text-sm font-medium inline">
                                     Tác giả:
                                 </p>
                                 <a class="inline text-sm font-medium mt-0 mr-1 mb-0 ml-1 underline">{{ baitin.createdBy
                                 }}</a>
-                                <p class="inline text-sm font-medium mt-0 mr-1 mb-0 ml-1">
-                                    · {{ baitin.createdDate }} ·
-                                </p>
+                                
                                 <p class="text-gray-200 text-sm font-medium inline mt-0 mr-1 mb-0 ml-1">
 
                                 </p>
@@ -87,7 +90,7 @@ import HeaderDefault from "~~/components/Headers/HeaderDefault.vue";
 const router = useRouter();
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
-
+const { $moment } = useNuxtApp();
 const datas = ref([]);
 const newBaiTin = ref({});
 const idDanhMucBaiTin = ref([]);

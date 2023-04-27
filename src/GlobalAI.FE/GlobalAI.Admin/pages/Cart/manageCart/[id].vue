@@ -4,6 +4,7 @@
             class="flex items-center gap-[10px] cursor-pointer px-1"
             @click="handleBack"
         >
+    
             <RouterLink
                 to="/gsaler/home"
                 class="float-left flex items-center gap-2"
@@ -40,6 +41,7 @@
                         :key="sanpham.id"
                         class="flex w-full items-start gap-[10px] mb-[30px]"
                     >
+                    
                         <div class="flex items-center gap-[20px]">
                             <input
                                 :id="sanpham.id"
@@ -48,6 +50,7 @@
                                 v-model="selectedProducts"
                                 type="checkbox"
                             />
+                            <p>{{ sanpham.id }}</p>
                             <div
                                 class="flex flex-col mt-[20px] w-[102px] h-[102px] items-center justify-center"
                             >
@@ -732,6 +735,7 @@ const bodyData = ref({
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 const getImageUrl = (imageUrl) => {
+    console.log(imageUrl);
     if (!imageUrl) {
         return "https://placehold.it/50x50";
     }
@@ -773,6 +777,18 @@ onMounted(async () => {
     .catch((err) => {
         console.log(err);
     })
+    // selectedProducts.value.push(router.currentRoute.value.query.checkedItem);
+    try {
+        
+        const res1 = await getSanPhamByNguoiMua();
+        products.value = res1?.data?.data;
+        console.log(res1.data.data);
+        const res2 = await getGioHang();
+        datas.value = res2?.data?.gioHang;
+        console.log(datas.value);
+    } catch (error) {
+        console.log(error);
+    }
 });
 //lấy số lượng theo sản phẩm
 const getCartItemQuantity = (id, soLuongNew = 0) => {
@@ -812,6 +828,7 @@ const decrement = (idsp) => {
 };
 //lấy ra đơn giá của giỏ hàng
 const getPrice = (soLuong, giaBan) => {
+    console.log(soLuong,giaBan);
     return giaBan * soLuong;
 };
 const getPriceUpdate = () => {
@@ -864,7 +881,6 @@ const totalPrice = computed(() => {
     let sum = 0;
     let chietKhau = 0;
     let tongThanhToan = 0;
-
     datas.value.forEach((item) => {
         if (selectedProducts.value.includes(item.idSanPham)) {
             console.log(selectedProducts.value);
@@ -881,6 +897,7 @@ watchEffect(() => {
     totalPrice;
 });
 const formatMoneyAll = (money) => {
+    console.log(money);
     money = Number(money);
     return money.toLocaleString("vi-VN", {
         style: "currency",
@@ -897,8 +914,10 @@ const removeDuplicates = (arr) => {
 const checkOut = () => {
     var arrGstore = [];
     //lấy ra idgstore
+    console.log(selectedProducts.value);
     selectedProducts.value.map((idSp) => {
         var chiTiet = products.value.find((p) => p.id == idSp);
+        console.log(chiTiet);
         arrGstore.push(chiTiet.idGStore);
     });
     console.log(selectedProducts.value);
@@ -932,12 +951,12 @@ const checkOut = () => {
         };
         console.log(sendBody);
         console.log(selectedProducts);
-        // createFullDonHang(sendBody)
-        //   .then((res) => {
-        //     toast.success("Tạo đơn hàng thành công");
-        //     console.log(res);
-        //   })
-        //   .catch(() => {});
+        createFullDonHang(sendBody)
+            .then((res) => {
+                toast.success("Tạo đơn hàng thành công");
+                console.log(res);
+            })
+            .catch(() => {});
     });
 };
 const handleUpdateProduct = (id, soLuong, giaBanModal) => {

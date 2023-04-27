@@ -354,7 +354,7 @@ const handleBuyClick = () => {
     })
     .catch(() => {});
   const userId = getUserInfor().user_id;
-  router.push({ name: "ProductCart", params: { id: productId.value } });
+  router.push({ name: "ManageCart",query: {checkedItem: productId.value}, params: { id: productId.value } });
 };
 
 const increment = () => {

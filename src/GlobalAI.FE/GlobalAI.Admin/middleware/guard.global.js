@@ -3,17 +3,19 @@ import { NOT_REQUIRED_LOGIN, ROUTES } from "~~/lib/routeConfig";
 import { useUserStorage } from "~~/stores/user";
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
-
     if (process.server) return;
 
     const userStorage = useUserStorage();
     const { $toast } = useNuxtApp();
 
-    console.log('hihi => ', to);
+    console.log("hihi => ", to);
     const matchedPath = to.matched[0]?.path?.toLowerCase();
 
     if (matchedPath) {
-        if (!userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(matchedPath)) {
+        if (
+            !userStorage.isLoggedIn &&
+            !NOT_REQUIRED_LOGIN.includes(matchedPath)
+        ) {
             $toast.warn("Vui lòng đăng nhập tài khoản và mật khẩu");
             return navigateTo(ROUTES.LOGIN);
         } else if (userStorage.isLoggedIn && matchedPath === ROUTES.LOGIN) {
