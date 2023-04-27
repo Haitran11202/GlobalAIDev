@@ -43,11 +43,9 @@ export const API_ENDPOINT = {
   getAllOrder: (pageSize, pageNumber, skip) =>
     `http://localhost:5003/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
 
-    postOrder: `/api/product/donhang`,
+  postOrder: `/api/product/donhang`,
 
-    deleteOrder: (id) => {
-        `/api/product/donhang/${id}`;
-    },
+  deleteOrder: (id) => `/api/product/donhang/${id}`,
 
   getOrderById: (id) => `api/product/donhang/${id}`,
   // Api Bài đăng

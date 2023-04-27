@@ -178,7 +178,7 @@
     </form>
     <div
       v-if="showDialog"
-      class="fixed flex box-pricebid flex-col items-center top-[50%] rounded-md left-[50%] translate-x-[-50%] translate-y-[-50%] bg-[#cc3366] px-[20px] py-[15px] text-white"
+      class="fixed z-50 flex box-pricebid flex-col items-center top-[50%] rounded-md left-[50%] translate-x-[-50%] translate-y-[-50%] bg-[#cc3366] px-[20px] py-[15px] text-white"
     >
       <p>Bạn chỉ được trả giá chi tiết 1 lần , có chắc muốn trả giá?</p>
       <div class="flex items-center gap-[15px] mt-[10px]">
@@ -244,7 +244,11 @@ const getImageUrl = (imageUrl) => {
   return url;
 };
 
-const listIdTraGia = [];
+const existingList = localStorage.getItem("listIdTraGia");
+let listIdTraGia = [];
+if(existingList){
+  listIdTraGia = JSON.parse(existingList);
+}
 
 const numberProduct = ref(1);
 const noteValue = ref("");
@@ -302,7 +306,6 @@ const handleDialogYes = async () => {
         item.idSanPham === props.products.id &&
         item.idNguoiMua === getUserInfor().user_id
     );
-
     if (index === -1) {
       listIdTraGia.push({
         idSanPham: props.products.id,
@@ -330,6 +333,7 @@ onMounted(() => {
   if (index !== -1) {
     // Nếu tìm thấy sản phẩm trong mảng listIdTraGia
     const idTragia = listIdTraGia[index].idTragia;
+    isOverflowed.value = false;
     console.log(idTragia);
     getDetailedPayment(idTragia)
       .then((res) => {

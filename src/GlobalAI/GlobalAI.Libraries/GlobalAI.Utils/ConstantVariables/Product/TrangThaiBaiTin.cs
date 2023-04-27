@@ -9,9 +9,9 @@ namespace GlobalAI.Utils.ConstantVariables.Product
     public static class TrangThaiBaiTin
     {
         /// <summary>
-        /// Kích hoạt
+        /// Khởi tạo
         /// </summary>
-        public const int KICH_HOAT = 1;
+        public const int KHOI_TAO = 1;
 
     }
 }

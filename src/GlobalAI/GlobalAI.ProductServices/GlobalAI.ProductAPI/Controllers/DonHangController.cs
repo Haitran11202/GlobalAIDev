@@ -10,7 +10,7 @@ using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/product/donhang")]
     [ApiController]
     public class DonHangController : BaseController

@@ -30,7 +30,6 @@
           </div>
         </div>
       </div>
-
       <div
         class="sticky hidden lg:block relative top-0 border-y-2 bg-white z-20 shadow px-4"
       >

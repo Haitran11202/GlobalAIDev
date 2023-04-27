@@ -6,8 +6,9 @@ export default defineNuxtConfig({
         '@pinia/nuxt',
         '@pinia-plugin-persistedstate/nuxt',
     ],
-    target: 'static',
-    mode: 'universal',
+    // target: 'static',
+    // ssr: false,
+    // mode: '',
     devServer: {
         port: 8001
     },
@@ -28,7 +29,11 @@ export default defineNuxtConfig({
         {
             src: '~/plugins/signalr.js',
             mode: 'client' // nếu chỉ chạy trên client
-          }
+        },
+        {
+            src: '~/plugins/image-uploader.client.js',
+            mode: 'client' // nếu chỉ chạy trên client
+        },
     ],
 
     pinia: {
@@ -41,4 +46,8 @@ export default defineNuxtConfig({
     piniaPersistedstate: {
         storage: 'localStorage'
     },
+    routeRules: {
+        // Render these routes with SPA
+        '/admin/**': { ssr: false },
+      }
 })

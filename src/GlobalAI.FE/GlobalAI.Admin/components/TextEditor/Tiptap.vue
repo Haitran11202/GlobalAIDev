@@ -5,30 +5,32 @@
       v-if="editor"
       class="flex flex-row space-x-2 border-b border-b-gray-400 p-2 text-gray-500"
     >
-      <button @click="() => editor?.chain().focus().toggleBold().run()">
+      <button @click.prevent="() => editor?.chain().focus().toggleBold().run()">
         <font-awesome-icon :icon="['fas', 'bold']" />
       </button>
-      <button @click="() => editor?.chain().focus().toggleItalic().run()">
+      <button
+        @click.prevent="() => editor?.chain().focus().toggleItalic().run()"
+      >
         <font-awesome-icon :icon="['fas', 'italic']" />
       </button>
 
       <button
         :class="{ 'font-bold': editor?.isActive('strike') }"
-        @click="editor?.chain().focus().toggleStrike().run()"
+        @click.prevent="editor?.chain().focus().toggleStrike().run()"
       >
         <font-awesome-icon :icon="['fas', 'strikethrough']" />
       </button>
 
       <button
         :class="{ 'is-active': editor?.isActive('code') }"
-        @click="editor?.chain().focus().toggleCode().run()"
+        @click.prevent="editor?.chain().focus().toggleCode().run()"
       >
         <font-awesome-icon :icon="['fas', 'code']" />
       </button>
 
       <button
         :class="{ 'is-active': editor?.isActive('paragraph') }"
-        @click="editor?.chain().focus().setParagraph().run()"
+        @click.prevent="editor?.chain().focus().setParagraph().run()"
       >
         <font-awesome-icon :icon="['fas', 'paragraph']" />
       </button>
@@ -36,48 +38,61 @@
       <button
         :class="{ 'is-active': editor?.isActive('heading', { level: 1 }) }"
         size="small"
-        @click="editor?.chain().focus().toggleHeading({ level: 1 }).run()"
+        @click.prevent="
+          editor?.chain().focus().toggleHeading({ level: 1 }).run()
+        "
       >
         H1
       </button>
 
       <button
         :class="{ 'is-active': editor?.isActive('heading', { level: 2 }) }"
-        @click="editor?.chain().focus().toggleHeading({ level: 2 }).run()"
+        @click.prevent="
+          editor?.chain().focus().toggleHeading({ level: 2 }).run()
+        "
       >
         H2
       </button>
 
       <button
         :class="{ 'is-active': editor?.isActive('heading', { level: 3 }) }"
-        @click="editor?.chain().focus().toggleHeading({ level: 3 }).run()"
+        @click.prevent="
+          editor?.chain().focus().toggleHeading({ level: 3 }).run()
+        "
       >
         H3
       </button>
 
       <button
         :class="{ 'is-active': editor?.isActive('blockquote') }"
-        @click="editor?.chain().focus().toggleBlockquote().run()"
+        @click.prevent="editor?.chain().focus().toggleBlockquote().run()"
       >
         <font-awesome-icon :icon="['fas', 'quote-left']" />
       </button>
 
       <button
+        :class="{ 'is-active': editor?.isActive('blockquote') }"
+        @click.prevent="toggleHTML()"
+      >
+        HTML
+      </button>
+
+      <button
         :class="{ 'is-active': editor?.isActive('bulletList') }"
-        @click="editor?.chain().focus().toggleBulletList().run()"
+        @click.prevent="editor?.chain().focus().toggleBulletList().run()"
       >
         <font-awesome-icon :icon="['fas', 'list']" />
       </button>
 
-      <button @click="showImageModal()">
+      <button @click.prevent="showImageModal()">
         <font-awesome-icon :icon="['fas', 'image']" />
       </button>
 
-      <button @click="editor?.chain().focus().undo().run()">
+      <button @click.prevent="editor?.chain().focus().undo().run()">
         <font-awesome-icon :icon="['fas', 'undo']" />
       </button>
 
-      <button @click="editor?.chain().focus().redo().run()">
+      <button @click.prevent="editor?.chain().focus().redo().run()">
         <font-awesome-icon :icon="['fas', 'redo']" />
       </button>
     </div>
@@ -118,8 +133,8 @@ const editor = useEditor({
   extensions: [StarterKit, Document, Text, Paragraph, Blockquote, Image],
   content: props.modelValue,
   onUpdate: () => {
-    // emits("update:modelValue", editor.value?.getHTML());
-    emits("update:modelValue", editor.value?.getText());
+    emits("update:modelValue", editor.value?.getHTML());
+    // emits("update:modelValue", editor.value?.getText());
   },
 });
 
@@ -144,6 +159,17 @@ watch(
 const showImageModal = () => {
   $vfm.show("imageModal");
 };
+
+const toggleHTML = () => {
+  const html = editor.value?.getHTML();
+  const text = editor.value?.getText();
+  console.log(html, text);
+
+  // if (text != html) {
+   editor.value?.commands.setContent('<code><h1>1223432432</h1></code>'); 
+  // }
+
+}
 
 const uploadImageSuccess = (data) => {
   const baseUrl = config.public.apiEndpoint;

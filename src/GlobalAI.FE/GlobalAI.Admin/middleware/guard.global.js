@@ -3,6 +3,7 @@ import { NOT_REQUIRED_LOGIN, ROUTES } from "~~/lib/routeConfig";
 import { useUserStorage } from "~~/stores/user";
 
 export default defineNuxtRouteMiddleware(async (to, from) => {
+
     if (process.server) return;
 
     const userStorage = useUserStorage();
@@ -38,10 +39,20 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         //                     count++;
         //                 }
         //             });
+        //         if (userPermission && Array.isArray(userPermission)) {
+        //             let count = 0;
+        //             permissionRoute.forEach(per => {
+        //                 if (userPermission.includes(per)) {
+        //                     count++;
+        //                 }
+        //             });
     
         //             allowNavigate = count === permissionRoute.length;
         //         }
+        //             allowNavigate = count === permissionRoute.length;
+        //         }
     
+        //     }
         //     }
     
         //     if (!allowNavigate) {
@@ -51,4 +62,6 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         // }   
     }
 
+    
+ 
 });
