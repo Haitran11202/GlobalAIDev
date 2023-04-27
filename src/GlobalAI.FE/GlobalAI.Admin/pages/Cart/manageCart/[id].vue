@@ -888,8 +888,10 @@ const removeDuplicates = (arr) => {
 const checkOut = () => {
     var arrGstore = [];
     //lấy ra idgstore
+    console.log(selectedProducts.value);
     selectedProducts.value.map((idSp) => {
         var chiTiet = products.value.find((p) => p.id == idSp);
+        console.log(chiTiet);
         arrGstore.push(chiTiet.idGStore);
     });
     console.log(selectedProducts.value);
@@ -923,12 +925,12 @@ const checkOut = () => {
         };
         console.log(sendBody);
         console.log(selectedProducts);
-        // createFullDonHang(sendBody)
-        //   .then((res) => {
-        //     toast.success("Tạo đơn hàng thành công");
-        //     console.log(res);
-        //   })
-        //   .catch(() => {});
+        createFullDonHang(sendBody)
+            .then((res) => {
+                toast.success("Tạo đơn hàng thành công");
+                console.log(res);
+            })
+            .catch(() => {});
     });
 };
 const handleUpdateProduct = (id, soLuong, giaBanModal) => {
