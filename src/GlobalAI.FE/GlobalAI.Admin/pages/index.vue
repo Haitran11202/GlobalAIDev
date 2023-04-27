@@ -277,7 +277,7 @@
             <article v-for="item in baitin" class="flex max-w-xl flex-col items-start justify-between">
               <div class="flex items-center gap-x-4 text-xs">
                 <time datetime="2020-03-16" class="text-gray-500"
-                  >Mar 16, 2020</time
+                  >Mar 16, 2023</time
                 >
                 <a
                   href="#"
@@ -289,16 +289,13 @@
                 <h3
                   class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
                 >
-                  <a href="#">
+                  <a :href="`/post/postdetail/${item.slug }`">
                     <span class="absolute inset-0"></span>
                    {{ item.tieuDe }}
                   </a>
                 </h3>
                 <p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
-                  AI có đang thay đổi cách chúng ta tạo video không? AI sáng tạo
-                  sử dụng nội dung hiện có như âm thanh, video và văn bản để tạo
-                  nội dung gốc. Các nhà tiếp thị video có thể tự động hóa quy
-                  trình viết kịch bản và chỉnh sửa chỉ trong vài giây.
+                  {{ item.moTa }}
                 </p>
               </div>
               <div class="relative mt-8 flex items-center gap-x-4">
