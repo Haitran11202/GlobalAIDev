@@ -9,7 +9,7 @@ using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/product/tra-gia")]
     [ApiController]
     public class TraGiaController : BaseController

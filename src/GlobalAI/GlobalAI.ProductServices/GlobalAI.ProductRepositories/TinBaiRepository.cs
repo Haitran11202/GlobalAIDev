@@ -33,9 +33,16 @@ public class TinBaiRepository : BaseEFRepository<BaiTin>
 
     public void Update(BaiTin input)
     {
-        var bargainQuery = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
-        bargainQuery.ModifiedDate = DateTime.Now;
-        bargainQuery.ModifiedBy = input.ModifiedBy;
+        var query = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
+        query.ModifiedDate = DateTime.Now;
+        query.ModifiedBy = input.ModifiedBy;
+        query.NgayDang = input.NgayDang;
+        query.TieuDe = input.TieuDe;
+        query.NoiDung = input.NoiDung;
+        query.Slug = input.Slug;
+        query.IdDanhMuc = input.IdDanhMuc;
+        query.Thumbnail = input.Thumbnail;
+        query.MoTa = input.MoTa;
     }
 
     /// <summary>

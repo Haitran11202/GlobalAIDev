@@ -3,6 +3,7 @@ using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.BaiTin;
 using GlobalAI.ProductEntities.Dto.ChiTietTraGia;
 using GlobalAI.ProductEntities.Dto.TraGia;
+using GlobalAI.ProductEntities.Dto.Voucher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,5 +20,7 @@ namespace GlobalAI.ProductDomain.Interfaces
         PagingResult<BaiTinDto> FindAll(FilterBaiTinDto input);
         BaiTinDto GetById(int id);
         BaiTinDto GetBySlug(string slug);
+        void Update(UpdateBaiTinDto input);
+        void Approve(ApproveBaiTinDto input);
     }
 }

@@ -11,6 +11,7 @@ using GlobalAI.ProductEntities.Dto.BaiTin;
 using GlobalAI.ProductEntities.Dto.DanhMucBaiTin;
 using GlobalAI.ProductEntities.Dto.Voucher;
 using GlobalAI.ProductEntities.Dto.DanhMuc;
+using GlobalAI.ProductEntities.Dto.VoucherChiTiet;
 
 namespace GlobalAI.ProductEntities.DataEntities.Mapper
 {
@@ -43,6 +44,7 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<ChiTietTraGia, ChiTietTraGiaDto>().ReverseMap();
             CreateMap<TraGia, TraGiaDto>().ReverseMap();
             CreateMap<BaiTin, CreateBaiTin>().ReverseMap();
+            CreateMap<BaiTin, UpdateBaiTinDto>().ReverseMap();
             CreateMap<BaiTin, BaiTinDto>().ReverseMap();
             CreateMap<DanhMucBaiTin, CreateDanhMucBaiTin>().ReverseMap();
             CreateMap<DanhMucBaiTin, DanhMucBaiTinDto>().ReverseMap();
@@ -51,6 +53,10 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<Voucher, CreateVoucherDto>().ReverseMap();
             CreateMap<Voucher, VoucherDto>().ReverseMap();
             CreateMap<Voucher, UpdateVoucherDto>().ReverseMap();
+            CreateMap<VoucherChiTiet, CreateVoucherChiTietDto>().ReverseMap();
+            CreateMap<VoucherChiTiet, VoucherChiTietDto>().ReverseMap();
+            CreateMap<VoucherChiTiet, UpdateVoucherChiTietDto>().ReverseMap();
+            CreateMap<VoucherChiTiet, CreateVoucherDto>().ReverseMap();
         }
     }
 }

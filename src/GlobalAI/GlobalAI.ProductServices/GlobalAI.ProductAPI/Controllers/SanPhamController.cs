@@ -13,7 +13,7 @@ using System.Net;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [Route("api/product/sanpham")]
     [ApiController]
     public class SanPhamController : BaseController
