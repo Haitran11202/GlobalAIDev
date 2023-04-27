@@ -11,6 +11,12 @@ export const useCartStorage = defineStore("cart", {
       state.cartItems.reduce((total, item) => total + item.price, 0),
     getFullSanPham: (state) => state.cartItems
   },
+  mutations:{
+    toggleCheckBox: (state, id) => {
+      const item = state.cartItems.find(item => item.id === id)
+      item.checked = !item.checked;
+    }
+  },
   actions: {
     async getGioHang(){
       try {
