@@ -70,14 +70,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="w-full md:w-1/2">
-                            <div class="block">
-                                <img
-                                    src="https://images.unsplash.com/photo-1626314928277-1d373ddb6428?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mzd8fHxlbnwwfHx8fA%3D%3D&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=60"
-                                    class="object-cover rounded-lg max-h-64 sm:max-h-96 btn- w-full h-full"
-                                />
-                            </div>
-                        </div>
+                       
                     </div>
                     <div class="grid grid-cols-12 sm:px-5 gap-x-8 gap-y-16">
                         <div
@@ -86,15 +79,15 @@
                             @click="handleClick(baitin.slug)"
                         >
                             <img
-                                src="https://images.unsplash.com/photo-1626318305863-bb23d0297c0b?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MXx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=60"
+                                src=""
                                 class="object-cover w-full mb-2 overflow-hidden rounded-lg shadow-sm max-h-56 btn-"
                             />
                             <p
                                 class="bg-green-500 flex items-center leading-none text-sm font-medium text-gray-50 pt-1.5 pr-3 pb-1.5 pl-3 rounded-full uppercase inline-block"
                             >
-                                {{ baitin.slug }}
+                               Bài tin
                             </p>
-                            <a
+                            <a :href="`/post/postdetail/${baitin.slug }`"
                                 class="text-lg font-bold sm:text-xl md:text-2xl"
                                 >{{ baitin.tieuDe }}</a
                             >
@@ -119,7 +112,7 @@
                                 <p
                                     class="text-gray-200 text-sm font-medium inline mt-0 mr-1 mb-0 ml-1"
                                 >
-                                    1h 20p
+                                 
                                 </p>
                             </div>
                         </div>
@@ -143,18 +136,19 @@ definePageMeta({
     name: "PostDanhMuc",
 });
 onMounted(() => {
-    getAllDanhMucBaiTin()
-        .then((res) => {
-            danhMuc.value = res?.data?.data?.items;
-        })
-        .catch(() => {});
     console.log(router.currentRoute.value.params.id);
-    getBaiTinTheoDanhMuc(router.currentRoute.value.params.id)
+    console.log('sadasdsa')
+
+    getBaiTinTheoDanhMuc(router.currentRoute.value.params.id,15,1)
         .then((res) => {
             datas.value = res?.data?.data.items;
+            console.log('baitin',datas.value)
         })
         .catch(() => {});
+    console.log('sadasdsa')
+
 });
+
 const selectCategory = (idDanhMucBaiTin) => {
     router.push({ name: "PostDanhMuc", params: { id: idDanhMucBaiTin } });
 };

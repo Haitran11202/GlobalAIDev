@@ -357,12 +357,17 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("NUMBER(10)")
                         .HasColumnName("ID_DANH_MUC");
 
+                    b.Property<string>("MoTa")
+                        .HasMaxLength(250)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("MO_TA");
+
                     b.Property<string>("ModifiedBy")
                         .HasMaxLength(50)
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("MODIFIED_BY");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATE")
                         .HasColumnName("MODIFIED_DATE");
 
@@ -500,7 +505,7 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("MODIFIED_BY");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATE")
                         .HasColumnName("MODIFIED_DATE");
 
@@ -560,7 +565,7 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("MODIFIED_BY");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATE")
                         .HasColumnName("MODIFIED_DATE");
 
@@ -618,7 +623,7 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("MODIFIED_BY");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATE")
                         .HasColumnName("MODIFIED_DATE");
 
@@ -696,7 +701,7 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("MODIFIED_BY");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATE")
                         .HasColumnName("MODIFIED_DATE");
 
@@ -764,7 +769,7 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("MODIFIED_BY");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATE")
                         .HasColumnName("MODIFIED_DATE");
 
@@ -942,7 +947,7 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("MODIFIED_BY");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATE")
                         .HasColumnName("MODIFIED_DATE");
 
@@ -1008,7 +1013,7 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("MODIFIED_BY");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATE")
                         .HasColumnName("MODIFIED_DATE");
 
@@ -1092,16 +1097,16 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("MODIFIED_BY");
 
-                    b.Property<DateTime>("ModifiedDate")
+                    b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATE")
                         .HasColumnName("MODIFIED_DATE");
 
                     b.Property<DateTime?>("NgayGiao")
-                        .HasColumnType("TIMESTAMP(7)")
+                        .HasColumnType("DATE")
                         .HasColumnName("NGAY_GIAO");
 
                     b.Property<DateTime?>("NgaySuDung")
-                        .HasColumnType("TIMESTAMP(7)")
+                        .HasColumnType("DATE")
                         .HasColumnName("NGAY_SU_DUNG");
 
                     b.Property<string>("NguoiSuDung")

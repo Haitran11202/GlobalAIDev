@@ -1,12 +1,11 @@
 import http from "./useApi";
 import { API_ENDPOINT } from "~~/api/api.endpoint";
 
-export const postFile = async (file) => {
+export const postFile = async (file, folder = 'test') => {
   try {
-    const api = `${API_ENDPOINT.postImages}?folder=test`;
+    const api = `${API_ENDPOINT.postImages}?folder=${folder}`;
 
     const formData = new FormData();
-    console.log(111111111111111, file);
     formData.append('file', file, file?.name);
     const res = await http.post(
       api, formData
