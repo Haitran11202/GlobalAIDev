@@ -27,9 +27,9 @@
             </label>
           </th>
           <th>ID</th>
-          <th>Mã danh mục</th>
+          <th>Danh mục</th>
           <th>Tiêu đề</th>
-          <th>Nội dung</th>
+          <th>Mô tả</th>
           <th>Chức năng</th>
         </tr>
       </thead>
@@ -58,7 +58,7 @@
               </div>
             </div>
           </td>
-          <td>{{ post.noiDung }}</td>
+          <td>{{ post.moTa }}</td>
 
           <td>
             <div class="dropdown dropdown-left dropdown-end">
