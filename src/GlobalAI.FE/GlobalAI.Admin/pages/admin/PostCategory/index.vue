@@ -1,13 +1,13 @@
 <template>
   <div class="flex mt-4">
     <div class="w-full">
-      <card-voucher />
+      <card-post-category></card-post-category>
     </div>
   </div>
 </template>
 
 <script setup>
-import CardVoucher from "~~/components/Cards/CardVoucher.vue";
+import CardPostCategory from "~~/components/Cards/CardPostCategory.vue";
 definePageMeta({
   layout: "admin",
 });

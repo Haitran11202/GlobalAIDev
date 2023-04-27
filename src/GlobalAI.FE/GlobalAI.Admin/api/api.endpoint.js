@@ -57,8 +57,30 @@ export const API_ENDPOINT = {
 
   postPosts: `/api/product/bai-tin`,
 
-  putPost: (id) => `/api/product/donhang/${id}`,
+  putPost: `/api/product/bai-tin`,
 
   //Image
   postImage: `/api/file/upload?folder=image`,
+
+  // Voucher
+  getAllVoucherPhanTrang: (pageSize, pageNumber, skip) =>
+    `/api/product/voucher/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
+
+  deleteVoucher: (id) => `/api/product/voucher?id=${id}`,
+
+  getVoucherById: (id) => `/api/product/voucher/${id}`,
+
+  postVouchers: `/api/product/voucher`,
+
+  putVoucher: `/api/product/voucher/update`,
+
+  // Danh mục bài tin
+  getAllPostCategoryPhanTran: (pageSize, pageNumber, skip) =>
+    `/api/product/danh-muc-bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
+
+  getPostCategoryById: (id) => `/api/product/danh-muc-bai-tin/${id}`,
+
+  deletePostCategory: (id) => `/api/product/danh-muc-bai-tin?id=${id}`,
+
+  postPostCategory: `/api/product/danh-muc-bai-tin`,
 };

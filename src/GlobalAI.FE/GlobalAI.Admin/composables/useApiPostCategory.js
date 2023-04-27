@@ -1,11 +1,15 @@
 import http from "./useApi";
 import { API_ENDPOINT } from "~~/api/api.endpoint";
 
-// Lấy tất cả sản phẩm và phân trang
-export const getAllPostPhanTrang = async (pageSize, pageNumber, skip) => {
+// Lấy tất cả danh mục bài tin và phân trang
+export const getAllPostCategoryPhanTran = async (
+  pageSize,
+  pageNumber,
+  skip
+) => {
   try {
     const response = await http.get(
-      API_ENDPOINT.getAllPostPhanTrang(pageSize, pageNumber, skip)
+      API_ENDPOINT.getAllPostCategoryPhanTran(pageSize, pageNumber, skip)
     );
     return Promise.resolve(response.data);
   } catch (err) {
@@ -13,21 +17,20 @@ export const getAllPostPhanTrang = async (pageSize, pageNumber, skip) => {
   }
 };
 
-// Xoá bài tin dựa theo id
-export const deletePost = async (id) => {
-  console.log(API_ENDPOINT.deletePost(id));
+// Xoá danh mục bài tin dựa theo id
+export const deletePostCategory = async (id) => {
   try {
-    const response = await http.delete(API_ENDPOINT.deletePost(id));
+    const response = await http.delete(API_ENDPOINT.deletePostCategory(id));
     return Promise.resolve(response.data);
   } catch (err) {
     return Promise.reject(err);
   }
 };
 
-// Lấy bài tin dựa theo ID
-export const getPostById = async (id) => {
+// Lấy danh mục bài tin dựa theo ID
+export const getPostCategoryById = async (id) => {
   try {
-    const response = await http.get(API_ENDPOINT.getPostById(id));
+    const response = await http.get(API_ENDPOINT.getPostCategoryById(id));
     return Promise.resolve(response.data);
   } catch (err) {
     return Promise.reject(err);

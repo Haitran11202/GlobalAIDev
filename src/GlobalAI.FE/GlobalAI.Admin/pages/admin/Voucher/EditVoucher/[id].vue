@@ -2,83 +2,101 @@
   <div class="mt-4 relative bg-white rounded">
     <form @submit.prevent="submitForm" class="m-auto shadow-2xl p-12 h-[670px]">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
-        <div>
-          <label
-            for="idDanhMuc"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Mã danh mục</label
-          >
-          <select
-            v-model="idDanhMuc"
-            id="idDanhMuc"
-            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            required
-          >
-            <option value="">-- Lựa chọn danh mục --</option>
-            <option value="1">Đồng hồ</option>
-            <option value="2">Trang sức</option>
-            <option value="3">Sản phẩm chiết khấu cao</option>
-            <option value="4">Thời trang nữ</option>
-            <option value="5">Điện thoại</option>
-            <option value="6">Phụ kiện</option>
-            <option value="7">Thể thao du lịch</option>
-            <option value="8">Thời trang nam</option>
-            <option value="9">Sách</option>
-            <option value="10">Đồ điện tử</option>
-            <option value="11">Thời trang trẻ em</option>
-            <option value="12">Túi ví</option>
-            <option value="13">Giày dép</option>
-            <option value="14">Bảo hiểm</option>
-            <option value="15">Thiết bị gia dụng</option>
-          </select>
-        </div>
         <div class="col-span-1">
           <label
-            for="tieuDe"
+            for="name"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-            Tiêu đề
+            Tên Voucher
           </label>
           <Field
-            v-model="tieuDe"
-            name="tieuDe"
+            name="name"
             type="text"
+            v-model="name"
+            placeholder="Mã sản phẩm..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+          />
+          <error-message name="name" class="text-red-500" />
+        </div>
+
+        <div class="col-span-1">
+          <label
+            for="giaTri"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
+          >
+            Giá trị
+          </label>
+          <Field
+            name="giaTri"
+            type="number"
+            v-model="giaTri"
             placeholder="Tên sản phẩm..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
-          <error-message name="tieuDe" class="text-red-500" />
+          <error-message name="giaTri" class="text-red-500" />
         </div>
 
+        <div class="col-span-1">
+          <label
+            for="soLuong"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
+          >
+            Số lượng
+          </label>
+          <Field
+            name="soLuong"
+            v-model="soLuong"
+            type="number"
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+          />
+          <error-message name="soLuong" class="text-red-500" />
+        </div>
+
+        <div class="col-span-1">
+          <label
+            for="ngayHetHan"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
+          >
+            Ngày hết hạn
+          </label>
+          <Field
+            name="ngayHetHan"
+            type="date"
+            v-model="ngayHetHan"
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+          />
+          <error-message name="ngayHetHan" class="text-red-500" />
+        </div>
         <div class="">
           <label
-            for="image"
+            for="avatar"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
             >Hình ảnh</label
           >
           <div class="flex items-center justify-between relative">
             <input
               type="file"
-              id="image"
+              id="avatar"
               class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
               required
               @change.prevent="uploadImage"
             />
             <img
               alt="Product Image"
-              :src="getImageUrl(thumbnailNew)"
               class="w-[50px] h-[50px] border absolute right-0 rounded"
+              :src="getImageUrl(avatarNew)"
             />
           </div>
         </div>
         <div class="mb-6">
           <label
-            for="noiDung"
+            for="moTa"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Nội dung</label
+            >Mô tả</label
           >
           <div class="w-full">
             <tiptap
-              v-model="noiDung"
+              v-model="moTa"
               class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             />
           </div>
@@ -86,11 +104,10 @@
       </div>
       <div class="flex justify-end gap-5">
         <button type="submit" class="btn btn-outline float-right">
-          Cập nhật bài tin
+          Cập nhật voucher
         </button>
-        <button class="btn btn-outline btn-success">Duyệt sản phẩm</button>
         <button
-          @click="this.$router.push('/admin/post')"
+          @click="this.$router.push('/admin/voucher')"
           class="btn btn-outline btn-error"
         >
           <span class="flex">Quay về</span>
@@ -102,25 +119,28 @@
 
 <script setup>
 import axios from "axios";
-import { ref } from "vue";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
-import { getPostById, updatePost } from "~~/composables/useApiPost.js";
+// import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
+import { getVoucherById } from "~~/composables/useApiVoucher";
 import { postImage } from "~~/composables/useApiImage";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
-
+import { ref, watchEffect } from "vue";
 definePageMeta({
   layout: "admin",
-  name: "Post",
+  name: "Voucher",
 });
 
-const postId = ref([]);
-const idDanhMuc = ref(0);
-const tieuDe = ref("");
-const noiDung = ref("");
-const thumbnailNew = ref("");
+const voucherId = ref(0);
+const name = ref("");
+const avatarNew = ref("");
+const moTa = ref("");
+const giaTri = ref(0);
+const soLuong = ref(0);
+const ngayHetHan = ref("");
+const voucherChiTiets = ref([]);
 
 const router = useRouter();
 const config = useRuntimeConfig();
@@ -133,7 +153,7 @@ async function uploadImage(event) {
     postImage(formData)
       .then((response) => {
         console.log(response);
-        thumbnailNew.value = response.data.split("=")[2];
+        avatarNew.value = response.data.split("=")[2];
         console.log(response.data);
       })
       .catch((error) => {
@@ -161,43 +181,55 @@ watchEffect(() => {
 });
 
 onMounted(() => {
-  postId.value = router.currentRoute.value.params.id;
-
+  voucherId.value = router.currentRoute.value.params.id;
   watchEffect(async () => {
     try {
-      const data = await getPostById(postId.value);
-      idDanhMuc.value = data.data.idDanhMuc;
-      tieuDe.value = data.data.tieuDe;
-      noiDung.value = data.data.noiDung;
-      thumbnailNew.value = data.data.thumbnail;
+      const data = await getVoucherById(voucherId.value);
+      name.value = data.data.name;
+      avatarNew.value = data.data.avatar;
+      moTa.value = data.data.moTa;
+      giaTri.value = data.data.giaTri;
+      soLuong.value = data.data.soLuong;
+      ngayHetHan.value = data.data.ngayHetHan;
+      voucherChiTiets.value = [
+        {
+          id: 0,
+          voucherId: 0,
+          ngayGiao: "2023-04-26T15:50:18.998Z",
+          ngaySuDung: "2023-04-26T15:50:18.998Z",
+          nguoiSuDung: "string",
+        },
+      ];
     } catch (error) {
       console.log(error);
     }
   });
 });
-
 const submitForm = () => {
   const formData = {
-    id: postId.value,
-    idDanhMuc: idDanhMuc.value,
-    tieuDe: tieuDe.value,
-    noiDung: noiDung.value,
-    thumbnail: thumbnailNew.value,
+    id: Number(voucherId.value),
+    name: name.value,
+    avatar: avatarNew.value,
+    moTa: moTa.value,
+    giaTri: giaTri.value,
+    soLuong: soLuong.value,
+    ngayHetHan: ngayHetHan.value,
+    voucherChiTiets: voucherChiTiets.value,
   };
-
   const body = {
     ...formData,
   };
 
-  updatePost(body)
+  console.log(body);
+  updateVoucher(body)
     .then((data) => {
       console.log(data);
-      toast.success("Cập nhật bài tin thành công");
-      router.push("/admin/post");
+      toast.success("Cập nhật Voucher thành công");
+      router.push("/admin/Voucher");
     })
     .catch((error) => {
       console.log(error);
-      toast.error("Cập nhật bài tin thất bại. Vui lòng thử lại!");
+      toast.error("Cập nhật Voucher thất bại. Vui lòng thử lại!");
     });
 };
 </script>
