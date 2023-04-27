@@ -748,6 +748,35 @@ const getImageUrl = (imageUrl) => {
 const selectedPaymentType = ref("cash");
 const checkAll = ref(false);
 onMounted(async () => {
+    selectedProducts.value.push(router.currentRoute.value.query.checkedItem);
+    // try {
+    //     const res1 = await getSanPhamByNguoiMua();
+    //     products.value = res1?.data?.data;
+    //     console.log(res1?.data.data);
+    //     const res2 = await getGioHang();
+    //     datas.value = res2?.data?.data.gioHang;
+    //     console.log(datas.value);
+    // } catch (error) {
+    //     console.log(error);
+    // }
+    // console.log();
+    // Thêm những dòng code này
+    getSanPhamByNguoiMua()
+    .then((res) => {
+        console.log(res);
+        products.value = res?.data?.data;
+        getGioHang()
+         .then((res) => {
+            console.log(res);
+            datas.value = res?.data?.gioHang;
+         })
+         .catch((err) => {
+            console.log(err);
+         })
+    })
+    .catch((err) => {
+        console.log(err);
+    })
     // selectedProducts.value.push(router.currentRoute.value.query.checkedItem);
     try {
         
@@ -864,14 +893,9 @@ const totalPrice = computed(() => {
     });
     return { sum, chietKhau, tongThanhToan };
 });
-// format tiền
-const formatMoney = (soLuong, giaBan) => {
-    console.log(products.value);
-    return getPrice(soLuong, giaBan).toLocaleString("vi-VN", {
-        style: "currency",
-        currency: "VND",
-    });
-};
+watchEffect(() => {
+    totalPrice;
+});
 const formatMoneyAll = (money) => {
     console.log(money);
     money = Number(money);

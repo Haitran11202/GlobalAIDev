@@ -27,6 +27,7 @@ namespace GlobalAI.ProductRepositories
         public TraGia Add(TraGia input)
         {
             input.CreatedDate = DateTime.Now;
+            input.ModifiedDate = DateTime.Now;
             input.Deleted = DeletedBool.NO;
             return _dbSet.Add(input).Entity;
         }
