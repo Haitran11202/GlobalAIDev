@@ -48,8 +48,8 @@
               <div class="avatar">
                 <div class="mask mask-squircle w-12 h-12">
                   <img
-                    :src="getImageUrl(post.thumbnail)"
-                    alt="Avatar Tailwind CSS Component"
+                    :src="`${baseUrl}/${post.thumbnail}`"
+                    alt=""
                   />
                 </div>
               </div>
