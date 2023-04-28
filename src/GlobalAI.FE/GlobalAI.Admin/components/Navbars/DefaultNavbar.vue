@@ -34,7 +34,7 @@
         >
           <a
             class="hover:text-slate-500 text-slate-700 px-3 py-2 flex items-center text-xs uppercase font-bold"
-            href="/Cart/ManageCart/1"
+            @click="handleCartManage"
           >
             <i class="text-slate-400 fab fa-facebook text-lg leading-lg" />
             <img class="w-7" :src="CartSvg" />
@@ -146,4 +146,9 @@ const handleDetail = (id) => {
   isHovering.value = false;
   router.push({ name: "ProductDetail", params: { id } });
 };
+const handleCartManage = () => {
+  const userId = getUserInfor().user_id;
+  console.log(userId);
+  router.push({name: "ManageCart", params:{id: userId }})
+}
 </script>
