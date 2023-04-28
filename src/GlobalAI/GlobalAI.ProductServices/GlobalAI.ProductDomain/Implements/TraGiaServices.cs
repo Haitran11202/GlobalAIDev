@@ -202,7 +202,9 @@ namespace GlobalAI.ProductDomain.Implements
             var traGiaNew = _dbContext.TraGias.FirstOrDefault(tg => tg.IdSanPham == idSanPham);
 
             var sanPham = _dbContext.SanPhams.FirstOrDefault(sp => sp.Id == idSanPham);
-            var traGia = _traGiaRepository.FindTraGiaBySanPham(idSanPham, traGiaNew.Id, sanPham.IdGStore);
+
+            var traGia = _traGiaRepository.FindTraGiaBySanPham(idSanPham, traGiaNew.IdNguoiMua, sanPham.IdGStore);
+
             var result = _mapper.Map<TraGiaDto>(traGia);
             result.Type = result.IdNguoiMua == userId ? TypeLoginTraGia.NGUOI_MUA : result.IdNguoiBan == userId ? TypeLoginTraGia.NGUOI_BAN : 0;
             result.ChiTietTraGias = _mapper.Map<List<ChiTietTraGiaDto>>(_chiTietTraGiaRepository.GetAll(traGia.Id));
