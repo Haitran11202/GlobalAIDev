@@ -852,7 +852,8 @@ const totalPrice = computed(() => {
     let tongThanhToan = 0;
     console.log(datas.value);
     datas.value.forEach((item) => {
-        if (selectedProducts.value.includes(item.idSanPham)) {
+        console.log(item, selectedProducts.value.includes(item.idSanPham));
+        if (selectedProducts.value.includes(item.idSanPham?.toString())) {
             console.log(selectedProducts.value);
             let giaBan = getGiaBanTuIdSanPham(item.idSanPham);
             let giaChietKhau = getGiaChietKhauTuIdSanPham(item.idSanPham);
