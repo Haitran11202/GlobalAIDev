@@ -41,6 +41,14 @@ export const getFullSanPham = async (id) => {
   }
 };
 
+export const getDanhMucSanPham = async () => {
+  const res = await http.get(API_ENDPOINT.getDanhMucSanPham)
+  try {
+   return Promise.resolve(res)
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
 // Cương code
 
 // Lấy tất cả sản phẩm và phân trang
@@ -222,4 +230,50 @@ export const getGioHangByIdSanPham = async (id) => {
   }
 };
 
+export const getAllDanhMucBaiTin = async () => {
+  try {
+    const res = await http.get(API_ENDPOINT.getAllDanhMucBaiTin());
+    return Promise.resolve(res);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
 
+
+export const postProductBid = async(body)=>{
+  try{
+    const res = await http.post(API_ENDPOINT.postProductBid , body)
+    return Promise.resolve(res);
+  }catch(err){
+    return Promise.reject(err);
+  }
+}
+
+export const postTragiaDetail = async(body) => {
+  try{
+    const res = await http.post(API_ENDPOINT.postTragiaDetail , body)
+    return Promise.resolve(res)
+  }catch(err){
+    return Promise.reject(err);
+  }
+}
+
+// Lấy chat trả giá 
+export const getDetailedPayment = async(idTraGia) =>{
+  try {
+    const res = await http.get(API_ENDPOINT.getDetailedPayment(idTraGia))    
+    return Promise.resolve(res);
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
+
+export const getIDPaymentNews = async(idSanPham) => {
+  console.log(idSanPham);
+  try {
+    const res = await http.get(API_ENDPOINT.getIDPayment(idSanPham))
+    return Promise.resolve(res);
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}

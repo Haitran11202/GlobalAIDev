@@ -33,7 +33,8 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly ChiTietTraGiaRepository _chiTietTraGiaRepository;
         private readonly SanPhamRepository _sanPhamRepository;
         private readonly IMapper _mapper;
-        public TraGiaServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<TraGiaServices> logger, IMapper mapper)
+        private readonly GlobalAIDbContext _globalAIDbContext;
+        public TraGiaServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<TraGiaServices> logger, IMapper mapper, GlobalAIDbContext globalAIDbContext)
         {
             _mapper = mapper;
             _traGiaRepository = new TraGiaRepository(dbContext, logger, mapper);
@@ -42,6 +43,7 @@ namespace GlobalAI.ProductDomain.Implements
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
             _dbContext = dbContext;
+            _globalAIDbContext = globalAIDbContext;
             _httpContext = httpContext;
 
         }
@@ -194,5 +196,20 @@ namespace GlobalAI.ProductDomain.Implements
             result.ChiTietTraGias = _mapper.Map<List<ChiTietTraGiaDto>>(_chiTietTraGiaRepository.GetAll(traGia.Id));
             return result;
         }
+        public TraGiaDto FindTraGiaBySanPham(int idSanPham)
+        {
+            int? userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var traGiaNew = _dbContext.TraGias.FirstOrDefault(tg => tg.IdSanPham == idSanPham);
+
+            var sanPham = _dbContext.SanPhams.FirstOrDefault(sp => sp.Id == idSanPham);
+
+            var traGia = _traGiaRepository.FindTraGiaBySanPham(idSanPham, traGiaNew.IdNguoiMua, sanPham.IdGStore);
+
+            var result = _mapper.Map<TraGiaDto>(traGia);
+            result.Type = result.IdNguoiMua == userId ? TypeLoginTraGia.NGUOI_MUA : result.IdNguoiBan == userId ? TypeLoginTraGia.NGUOI_BAN : 0;
+            result.ChiTietTraGias = _mapper.Map<List<ChiTietTraGiaDto>>(_chiTietTraGiaRepository.GetAll(traGia.Id));
+            return result;
+        }
+
     }
 }

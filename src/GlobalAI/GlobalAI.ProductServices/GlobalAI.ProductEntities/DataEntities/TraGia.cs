@@ -45,7 +45,7 @@ namespace GlobalAI.ProductEntities.DataEntities
         /// Giá tiền cuối cùng sau khi cả người mua và bán đã đồng ý
         /// </summary>
         [ColumnSnackCase(nameof(GiaCuoi))]
-        public decimal? GiaCuoi { get; set; }
+        public decimal GiaCuoi { get; set; }
 
         /// <summary>
         /// Trạng thái của đợt trả giá

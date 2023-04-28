@@ -71,6 +71,7 @@ function nextImage() {
     console.log(currentIndex.value, images.length);
     currentIndex.value = 0;
   }
+  
   // Thêm dòng sau để di chuyển đến ảnh mới
   imagesContainer.value.style.transform =
     "translateX(" + -currentIndex.value * (100 / slidesToShow) + "%)";

@@ -101,9 +101,8 @@ definePageMeta({
 });
 onMounted(() => {
     console.log(router.currentRoute.value.params.id);
-    console.log('sadasdsa')
-
-    getBaiTinTheoDanhMuc(router.currentRoute.value.params.id, 15, 1)
+    
+    getBaiTinTheoDanhMuc(router.currentRoute.value.params.id, 15, 1,0)
         .then((res) => {
             datas.value = res?.data?.data.items;
             console.log('baitin', datas.value)
