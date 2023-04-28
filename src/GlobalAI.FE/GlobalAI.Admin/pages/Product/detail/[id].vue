@@ -33,8 +33,7 @@
           <Chatbox v-on:close-box="handleCloseBoxChat" :products="products"/>
         </div>
       </div>
-    </div>
-  </div>
+ 
   <div class="flex flex-wrap mt-[40px] border-t-2 border-[#ccc] pt-[20px]">
     <div class="w-full">
       <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
@@ -344,6 +343,10 @@
         @click="isShowModelCart = false"
         class="fixed top-0 lef-0 right-0 w-full h-full bg-black opacity-25 z-20"
     ></div>
+      </div>
+    </div>
+</div>
+
 </template>
 <script setup>
 import axios from "axios";
@@ -353,7 +356,7 @@ import jwt_decode from "jwt-decode";
 import { useUserStorage } from "~~/stores/user";
 import { useCartStorage } from "~~/stores/giohang";
 import Chatbox from "~~/components/Cards/Chatbox.vue";
-import {getSanPhamById} from "~/composables/useApiProduct"
+import { getSanPhamById } from "~/composables/useApiProduct"
 const token = useUserStorage();
 const useCart = useCartStorage();
 const accesstoken = token.accessToken;
@@ -411,7 +414,7 @@ watchEffect(() => {
             console.log(products.value);
             imagelink.value = getImageUrl(products.value.thumbnail);
         })
-        .catch(() => {});
+        .catch(() => { });
 });
 
 const tongGiaBan = computed(() => {
@@ -439,7 +442,7 @@ const handleBuyClick = () => {
             useCart.getGioHang();
             console.log(res);
         })
-        .catch(() => {});
+        .catch(() => { });
     const userId = getUserInfor().user_id;
     router.push({
         name: "ManageCart",
@@ -468,7 +471,7 @@ const decrement = () => {
 };
 // Thêm sản phẩm vào giỏ hàng
 const handleshowModelCart = () => {
-  console.log("Them vao gio hang");
+    console.log("Them vao gio hang");
     isShowModelCart.value = true;
 };
 const handleAddProductCart = async () => {
@@ -496,7 +499,7 @@ const handleAddProductCart = async () => {
 };
 
 const handleCloseBoxChat = () => {
-  isCheckedChat.value = false;
+    isCheckedChat.value = false;
 }
 
 const toggleTabs = function (tabNumber) {
