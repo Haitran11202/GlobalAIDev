@@ -1,6 +1,5 @@
 <template>
   <div class="flex flex-col w-[100%] justify-center">
-    <HeaderDefault />
     <!-- <Advisement /> -->
     <!-- <Sidebar /> -->
 
@@ -301,8 +300,6 @@
       </div>
   </div>
 </aside>
-
-<FooterAdmin />
   </div>
 </template>
 <script setup>
@@ -314,6 +311,7 @@ import jwtDecode from "jwt-decode";
 import { useRouter } from "vue-router";
 import { useUserStorage } from "~~/stores/user";
 definePageMeta({
+  layout: "layout-blog",
   name: "PostDetail",
 });
 //url test

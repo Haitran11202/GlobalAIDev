@@ -47,6 +47,7 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<BaiTin, UpdateBaiTinDto>().ReverseMap();
             CreateMap<BaiTin, BaiTinDto>().ReverseMap();
             CreateMap<DanhMucBaiTin, CreateDanhMucBaiTin>().ReverseMap();
+            CreateMap<DanhMucBaiTin, UpdateDanhMucBaiTinDto>().ReverseMap();
             CreateMap<DanhMucBaiTin, DanhMucBaiTinDto>().ReverseMap();
             CreateMap<DanhMuc, CreateDanhMucDto>().ReverseMap();
             CreateMap<DanhMuc, DanhMucDto>().ReverseMap();

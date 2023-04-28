@@ -51,7 +51,7 @@ public class TinBaiRepository : BaseEFRepository<BaiTin>
     /// <param name="input"></param>
     /// <param name="userId"></param>
     /// <returns></returns>
-    public PagingResult<BaiTin> FindAll(FilterBaiTinDto input, int? userId = null)
+    public PagingResult<BaiTin> FindAll(FilterBaiTinDto input)
     {
         PagingResult<BaiTin> result = new();
 

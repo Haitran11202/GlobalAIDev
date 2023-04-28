@@ -749,37 +749,7 @@ const selectedPaymentType = ref("cash");
 const checkAll = ref(false);
 onMounted(async () => {
     selectedProducts.value.push(router.currentRoute.value.query.checkedItem);
-    // try {
-    //     const res1 = await getSanPhamByNguoiMua();
-    //     products.value = res1?.data?.data;
-    //     console.log(res1?.data.data);
-    //     const res2 = await getGioHang();
-    //     datas.value = res2?.data?.data.gioHang;
-    //     console.log(datas.value);
-    // } catch (error) {
-    //     console.log(error);
-    // }
-    // console.log();
-    // Thêm những dòng code này
-    getSanPhamByNguoiMua()
-    .then((res) => {
-        console.log(res);
-        products.value = res?.data?.data;
-        getGioHang()
-         .then((res) => {
-            console.log(res);
-            datas.value = res?.data?.gioHang;
-         })
-         .catch((err) => {
-            console.log(err);
-         })
-    })
-    .catch((err) => {
-        console.log(err);
-    })
-    // selectedProducts.value.push(router.currentRoute.value.query.checkedItem);
     try {
-        
         const res1 = await getSanPhamByNguoiMua();
         products.value = res1?.data?.data;
         console.log(res1.data.data);
@@ -873,7 +843,6 @@ const deleteGh = (idsp) => {
         .catch(() => {});
 };
 //lấy ra tổng tiền thanh toán đơn hàng
-
 const totalPrice = computed(() => {
     console.log(selectedProducts.value);
     console.log("tính giá...");
@@ -881,6 +850,7 @@ const totalPrice = computed(() => {
     let sum = 0;
     let chietKhau = 0;
     let tongThanhToan = 0;
+    console.log(datas.value);
     datas.value.forEach((item) => {
         if (selectedProducts.value.includes(item.idSanPham)) {
             console.log(selectedProducts.value);
@@ -893,11 +863,17 @@ const totalPrice = computed(() => {
     });
     return { sum, chietKhau, tongThanhToan };
 });
-watchEffect(() => {
-    totalPrice;
-});
+
+// format tiền
+// const formatMoney = (soLuong, giaBan) => {
+//     console.log(products.value);
+//     return getPrice(soLuong, giaBan).toLocaleString("vi-VN", {
+//         style: "currency",
+//         currency: "VND",
+//     });
+// };
+
 const formatMoneyAll = (money) => {
-    console.log(money);
     money = Number(money);
     return money.toLocaleString("vi-VN", {
         style: "currency",

@@ -113,7 +113,6 @@
 <script setup>
 import { ref, watchEffect } from "vue";
 import {
-  getAllPostPhanTrang,
   deletePost,
   getPostById,
 } from "~~/composables/useApiPost.js";
@@ -134,7 +133,7 @@ const showAction = ref({});
 const showMore = ref({});
 
 const fetchData = async () => {
-  getAllPostPhanTrang(pageSize, pageNumber.value, skip.value)
+  getBaiTinPhanTrang(pageSize, pageNumber.value, skip.value)
     .then((response) => {
       posts.value = response.data.items;
       console.log(posts.value);
@@ -197,7 +196,6 @@ watchEffect(() => {
   fetchData();
 
   if (deletedPost.value !== null) {
-    getAllPostPhanTrang();
     deletedPost.value = null;
   }
 });
