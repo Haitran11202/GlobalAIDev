@@ -58,6 +58,24 @@
               :src="getImageUrl(thumbnail)"
             />
           </div>
+          <div class="pt-5">
+          <div class="col-span-1">
+          <label
+            for="moTa"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
+          >
+            Mô tả
+          </label>
+          <Field
+            v-model="moTa"
+            name="moTa"
+            type="text"
+            placeholder="Mô tả ..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+          />
+          <error-message name="tieuDe" class="text-red-500" />
+        </div>
+      </div>
         </div>
       </div>
       <div class="mb-6">
@@ -115,6 +133,7 @@ const idDanhMuc = ref(0);
 const tieuDe = ref("");
 const noiDung = ref("");
 const thumbnail = ref("");
+const moTa = ref("");
 const danhmucsp = ref([]);
 
 const config = useRuntimeConfig();
@@ -130,18 +149,18 @@ async function uploadImage(event) {
     postImage(formData)
       .then((response) => {
         console.log(response);
-        thumbnail.value = response.data.split("=")[2];
+        thumbnail.value = response.data;
         console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-    const response = await axios.post(
-      "http://globalai-staging.huce.edu.vn:8089/api/file/upload?folder=image",
-      formData
-    );
-    console.log(response.data.data.split("=")[2]);
-    thumbnail.value = response.data.data.split("=")[2];
+    // const response = await axios.post(
+    //   "http://globalai-staging.huce.edu.vn:8089/api/file/upload?folder=image",
+    //   formData
+    // );
+    // console.log(response.data.data.split("=")[2]);
+    // thumbnail.value = response.data.data.split("=")[2];
   } catch (error) {
     console.error(error);
   }
@@ -158,12 +177,42 @@ const getImageUrl = (imageUrl) => {
   return url;
 };
 
+function ConvertSlug(str) { 
+    //Đổi chữ hoa thành chữ thường
+    // str = title.toLowerCase();
+
+    //Đổi ký tự có dấu thành không dấu
+    str = str.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
+    str = str.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
+    str = str.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
+    str = str.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+    str = str.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
+    str = str.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
+    str = str.replace(/đ/gi, 'd');
+    //Xóa các ký tự đặt biệt
+    str = str.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
+    //Đổi khoảng trắng thành ký tự gạch ngang
+    str = str.replace(/ /gi, "-");
+    //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
+    //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
+    str = str.replace(/\-\-\-\-\-/gi, '-');
+    str = str.replace(/\-\-\-\-/gi, '-');
+    str = str.replace(/\-\-\-/gi, '-');
+    str = str.replace(/\-\-/gi, '-');
+    //Xóa các ký tự gạch ngang ở đầu và cuối
+    str = '@' + str + '@';
+    str = str.replace(/\@\-|\-\@|\@/gi, '');
+    return str;
+}
+
 function handlePostPost() {
   const postData = {
     idDanhMuc: idDanhMuc.value,
     tieuDe: tieuDe.value,
     noiDung: noiDung.value,
     thumbnail: thumbnail.value,
+    moTa: moTa.value,
+    slug: ConvertSlug(tieuDe.value)
   };
 
   console.log(postData);
@@ -179,7 +228,7 @@ function handlePostPost() {
     });
 }
 
-const pageSize = 5;
+const pageSize = 15;
 const pageNumber = ref(1);
 const skip = ref(0);
 

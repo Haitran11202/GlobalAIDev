@@ -82,11 +82,11 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns></returns>
         public PagingResult<BaiTinDto> FindAll(FilterBaiTinDto input)
         {
-            int? userId = CommonUtils.GetCurrentUserId(_httpContext);
-            var usertype = CommonUtils.GetCurrentRole(_httpContext);
+            //int? userId = CommonUtils.GetCurrentUserId(_httpContext);
+            //var usertype = CommonUtils.GetCurrentRole(_httpContext);
 
             var result = new PagingResult<BaiTinDto>();
-            var baiTinQuery = _baiTinRepository.FindAll(input, userId);
+            var baiTinQuery = _baiTinRepository.FindAll(input);
 
             result.Items = _mapper.Map<List<BaiTinDto>>(baiTinQuery.Items);
             result.TotalItems = baiTinQuery.TotalItems;
@@ -109,7 +109,6 @@ namespace GlobalAI.ProductDomain.Implements
 
         public BaiTinDto GetBySlug(string slug)
         {
-            int? userId = CommonUtils.GetCurrentUserId(_httpContext);
             var baiTin = _baiTinRepository.FindBySlug(slug);
             var result = _mapper.Map<BaiTinDto>(baiTin);
             return result;

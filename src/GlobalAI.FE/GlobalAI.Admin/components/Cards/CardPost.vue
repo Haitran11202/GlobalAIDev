@@ -27,9 +27,9 @@
             </label>
           </th>
           <th>ID</th>
-          <th>Mã danh mục</th>
+          <th>Danh mục</th>
           <th>Tiêu đề</th>
-          <th>Nội dung</th>
+          <th>Mô tả</th>
           <th>Chức năng</th>
         </tr>
       </thead>
@@ -48,8 +48,8 @@
               <div class="avatar">
                 <div class="mask mask-squircle w-12 h-12">
                   <img
-                    :src="getImageUrl(post.thumbnail)"
-                    alt="Avatar Tailwind CSS Component"
+                    :src="`${baseUrl}/${post.thumbnail}`"
+                    alt=""
                   />
                 </div>
               </div>
@@ -58,7 +58,7 @@
               </div>
             </div>
           </td>
-          <td>{{ post.noiDung }}</td>
+          <td>{{ post.moTa }}</td>
 
           <td>
             <div class="dropdown dropdown-left dropdown-end">
@@ -93,7 +93,6 @@
 <script setup>
 import { ref, watchEffect } from "vue";
 import {
-  getAllPostPhanTrang,
   deletePost,
   getPostById,
 } from "~~/composables/useApiPost.js";
@@ -113,7 +112,7 @@ const deletedPost = ref(null);
 const showAction = ref({});
 
 const fetchData = async () => {
-  getAllPostPhanTrang(pageSize, pageNumber.value, skip.value)
+  getBaiTinPhanTrang(pageSize, pageNumber.value, skip.value)
     .then((response) => {
       posts.value = response.data.items;
       console.log(posts.value);
@@ -176,7 +175,6 @@ watchEffect(() => {
   fetchData();
 
   if (deletedPost.value !== null) {
-    getAllPostPhanTrang();
     deletedPost.value = null;
   }
 });

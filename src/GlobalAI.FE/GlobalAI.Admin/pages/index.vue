@@ -262,11 +262,13 @@
       <div class="bg-slate-100 py-24 sm:py-14">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="mx-auto max-w-2xl lg:mx-0">
+            <a href="/post/postdanhmuc/1">
             <h2
               class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
             >
               Blog
             </h2>
+          </a>
             <p class="mt-2 text-lg leading-8 text-gray-600">
               Làm thế nào để kinh doanh hiệu quả?
             </p>
@@ -277,7 +279,7 @@
             <article v-for="item in baitin" class="flex max-w-xl flex-col items-start justify-between">
               <div class="flex items-center gap-x-4 text-xs">
                 <time datetime="2020-03-16" class="text-gray-500"
-                  >Mar 16, 2020</time
+                  >Mar 16, 2023</time
                 >
                 <a
                   href="#"
@@ -289,16 +291,13 @@
                 <h3
                   class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
                 >
-                  <a href="#">
+                  <a :href="`/post/postdetail/${item.slug }`">
                     <span class="absolute inset-0"></span>
                    {{ item.tieuDe }}
                   </a>
                 </h3>
                 <p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
-                  AI có đang thay đổi cách chúng ta tạo video không? AI sáng tạo
-                  sử dụng nội dung hiện có như âm thanh, video và văn bản để tạo
-                  nội dung gốc. Các nhà tiếp thị video có thể tự động hóa quy
-                  trình viết kịch bản và chỉnh sửa chỉ trong vài giây.
+                  {{ item.moTa }}
                 </p>
               </div>
               <div class="relative mt-8 flex items-center gap-x-4">
@@ -467,11 +466,11 @@ import dientu from "../assets/img/dientu.jpg";
 
 const baitin = ref([]);
 const pageSize = 3;
-const pageNumber = ref(1);
-const skip = ref(0);
+const pageNumber = 1;
+const skip = 0;
 
 onMounted(() => {
-  getBaiTinPhanTrang(pageSize, pageNumber.value, skip.value)
+  getBaiTinPhanTrang(pageSize, pageNumber, skip)
     .then((response) => {
       baitin.value = response.data.items;
       console.log('dsadsa',baitin.value)

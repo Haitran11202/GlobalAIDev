@@ -127,7 +127,8 @@ const getImageUrl = (imageUrl) => {
   )}&download=false`;
   return url;
 };
-const detail = () => {
-  router.push({ name: "ProductDetail", params: { id: "1" } });
+const detail = (id) => {
+  
+  router.push({ name: "ProductDetail", params: { id:  id} });
 };
 </script>

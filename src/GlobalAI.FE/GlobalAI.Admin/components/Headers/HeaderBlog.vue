@@ -59,9 +59,7 @@
               <i class="fas fa-bars"></i>
             </button>
           </div>
-
           <div class="flex flex-wrap">
-            <DefaultNavbar></DefaultNavbar>
           </div>
         </div>
       </div>

@@ -10,10 +10,8 @@
         </h1>
         <Sliderncc />
       </div>
-      <card-list-product-short id="1" title="Đồng Hồ" :products="products" />
-      <card-list-product-short
-        id="4"
-        title="Thời Trang Nam"
+      <card-list-product-short :category="productscategory" :products="products" />
+      <card-list-product-short :category="productSellerCategory"
         :products="productsSeller"
       />
     </div>
@@ -24,27 +22,52 @@
 import CardListProductShort from "../../components/Cards/CardListProductShort.vue";
 import Sliderncc from "./Sliderncc.vue";
 import Advisement from "./Advisement.vue";
-import { DANH_MUC } from "~~/lib/danhMuc";
+import toast from 'vue3-toastify'
 import { ref } from "vue";
 
 definePageMeta({
   layout: "layout-default",
 });
 const products = ref([]);
+const productscategory = ref('');
+const productSellerCategory = ref('');
 const productsSeller = ref([]);
 let content = ref("");
+const listDanhMuc = ref([]);
 
 // Lấy tất cả sản phẩm theo danh mục
 onMounted(() => {
-  getSanPhamDanhMuc(DANH_MUC.DONG_HO)
-    .then((res) => {
-      products.value = res?.data?.data.items;
-      console.log(products.value);
-      return getSanPhamDanhMuc(DANH_MUC.THOI_TRANG_NU);
+  getDanhMucSanPham()
+    .then((res) =>{
+      if (res?.data?.data?.items) {
+        // Lấy 3 danh mục đầu
+        listDanhMuc.value = res.data.data.items.slice(0 , 3);
+        productscategory.value = listDanhMuc.value[2];
+        productSellerCategory.value = listDanhMuc.value[1];
+        getSanPhamDanhMuc(listDanhMuc.value[2].idDanhMuc)
+          .then((res) => {
+            if (res?.data?.data?.items) {
+              products.value = res.data.data.items;
+              console.log(products.value);
+              return getSanPhamDanhMuc(listDanhMuc.value[1].idDanhMuc);
+            }
+          })
+          .then((res) => {
+            if (res?.data?.data?.items) {
+              productsSeller.value = res.data.data.items;
+              console.log(productsSeller.value);
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+            toast.error('Đã xảy ra lỗi trong quá trình get sản phẩm')
+          });
+      }
     })
-    .then((res) => {
-      productsSeller.value = res?.data?.data.items;
-    })
-    .catch(() => {});
+    .catch((error) => {
+      console.error(error);
+      toast.error('Đã xảy ra lỗi trong quá trình get sản phẩm')
+    });
 });
+
 </script>
