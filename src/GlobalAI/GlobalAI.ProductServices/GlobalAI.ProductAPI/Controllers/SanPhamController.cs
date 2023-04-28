@@ -144,12 +144,8 @@ namespace GlobalAI.ProductAPI.Controllers
         {
             try
             {
-                var result = _sanPhamServices.DeleteSanPham(id);  
-                if(result == null)
-                {
-                    return new APIResponse(Utils.StatusCode.Error, result, 404, "NotFound");
-                }    
-                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+                _sanPhamServices.DeleteSanPham(id);
+                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
             }
             catch (Exception ex)
             {
