@@ -32,7 +32,8 @@ export const API_ENDPOINT = {
   putProduct: (id) => `api/product/sanpham/${id}`,
 
   //Image
-  postImages: "api/filFe/upload?folder=image",
+  postImages: "api/file/upload?folder=image",
+  
 
   // Quản lý đơn hàng
   getAllOrder: (pageSize, pageNumber, skip) =>
@@ -46,9 +47,11 @@ export const API_ENDPOINT = {
 
   // Api Bài đăng
   getPostById: (id) => `/api/product/bai-tin/${id}`,
+
   getBaiTinBySlug: (slug) => `/api/product/bai-tin/find/slug/${slug}`,
-  getBaiTinPhanTrang: (pageSize, pageNumber) =>
-    `/api/product/bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}`,
+
+  getBaiTinPhanTrang: (pageSize, pageNumber, skip) =>
+    `/api/product/bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
 
   getAllPostPhanTrang: (pageSize, pageNumber, skip) =>
     `/api/product/bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,

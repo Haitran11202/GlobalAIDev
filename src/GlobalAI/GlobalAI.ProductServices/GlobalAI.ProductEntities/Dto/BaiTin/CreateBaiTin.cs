@@ -14,5 +14,6 @@ namespace GlobalAI.ProductEntities.Dto.BaiTin
         public string NoiDung { get; set; }
         public string Thumbnail { get; set; }
         public string Slug { get; set; }
+        public string MoTa { get; set; }
     }
 }

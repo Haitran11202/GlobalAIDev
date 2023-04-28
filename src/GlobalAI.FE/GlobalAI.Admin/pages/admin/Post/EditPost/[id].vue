@@ -109,6 +109,7 @@ import { useRouter } from "vue-router";
 import { getPostById, updatePost } from "~~/composables/useApiPost.js";
 import { postImage } from "~~/composables/useApiImage";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
+import TextEditor from "~~/components/TextEditor/TextEditor.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 
 definePageMeta({

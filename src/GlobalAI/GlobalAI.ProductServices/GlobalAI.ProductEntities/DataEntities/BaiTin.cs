@@ -38,6 +38,13 @@ namespace GlobalAI.ProductEntities.DataEntities
         public string TieuDe { get; set; }
 
         /// <summary>
+        /// Mô tả
+        /// </summary>
+        [ColumnSnackCase(nameof(MoTa), TypeName = "VARCHAR2")]
+        [MaxLength(250)]
+        public string MoTa { get; set; }
+
+        /// <summary>
         /// Nội dung
         /// </summary>
         [ColumnSnackCase(nameof(NoiDung), TypeName = "CLOB")]
@@ -89,7 +96,7 @@ namespace GlobalAI.ProductEntities.DataEntities
         public string ModifiedBy { get; set; } = String.Empty;
 
         [ColumnSnackCase(nameof(ModifiedDate), TypeName = "DATE")]
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
         #endregion
     }
 }

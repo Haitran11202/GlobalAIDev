@@ -58,7 +58,7 @@ namespace GlobalAI.ProductDomain.Implements
 
             inputInsert.CreatedBy = username;
 
-            inputInsert.Status = TrangThaiBaiTin.KICH_HOAT;
+            inputInsert.Status = TrangThaiBaiTin.KHOI_TAO;
             inputInsert = _baiTinRepository.Add(inputInsert);
             _dbContext.SaveChanges();
             return inputInsert;
@@ -116,6 +116,17 @@ namespace GlobalAI.ProductDomain.Implements
             var inputUpdate = _mapper.Map<BaiTin>(input);
             inputUpdate.ModifiedBy = username;
             _baiTinRepository.Update(inputUpdate);
+            _dbContext.SaveChanges();
+        }
+
+        public void Approve(ApproveBaiTinDto input)
+        {
+            var userType = CommonUtils.GetCurrentRole(_httpContext);
+            var userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+            var query = _baiTinRepository.FindById(input.Id);
+            query.ModifiedBy = username;
+            query.Status = input.Status;
             _dbContext.SaveChanges();
         }
     }

@@ -9,7 +9,7 @@
             Danh sách danh mục bài tin
           </h3>
           <button
-            @click="this.$router.push('/admin/category/addpostcategory')"
+            @click="this.$router.push('/admin/postcategory/addpostcategory')"
             class="btn btn-outline"
           >
             Thêm danh mục bài tin
@@ -145,10 +145,6 @@ watchEffect(() => {
     deletedPostCategory.value = null;
   }
 });
-
-const toggleAction = (id) => {
-  showAction.value[id] = !showAction.value[id];
-};
 
 const isOpen = ref(false);
 

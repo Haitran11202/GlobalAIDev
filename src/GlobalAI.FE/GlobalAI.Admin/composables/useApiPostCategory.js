@@ -37,11 +37,13 @@ export const getPostCategoryById = async (id) => {
   }
 };
 
-// Thêm bài tin
-export const postPost = async (postData) => {
-  console.log(API_ENDPOINT.postPosts);
+// Thêm danh mục bài tin
+export const postPostCategory = async (postCategoryData) => {
   try {
-    const res = await http.post(API_ENDPOINT.postPosts, postData);
+    const res = await http.post(
+      API_ENDPOINT.postPostCategory,
+      postCategoryData
+    );
     return Promise.resolve(res.data);
   } catch (err) {
     return Promise.reject(err);

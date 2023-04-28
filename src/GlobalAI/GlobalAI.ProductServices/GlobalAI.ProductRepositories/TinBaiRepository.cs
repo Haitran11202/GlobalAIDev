@@ -42,6 +42,7 @@ public class TinBaiRepository : BaseEFRepository<BaiTin>
         query.Slug = input.Slug;
         query.IdDanhMuc = input.IdDanhMuc;
         query.Thumbnail = input.Thumbnail;
+        query.MoTa = input.MoTa;
     }
 
     /// <summary>

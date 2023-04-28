@@ -55,3 +55,34 @@ export const updatePost = async (postData) => {
     return Promise.reject(err);
   }
 };
+
+export const getAllDanhMucBaiTin = async (pageSize, pageNumber, skip) => {
+  try {
+    const response = await http.get(
+      API_ENDPOINT.getAllDanhMucBaiTin(pageSize, pageNumber, skip)
+    );
+    return Promise.resolve(response.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const getBaiTinPhanTrang = async (pageSize, pageNumber, skip) => {
+  try {
+    const response = await http.get(
+      API_ENDPOINT.getBaiTinPhanTrang(pageSize, pageNumber, skip)
+    );
+    return Promise.resolve(response.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const getBaiTinTheoDanhMuc = async (id,pageSize, pageNumber) => {
+  try {
+    const res = await http.get(API_ENDPOINT.getBaiTinTheoDanhMuc(id,pageSize, pageNumber));
+    return Promise.resolve(res);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};

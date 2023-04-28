@@ -9,7 +9,7 @@
             Danh sách bài tin
           </h3>
           <button
-            @click="this.$router.push('/admin/post/addpost')"
+            @click="router.push('/admin/post/addpost')"
             class="btn btn-outline"
           >
             Thêm bài tin
@@ -27,9 +27,10 @@
             </label>
           </th>
           <th>ID</th>
-          <th>Mã danh mục</th>
+          <th>Danh mục</th>
           <th>Tiêu đề</th>
           <th>Nội dung</th>
+          <th>Mô tả</th>
           <th>Chức năng</th>
         </tr>
       </thead>
@@ -47,10 +48,7 @@
             <div class="flex items-center space-x-3">
               <div class="avatar">
                 <div class="mask mask-squircle w-12 h-12">
-                  <img
-                    :src="getImageUrl(post.thumbnail)"
-                    alt="Avatar Tailwind CSS Component"
-                  />
+                  <img :src="`${baseUrl}/${post.thumbnail}`" alt="" />
                 </div>
               </div>
               <div>
@@ -58,8 +56,30 @@
               </div>
             </div>
           </td>
-          <td class="whitespace-normal">{{ post.noiDung }}</td>
-
+          <td class="whitespace-nowrap">
+            <div v-if="post.noiDung && post.noiDung.length > 20">
+              <template v-if="!showMore[post.id]">
+                {{ post.noiDung.slice(0, 20) }}...
+                <span
+                  @click="showMore[post.id] = true"
+                  class="font-bold cursor-pointer"
+                  >Xem thêm</span
+                >
+              </template>
+              <template v-else>
+                {{ post.noiDung }}
+                <span
+                  @click="showMore[post.id] = false"
+                  class="font-bold cursor-pointer"
+                  >Thu gọn</span
+                >
+              </template>
+            </div>
+            <div v-else>{{ post.noiDung }}</div>
+          </td>
+          <td>
+            {{ post.moTa }}
+          </td>
           <td>
             <div class="dropdown dropdown-left dropdown-end">
               <label
@@ -111,6 +131,7 @@ const skip = ref(0);
 const posts = ref([]);
 const deletedPost = ref(null);
 const showAction = ref({});
+const showMore = ref({});
 
 const fetchData = async () => {
   getAllPostPhanTrang(pageSize, pageNumber.value, skip.value)

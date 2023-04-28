@@ -210,14 +210,6 @@ export const getBaiTinByLSlug = async (slug) => {
   }
 };
 
-export const getBaiTinPhanTrang = async () => {
-  try {
-    const res = await http.get(API_ENDPOINT.getBaiTinPhanTrang());
-    return Promise.resolve(res);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
 export const getGioHangByIdSanPham = async (id) => {
   try {
     const res = await http.get(API_ENDPOINT.getGioHangByIdSanPham(id));
@@ -227,20 +219,4 @@ export const getGioHangByIdSanPham = async (id) => {
   }
 };
 
-export const getAllDanhMucBaiTin = async () => {
-  try {
-    const res = await http.get(API_ENDPOINT.getAllDanhMucBaiTin());
-    return Promise.resolve(res);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
 
-export const getBaiTinTheoDanhMuc = async (id) => {
-  try {
-    const res = await http.get(API_ENDPOINT.getBaiTinTheoDanhMuc(id));
-    return Promise.resolve(res);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};

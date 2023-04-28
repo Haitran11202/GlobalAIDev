@@ -118,7 +118,6 @@
             />
           </div>
         </div>
-      </div>
       <div class="mb-6">
         <label
           for="moTa"
@@ -126,11 +125,13 @@
           >Mô tả</label
         >
         <div class="w-full">
-          <tiptap
+          <TextEditor v-model="moTa" />
+          <!-- <tiptap
             class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             v-model="moTa"
-          />
+          /> -->
         </div>
+      </div>
       </div>
       <div class="flex justify-end gap-5">
         <button
@@ -160,6 +161,7 @@ import { postProduct } from "~~/composables/useApiProduct";
 import { ref } from "vue";
 import NumberInput from "~~/components/Input/NumberInput.vue";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
+import TextEditor from "~~/components/TextEditor/TextEditor.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 definePageMeta({

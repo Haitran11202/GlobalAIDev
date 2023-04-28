@@ -39,13 +39,13 @@ namespace GlobalAI.ProductEntities.DataEntities
         /// <summary>
         /// Ngày giao (Ngày user nhận voucher)
         /// </summary>
-        [ColumnSnackCase(nameof(NgayGiao))]
+        [ColumnSnackCase(nameof(NgayGiao), TypeName = "DATE")]
         public DateTime? NgayGiao { get; set; }
 
         /// <summary>
         /// Ngày sử dụng (Ngày user sử dụng voucher)
         /// </summary>
-        [ColumnSnackCase(nameof(NgaySuDung))]
+        [ColumnSnackCase(nameof(NgaySuDung), TypeName = "DATE")]
         public DateTime? NgaySuDung { get; set; }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace GlobalAI.ProductEntities.DataEntities
         public string ModifiedBy { get; set; } = String.Empty;
 
         [ColumnSnackCase(nameof(ModifiedDate), TypeName = "DATE")]
-        public DateTime ModifiedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
         #endregion
 
 
