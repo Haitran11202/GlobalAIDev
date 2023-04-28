@@ -7,21 +7,82 @@
                 <img :src="imagelink" class="object-cover rounded-xl" alt="" />
             </div>
         </div>
-        <div class="flex-1 px-1">
-            <h1 class="text-[30px] font-bold uppercase">
-                {{ products.tenSanPham }}
-            </h1>
-            <div class="flex items-center">
-                <span class="text-[#cc3366] text-[20px] mr-1">Giá Bán :</span>
-                <span class="text-[30px] text-[#cc3366] font-bold">{{
-                    formatMoneyAll(products.giaBan)
-                }}</span>
-            </div>
-            <div class="flex items-center gap-[10px]">
-                <span>Giá Chiết Khấu : </span>
-                <p class="text-[18px]">
-                    {{ formatMoneyAll(products.giaChietKhau) }}
-                </p>
+      </div>
+      <div
+        class="flex lg:gap-[15px] lg:justify-start justify-between mt-[20px] lg:relative fixed z-3 w-full bottom-0 left-0 bg-white"
+      >
+        <button
+          @click="handleshowModelCart"
+          class="bg-[#16A249] lg:rounded-md hover:text-white transition-colors hover:bg-red-600 text-white py-4 px-5 lg:w-1/3 w-2/3"
+        >
+          Thêm Vào Giỏ Hàng
+        </button>
+        <button
+          @click="handleBuyClick"
+          class="bg-[#cc3366] hover:bg-blue-500 transition text-white lg:rounded-md py-4 px-5 w-1/3"
+        >
+          Mua Hàng
+        </button>
+        <button
+         @click="isCheckedChat= true"
+          class="bg-yellow-500 hover:bg-blue-500 transition text-white lg:rounded-md py-4 px-5 w-1/3"
+        >
+           Trả giá
+        </button>
+        <div v-if="isCheckedChat" class="fixed bottom-0 right-[5%] bg-white border-[1px] shadow-md rounded-t-md px-[15px] py-[15px]">
+          <Chatbox v-on:close-box="handleCloseBoxChat" :products="products"/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-wrap mt-[40px] border-t-2 border-[#ccc] pt-[20px]">
+    <div class="w-full">
+      <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
+        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+          <a
+            class="cursor-pointer text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+            @click="toggleTabs(1)"
+            :class="{
+              'text-green-600 bg-white': openTab !== 1,
+              'text-white bg-green-600': openTab === 1,
+            }"
+          >
+            Mô tả
+          </a>
+        </li>
+        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+          <a
+            class="cursor-pointer text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+            @click="toggleTabs(2)"
+            :class="{
+              'text-green-600 bg-white': openTab !== 2,
+              'text-white bg-green-600': openTab === 2,
+            }"
+          >
+            Điều khoản
+          </a>
+        </li>
+        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+          <a
+            class="cursor-pointer text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal"
+            @click="toggleTabs(3)"
+            :class="{
+              'text-green-600 bg-white': openTab !== 3,
+              'text-white bg-green-600': openTab === 3,
+            }"
+          >
+            Đánh giá & bình luận
+          </a>
+        </li>
+      </ul>
+      <div
+        class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded"
+      >
+        <div class="px-4 py-5 flex-auto">
+          <div class="tab-content tab-space">
+            <div :class="{ hidden: openTab !== 1, block: openTab === 1 }">
+              <p>{{ products.moTa }}</p>
+
             </div>
             <div
                 class="flex gap-1 mt-2 text-[#f8ac59] text-[18px] items-center"
@@ -291,6 +352,8 @@ import { toast } from "vue3-toastify";
 import jwt_decode from "jwt-decode";
 import { useUserStorage } from "~~/stores/user";
 import { useCartStorage } from "~~/stores/giohang";
+import Chatbox from "~~/components/Cards/Chatbox.vue";
+import {getSanPhamById} from "~/composables/useApiProduct"
 const token = useUserStorage();
 const useCart = useCartStorage();
 const accesstoken = token.accessToken;
@@ -322,7 +385,7 @@ definePageMeta({
 const router = useRouter();
 const productId = ref("");
 const products = ref({});
-const isChecked = ref(false);
+const isCheckedChat = ref(false);
 const isShowModelCart = ref(false);
 const soLuong = ref(1);
 const imagelink = ref("");
@@ -431,6 +494,10 @@ const handleAddProductCart = async () => {
         toast.error("Thêm sản phẩm vào giỏ hàng thất bại");
     }
 };
+
+const handleCloseBoxChat = () => {
+  isCheckedChat.value = false;
+}
 
 const toggleTabs = function (tabNumber) {
     openTab.value = tabNumber;

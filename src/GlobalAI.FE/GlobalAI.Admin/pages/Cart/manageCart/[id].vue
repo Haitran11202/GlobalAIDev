@@ -864,6 +864,7 @@ const totalPrice = computed(() => {
     });
     return { sum, chietKhau, tongThanhToan };
 });
+
 // format tiền
 // const formatMoney = (soLuong, giaBan) => {
 //     console.log(products.value);
@@ -872,6 +873,7 @@ const totalPrice = computed(() => {
 //         currency: "VND",
 //     });
 // };
+
 const formatMoneyAll = (money) => {
     money = Number(money);
     return money.toLocaleString("vi-VN", {

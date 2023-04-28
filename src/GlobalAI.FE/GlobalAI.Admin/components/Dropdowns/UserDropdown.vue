@@ -33,6 +33,12 @@
         >
           Hồ sơ
         </span>
+        <span
+          @click="router.push('/boxchat/1')"
+          class="text-sm font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
+        >
+          Chat chi tiết
+        </span>
         <hr />
         <span
           @click="handleLogout"
