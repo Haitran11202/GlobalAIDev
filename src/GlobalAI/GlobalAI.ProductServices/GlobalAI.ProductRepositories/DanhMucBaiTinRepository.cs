@@ -71,5 +71,14 @@ namespace GlobalAI.ProductRepositories
             return result;
         }
 
+        public void Update(DanhMucBaiTin input)
+        {
+            var query = _dbSet.FirstOrDefault(d => d.Id == input.Id && d.Deleted == DeletedBool.NO);
+            query.ModifiedDate = DateTime.Now;
+            query.ModifiedBy = input.ModifiedBy;
+            query.MaDanhMuc = input.MaDanhMuc;
+            query.TenDanhMuc = input.TenDanhMuc;
+        }
+
     }
 }

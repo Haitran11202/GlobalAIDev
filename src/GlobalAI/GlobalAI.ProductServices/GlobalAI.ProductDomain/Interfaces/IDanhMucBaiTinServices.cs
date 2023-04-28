@@ -2,6 +2,7 @@
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.BaiTin;
 using GlobalAI.ProductEntities.Dto.DanhMucBaiTin;
+using GlobalAI.ProductEntities.Dto.Voucher;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace GlobalAI.ProductDomain.Interfaces
         void Delete(int id);
         PagingResult<DanhMucBaiTinDto> FindAll(FilterDanhMucBaiTinDto input);
         DanhMucBaiTinDto GetById(int id);
+        void Update(UpdateDanhMucBaiTinDto input);
     }
 }
