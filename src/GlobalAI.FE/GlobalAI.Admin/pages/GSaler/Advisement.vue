@@ -84,7 +84,6 @@ if(imagesContainer.value.style){
 function setCurrentIndex(index) {
   currentIndex.value = index;
   if(imagesContainer.value.style){
-
     imagesContainer.value.style.transform =
       "translateX(" + -currentIndex.value * 100 + "%)";
   }
