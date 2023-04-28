@@ -843,7 +843,6 @@ const deleteGh = (idsp) => {
         .catch(() => {});
 };
 //lấy ra tổng tiền thanh toán đơn hàng
-
 const totalPrice = computed(() => {
     console.log(selectedProducts.value);
     console.log("tính giá...");
@@ -851,6 +850,7 @@ const totalPrice = computed(() => {
     let sum = 0;
     let chietKhau = 0;
     let tongThanhToan = 0;
+    console.log(datas.value);
     datas.value.forEach((item) => {
         if (selectedProducts.value.includes(item.idSanPham)) {
             console.log(selectedProducts.value);
@@ -872,7 +872,6 @@ const totalPrice = computed(() => {
 //     });
 // };
 const formatMoneyAll = (money) => {
-    console.log(money);
     money = Number(money);
     return money.toLocaleString("vi-VN", {
         style: "currency",

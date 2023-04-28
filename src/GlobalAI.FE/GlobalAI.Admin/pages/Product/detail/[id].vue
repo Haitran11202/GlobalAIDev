@@ -436,4 +436,5 @@ const toggleTabs = function (tabNumber) {
     openTab.value = tabNumber;
 };
 </script>
-<style lang=""></style>
+<style lang="">
+</style>
