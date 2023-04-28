@@ -16,8 +16,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
             !userStorage.isLoggedIn &&
             !NOT_REQUIRED_LOGIN.includes(matchedPath)
         ) {
-            $toast.warn("Vui lòng đăng nhập tài khoản và mật khẩu");
-            return navigateTo(ROUTES.LOGIN);
+            return navigateTo(ROUTES.TRANGCHU);
         } else if (userStorage.isLoggedIn && matchedPath === ROUTES.LOGIN) {
             return navigateTo(ROUTES.HOME);
         } 

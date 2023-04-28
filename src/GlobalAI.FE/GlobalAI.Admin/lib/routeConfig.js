@@ -3,6 +3,7 @@
  */
 export const ROUTES = {
     HOME: "/gsaler/home",
+    TRANGCHU: '/',
     LOGIN: "/auth/login",
     ERROR_FORBIDDEN: '/error/403',
     ADMIN_DASHBOARD: '/admin/dashboard',
