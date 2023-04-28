@@ -32,9 +32,9 @@ namespace GlobalAI.ProductRepositories
             return results;
         }
 
-        public GioHang AddGioHang(GioHang dto)
+        public GioHang AddGioHang(GioHang dto, int idNguoiMua)
         {
-            var item = _dbSet.FirstOrDefault(g => g.IdSanPham == dto.IdSanPham && !g.Deleted);
+            var item = _dbSet.FirstOrDefault(g => g.IdSanPham == dto.IdSanPham && !g.Deleted && g.IdNguoiMua == idNguoiMua);
             if (item != null)
             {
                 item.SoLuong += dto.SoLuong;
