@@ -70,6 +70,7 @@ export const API_ENDPOINT = {
 
   putVoucher: `/api/product/voucher/update`,
 
+  
   // Danh mục bài tin
   getAllPostCategoryPhanTran: (pageSize, pageNumber, skip) =>
     `/api/product/danh-muc-bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,

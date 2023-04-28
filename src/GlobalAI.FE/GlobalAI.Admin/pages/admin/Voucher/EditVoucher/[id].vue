@@ -1,6 +1,6 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <form @submit.prevent="submitForm" class="m-auto shadow-2xl p-12 h-[670px]">
+    <form @submit.prevent="submitForm" class="m-auto shadow-2xl p-12">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
           <label
@@ -88,30 +88,31 @@
             />
           </div>
         </div>
+      </div>
+      <div class="flex flex-col">
         <div class="mb-6">
           <label
             for="moTa"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
             >Mô tả</label
           >
-          <div class="w-full">
-            <tiptap
-              v-model="moTa"
-              class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            />
+          <div class="w-full h-[300px]">
+            <div class="min-h-screen">
+              <TextEditor v-model="moTa" />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="flex justify-end gap-5">
-        <button type="submit" class="btn btn-outline float-right">
-          Cập nhật voucher
-        </button>
-        <button
-          @click="this.$router.push('/admin/voucher')"
-          class="btn btn-outline btn-error"
-        >
-          <span class="flex">Quay về</span>
-        </button>
+        <div class="flex justify-end gap-5">
+          <button type="submit" class="btn btn-outline float-right">
+            Cập nhật voucher
+          </button>
+          <button
+            @click="this.$router.push('/admin/voucher')"
+            class="btn btn-outline btn-error"
+          >
+            <span class="flex">Quay về</span>
+          </button>
+        </div>
       </div>
     </form>
   </div>
@@ -166,7 +167,6 @@ async function uploadImage(event) {
 
 // Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
 const getImageUrl = (imageUrl) => {
-  console.log(imageUrl);
   if (!imageUrl) {
     return "https://placehold.it/50x50";
   }
@@ -185,6 +185,7 @@ onMounted(() => {
   watchEffect(async () => {
     try {
       const data = await getVoucherById(voucherId.value);
+      console.log(data);
       name.value = data.data.name;
       avatarNew.value = data.data.avatar;
       moTa.value = data.data.moTa;

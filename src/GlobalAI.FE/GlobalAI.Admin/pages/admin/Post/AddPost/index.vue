@@ -1,9 +1,6 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <form
-      @submit.prevent="handlePostPost"
-      class="m-auto shadow-2xl p-12 h-[670px]"
-    >
+    <form @submit.prevent="handlePostPost" class="m-auto shadow-2xl p-12">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
           <label
@@ -80,31 +77,35 @@
           />
           <error-message name="tieuDe" class="text-red-500" />
         </div>
+      </div>
+      <div class="flex flex-col">
         <div class="col-span-1">
           <label
             for="noiDung"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
             >Nội dung</label
           >
-          <div class="w-full">
-            <TextEditor v-model="noiDung" />
+          <div class="w-full h-[300px]">
+            <div class="min-h-screen">
+              <TextEditor v-model="noiDung" />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="flex justify-end gap-5">
-        <button
-          @click="this.$router.push('/admin/post')"
-          type="submit"
-          class="btn btn-outline"
-        >
-          Thêm bài tin
-        </button>
-        <button
-          @click="this.$router.push('/admin/post')"
-          class="btn btn-outline btn-error"
-        >
-          <span class="flex">Quay về</span>
-        </button>
+        <div class="flex justify-end gap-5">
+          <button
+            @click="this.$router.push('/admin/post')"
+            type="submit"
+            class="btn btn-outline"
+          >
+            Thêm bài tin
+          </button>
+          <button
+            @click="this.$router.push('/admin/post')"
+            class="btn btn-outline btn-error"
+          >
+            <span class="flex">Quay về</span>
+          </button>
+        </div>
       </div>
     </form>
   </div>
@@ -226,20 +227,11 @@ function handlePostPost() {
     });
 }
 
+
+//Lấy danh mục của bài tin
 const pageSize = 15;
 const pageNumber = ref(1);
 const skip = ref(0);
-
-// onMounted(() => {
-//   getAllDanhMucBaiTin(pageSize, pageNumber.value, skip.value)
-//     .then((response) => {
-//       danhmucsp.value = response.data.items;
-//       console.log("dsadsa", danhmucsp.value);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//     });
-// });
 
 onMounted(() => {
   getAllPostCategoryPhanTran(pageSize, pageNumber.value, skip.value)

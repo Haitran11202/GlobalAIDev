@@ -2,11 +2,27 @@
   <div class="mt-4 relative bg-white rounded">
     <form @submit.prevent="submitForm" class="m-auto shadow-2xl p-12 h-[670px]">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
-        <div>
+        <div class="col-span-1">
+          <label
+            for="tieuDe"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
+          >
+            Tiêu đề
+          </label>
+          <Field
+            v-model="tieuDe"
+            name="tieuDe"
+            type="text"
+            placeholder="Tên sản phẩm..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+          />
+          <error-message name="tieuDe" class="text-red-500" />
+        </div>
+        <!-- <div>
           <label
             for="idDanhMuc"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Mã danh mục</label
+            >Danh mục</label
           >
           <select
             v-model="idDanhMuc"
@@ -31,24 +47,29 @@
             <option value="14">Bảo hiểm</option>
             <option value="15">Thiết bị gia dụng</option>
           </select>
-        </div>
+        </div> -->
         <div class="col-span-1">
           <label
-            for="tieuDe"
+            for="idDanhMuc"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
+            >Danh mục</label
           >
-            Tiêu đề
-          </label>
-          <Field
-            v-model="tieuDe"
-            name="tieuDe"
-            type="text"
-            placeholder="Tên sản phẩm..."
+          <select
+            v-model="idDanhMuc"
+            id="idDanhMuc"
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          />
-          <error-message name="tieuDe" class="text-red-500" />
+            required
+          >
+            <option value="">-- Lựa chọn danh mục --</option>
+            <option
+              v-for="danhmuc in danhmucsp"
+              :value="danhmuc.id"
+              :key="danhmuc.id"
+            >
+              {{ danhmuc.tenDanhMuc }}
+            </option>
+          </select>
         </div>
-
         <div class="">
           <label
             for="image"
@@ -70,18 +91,34 @@
             />
           </div>
         </div>
-        <div class="mb-6">
+        <div class="col-span-1">
           <label
-            for="noiDung"
+            for="moTa"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Nội dung</label
           >
-          <div class="w-full">
-            <tiptap
-              v-model="noiDung"
-              class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            />
-          </div>
+            Mô tả
+          </label>
+          <Field
+            v-model="moTa"
+            name="moTa"
+            type="text"
+            placeholder="Tên sản phẩm..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+          />
+          <error-message name="moTa" class="text-red-500" />
+        </div>
+      </div>
+      <div class="mb-6">
+        <label
+          for="noiDung"
+          class="block uppercase text-slate-600 text-xs font-bold mb-2"
+          >Nội dung</label
+        >
+        <div class="w-full">
+          <tiptap
+            v-model="noiDung"
+            class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+          />
         </div>
       </div>
       <div class="flex justify-end gap-5">
@@ -122,6 +159,8 @@ const idDanhMuc = ref(0);
 const tieuDe = ref("");
 const noiDung = ref("");
 const thumbnailNew = ref("");
+const moTa = ref("");
+const danhmucsp = ref([]);
 
 const router = useRouter();
 const config = useRuntimeConfig();
@@ -171,6 +210,7 @@ onMounted(() => {
       tieuDe.value = data.data.tieuDe;
       noiDung.value = data.data.noiDung;
       thumbnailNew.value = data.data.thumbnail;
+      moTa.value = data.data.moTa;
     } catch (error) {
       console.log(error);
     }
@@ -184,6 +224,7 @@ const submitForm = () => {
     tieuDe: tieuDe.value,
     noiDung: noiDung.value,
     thumbnail: thumbnailNew.value,
+    moTa: moTa.value,
   };
 
   const body = {
@@ -201,4 +242,20 @@ const submitForm = () => {
       toast.error("Cập nhật bài tin thất bại. Vui lòng thử lại!");
     });
 };
+
+//Lấy danh mục của bài tin
+const pageSize = 15;
+const pageNumber = ref(1);
+const skip = ref(0);
+
+onMounted(() => {
+  getAllPostCategoryPhanTran(pageSize, pageNumber.value, skip.value)
+    .then((response) => {
+      danhmucsp.value = response.data.items;
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 </script>

@@ -1,9 +1,6 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <form
-      @submit.prevent="handlePostProduct"
-      class="m-auto shadow-2xl p-12 h-[670px]"
-    >
+    <form @submit.prevent="handlePostProduct" class="m-auto shadow-2xl p-12">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
           <label
@@ -118,37 +115,39 @@
             />
           </div>
         </div>
-      <div class="mb-6">
-        <label
-          for="moTa"
-          class="block uppercase text-slate-600 text-xs font-bold mb-2"
-          >Mô tả</label
-        >
-        <div class="w-full">
-          <TextEditor v-model="moTa" />
-          <!-- <tiptap
-            class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            v-model="moTa"
-          /> -->
+      </div>
+      <!--  -->
+      <div class="flex flex-col">
+        <div class="mb-6">
+          <label
+            for="moTa"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
+            >Mô tả</label
+          >
+          <div class="w-full h-[300px]">
+            <div class="min-h-screen">
+              <TextEditor v-model="moTa" />
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-end gap-5">
+          <button
+            @click="this.$router.push('/admin/product')"
+            type="submit"
+            class="btn btn-outline"
+          >
+            Thêm sản phẩm
+          </button>
+          <button class="btn btn-outline btn-success">Duyệt sản phẩm</button>
+          <button
+            @click="this.$router.push('/admin/product')"
+            class="btn btn-outline btn-error"
+          >
+            <span class="flex">Quay về</span>
+          </button>
         </div>
       </div>
-      </div>
-      <div class="flex justify-end gap-5">
-        <button
-          @click="this.$router.push('/admin/product')"
-          type="submit"
-          class="btn btn-outline"
-        >
-          Thêm sản phẩm
-        </button>
-        <button class="btn btn-outline btn-success">Duyệt sản phẩm</button>
-        <button
-          @click="this.$router.push('/admin/product')"
-          class="btn btn-outline btn-error"
-        >
-          <span class="flex">Quay về</span>
-        </button>
-      </div>
+      <!--  -->
     </form>
   </div>
 </template>
