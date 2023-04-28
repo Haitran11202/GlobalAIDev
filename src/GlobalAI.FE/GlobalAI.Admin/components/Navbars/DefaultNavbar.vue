@@ -146,4 +146,9 @@ const handleDetail = (id) => {
   isHovering.value = false;
   router.push({ name: "ProductDetail", params: { id } });
 };
+const handleCartManage = () => {
+  const userId = getUserInfor().user_id;
+  console.log(userId);
+  router.push({name: "ManageCart", params:{id: userId }})
+}
 </script>
