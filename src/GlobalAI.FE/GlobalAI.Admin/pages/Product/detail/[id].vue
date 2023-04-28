@@ -405,6 +405,7 @@ const decrement = () => {
 };
 // Thêm sản phẩm vào giỏ hàng
 const handleshowModelCart = () => {
+  console.log("Them vao gio hang");
     isShowModelCart.value = true;
 };
 const handleAddProductCart = async () => {
@@ -419,14 +420,13 @@ const handleAddProductCart = async () => {
         // Send a POST request to create a new item in the cart
         const res = await createGioHang(body);
         console.log(res);
-
         // Update the cart and display a success message on successful response
         await useCart.getGioHang();
         isShowModelCart.value = false;
         toast.success("Thêm sản phẩm vào giỏ hàng thành công !", {
             autoClose: 1000,
         });
-        router.push({ name: "ManageCart" });
+        // router.push({ name: "ManageCart" });
     } catch (error) {
         toast.error("Thêm sản phẩm vào giỏ hàng thất bại");
     }

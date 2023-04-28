@@ -748,9 +748,8 @@ const getImageUrl = (imageUrl) => {
 const selectedPaymentType = ref("cash");
 const checkAll = ref(false);
 onMounted(async () => {
-    // selectedProducts.value.push(router.currentRoute.value.query.checkedItem);
+    selectedProducts.value.push(router.currentRoute.value.query.checkedItem);
     try {
-        
         const res1 = await getSanPhamByNguoiMua();
         products.value = res1?.data?.data;
         console.log(res1.data.data);
@@ -865,13 +864,13 @@ const totalPrice = computed(() => {
     return { sum, chietKhau, tongThanhToan };
 });
 // format tiền
-const formatMoney = (soLuong, giaBan) => {
-    console.log(products.value);
-    return getPrice(soLuong, giaBan).toLocaleString("vi-VN", {
-        style: "currency",
-        currency: "VND",
-    });
-};
+// const formatMoney = (soLuong, giaBan) => {
+//     console.log(products.value);
+//     return getPrice(soLuong, giaBan).toLocaleString("vi-VN", {
+//         style: "currency",
+//         currency: "VND",
+//     });
+// };
 const formatMoneyAll = (money) => {
     console.log(money);
     money = Number(money);
