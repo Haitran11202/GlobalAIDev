@@ -70,14 +70,14 @@ namespace GlobalAI.ProductDomain.Implements
         /// </summary>
         /// <param name="id"></param>
         /// <returns>Trả về sản phẩm vừa xóa(Trường deleted = true)</returns>
-        public SanPham DeleteSanPham(int idSanPham)
+        public void DeleteSanPham(int idSanPham)
         {
-            var findSanPham = _repositorySanPham.FindByIdSanPham(idSanPham);
-            if (findSanPham != null)
-            {
-                _repositorySanPham.Delete(findSanPham);
-            }
-            return findSanPham;
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+            var query = _repositorySanPham.Entity.FirstOrDefault(x => x.Id == idSanPham);
+            query.Deleted = DeletedBool.YES;
+            query.DeletedBy = username;
+            query.DeletedDate = DateTime.Now;
+            _dbContext.SaveChanges();
         }
         /// <summary>
         /// Sửa sản phẩm
