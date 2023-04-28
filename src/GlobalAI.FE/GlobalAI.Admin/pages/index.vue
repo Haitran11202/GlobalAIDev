@@ -262,11 +262,13 @@
       <div class="bg-slate-100 py-24 sm:py-14">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="mx-auto max-w-2xl lg:mx-0">
+            <a href="/post/postdanhmuc/1">
             <h2
               class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
             >
               Blog
             </h2>
+          </a>
             <p class="mt-2 text-lg leading-8 text-gray-600">
               Làm thế nào để kinh doanh hiệu quả?
             </p>
@@ -464,11 +466,11 @@ import dientu from "../assets/img/dientu.jpg";
 
 const baitin = ref([]);
 const pageSize = 3;
-const pageNumber = ref(1);
-const skip = ref(0);
+const pageNumber = 1;
+const skip = 0;
 
 onMounted(() => {
-  getBaiTinPhanTrang(pageSize, pageNumber.value, skip.value)
+  getBaiTinPhanTrang(pageSize, pageNumber, skip)
     .then((response) => {
       baitin.value = response.data.items;
       console.log('dsadsa',baitin.value)

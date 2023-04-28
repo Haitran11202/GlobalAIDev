@@ -2,10 +2,10 @@
   <div class="w-full mt-[40px] cursor-pointer">
     <div class="flex w-full justify-between items-center mb-[20px]">
       <h1 class="lg:text-[24px] text-[#384059] uppercase font-bold">
-        {{ props.title }}
+        {{ props.category.tenDanhMuc}}
       </h1>
       <RouterLink
-        :to="`/product/category/${props.id}`"
+        :to="`/product/category/${props.category.idDanhMuc}`"
         class="font-[500] flex gap-2 items-center justify-center text-[#384059] lg:text-[16px]"
       >
         <span>Xem Thêm </span>
@@ -105,28 +105,27 @@
 
 <script setup>
 import { useRouter } from "vue-router";
-import img1 from "~/assets/img/product/2a058125fdc92cb24ca382fa36107f1d.jpg";
 const router = useRouter();
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 const getImageUrl = (imageUrl) => {
-  console.log(imageUrl);
   if (!imageUrl) {
     return "https://placehold.it/50x50";
   }
   const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
     imageUrl
   )}&download=false`;
-  console.log(url);
   return url;
 };
 
+
+onMounted(() => {
+  console.log(props.category.idDanhMuc);
+})
+
 const props = defineProps({
-  title: {
-    type: String,
-  },
-  id: {
-    type: String,
+  category: {
+    type: Object,
   },
   products: {
     id: Number,
