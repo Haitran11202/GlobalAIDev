@@ -12,7 +12,6 @@ using GlobalAI.ProductEntities.Dto.Voucher;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
-    [Authorize]
     [Route("api/product/bai-tin")]
     [ApiController]
     public class BaiTinController : BaseController
@@ -28,6 +27,8 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        /// 
+        [Authorize]
         [HttpPost("")]
         public APIResponse Add([FromBody] CreateBaiTin input)
         {
@@ -41,13 +42,14 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
-
+        [Authorize]
         [HttpDelete("")]
         public void Delete(int id)
         {
             _baiTinServices.Delete(id);
         }
 
+        [Authorize]
         [HttpPut("")]
         public APIResponse Update([FromBody] UpdateBaiTinDto input)
         {
@@ -67,6 +69,8 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        /// 
+        [Authorize]
         [HttpPut("approve")]
         public APIResponse Approve([FromBody] ApproveBaiTinDto input)
         {

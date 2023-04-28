@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using GlobalAI.ProductEntities.Dto.DanhMucBaiTin;
+using GlobalAI.ProductDomain.Implements;
 
 namespace GlobalAI.ProductAPI.Controllers
 {
@@ -20,6 +21,28 @@ namespace GlobalAI.ProductAPI.Controllers
         {
             _danhMucBaiTinServices = danhMucBaiTinServices;
         }
+
+        /// <summary>
+        /// cập nhật danh mục bài tin
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        
+        [Authorize]
+        [HttpPut("")]
+        public APIResponse Update([FromBody] UpdateDanhMucBaiTinDto input)
+        {
+            try
+            {
+                _danhMucBaiTinServices.Update(input);
+                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
         /// <summary>
         /// them 
         /// </summary>
