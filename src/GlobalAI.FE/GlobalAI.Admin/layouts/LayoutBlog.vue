@@ -1,14 +1,10 @@
 <template lang="">
   <div :class="showColor ? '#f2f1f2' : 'bg-slate-100'">
     <header-blog />
-    <sidebar
-      v-if="useSideBar.getShowSideBar"
-      v-on:category-clicked="handleCategoryClick"
-    />
     <div class="container mx-auto lg:px-[185px]">
       <div class="flex-1 lg:px-1 flex-col">
         <!-- Slot tượng trưng cho từng layout trong trang web -->
-        <NuxtPage :category="selectedCategory" />
+        <NuxtPage />
       </div>
     </div>
     <div class="mt-5">
