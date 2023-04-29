@@ -33,5 +33,6 @@ export const NOT_REQUIRED_LOGIN = [
     "/auth/registermaster",
     "/auth/registergsaler",
     "/post/postdetail/:slug",
+    "/post/postdanhmuc/:id",
     ROUTES.ERROR_FORBIDDEN
 ];

@@ -33,8 +33,7 @@ export const deleteOrder = async (id) => {
   }
 };
 
-
-// Lấy đơn hàng dựa theo ID
+// Lấy đơn hàng dựa theo ids
 export const getOrderById = async (id) => {
   try {
     const res = await http.get(API_ENDPOINT.getOrderById(id));

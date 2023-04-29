@@ -34,9 +34,10 @@ export const postPost = async (postData) => {
 };
 
 // Cập nhật bài tin
-export const updatePost = async (id, post) => {
+export const updatePost = async (postData) => {
   try {
-    const res = await http.put(API_ENDPOINT.putPost(id), post);
+    const res = await http.put(API_ENDPOINT.putPost, postData);
+    console.log(res);
     return Promise.resolve(res.data);
   } catch (err) {
     return Promise.reject(err);
