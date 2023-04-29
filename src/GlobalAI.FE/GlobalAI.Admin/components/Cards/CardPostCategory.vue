@@ -6,13 +6,13 @@
           class="relative w-full px-4 max-w-full flex justify-between items-center"
         >
           <h3 class="font-semibold text-lg text-slate-800 uppercase">
-            Danh sách bài tin
+            Danh sách danh mục bài tin
           </h3>
           <button
-            @click="router.push('/admin/post/addpost')"
+            @click="this.$router.push('/admin/postcategory/addpostcategory')"
             class="btn btn-outline"
           >
-            Thêm bài tin
+            Thêm danh mục bài tin
           </button>
         </div>
       </div>
@@ -26,60 +26,19 @@
               <input type="checkbox" class="checkbox" />
             </label>
           </th>
-          <th>ID</th>
-          <th>Danh mục</th>
-          <th>Tiêu đề</th>
-          <th>Nội dung</th>
-          <th>Mô tả</th>
-          <th>Chức năng</th>
+          <th>Mã danh mục</th>
+          <th>Tên danh mục</th>
         </tr>
       </thead>
       <tbody>
-        <!-- row 1 -->
-        <tr v-for="post in posts" :key="post.id" class="text-sm">
+        <tr v-for="post in postCategorys" :key="post.id" class="text-sm">
           <th>
             <label>
               <input type="checkbox" class="checkbox" />
             </label>
           </th>
-          <td>{{ post.id }}</td>
-          <td>{{ post.idDanhMuc }}</td>
-          <td>
-            <div class="flex items-center space-x-3">
-              <div class="avatar">
-                <div class="mask mask-squircle w-12 h-12">
-                  <img :src="`${baseUrl}/${post.thumbnail}`" alt="" />
-                </div>
-              </div>
-              <div>
-                <div class="font-bold">{{ post.tieuDe }}</div>
-              </div>
-            </div>
-          </td>
-          <td class="whitespace-nowrap">
-            <div v-if="post.noiDung && post.noiDung.length > 20">
-              <template v-if="!showMore[post.id]">
-                {{ post.noiDung.slice(0, 20) }}...
-                <span
-                  @click="showMore[post.id] = true"
-                  class="font-bold cursor-pointer"
-                  >Xem thêm</span
-                >
-              </template>
-              <template v-else>
-                {{ post.noiDung }}
-                <span
-                  @click="showMore[post.id] = false"
-                  class="font-bold cursor-pointer"
-                  >Thu gọn</span
-                >
-              </template>
-            </div>
-            <div v-else>{{ post.noiDung }}</div>
-          </td>
-          <td>
-            {{ post.moTa }}
-          </td>
+          <td>{{ post.maDanhMuc }}</td>
+          <td>{{ post.tenDanhMuc }}</td>
           <td>
             <div class="dropdown dropdown-left dropdown-end">
               <label
@@ -113,44 +72,30 @@
 <script setup>
 import { ref, watchEffect } from "vue";
 import {
-  deletePost,
-  getPostById,
-} from "~~/composables/useApiPost.js";
+  getAllPostCategoryPhanTran,
+  getPostCategoryById,
+  deletePostCategory,
+} from "~~/composables/useApiPostCategory.js";
 import { useRouter } from "vue-router";
 const { $toast } = useNuxtApp();
-
-const router = useRouter();
-const config = useRuntimeConfig();
-const baseUrl = config.public.apiEndpoint;
 
 const pageSize = 5;
 const pageNumber = ref(1);
 const skip = ref(0);
 
-const posts = ref([]);
-const deletedPost = ref(null);
+const postCategorys = ref([]);
+const deletedPostCategory = ref(null);
 const showAction = ref({});
-const showMore = ref({});
 
 const fetchData = async () => {
-  getBaiTinPhanTrang(pageSize, pageNumber.value, skip.value)
+  getAllPostCategoryPhanTran(pageSize, pageNumber.value, skip.value)
     .then((response) => {
-      posts.value = response.data.items;
-      console.log(posts.value);
+      postCategorys.value = response.data.items;
+      console.log(postCategorys.value);
     })
     .catch((err) => {
       console.error(err);
     });
-};
-
-const getImageUrl = (imageUrl) => {
-  if (!imageUrl) {
-    return "https://placehold.it/50x50";
-  }
-  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
-  )}&download=false`;
-  return url;
 };
 
 const previousPage = () => {
@@ -162,7 +107,7 @@ const previousPage = () => {
 
 const nextPage = () => {
   console.log(1);
-  if (posts.value.length < pageSize) {
+  if (postCategorys.value.length < pageSize) {
     return;
   }
   pageNumber.value += 1;
@@ -170,9 +115,9 @@ const nextPage = () => {
 
 const onDeleteButtonClick = (id) => {
   console.log(id);
-  deletePost(id)
+  deletePostCategory(id)
     .then((res) => {
-      deletedPost.value = res;
+      deletedPostCategory.value = res;
       $toast.success("Xoá bài tin thành công.");
     })
     .catch((err) => {
@@ -182,8 +127,8 @@ const onDeleteButtonClick = (id) => {
 };
 
 const onEditButtonClick = (id) => {
-  router.push({ name: "Post", params: { id: id } });
-  getPostById(id)
+  router.push({ name: "PostCategory", params: { id: id } });
+  getPostCategoryById(id)
     .then((res) => {
       res.data;
     })
@@ -195,14 +140,11 @@ const onEditButtonClick = (id) => {
 watchEffect(() => {
   fetchData();
 
-  if (deletedPost.value !== null) {
-    deletedPost.value = null;
+  if (deletedPostCategory.value !== null) {
+    getAllPostCategoryPhanTran();
+    deletedPostCategory.value = null;
   }
 });
-
-const toggleAction = (id) => {
-  showAction.value[id] = !showAction.value[id];
-};
 
 const isOpen = ref(false);
 
