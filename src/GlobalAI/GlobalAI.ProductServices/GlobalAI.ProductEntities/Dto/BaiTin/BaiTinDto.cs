@@ -11,6 +11,7 @@ namespace GlobalAI.ProductEntities.Dto.BaiTin
     {
         public int Id { get; set; }
         public int IdDanhMuc { get; set; }
+        public string TenDanhMuc { get; set; }
         public string MoTa { get; set; }
         public string TieuDe { get; set; }
         public string NoiDung { get; set; }

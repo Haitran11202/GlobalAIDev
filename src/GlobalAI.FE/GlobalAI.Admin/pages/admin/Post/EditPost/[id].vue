@@ -4,31 +4,13 @@
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
           <label
-            for="idDanhMuc"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-          >
-            Mã bài tin
-          </label>
-          <Field
-            disabled
-            v-model="post.id"
-            name="idDanhMuc"
-            type="text"
-            placeholder="Mã sản phẩm..."
-            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          />
-          <error-message name="idDanhMuc" class="text-red-500" />
-        </div>
-
-        <div class="col-span-1">
-          <label
             for="tieuDe"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-            Tên sản phẩm
+            Tiêu đề
           </label>
           <Field
-            v-model="post.tieuDe"
+            v-model="tieuDe"
             name="tieuDe"
             type="text"
             placeholder="Tên sản phẩm..."
@@ -36,15 +18,14 @@
           />
           <error-message name="tieuDe" class="text-red-500" />
         </div>
-
-        <div>
+        <!-- <div>
           <label
             for="idDanhMuc"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Mã danh mục</label
+            >Danh mục</label
           >
           <select
-            v-model="post.idDanhMuc"
+            v-model="idDanhMuc"
             id="idDanhMuc"
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             required
@@ -66,6 +47,28 @@
             <option value="14">Bảo hiểm</option>
             <option value="15">Thiết bị gia dụng</option>
           </select>
+        </div> -->
+        <div class="col-span-1">
+          <label
+            for="idDanhMuc"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
+            >Danh mục</label
+          >
+          <select
+            v-model="idDanhMuc"
+            id="idDanhMuc"
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            required
+          >
+            <option value="">-- Lựa chọn danh mục --</option>
+            <option
+              v-for="danhmuc in danhmucsp"
+              :value="danhmuc.id"
+              :key="danhmuc.id"
+            >
+              {{ danhmuc.tenDanhMuc }}
+            </option>
+          </select>
         </div>
         <div class="">
           <label
@@ -79,14 +82,30 @@
               id="image"
               class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
               required
-              @change="uploadImage"
+              @change.prevent="uploadImage"
             />
             <img
               alt="Product Image"
+              :src="getImageUrl(thumbnailNew)"
               class="w-[50px] h-[50px] border absolute right-0 rounded"
-              :src="getImageUrl(post.thumbnail)"
             />
           </div>
+        </div>
+        <div class="col-span-1">
+          <label
+            for="moTa"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
+          >
+            Mô tả
+          </label>
+          <Field
+            v-model="moTa"
+            name="moTa"
+            type="text"
+            placeholder="Tên sản phẩm..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+          />
+          <error-message name="moTa" class="text-red-500" />
         </div>
       </div>
       <div class="mb-6">
@@ -96,11 +115,10 @@
           >Nội dung</label
         >
         <div class="w-full">
-          <TextEditor v-model="post.noiDung" />
-          <!-- <tiptap
+          <tiptap
+            v-model="noiDung"
             class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            v-model="post.noiDung"
-          /> -->
+          />
         </div>
       </div>
       <div class="flex justify-end gap-5">
@@ -126,44 +144,36 @@ import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
 import { getPostById, updatePost } from "~~/composables/useApiPost.js";
+import { postImage } from "~~/composables/useApiImage";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import TextEditor from "~~/components/TextEditor/TextEditor.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
+
 definePageMeta({
   layout: "admin",
   name: "Post",
 });
 
-const post = ref({});
-const router = useRouter();
 const postId = ref([]);
+const idDanhMuc = ref(0);
+const tieuDe = ref("");
+const noiDung = ref("");
+const thumbnailNew = ref("");
+const moTa = ref("");
+const danhmucsp = ref([]);
 
-const thumbnail = ref("");
+const router = useRouter();
 const config = useRuntimeConfig();
-console.log(config.public.apiEndpoint);
 const baseUrl = config.public.apiEndpoint;
 
-// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
-const getImageUrl = (imageUrl) => {
-  if (!imageUrl) {
-    return "https://placehold.it/50x50";
-  }
-  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
-  )}&download=false`;
-  return url;
-};
-
 async function uploadImage(event) {
-  console.log(event.target.files[0].name);
-  console.log(event.target.files[0].name);
   try {
     const formData = new FormData();
     formData.append("file", event.target.files[0]);
     postImage(formData)
       .then((response) => {
         console.log(response);
-        thumbnail.value = response.data.split("=")[2];
+        thumbnailNew.value = response.data.split("=")[2];
         console.log(response.data);
       })
       .catch((error) => {
@@ -174,21 +184,54 @@ async function uploadImage(event) {
   }
 }
 
+// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
+const getImageUrl = (imageUrl) => {
+  console.log(imageUrl);
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
+};
+
+watchEffect(() => {
+  getImageUrl();
+});
+
 onMounted(() => {
   postId.value = router.currentRoute.value.params.id;
-  console.log(router.currentRoute.value.params.id);
+
   watchEffect(async () => {
     try {
       const data = await getPostById(postId.value);
-      post.value = data.data;
-      console.log(post.value);
+      idDanhMuc.value = data.data.idDanhMuc;
+      tieuDe.value = data.data.tieuDe;
+      noiDung.value = data.data.noiDung;
+      thumbnailNew.value = data.data.thumbnail;
+      moTa.value = data.data.moTa;
     } catch (error) {
       console.log(error);
     }
   });
 });
+
 const submitForm = () => {
-  updatePost(postId.value, post.value)
+  const formData = {
+    id: postId.value,
+    idDanhMuc: idDanhMuc.value,
+    tieuDe: tieuDe.value,
+    noiDung: noiDung.value,
+    thumbnail: thumbnailNew.value,
+    moTa: moTa.value,
+  };
+
+  const body = {
+    ...formData,
+  };
+
+  updatePost(body)
     .then((data) => {
       console.log(data);
       toast.success("Cập nhật bài tin thành công");
@@ -199,4 +242,20 @@ const submitForm = () => {
       toast.error("Cập nhật bài tin thất bại. Vui lòng thử lại!");
     });
 };
+
+//Lấy danh mục của bài tin
+const pageSize = 15;
+const pageNumber = ref(1);
+const skip = ref(0);
+
+onMounted(() => {
+  getAllPostCategoryPhanTran(pageSize, pageNumber.value, skip.value)
+    .then((response) => {
+      danhmucsp.value = response.data.items;
+      console.log(response);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 </script>

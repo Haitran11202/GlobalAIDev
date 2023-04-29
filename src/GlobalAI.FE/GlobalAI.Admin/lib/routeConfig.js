@@ -3,6 +3,7 @@
  */
 export const ROUTES = {
     HOME: "/gsaler/home",
+    TRANGCHU: '/',
     LOGIN: "/auth/login",
     ERROR_FORBIDDEN: '/error/403',
     ADMIN_DASHBOARD: '/admin/dashboard',
@@ -31,5 +32,7 @@ export const NOT_REQUIRED_LOGIN = [
     "/auth/register",
     "/auth/registermaster",
     "/auth/registergsaler",
+    "/post/postdetail/:slug",
+    "/post/postdanhmuc/:id",
     ROUTES.ERROR_FORBIDDEN
 ];

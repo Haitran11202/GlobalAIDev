@@ -191,12 +191,9 @@ export const getImage = async () => {
   }
 };
 
-//Post Image
-
-//Post Image
 export const postImage = async (formData) => {
   try {
-    const res = await http.post(API_ENDPOINT.postImages, formData);
+    const res = await http.post(API_ENDPOINT.postImage, formData);
     return Promise.resolve(res.data);
   } catch (err) {
     return Promise.reject(err);

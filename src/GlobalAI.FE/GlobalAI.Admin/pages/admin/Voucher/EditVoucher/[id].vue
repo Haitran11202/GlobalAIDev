@@ -1,122 +1,94 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <form @submit.prevent="handlePostProduct" class="m-auto shadow-2xl p-12">
+    <form @submit.prevent="submitForm" class="m-auto shadow-2xl p-12">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
           <label
-            for="maSanPham"
+            for="name"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-            Mã sản phẩm
+            Tên Voucher
           </label>
           <Field
-            v-model="maSanPham"
-            name="maSanPham"
+            name="name"
             type="text"
+            v-model="name"
             placeholder="Mã sản phẩm..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
-          <error-message name="maSanPham" class="text-red-500" />
+          <error-message name="name" class="text-red-500" />
         </div>
+
         <div class="col-span-1">
           <label
-            for="tenSanPham"
+            for="giaTri"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-            Tên sản phẩm
+            Giá trị
           </label>
           <Field
-            v-model="tenSanPham"
-            name="tenSanPham"
-            type="text"
+            name="giaTri"
+            type="number"
+            v-model="giaTri"
             placeholder="Tên sản phẩm..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
-          <error-message name="tenSanPham" class="text-red-500" />
+          <error-message name="giaTri" class="text-red-500" />
         </div>
+
         <div class="col-span-1">
           <label
-            for="giaBan"
+            for="soLuong"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-            Giá bán
+            Số lượng
           </label>
           <Field
-            v-model.number="giaBan"
-            name="giaBan"
+            name="soLuong"
+            v-model="soLuong"
             type="number"
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
-          <error-message name="giaBan" class="text-red-500" />
+          <error-message name="soLuong" class="text-red-500" />
         </div>
+
         <div class="col-span-1">
           <label
-            for="giaChietKhau"
+            for="ngayHetHan"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-            Giá chiết khấu
+            Ngày hết hạn
           </label>
           <Field
-            v-model.number="giaChietKhau"
-            name="giaChietKhau"
-            type="number"
+            name="ngayHetHan"
+            type="date"
+            v-model="ngayHetHan"
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
-          <error-message name="giaChietKhau" class="text-red-500" />
-        </div>
-        <div>
-          <label
-            for="idDanhMuc"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Mã danh mục</label
-          >
-          <select
-            v-model="idDanhMuc"
-            id="idDanhMuc"
-            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            required
-          >
-            <option value="">-- Lựa chọn danh mục --</option>
-            <option value="1">Đồng hồ</option>
-            <option value="2">Trang sức</option>
-            <option value="3">Sản phẩm chiết khấu cao</option>
-            <option value="4">Thời trang nữ</option>
-            <option value="5">Điện thoại</option>
-            <option value="6">Phụ kiện</option>
-            <option value="7">Thể thao du lịch</option>
-            <option value="8">Thời trang nam</option>
-            <option value="9">Sách</option>
-            <option value="10">Đồ điện tử</option>
-            <option value="11">Thời trang trẻ em</option>
-            <option value="12">Túi ví</option>
-            <option value="13">Giày dép</option>
-            <option value="14">Bảo hiểm</option>
-            <option value="15">Thiết bị gia dụng</option>
-          </select>
+          <error-message name="ngayHetHan" class="text-red-500" />
         </div>
         <div class="">
           <label
-            for="image"
+            for="avatar"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
             >Hình ảnh</label
           >
           <div class="flex items-center justify-between relative">
             <input
               type="file"
-              id="image"
+              id="avatar"
               class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
               required
-              @change="uploadImage"
+              @change.prevent="uploadImage"
             />
             <img
               alt="Product Image"
               class="w-[50px] h-[50px] border absolute right-0 rounded"
-              :src="getImageUrl(thumbnail)"
+              :src="getImageUrl(avatarNew)"
             />
           </div>
         </div>
       </div>
-      <!--  -->
       <div class="flex flex-col">
         <div class="mb-6">
           <label
@@ -131,23 +103,17 @@
           </div>
         </div>
         <div class="flex justify-end gap-5">
-          <button
-            @click="this.$router.push('/admin/product')"
-            type="submit"
-            class="btn btn-outline"
-          >
-            Thêm sản phẩm
+          <button type="submit" class="btn btn-outline float-right">
+            Cập nhật voucher
           </button>
-          <button class="btn btn-outline btn-success">Duyệt sản phẩm</button>
           <button
-            @click="this.$router.push('/admin/product')"
+            @click="this.$router.push('/admin/voucher')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>
           </button>
         </div>
       </div>
-      <!--  -->
     </form>
   </div>
 </template>
@@ -156,24 +122,28 @@
 import axios from "axios";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
-import { postProduct } from "~~/composables/useApiProduct";
-import { ref } from "vue";
-import NumberInput from "~~/components/Input/NumberInput.vue";
+import { useRouter } from "vue-router";
+// import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
+import { getVoucherById } from "~~/composables/useApiVoucher";
+import { postImage } from "~~/composables/useApiImage";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
-import TextEditor from "~~/components/TextEditor/TextEditor.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
-import * as yup from "yup";
+import { ref, watchEffect } from "vue";
 definePageMeta({
   layout: "admin",
+  name: "Voucher",
 });
-const maSanPham = ref("");
-const tenSanPham = ref("");
-const moTa = ref("");
-const giaBan = ref(0);
-const giaChietKhau = ref(0);
-const idDanhMuc = ref("");
-const thumbnail = ref("");
 
+const voucherId = ref(0);
+const name = ref("");
+const avatarNew = ref("");
+const moTa = ref("");
+const giaTri = ref(0);
+const soLuong = ref(0);
+const ngayHetHan = ref("");
+const voucherChiTiets = ref([]);
+
+const router = useRouter();
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
@@ -184,24 +154,18 @@ async function uploadImage(event) {
     postImage(formData)
       .then((response) => {
         console.log(response);
-        thumbnail.value = response.data.split("=")[2];
+        avatarNew.value = response.data.split("=")[2];
         console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-    const response = await axios.post(
-      "http://globalai-staging.huce.edu.vn:8089/api/file/upload?folder=image",
-      formData
-    );
-    console.log(response.data.data.split("=")[2]);
-    thumbnail.value = response.data.data.split("=")[2];
   } catch (error) {
     console.error(error);
   }
 }
 
-// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ
+// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
 const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
@@ -212,25 +176,61 @@ const getImageUrl = (imageUrl) => {
   return url;
 };
 
-function handlePostProduct() {
-  const productData = {
-    maSanPham: maSanPham.value,
-    tenSanPham: tenSanPham.value,
+watchEffect(() => {
+  getImageUrl();
+});
+
+onMounted(() => {
+  voucherId.value = router.currentRoute.value.params.id;
+  watchEffect(async () => {
+    try {
+      const data = await getVoucherById(voucherId.value);
+      console.log(data);
+      name.value = data.data.name;
+      avatarNew.value = data.data.avatar;
+      moTa.value = data.data.moTa;
+      giaTri.value = data.data.giaTri;
+      soLuong.value = data.data.soLuong;
+      ngayHetHan.value = data.data.ngayHetHan;
+      voucherChiTiets.value = [
+        {
+          id: 0,
+          voucherId: 0,
+          ngayGiao: "2023-04-26T15:50:18.998Z",
+          ngaySuDung: "2023-04-26T15:50:18.998Z",
+          nguoiSuDung: "string",
+        },
+      ];
+    } catch (error) {
+      console.log(error);
+    }
+  });
+});
+const submitForm = () => {
+  const formData = {
+    id: Number(voucherId.value),
+    name: name.value,
+    avatar: avatarNew.value,
     moTa: moTa.value,
-    giaBan: giaBan.value,
-    giaChietKhau: giaChietKhau.value,
-    idDanhMuc: idDanhMuc.value,
-    thumbnail: thumbnail.value,
+    giaTri: giaTri.value,
+    soLuong: soLuong.value,
+    ngayHetHan: ngayHetHan.value,
+    voucherChiTiets: voucherChiTiets.value,
+  };
+  const body = {
+    ...formData,
   };
 
-  postProduct(productData)
-    .then((response) => {
-      console.log(response);
-      toast.success("Thêm sản phẩm thành công");
+  console.log(body);
+  updateVoucher(body)
+    .then((data) => {
+      console.log(data);
+      toast.success("Cập nhật Voucher thành công");
+      router.push("/admin/Voucher");
     })
     .catch((error) => {
-      console.error(error);
-      toast.error("Thêm sản phẩm thất bại. Vui lòng thử lại!");
+      console.log(error);
+      toast.error("Cập nhật Voucher thất bại. Vui lòng thử lại!");
     });
-}
+};
 </script>

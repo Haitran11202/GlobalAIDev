@@ -1,18 +1,6 @@
 import http from "./useApi";
 import { API_ENDPOINT } from "~~/api/api.endpoint";
 
-// Lấy tất cả sản phẩm và phân trang
-export const getAllPostPhanTrang = async (pageSize, pageNumber, skip) => {
-  try {
-    const response = await http.get(
-      API_ENDPOINT.getAllPostPhanTrang(pageSize, pageNumber, skip)
-    );
-    return Promise.resolve(response.data);
-  } catch (err) {
-    return Promise.reject(err);
-  }
-};
-
 // Xoá bài tin dựa theo id
 export const deletePost = async (id) => {
   console.log(API_ENDPOINT.deletePost(id));
@@ -46,9 +34,10 @@ export const postPost = async (postData) => {
 };
 
 // Cập nhật bài tin
-export const updatePost = async (id, post) => {
+export const updatePost = async (postData) => {
   try {
-    const res = await http.put(API_ENDPOINT.putPost(id), post);
+    const res = await http.put(API_ENDPOINT.putPost, postData);
+    console.log(res);
     return Promise.resolve(res.data);
   } catch (err) {
     return Promise.reject(err);

@@ -10,17 +10,16 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
 
     console.log("hihi => ", to);
     const matchedPath = to.matched[0]?.path?.toLowerCase();
-
-    // if (matchedPath) {
-    //     if (
-    //         !userStorage.isLoggedIn &&
-    //         !NOT_REQUIRED_LOGIN.includes(matchedPath)
-    //     ) {
-    //         $toast.warn("Vui lòng đăng nhập tài khoản và mật khẩu");
-    //         return navigateTo(ROUTES.LOGIN);
-    //     } else if (userStorage.isLoggedIn && matchedPath === ROUTES.LOGIN) {
-    //         return navigateTo(ROUTES.HOME);
-    //     } 
+    console.log('match', matchedPath)
+    if (matchedPath) {
+        if (
+            !userStorage.isLoggedIn &&
+            !NOT_REQUIRED_LOGIN.includes(matchedPath)
+        ) {
+            return navigateTo(ROUTES.TRANGCHU);
+        } else if (userStorage.isLoggedIn && matchedPath === ROUTES.LOGIN) {
+            return navigateTo(ROUTES.HOME);
+        } 
         //  else if (userStorage.isLoggedIn && !NOT_REQUIRED_LOGIN.includes(matchedPath)) {
         //     let allowNavigate = false;
     
@@ -64,7 +63,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
         //         return navigateTo(ROUTES.ERROR_FORBIDDEN);
         //     }
         // }   
-    // }
+    }
 
     
  

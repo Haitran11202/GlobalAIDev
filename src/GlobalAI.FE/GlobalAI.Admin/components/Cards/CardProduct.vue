@@ -60,8 +60,8 @@
                 <div>
                   <div class="font-bold">
                     {{
-                      product.tenSanPham.length > 20
-                        ? product.tenSanPham.slice(0, 20) + "..."
+                      product.tenSanPham.length > 30
+                        ? product.tenSanPham.slice(0, 30) + "..."
                         : product.tenSanPham
                     }}
                   </div>
@@ -117,7 +117,10 @@
             <td>Đã duyệt</td>
             <td>
               <div class="dropdown dropdown-left dropdown-end">
-                <label tabindex="0" class="btn m-1 btn-outline" @click="toggleDropdown"
+                <label
+                  tabindex="0"
+                  class="btn m-1 btn-outline"
+                  @click="toggleDropdown"
                   >...</label
                 >
                 <ul

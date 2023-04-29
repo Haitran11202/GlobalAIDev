@@ -59,7 +59,6 @@
               <i class="fas fa-bars"></i>
             </button>
           </div>
-
           <div class="flex flex-wrap">
           </div>
         </div>

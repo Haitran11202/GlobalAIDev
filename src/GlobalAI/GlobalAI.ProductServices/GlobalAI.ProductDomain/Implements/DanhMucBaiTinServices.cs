@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GlobalAI.ProductRepositories;
 using GlobalAI.ProductEntities.Dto.DanhMucBaiTin;
+using GlobalAI.ProductEntities.Dto.Voucher;
 
 namespace GlobalAI.ProductDomain.Implements
 {
@@ -98,6 +99,17 @@ namespace GlobalAI.ProductDomain.Implements
             var baiTin = _danhMucBaiTinRepository.FindById(id);
             var result = _mapper.Map<DanhMucBaiTinDto>(baiTin);
             return result;
+        }
+
+        public void Update(UpdateDanhMucBaiTinDto input)
+        {
+            var userType = CommonUtils.GetCurrentRole(_httpContext);
+            var userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+            var inputUpdate = _mapper.Map<DanhMucBaiTin>(input);
+            inputUpdate.ModifiedBy = username;
+            _danhMucBaiTinRepository.Update(inputUpdate);
+            _dbContext.SaveChanges();
         }
     }
 }
