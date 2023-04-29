@@ -48,8 +48,9 @@
             v-show="isHovering"
             class="w-[400px] min-h-[200px] max-h-[550px] overflow-y-auto rounded-md  bg-white shadow-2xl py-[20px] absolute top-[42px] right-0"
           >
-            <h2 class="mb-5 ml-[15px] text-[#ccc]">Sản phẩm mới thêm</h2>
-            <div
+            <div v-if="useCart.getFullSanPham.length > 0">
+              <h2 class="mb-5 ml-[15px] text-[#ccc]">Sản phẩm mới thêm</h2>
+              <div
               v-for="quantityProduct in useCart.getFullSanPham"
               :key="quantityProduct"
             >
@@ -71,14 +72,20 @@
                 </div>
                 <span class="text-[14px] text-red-500">{{ formatMoneyAll(quantityProduct.giaBan)}} đ</span>
               </div>
-            </div>
-
-            <button
+              </div>
+              <button
               @click="NextManageCart"
               class="float-right hover:bg-lightBlue-400 px-[20px] py-[8px] mt-[20px] mr-[15px] text-white border bg-[#16a249] rounded-md overflow-hidden border-slate-400"
             >
               Xem giỏ hàng
             </button>
+            </div>
+            <div v-else class="flex justify-center items-center flex-col">
+               <div class="w-[90px] mt-4 h-[90px]">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Emoji_u1f45c.svg/1024px-Emoji_u1f45c.svg.png" alt="" class="object-cover">
+               </div>
+               <span class="mt-5">Chưa có sản phẩm</span>
+            </div>
           </div>
         </li>
       </ul>
