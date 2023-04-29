@@ -49,6 +49,9 @@ export const API_ENDPOINT = {
   getAllPostPhanTrang: (pageSize, pageNumber, skip) =>
     `/api/product/bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
 
+    getBaiTinTheoDanhMuc: (id,pageSize, pageNumber, skip) =>
+    `/api/product/bai-tin/find-all?idDanhMuc=${id}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
+
   deletePost: (id) => `/api/product/bai-tin?id=${id}`,
 
   postPosts: `/api/product/bai-tin`,
