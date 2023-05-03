@@ -145,5 +145,11 @@ namespace GlobalAI.ProductDomain.Implements
                 _dbContext.SaveChanges();
             }
         }
+
+        public List<GetSanPhamDto> GetSanPhamByIdGstore (int idGstore)
+        {
+            var getSanPhamDto = _repositorySanPham.GetSanPhamByIdGstore(idGstore);
+            return _mapper.Map<List<GetSanPhamDto>>(getSanPhamDto);
+        }
     }
 }

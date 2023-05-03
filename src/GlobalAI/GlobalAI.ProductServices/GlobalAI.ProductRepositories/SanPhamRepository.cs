@@ -141,6 +141,11 @@ namespace GlobalAI.ProductRepositories
             
             return result;
         }
+        public List<SanPham> GetSanPhamByIdGstore(int idGstore)
+        {
+            var sanPham = _dbSet.AsNoTracking().Where(sp => sp.IdGStore == idGstore).ToList();
+            return sanPham;
+        }
 
     }
 }
