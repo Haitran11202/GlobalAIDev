@@ -223,5 +223,26 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+        /// <summary>
+        /// Lấy sản phẩm theo id Gstore
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("get-idGstore/{id}")]
+        public APIResponse GetSanPhamByIdGstore(int id)
+        {
+            try
+            {
+                var result = _sanPhamServices.GetSanPhamByIdGstore(id);
+                
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
+
     }
 }

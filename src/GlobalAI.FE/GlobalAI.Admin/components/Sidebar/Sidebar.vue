@@ -3,15 +3,20 @@
     class="flex flex-wrap px-8 mx-auto gap-[10px] mt-[20px] mb-[20px] sm:block"
   >
     <marquee behavior="" direction="" class="py-1"
-      ><button
-        class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] py-[10px] px-[20px] ml-2 mt-2 uppercase bg-white rounded-md"
-        v-for="(item, idx) in listDanhMuc"
-        :style="{ 'color': colors[idx % colors.length] }"
+      >
+      <div v-for="(item, idx) in listDanhMuc" :key="idx" class="overflow-hidden inline-flex  ml-2 mt-2 uppercase bg-white rounded-xl">
+        <RouterLink
+        class="py-[10px] px-[20px] w-full"
+        :to="`/product/category/${item.idDanhMuc}`"
+        
+        :style="{ 'color': colors[idx % colors.length]}"
         :key="idx"
         @click="selectedCategory(item)"
       >
         {{ item.tenDanhMuc }}
-      </button></marquee
+      </RouterLink>
+      </div>
+     </marquee
     >
   </div>
 </template>
@@ -19,9 +24,11 @@
 <script setup>
 import { ref } from "vue";
 import { defineEmits } from "vue";
+import { useRouter } from "vue-router";
 let collapseShow = ref("hidden");
 const  colors = ['#FFC107', '#9C27B0', '#00BCD4', '#4CAF50', '#E91E63']
 const listDanhMuc = ref([]);
+const router = useRouter();
 onMounted(() => {
   getDanhMucSanPham()
    .then((res) =>

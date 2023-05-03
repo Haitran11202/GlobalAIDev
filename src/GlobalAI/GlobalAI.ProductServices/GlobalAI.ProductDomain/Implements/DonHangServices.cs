@@ -114,6 +114,11 @@ namespace GlobalAI.ProductDomain.Implements
 
             return DonhangFull;
         }
+        public List<GetDonHangDto> GetDonHangByIdGstore(int idGstore)
+        {
+            var donHangs = _repositoryDonHang.GetDonHangByIdGstore(idGstore);
+            return _mapper.Map<List<GetDonHangDto>>(donHangs);
+        }
         /// <summary>
         /// Tạo tất cả thông tin của đơn hàng
         /// </summary>

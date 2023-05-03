@@ -4,7 +4,6 @@
             class="flex items-center gap-[10px] cursor-pointer px-1"
             @click="handleBack"
         >
-    
             <RouterLink
                 to="/gsaler/home"
                 class="float-left flex items-center gap-2"
@@ -41,7 +40,6 @@
                         :key="sanpham.id"
                         class="flex w-full items-start gap-[10px] mb-[30px]"
                     >
-                    
                         <div class="flex items-center gap-[20px]">
                             <input
                                 :id="sanpham.id"
@@ -50,7 +48,7 @@
                                 v-model="selectedProducts"
                                 type="checkbox"
                             />
-                            <p>{{ sanpham.id }}</p>
+
                             <div
                                 class="flex flex-col mt-[20px] w-[102px] h-[102px] items-center justify-center"
                             >
@@ -287,11 +285,11 @@
                         <div
                             v-if="isShowModalOpacity == true"
                             @click="handleCloseModalFull"
-                            class="fixed top-0 lef-0 right-0 w-full h-full bg-black opacity-25 z-20"
+                            class="fixed top-0 lef-0 right-0 w-full h-full bg-black opacity-20 z-20"
                         ></div>
                         <div
                             v-if="isshowModalDelete"
-                            class="ModalUpdateCart z-50 fixed overflow-hidden bg-white top-[50%] translate-x-[-50%] rounded-2xl shadow-2xl left-[50%] translate-y-[-50%]"
+                            class="ModalUpdateCart z-50 fixed overflow-hidden bg-white top-[50%] translate-x-[-50%] rounded-2xl shadow-md left-[50%] translate-y-[-50%]"
                         >
                             <div class="float-right pr-[20px] pt-[10px]">
                                 <button
@@ -648,10 +646,12 @@
                             </p>
                         </div>
                         <div class="mt-5 float-right">
-                            <label for="my-modal" class="btn btn-outline w-full"
+                            <label
+                                for="my-modal"
+                                class="btn btn-outline w-full"
+                                @click="checkOut()"
                                 >Tạo đơn</label
                             >
-
                             <!-- Put this part before </body> tag -->
                             <input
                                 type="checkbox"
@@ -659,26 +659,160 @@
                                 class="modal-toggle"
                             />
                             <div class="modal">
-                                <div class="modal-box">
+                                <div
+                                    class="modal-box bg-[#F5F5F5] p-[30px] w-12/12 max-w-7xl"
+                                >
                                     <div class="modal-action">
                                         <label
                                             for="my-modal"
+                                            @click="handleResetData"
                                             class="btn btn-sm btn-circle absolute right-2 top-2"
                                             >✕</label
                                         >
                                     </div>
-                                    <h3 class="font-bold text-lg">
-                                        Bạn vừa tạo đơn hàng
-                                    </h3>
-                                    <p class="py-4">
-                                        Bạn có muốn xác nhận đơn hàng chứ ?
-                                    </p>
+                                    <div class="flex flex-col gap-2">
+                                        <div
+                                            class="flex w-full bg-white shadow-sm border py-5"
+                                        >
+                                            <div
+                                                class="m-3 flex flex-col gap-2"
+                                            >
+                                                <div
+                                                    class="font-medium text-green-500"
+                                                >
+                                                    <font-awesome-icon
+                                                        :icon="[
+                                                            'fas',
+                                                            'location-dot',
+                                                        ]"
+                                                    />
+                                                    Địa chỉ nhận hàng
+                                                </div>
+                                                <div class="flex gap-3">
+                                                    <div
+                                                        class="font-bold text-black"
+                                                    >
+                                                        {{ thongTinNguoiMua }}
+                                                    </div>
+                                                    <div>
+                                                        {{ diaChi }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div>
+                                                <div
+                                                    class="overflow-x-auto flex flex-col gap-4"
+                                                >
+                                                    <table
+                                                        class="table bg-white border-[1px] flex gap-"
+                                                    >
+                                                        <!-- head -->
+                                                        <thead>
+                                                            <tr>
+                                                                <th
+                                                                    class="py-[20px]"
+                                                                >
+                                                                    Sản Phẩm
+                                                                </th>
+                                                                <th>Đơn giá</th>
+                                                                <th>
+                                                                    Số Lượng
+                                                                </th>
+                                                                <th>
+                                                                    Thành Tiền
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody
+                                                            class="border rounded-t-lg"
+                                                            v-for="donhang in selectedProductCheckout"
+                                                        >
+                                                            <td
+                                                                class="p-3 w-auto font-medium"
+                                                            >
+                                                                {{
+                                                                    donhang
+                                                                        .donHang
+                                                                        .maDonHang
+                                                                }}
+                                                            </td>
+                                                            <tr
+                                                                class=""
+                                                                v-for="ct in donhang.chiTietDonHangFullDtos"
+                                                            >
+                                                                <td
+                                                                    class="flex p-6 gap-4 h-[100%]"
+                                                                >
+                                                                    <div>
+                                                                        <img
+                                                                            class="object-cover w-[50px]"
+                                                                            :src="
+                                                                                getImageUrl(
+                                                                                    ct.thumbnail
+                                                                                )
+                                                                            "
+                                                                        />
+                                                                    </div>
+                                                                    <div
+                                                                        class="flex flex-col justify-center"
+                                                                    >
+                                                                        {{
+                                                                            ct.tenSanPham
+                                                                        }}
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    {{
+                                                                        formatMoneyAll(
+                                                                            ct.donGia
+                                                                        )
+                                                                    }}
+                                                                </td>
+                                                                <td>
+                                                                    {{
+                                                                        ct.soLuong
+                                                                    }}
+                                                                </td>
+                                                                <td>
+                                                                    {{
+                                                                        formatMoneyAll(
+                                                                            ct.thanhTien
+                                                                        )
+                                                                    }}
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div
+                                                        class="flex w-[100%] shadow-sm border bg-white p-4 text-[20px] text-green-600 font-bold"
+                                                    >
+                                                        Tổng thanh toán:
+                                                        {{
+                                                            formatMoneyAll(
+                                                                totalPrice.chietKhau
+                                                            )
+                                                        }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="modal-action">
+                                        <div
+                                            class="flex justify-center items-center mr-[20px]"
+                                        >
+                                            Nhấn "Đặt hàng" đồng nghĩa với việc
+                                            bạn đồng ý tuân theo Điều khoản
+                                            Global-Ai
+                                        </div>
                                         <label
-                                            @click="checkOut"
+                                            @click="dathang"
                                             for="my-modal"
-                                            class="btn"
-                                            >Đồng ý</label
+                                            class="btn btn-success"
+                                            >Đặt Hàng</label
                                         >
                                     </div>
                                 </div>
@@ -708,6 +842,7 @@ const datas = ref([]);
 const isShowModalAddress = ref(false);
 const isShowModelCart = ref("");
 const selectedProducts = ref([]);
+const selectedProductCheckout = ref([]);
 const soLuongUpdate = ref(0);
 const giaBan = ref(0);
 const useCart = useCartStorage();
@@ -720,6 +855,10 @@ const addressText = ref("");
 const nameText = ref("");
 const phoneText = ref("");
 const idDelete = ref("");
+const diaChi = ref("");
+const thongTinNguoiMua = ref("");
+const uniIdGstore = ref([]);
+
 //body call api tạo đơn hàng full
 const bodyData = ref({
     donHang: {
@@ -733,7 +872,9 @@ const bodyData = ref({
     chiTietDonHangFullDtos: [],
 });
 const config = useRuntimeConfig();
-const baseUrl = config.public.apiEndpoint;
+// const baseUrl = config.public.apiEndpoint;
+// const baseUrl = config.public.apiEndpoint;
+const baseUrl = "http://globalai-staging.huce.edu.vn:8089";
 const getImageUrl = (imageUrl) => {
     console.log(imageUrl);
     if (!imageUrl) {
@@ -748,7 +889,9 @@ const getImageUrl = (imageUrl) => {
 const selectedPaymentType = ref("cash");
 const checkAll = ref(false);
 onMounted(async () => {
-    selectedProducts.value.push(router.currentRoute.value.query.checkedItem);
+    selectedProducts.value.push(
+        Number(router.currentRoute.value.query.checkedItem)
+    );
     try {
         const res1 = await getSanPhamByNguoiMua();
         products.value = res1?.data?.data;
@@ -798,7 +941,7 @@ const decrement = (idsp) => {
 };
 //lấy ra đơn giá của giỏ hàng
 const getPrice = (soLuong, giaBan) => {
-    console.log(soLuong,giaBan);
+    console.log(soLuong, giaBan);
     return giaBan * soLuong;
 };
 const getPriceUpdate = () => {
@@ -829,6 +972,8 @@ const getGiaChietKhauTuIdSanPham = (idSanPham) => {
 //xóa giỏ hàng khi click vào icon thùng rác
 const deleteGh = (idsp) => {
     const gioHangsanpham = datas.value.find((s) => s.idSanPham == idsp);
+    selectedProducts.value = selectedProducts.value.filter((id) => id !== idsp);
+    console.log("gio hang được chọn", selectedProducts.value);
     console.log(gioHangsanpham.id);
     deleteGioHang(gioHangsanpham.id)
         .then((res) => {
@@ -853,7 +998,6 @@ const totalPrice = computed(() => {
     console.log(datas.value);
     datas.value.forEach((item) => {
         if (selectedProducts.value.includes(item.idSanPham)) {
-            console.log(selectedProducts.value);
             let giaBan = getGiaBanTuIdSanPham(item.idSanPham);
             let giaChietKhau = getGiaChietKhauTuIdSanPham(item.idSanPham);
             sum += getPrice(item.soLuong, giaBan);
@@ -863,15 +1007,6 @@ const totalPrice = computed(() => {
     });
     return { sum, chietKhau, tongThanhToan };
 });
-
-// format tiền
-// const formatMoney = (soLuong, giaBan) => {
-//     console.log(products.value);
-//     return getPrice(soLuong, giaBan).toLocaleString("vi-VN", {
-//         style: "currency",
-//         currency: "VND",
-//     });
-// };
 
 const formatMoneyAll = (money) => {
     money = Number(money);
@@ -884,34 +1019,40 @@ const removeDuplicates = (arr) => {
     let uniqueArr = arr.filter((item, index) => arr.indexOf(item) === index);
     return uniqueArr;
 };
-//Lấy id gstore
 
 //tạo đơn hàng
 const checkOut = () => {
     var arrGstore = [];
     //lấy ra idgstore
-    console.log(selectedProducts.value);
+    console.log("CheckOut");
     selectedProducts.value.map((idSp) => {
         var chiTiet = products.value.find((p) => p.id == idSp);
         console.log(chiTiet);
         arrGstore.push(chiTiet.idGStore);
     });
     console.log(selectedProducts.value);
-    console.log(arrGstore);
     //tạo chi tiet don hang
     const uniqueGstores = [...new Set(arrGstore)];
+    console.log(uniqueGstores);
+    uniIdGstore.value = uniqueGstores;
     uniqueGstores.forEach((idGStore) => {
         const filterdProducts = selectedProducts.value.filter((idsp) => {
             const product = products.value.find((p) => p.id == idsp);
             return product.idGStore == idGStore;
         });
-        // create chi tiet don hang for products with matching idGStore
+
         // create chi tiet don hang for products with matching idGStore
         const chiTietDonHangFullDtos = filterdProducts.map((idSp) => {
             const chiTiet = products.value.find((p) => p.id == idSp);
+            console.log(chiTiet);
+
             return {
                 idSanPham: chiTiet.id,
+                tenSanPham: chiTiet.tenSanPham,
+                thumbnail: chiTiet.thumbnail,
                 soLuong: getCartItemQuantity(idSp),
+                donGia: chiTiet.giaChietKhau,
+                thanhTien: getCartItemQuantity(idSp) * chiTiet.giaChietKhau,
             };
         });
         // create full don hang object
@@ -926,14 +1067,54 @@ const checkOut = () => {
             chiTietDonHangFullDtos: chiTietDonHangFullDtos,
         };
         console.log(sendBody);
-        console.log(selectedProducts);
+        selectedProductCheckout.value.push(sendBody);
+    });
+
+    console.log(selectedProductCheckout.value);
+};
+const dathang = () => {
+    uniIdGstore.value.forEach((idGStore) => {
+        const filterdProducts = selectedProducts.value.filter((idsp) => {
+            const product = products.value.find((p) => p.id == idsp);
+            return product.idGStore == idGStore;
+        });
+
+        // create chi tiet don hang for products with matching idGStore
+        const chiTietDonHangFullDtos = filterdProducts.map((idSp) => {
+            const chiTiet = products.value.find((p) => p.id == idSp);
+            console.log(chiTiet);
+
+            return {
+                idSanPham: chiTiet.id,
+                soLuong: getCartItemQuantity(idSp),
+            };
+        });
+        // create full don hang object
+        const sendBody = {
+            donHang: {
+                maDonHang: `md${Math.floor(Math.random() * 10) + 1}`,
+                ngayHoanThanh: new Date(),
+                idGStore: idGStore,
+                soTien: totalPrice.value.chietKhau,
+                hinhThucThanhToan: selectedPaymentType.value,
+                diaChi: diaChi.value,
+            },
+            chiTietDonHangFullDtos: chiTietDonHangFullDtos,
+        };
+        console.log(sendBody);
         createFullDonHang(sendBody)
             .then((res) => {
                 toast.success("Tạo đơn hàng thành công");
-                console.log(res);
+                // xóa sản phẩm trong giỏ hàng khi thêm đơn hàng thành công
+                sendBody.chiTietDonHangFullDtos.map((ct) => {
+                    console.log(ct.idSanPham);
+                    deleteGh(ct.idSanPham);
+                });
             })
             .catch(() => {});
     });
+
+    handleResetData();
 };
 const handleUpdateProduct = (id, soLuong, giaBanModal) => {
     isShowModelCart.value = id;
@@ -977,6 +1158,7 @@ const handleDelete = () => {
     const gioHangsanpham = datas.value.find(
         (s) => s.idSanPham == idDelete.value
     );
+    console.log(selectedProducts);
     console.log(idDelete.value);
     console.log(gioHangsanpham);
     deleteGioHang(gioHangsanpham.id)
@@ -1022,16 +1204,25 @@ const handleSubmitFormAddress = () => {
             SoDienThoai: phoneText.value,
         };
         console.log(bodyForm);
+
+        const diaChiString = `Tỉnh ${bodyForm.Tinh}, Quận ${bodyForm.Quan}, Phường ${bodyForm.Phuong}, số nhà ${bodyForm.SoNha}`;
+        diaChi.value = diaChiString;
+        const ttNguoiMua = `${bodyForm.Ten} (+84) ${bodyForm.SoDienThoai}`;
+        thongTinNguoiMua.value = ttNguoiMua;
+        console.log(diaChi.value, thongTinNguoiMua.value);
         isShowModalAddress.value = false;
         isShowModalOpacity.value = false;
         toast.success("Cập nhật địa chỉ thành công");
     }
 };
+const handleResetData = () => {
+    selectedProductCheckout.value = [];
+};
 const handleBack = () => {
     router.back();
 };
 </script>
-<style lang="css">
+<style lang="css" scoped>
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -1041,7 +1232,7 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 .ModalUpdateCart {
-    animation: FadeIn ease-in-out 0.3s;
+    animation: FadeIn ease-in-out 0.5s;
 }
 @keyframes FadeIn {
     from {
@@ -1050,5 +1241,9 @@ input[type="number"] {
     to {
         opacity: 1;
     }
+}
+td,
+th {
+    background-color: white;
 }
 </style>
