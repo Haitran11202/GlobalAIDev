@@ -84,4 +84,11 @@ export const API_ENDPOINT = {
     deletePostCategory: (id) => `/api/product/danh-muc-bai-tin?id=${id}`,
 
     postPostCategory: `/api/product/danh-muc-bai-tin`,
+
+    // api tra gia
+    postProductBid:`/api/product/tra-gia`,
+    postTragiaDetail:`/api/product/tra-gia/add-detail`,
+    getDetailedPayment:(idTraGia) => `/api/product/tra-gia/${idTraGia}`,
+    getProductBidUser:(IdSanPham , GiaTien , status , pageSize , pageNumber , Skip) => `/api/product/tra-gia/find-all?IdSanPham=${IdSanPham}&GiaTien=${GiaTien}&status=${status}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
+    getIDPayment:(idSanPham) => `/api/product/tra-gia/FindTraGiaBySanPham?idSanPham=${idSanPham}`
 };
