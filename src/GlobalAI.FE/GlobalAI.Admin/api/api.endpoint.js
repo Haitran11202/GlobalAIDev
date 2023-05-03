@@ -70,7 +70,6 @@ export const API_ENDPOINT = {
 
   putVoucher: `/api/product/voucher/update`,
 
-  
   // Danh mục bài tin
   getAllPostCategoryPhanTran: (pageSize, pageNumber, skip) =>
     `/api/product/danh-muc-bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
@@ -80,4 +79,6 @@ export const API_ENDPOINT = {
   deletePostCategory: (id) => `/api/product/danh-muc-bai-tin?id=${id}`,
 
   postPostCategory: `/api/product/danh-muc-bai-tin`,
+
+  putPostCategory: `/api/product/danh-muc-bai-tin`,
 };

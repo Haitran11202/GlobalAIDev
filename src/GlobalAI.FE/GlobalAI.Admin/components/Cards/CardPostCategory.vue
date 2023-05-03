@@ -79,6 +79,7 @@ import {
 import { useRouter } from "vue-router";
 const { $toast } = useNuxtApp();
 
+const router = useRouter();
 const pageSize = 5;
 const pageNumber = ref(1);
 const skip = ref(0);
