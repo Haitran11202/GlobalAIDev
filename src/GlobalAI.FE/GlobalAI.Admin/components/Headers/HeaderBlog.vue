@@ -10,7 +10,7 @@
             >
             <img
                       alt="..."
-                      class="align-middle border-none max-w-full w-[120px] py-1 rounded-lg w-full"
+                      class="align-middle border-none max-w-full w-[120px] py-1 rounded-lg"
                       :src="logo"
                     />
             </a>
@@ -39,7 +39,7 @@
                 >
                 <img
                       alt="..."
-                      class="align-middle border-none max-w-full w-[120px] py-1 rounded-lg w-full"
+                      class="align-middle border-none max-w-full w-[120px] py-1 rounded-lg "
                       :src="logo"
                     />
                 </a>
