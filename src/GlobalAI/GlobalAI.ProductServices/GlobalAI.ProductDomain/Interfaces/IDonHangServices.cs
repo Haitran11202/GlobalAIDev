@@ -1,5 +1,6 @@
 ﻿using GlobalAI.DataAccess.Models;
 using GlobalAI.DemoEntities.Dto.Product;
+using GlobalAI.ProductDomain.Implements;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.DonHang;
@@ -22,6 +23,7 @@ namespace GlobalAI.ProductDomain.Interfaces
         public void DeleteDonHangById(int id);
 
         public DonHangFullDto GetDonHangFull(int maDonHang);
+        public List<GetDonHangDto> GetDonHangByIdGstore(int idGstore);
         public void CreateDonHangFull(AddDonHangFullDto donHangFullDto);
 
         public DonHang UpdateStatusDonHang(UpdateStatusDonHangDto updateDonHangDto);

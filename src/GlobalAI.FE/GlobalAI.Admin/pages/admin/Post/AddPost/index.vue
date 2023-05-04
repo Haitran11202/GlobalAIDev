@@ -227,7 +227,6 @@ function handlePostPost() {
     });
 }
 
-
 //Lấy danh mục của bài tin
 const pageSize = 15;
 const pageNumber = ref(1);

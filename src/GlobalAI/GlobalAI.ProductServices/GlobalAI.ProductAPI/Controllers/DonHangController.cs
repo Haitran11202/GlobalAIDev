@@ -125,6 +125,26 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+
+        /// <summary>
+        /// Lấy đơn hàng và chi tiết đơn hàng
+        /// </summary>
+        /// <param name="maDonHang"></param>
+        /// <returns></returns>
+        [HttpGet("full-gstore/{id}")]
+        [ProducesResponseType(typeof(APIResponse<int>), (int)HttpStatusCode.OK)]
+        public APIResponse GetDonHangByIdGstore(int id)
+        {
+            try
+            {
+                var input = _donHangServices.GetDonHangByIdGstore(id);
+                return new APIResponse(Utils.StatusCode.Success, input, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
         /// <summary>
         /// Tạo đơn hàng và chi tiết đơn hàng
         /// </summary>

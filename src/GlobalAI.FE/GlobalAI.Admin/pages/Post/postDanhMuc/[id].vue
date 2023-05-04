@@ -1,5 +1,4 @@
 <template>
-    <HeaderDefault />
     <div class="flex flex-col">
 
         <navbar />
@@ -97,6 +96,7 @@ const idDanhMucBaiTin = ref([]);
 const danhMuc = ref([]);
 const selectedDanhMuc = ref(0);
 definePageMeta({
+    layout: "layout-blog",
     name: "PostDanhMuc",
 });
 onMounted(() => {

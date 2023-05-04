@@ -101,5 +101,6 @@ const props = defineProps({
 
 definePageMeta({
   layout: "layout-default",
+  name:'Category'
 })
 </script>

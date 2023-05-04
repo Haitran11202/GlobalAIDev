@@ -135,5 +135,10 @@ namespace GlobalAI.ProductRepositories
             }
             return result;
         }
+        public List<GetDonHangDto> GetDonHangByIdGstore (int idGstore)
+        {
+            var result =  _dbSet.Where(dh =>  dh.IdGStore == idGstore).AsNoTracking().ToList();
+            return _mapper.Map<List<GetDonHangDto>>(result);
+        }
     }
 }

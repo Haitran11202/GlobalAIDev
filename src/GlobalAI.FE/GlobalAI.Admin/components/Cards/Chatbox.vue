@@ -1,6 +1,7 @@
 <template lang="">
   <div class="w-[550px] bg-white">
     <div class="flex justify-between pb-2 items-start">
+       <!-- Thông tin User and Sản phẩm -->
       <div class="flex gap-[15px]">
         <div class="w-[40px] h-[40px] rounded-[50%] overflow-hidden">
           <img
@@ -33,7 +34,6 @@
           <h2 class="text-[14px] font-bold uppercase">
             {{ props.products.tenSanPham }}
           </h2>
-          <h1>{{ props.products.idGStore }}</h1>
           <div class="flex items-center">
             <span class="text-[#cc3366] text-[14px] mr-1">Giá Bán :</span>
             <span class="text-[12px] text-[#cc3366] font-bold"
@@ -197,6 +197,7 @@
       </div>
     </div>
   </div>
+  <!-- Lớp phủ -->
   <div
     v-if="isOpacity"
     class="fixed top-0 lef-0 right-0 w-full h-full bg-black opacity-25 z-20"

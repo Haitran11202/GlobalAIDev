@@ -64,7 +64,7 @@
           />
           <error-message name="giaChietKhau" class="text-red-500" />
         </div>
-        <div>
+        <!-- <div>
           <label
             for="idDanhMuc"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
@@ -92,6 +92,28 @@
             <option value="13">Giày dép</option>
             <option value="14">Bảo hiểm</option>
             <option value="15">Thiết bị gia dụng</option>
+          </select>
+        </div> -->
+        <div class="col-span-1">
+          <label
+            for="idDanhMuc"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
+            >Danh mục</label
+          >
+          <select
+            v-model="idDanhMuc"
+            id="idDanhMuc"
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            required
+          >
+            <option value="">-- Lựa chọn danh mục --</option>
+            <option
+              v-for="danhmuc in danhmucsp"
+              :value="danhmuc.id"
+              :key="danhmuc.id"
+            >
+              {{ danhmuc.tenDanhMuc }}
+            </option>
           </select>
         </div>
         <div class="">
@@ -173,6 +195,7 @@ const giaBan = ref(0);
 const giaChietKhau = ref(0);
 const idDanhMuc = ref("");
 const thumbnail = ref("");
+const danhmucsp = ref([]);
 
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
@@ -219,10 +242,10 @@ function handlePostProduct() {
     moTa: moTa.value,
     giaBan: giaBan.value,
     giaChietKhau: giaChietKhau.value,
-    idDanhMuc: idDanhMuc.value,
+    idDanhMuc: idDanhMuc.value.toString(),
     thumbnail: thumbnail.value,
   };
-
+  console.log(danhmucsp);
   postProduct(productData)
     .then((response) => {
       console.log(response);
@@ -233,4 +256,19 @@ function handlePostProduct() {
       toast.error("Thêm sản phẩm thất bại. Vui lòng thử lại!");
     });
 }
+
+//Lấy danh mục sản phẩm
+const pageSize = 15;
+const pageNumber = ref(1);
+const skip = ref(0);
+
+onMounted(() => {
+  getAllCategoryProductPhanTrang(pageSize, pageNumber.value, skip.value)
+    .then((response) => {
+      danhmucsp.value = response.data.items;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
 </script>

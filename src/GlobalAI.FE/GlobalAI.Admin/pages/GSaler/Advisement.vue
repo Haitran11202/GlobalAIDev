@@ -61,7 +61,7 @@ function nextImage() {
     currentIndex.value = 0;
   }
   // Thêm dòng sau để di chuyển đến ảnh mới
-  if(imagesContainer.value.style){
+  if(imagesContainer.value){
 
     imagesContainer.value.style.transform =
       "translateX(" + -currentIndex.value * 100 + "%)";
@@ -75,7 +75,7 @@ function prevImage() {
   }
 
   // Thêm dòng sau để di chuyển đến ảnh mới
-if(imagesContainer.value.style){
+if(imagesContainer.value){
   imagesContainer.value.style.transform =
     "translateX(" + -currentIndex.value * 100 + "%)";
 
@@ -83,8 +83,7 @@ if(imagesContainer.value.style){
 }
 function setCurrentIndex(index) {
   currentIndex.value = index;
-  if(imagesContainer.value.style){
-
+  if(imagesContainer.value){
     imagesContainer.value.style.transform =
       "translateX(" + -currentIndex.value * 100 + "%)";
   }
