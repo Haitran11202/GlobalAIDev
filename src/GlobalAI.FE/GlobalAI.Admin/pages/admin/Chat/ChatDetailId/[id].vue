@@ -7,46 +7,38 @@
             class="relative w-full px-4 max-w-full flex justify-between items-center"
           >
             <h3 class="font-semibold text-lg text-slate-800 uppercase">
-             Danh Sách Tương Tác Người Dùng 
+              Danh Sách Tương Tác Người Dùng
             </h3>
           </div>
         </div>
       </div>
-      <table class="table w-full mt-2">
+      <table class="w-full mt-2 bg-white">
         <!-- head -->
         <thead>
-          <tr>
-            <th>
-              <label>
-                <input type="checkbox" class="checkbox" />
-              </label>
-            </th>
+          <tr class="bg-slate-200 py-2 px-2">
             <th>Mã</th>
             <th>ID Người Mua</th>
             <th>ID Sản Phẩm</th>
             <th>Giá Cuối</th>
-            <th>Trạng Thái</th>
+            <th class="py-3 px-2">Trạng Thái</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="text-sm hover:bg-red-500" @click="handleChatDetailProduct(product)"  v-for="product in products" :key="product.id">
-            <th>
-              <label>
-                <input type="checkbox" class="checkbox" />
-              </label>
-            </th>
-            <td>{{ product.id }}</td>
-         
-            <td>
-              {{
-                product.idNguoiMua
-              }}
+          <tr
+            class="text-sm cursor-pointer border-slate-200 hover:bg-slate-50 border-b-[1px]"
+            @click="handleChatDetailProduct(product)"
+            v-for="product in products.slice(skip, skip + pageSize)"
+            :key="product.id"
+          >
+            <td class="text-center items-center justify-center py-5 px-2">{{ product.id }}</td>
+
+            <td  class="text-center items-center justify-center py-5 px-2">
+              {{ product.idNguoiMua }}
             </td>
-    
-      
-            <td>{{ product.idSanPham }}</td>
-            <td>{{ product.giaCuoi }}</td>
-            <td>{{ product.status }}</td>
+
+            <td  class="text-center items-center justify-center py-5 px-2">{{ product.idSanPham }}</td>
+            <td  class="text-center items-center justify-center py-5 px-2">{{ product.giaCuoi }}</td>
+            <td  class="text-center items-center justify-center py-5 px-2">{{ product.status }}</td>
           </tr>
         </tbody>
       </table>
@@ -56,11 +48,14 @@
       <button @click="nextPage" class="btn">»</button>
     </div>
     <div
-          v-if="isCheckedChat"
-          class="fixed bottom-0 right-[5%] bg-white border-[1px] shadow-md rounded-t-md px-[15px] py-[15px]"
-        >
-          <ChatBoxAdmin v-on:close-box="handleCloseBoxChat" :products="productsChat" />
-        </div>
+      v-if="isCheckedChat"
+      class="fixed bottom-0 right-[5%] bg-white border-[1px] shadow-md rounded-t-md px-[15px] py-[15px]"
+    >
+      <ChatBoxAdmin
+        v-on:close-box="handleCloseBoxChat"
+        :products="productsChat"
+      />
+    </div>
   </div>
 </template>
 <script>
@@ -110,20 +105,20 @@ export default {
 import { toast } from "vue3-toastify";
 import ChatBoxAdmin from "~~/components/Cards/ChatBoxAdmin.vue";
 const router = useRouter();
-const isCheckedChat = ref(false)
-const products = ref([])
-const productsChat = ref({})
-definePageMeta({
-  layout: "admin",
-  name: "ChatDetailId",
-});
+const isCheckedChat = ref(false);
+const products = ref([]);
+const productsChat = ref({});
+const pageSize = 5;
+const pageNumber = ref(1);
+const skip = ref(0);
+const totalPages = ref(1);
 const isStatus = ref(1);
 
 const handleChatDetailProduct = (product) => {
   console.log(product);
   isCheckedChat.value = true;
   productsChat.value = product;
-}
+};
 
 const handleIdDetail = (id) => {
   console.log(id);
@@ -134,17 +129,40 @@ onMounted(() => {
   console.log(router.currentRoute.value.params.id);
   getSanPhamById(router.currentRoute.value.params.id).then((res) => {
     console.log(res.data.data);
-    getProductBidUser(res?.data?.data.id , res?.data?.data.giaBan , 1 , -1 , 1 , 0)
-     .then((res) => {
-      console.log(res?.data?.data.items)
-      products.value = res?.data?.data.items;
-     })
-     .catch((err) => console.log(err))
-   .catch((err) => console.log(err))
+    getProductBidUser(res?.data?.data.id, res?.data?.data.giaBan, 1, -1, 1, 0)
+      .then((res) => {
+        console.log(res?.data?.data.items);
+        products.value = res?.data?.data.items;
+        watchEffect(() => {
+          skip.value = (pageNumber.value - 1) * pageSize;
+          totalPages.value = Math.ceil(products.value.length / pageSize);
+        });
+      })
+      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   });
 });
 
 const handleCloseBoxChat = () => {
   isCheckedChat.value = false;
 };
+const previousPage = () => {
+  if (pageNumber.value === 1) {
+    // Kiểm tra xem đã đạt trang đầu tiên hay chưa
+    return;
+  }
+  pageNumber.value -= 1;
+};
+
+const nextPage = () => {
+  if (products.value.length < pageSize) {
+    // Kiểm tra xem có đủ sản phẩm để hiển thị trên trang tiếp theo hay không
+    return;
+  }
+  pageNumber.value += 1;
+};
+definePageMeta({
+  layout: "admin",
+  name: "ChatDetailId",
+});
 </script>

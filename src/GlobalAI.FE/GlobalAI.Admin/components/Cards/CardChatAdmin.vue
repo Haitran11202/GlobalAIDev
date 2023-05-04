@@ -1,49 +1,39 @@
 <template>
   <div>
-    <div class="overflow-x-auto relative w-full">
+    <div class="overflow-x-auto  relative w-full">
       <div class="mb-0 rounded-md px-4 py-3 bg-[#fff] border-0">
         <div class="flex flex-wrap items-center">
           <div
             class="relative w-full px-4 max-w-full flex justify-between items-center"
           >
             <h3 class="font-semibold text-lg text-slate-800 uppercase">
-              Danh sách sản phẩm
+              Danh Sách Sản Phẩm 
             </h3>
           </div>
         </div>
       </div>
-      <table class="table w-full mt-2">
+      <table class="w-full mt-2 bg-white">
         <!-- head -->
         <thead>
-          <tr>
-            <th>
-              <label>
-                <input type="checkbox" class="checkbox" />
-              </label>
-            </th>
+          <tr class="bg-slate-200 py-2 px-2">
             <th>Mã</th>
             <th>Ảnh sản phẩm</th>
             <th>Tên sản phẩm</th>
             <th>Giá bán</th>
             <th>Mã GStore</th>
-            <th>Trạng thái sản phẩm</th>
+            <th class="py-3 px-2">Trạng thái sản phẩm</th>
           </tr>
         </thead>
         <tbody>
           <tr
-            class="text-sm"
+            class="text-sm cursor-pointer border-slate-200 hover:bg-slate-50 border-b-[1px]"
             @click="ChatDetailId(product.id)"
-            v-for="product in products"
+            v-for="product in products.slice(skip, skip + pageSize)"
             :key="product.id"
           >
-            <th>
-              <label>
-                <input type="checkbox" class="checkbox" />
-              </label>
-            </th>
-            <td>{{ product.id }}</td>
-            <td>
-              <div class="flex items-center space-x-3">
+            <td class="text-center items-center justify-center py-5 px-2" >{{ product.id }}</td>
+            <td class="text-center items-center justify-center py-5 px-2">
+              <div class="flex justify-center items-center space-x-3">
                 <div class="avatar">
                   <div class="mask mask-squircle w-12 h-12">
                     <img
@@ -54,7 +44,7 @@
                 </div>
               </div>
             </td>
-            <td>
+            <td class="text-center items-center justify-center py-5 px-2">
               <div>
                 <div class="font-bold">
                   {{
@@ -65,7 +55,7 @@
                 </div>
               </div>
             </td>
-            <td>
+            <td class="text-center">
               {{
                 product.giaBan.toLocaleString("vi-VN", {
                   style: "currency",
@@ -74,18 +64,18 @@
               }}
             </td>
 
-            <td>{{ product.idGStore }}</td>
+            <td class="text-center">{{ product.idGStore }}</td>
 
-            <td>Đã duyệt</td>
+            <td class="text-center">Đã duyệt</td>
           </tr>
         </tbody>
       </table>
     </div>
     <div class="btn-group flex justify-center mt-2">
       <button @click="previousPage" class="btn">«</button>
+      <span class="btn">{{ pageNumber }} / {{ totalPages }}</span>
       <button @click="nextPage" class="btn">»</button>
     </div>
-
   </div>
 </template>
 
@@ -105,6 +95,7 @@ const accesstoken = token.accessToken;
 const pageSize = 5;
 const pageNumber = ref(1);
 const skip = ref(0);
+const totalPages = ref(1);
 
 // Sử dụng biến ref() để tạo các biến reactive
 const products = ref([]);
@@ -116,6 +107,10 @@ onMounted(() => {
       .then((res) => {
         console.log(res.data.data);
         products.value = res?.data?.data;
+        watchEffect(() => {
+          skip.value = (pageNumber.value - 1) * pageSize;
+          totalPages.value = Math.ceil(products.value.length / pageSize);
+        });
       })
       .catch((err) => console.log(err));
   }
@@ -150,7 +145,6 @@ const previousPage = () => {
 };
 
 const nextPage = () => {
-  console.log(1);
   if (products.value.length < pageSize) {
     // Kiểm tra xem có đủ sản phẩm để hiển thị trên trang tiếp theo hay không
     return;
