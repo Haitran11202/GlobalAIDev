@@ -1,29 +1,21 @@
 <template>
 
   <div>
-    <!-- Header -->
-    <div class="sticky top-0 bg-white z-20 shadow px-4 lg:hidden hidden md:hidden sm:block">
-      <div class="container mx-auto px-4">
-        <div class="flex justify-between items-center py-3">
-          <a href="/" class="text-slate-700 text-xl font-bold leading-relaxed">
-            GlobalAI
-          </a>
-          <button class="block lg:hidden focus:outline-none">
-            <i class="fas fa-bars"></i>
-          </button>
-        </div>
-      </div>
-    </div>
+  
     <!-- Header -->
     <div>
-      <div class="sticky top-0 bg-white z-20 shadow px-4 lg:hidden ">
+      <div class="sticky top-0 bg-white z-20 shadow lg:hidden ">
         <div class="container mx-auto px-4">
-          <div class="flex justify-between items-center py-3">
+          <div class="flex justify-between items-center">
             <a
               href="/"
               class="text-slate-700 text-xl font-bold leading-relaxed"
             >
-              GlobalAI
+            <img
+                      alt="..."
+                      class="align-middle border-none max-w-full py-1 w-[120px] rounded-lg w-full"
+                      :src="logo"
+                    />
             </a>
             <button class="block lg:hidden focus:outline-none">
               <FontAwesomeIcon icon="fas fa-bars" />
@@ -43,12 +35,17 @@
               href="/"
               class="router-link-active router-link-exact-active"
             >
-              <div>
+              <div class="w-[150px]">
                 <a
-                  class="text-slate-700 text-xl font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap"
+                  class="text-slate-700 text-xl font-bold leading-relaxed inline-block mr-4 whitespace-nowrap"
                   href="/gsaler/home"
                 >
-                  GlobalAI
+                <img
+                      alt="..."
+                      class="align-middle border-none max-w-full py-1 rounded-lg w-full"
+                      :src="logo"
+                    />
+                
                 </a>
               </div>
             </a>
@@ -74,4 +71,5 @@
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import CardStats from "../../components/Cards/CardStats.vue";
 import DefaultNavbar from "../Navbars/DefaultNavbar.vue";
+import logo from "~~/assets/img/Text_2_3_logo.png";
 </script>

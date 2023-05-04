@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 py-3 navbar-expand-lg bg-white shadow"
+    class="top-0 fixed z-50 w-full flex flex-wrap items-center justify-between px-2 navbar-expand-lg bg-white shadow"
   >
     <div
       class="container px-4 mx-auto flex flex-wrap items-center justify-between"
@@ -9,12 +9,12 @@
         class="w-full relative flex justify-between lg:w-auto lg:static lg:block lg:justify-start"
       >
         <nuxt-link to="/">
-          <a
-            class="text-slate-700 text-xl font-bold leading-relaxed inline-block mr-4 py-2 whitespace-nowrap"
-            href="#pablo"
-          >
-            Global AI
-          </a>
+         
+          <img
+                      alt="..."
+                      class="align-middle border-none max-w-full w-[150px] py-1 rounded-lg w-full"
+                      :src="logo"
+                    />
         </nuxt-link>
         <button
           class="cursor-pointer text-xl leading-none px-3 py-1 border border-solid border-transparent rounded bg-transparent block lg:hidden outline-none focus:outline-none"
@@ -91,6 +91,7 @@
 import IndexDropdown from "../Dropdowns/IndexDropdown.vue";
 import UserSvg from "../../assets/svg/user.svg";
 import { ref } from "vue";
+import logo from "~~/assets/img/Text_2_3_logo.png";
 
 let navbarOpen = ref(false);
 
