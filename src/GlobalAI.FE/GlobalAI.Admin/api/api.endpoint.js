@@ -12,6 +12,16 @@ export const API_ENDPOINT = {
     getFullSanPham: (id) =>
         `api/product/sanpham/danh-muc/${id}?pageSize=10000000&pageNumber=1&Skip=0`,
     getDanhMucSanPham: `/api/product/sanpham/danh-muc?pageSize=10&pageNumber=1&Skip=0`,
+
+    getSanPhamByIdGStore: (pageSize, pageNumber, skip) =>
+        `api/product/sanpham/get-sanpham-gstore?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
+    //Image
+    postImages: "api/filFe/upload?folder=image",
+    // Quản lý đơn hàng
+    getAllOrder: (pageSize, pageNumber, skip) =>
+        `http://localhost:5003/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
+    postProducts: `api/product/sanpham`,
+    putProduct: (id) => `api/product/sanpham/${id}`,
     // API Giỏ Hàng
     getGioHang: "api/product/giohang",
     getGioHangByIdSanPham: (id) =>
