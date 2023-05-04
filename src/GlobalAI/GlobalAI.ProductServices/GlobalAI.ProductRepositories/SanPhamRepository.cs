@@ -141,10 +141,27 @@ namespace GlobalAI.ProductRepositories
             
             return result;
         }
-        public List<SanPham> GetSanPhamByIdGstore(int idGstore)
+        public PagingResult<GetSanPhamDto> GetSanPhamByIdGstore(int? idGstore,GetSanPhamIdGstoreDto input)
         {
-            var sanPham = _dbSet.AsNoTracking().Where(sp => sp.IdGStore == idGstore).ToList();
-            return sanPham;
+            _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
+            PagingResult<GetSanPhamDto> result = new();
+            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.Id).Where(p => p.Deleted == false && (idGstore == null || p.IdGStore == idGstore))
+                .Where(r => (input.Keyword == null || r.TenSanPham.Contains(input.Keyword)));
+            if (input.PageSize != -1)
+            {
+                projectQuery = projectQuery.Skip(input.Skip).Take(input.PageSize);
+            }
+            result.TotalItems = projectQuery.Count();
+            var sanphams = projectQuery;
+            var sanphamDtos = new List<GetSanPhamDto>();
+            foreach (var item in sanphams)
+            {
+                var getSpDto = _mapper.Map<GetSanPhamDto>(item);
+
+                sanphamDtos.Add(getSpDto);
+            }
+            result.Items = sanphamDtos;
+            return result;
         }
 
     }

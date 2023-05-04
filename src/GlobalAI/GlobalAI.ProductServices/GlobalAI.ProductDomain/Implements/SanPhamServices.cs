@@ -23,6 +23,8 @@ using System.Text;
 using System.Threading.Tasks;
 using GlobalAI.Utils;
 using GlobalAI.Utils.ConstantVariables.Product;
+using GlobalAI.Utils.ConstantVariables.Core;
+using GlobalAI.CoreEntities.DataEntities;
 
 namespace GlobalAI.ProductDomain.Implements
 {
@@ -146,10 +148,19 @@ namespace GlobalAI.ProductDomain.Implements
             }
         }
 
-        public List<GetSanPhamDto> GetSanPhamByIdGstore (int idGstore)
+        public PagingResult<GetSanPhamDto> GetSanPhamByIdGstore (GetSanPhamIdGstoreDto input)
         {
-            var getSanPhamDto = _repositorySanPham.GetSanPhamByIdGstore(idGstore);
-            return _mapper.Map<List<GetSanPhamDto>>(getSanPhamDto);
+            string userRole = CommonUtils.GetCurrentRole(_httpContext);
+            if (userRole == Roles.Admin)
+            {
+                return _repositorySanPham.GetSanPhamByIdGstore(null, input);
+            }
+            if(userRole == Roles.GStore)
+            {
+                int userId = CommonUtils.GetCurrentUserId(_httpContext);
+                return _repositorySanPham.GetSanPhamByIdGstore(userId, input);
+            }
+            return null;
         }
     }
 }

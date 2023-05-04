@@ -29,6 +29,8 @@ export const API_ENDPOINT = {
 
     postProducts: `api/product/sanpham`,
     putProduct: (id) => `api/product/sanpham/${id}`,
+
+    getSanPhamByIdGStore : (pageSize, pageNumber, skip) => `api/product/sanpham/get-sanpham-gstore?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
     //Image
     postImages: "api/filFe/upload?folder=image",
     // Quản lý đơn hàng

@@ -126,13 +126,14 @@ namespace GlobalAI.IdentityServer.Controllers
 
         private void AddClaim(ClaimsIdentity identity, OpenIddictRequest request, User user)
         {
+            var userRole = _userServices.FindUserRoleByUserId(user.UserId).Select(x=>x.RoleId.ToString());
             // Add the claims that will be persisted in the tokens.
             identity.SetClaim(Claims.Username, user.Username)
                     .SetClaim(Claims.Subject, user.Username)
                     .SetAudiences(new string[] { "http://localhost:5002", "http://localhost:5004" })
             .SetClaim(Claims.Email, user.Email)
             .SetClaim(Claims.Name, $"{user.FirstName} {user.LastName}")
-                    .SetClaims(Claims.Role, (new List<string> { user.UserType }).ToImmutableArray())
+                    .SetClaims(Claims.Role, userRole.ToImmutableArray())
                     .SetClaim(Shared.ClaimTypes.UserId, $"{user.UserId}")
                     .SetClaims(Shared.ClaimTypes.UserType, (new List<string> { user.UserType }).ToImmutableArray());
 
