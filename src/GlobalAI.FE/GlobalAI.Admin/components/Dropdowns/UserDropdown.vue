@@ -34,7 +34,7 @@
           Hồ sơ
         </span>
         <span
-          @click="router.push('/boxchat/1')"
+          @click="handleChatDetail"
           class="text-sm font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
         >
           Chat chi tiết
@@ -81,13 +81,24 @@ export default {
 
 <script setup>
 import { useUserStorage } from "~~/stores/user";
+import jwt_decode from "jwt-decode";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const { $toast } = useNuxtApp();
 const { logout } = useUserStorage();
+const token = useUserStorage();
+const accesstoken = token.accessToken;
+const getUserInfor = () => {
+  const userInfor = jwt_decode(accesstoken);
+  return userInfor;
+};
+
 const handleLogout = () => {
   logout();
   $toast.success("Đăng xuất thành công");
   router.push("/auth/login");
 };
+const handleChatDetail = () => {
+  router.push(`/BoxChat/${getUserInfor().user_id}`)
+}
 </script>

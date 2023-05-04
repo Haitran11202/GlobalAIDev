@@ -47,6 +47,8 @@ import {
   faImage,
   faUndo,
   faRedo,
+  faTrash,
+  faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 /* add icons to the library */
 library.add(
@@ -89,7 +91,10 @@ library.add(
   faList,
   faImage,
   faUndo,
-  faRedo
+  faRedo,
+  faCircleInfo,
+  faTrash,
+  faPenToSquare
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

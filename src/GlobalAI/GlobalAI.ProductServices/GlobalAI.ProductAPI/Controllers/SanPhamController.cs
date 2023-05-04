@@ -228,12 +228,13 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [HttpGet("get-idGstore/{id}")]
-        public APIResponse GetSanPhamByIdGstore(int id)
+        [HttpGet("get-sanpham-gstore")]
+        [ProducesResponseType(typeof(APIResponse<List<GetSanPhamDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse GetSanPhamByIdGstore([FromQuery] GetSanPhamIdGstoreDto input)
         {
             try
             {
-                var result = _sanPhamServices.GetSanPhamByIdGstore(id);
+                var result = _sanPhamServices.GetSanPhamByIdGstore(input);
                 
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }

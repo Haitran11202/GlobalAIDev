@@ -34,13 +34,6 @@ export const API_ENDPOINT = {
     // Quản lý đơn hàng
     getAllOrder: (pageSize, pageNumber, skip) =>
         `http://localhost:5003/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
-    postProducts: `api/product/sanpham`,
-    putProduct: (id) => `api/product/sanpham/${id}`,
-    //Image
-    postImages: "api/filFe/upload?folder=image",
-    // Quản lý đơn hàng
-    getAllOrder: (pageSize, pageNumber, skip) =>
-        `http://localhost:5003/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
 
     postOrder: `/api/product/donhang`,
     postOrder: `/api/product/donhang`,
@@ -117,6 +110,5 @@ export const API_ENDPOINT = {
     deletePostCategory: (id) => `/api/product/danh-muc-bai-tin?id=${id}`,
     deletePostCategory: (id) => `/api/product/danh-muc-bai-tin?id=${id}`,
 
-    postPostCategory: `/api/product/danh-muc-bai-tin`,
     postPostCategory: `/api/product/danh-muc-bai-tin`,
 };
