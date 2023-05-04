@@ -398,7 +398,7 @@ const handleBuyClick = () => {
     router.push({
         name: "ManageCart",
         query: { checkedItem: productId.value },
-        params: { id: productId.value },
+        params: { id: userId },
     });
 };
 
