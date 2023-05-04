@@ -274,3 +274,14 @@ export const getIDPaymentNews = async(idSanPham) => {
     return Promise.reject(error)
   }
 }
+
+export const getSanPhamByIdGStore = async (pageSize, pageNumber, skip) => {
+  try {
+    const response = await http.get(
+      API_ENDPOINT.getSanPhamByIdGStore(pageSize, pageNumber, skip)
+    );
+    return Promise.resolve(response.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
