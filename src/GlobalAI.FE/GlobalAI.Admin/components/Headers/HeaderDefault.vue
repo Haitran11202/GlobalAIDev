@@ -13,7 +13,7 @@
             >
             <img
                       alt="..."
-                      class="align-middle border-none max-w-full py-1 w-[120px] rounded-lg w-full"
+                      class="align-middle border-none max-w-full py-1 w-[120px] rounded-lg"
                       :src="logo"
                     />
             </a>
