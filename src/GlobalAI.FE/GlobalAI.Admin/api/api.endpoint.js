@@ -11,7 +11,7 @@ export const API_ENDPOINT = {
         `api/product/sanpham/danh-muc/${categoryId}?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
     getFullSanPham: (id) =>
         `api/product/sanpham/danh-muc/${id}?pageSize=10000000&pageNumber=1&Skip=0`,
-
+    getSanPhamIdGStore:(id) => `/api/product/sanpham/get-idGstore/${id}`,
     // API Giỏ Hàng
     getGioHang: "api/product/giohang",
     getGioHangByIdSanPham: (id) =>

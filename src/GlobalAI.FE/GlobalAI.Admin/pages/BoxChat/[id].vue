@@ -204,10 +204,13 @@ if (process.client) {
     listIdChat = JSON.parse(existingList).filter(
       (item) => item.idNguoiMua == getUserInfor().user_id
     );
+    console.log(listIdChat);
   }
 }
 // Lấy thông tin sản phẩm và thông tin đoạn chat 
 onMounted(() => {
+  const existingList = localStorage.getItem("listIdTraGia");
+  console.log(existingList);
   console.log(listIdChat);
   listIdChat.forEach((product) => {
     getSanPhamById(product.idSanPham)

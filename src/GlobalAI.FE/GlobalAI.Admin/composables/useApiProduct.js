@@ -49,6 +49,16 @@ export const getDanhMucSanPham = async () => {
     return Promise.reject(error)
   }
 }
+
+export const getSanPhamTheoIdGStore = async (id) => {
+  const res = await http.get(API_ENDPOINT.getSanPhamIdGStore(id))
+  try{
+    return Promise.resolve(res)
+  }catch(error){
+    return Promise.reject(error)
+  }
+}
+
 // Cương code
 
 // Lấy tất cả sản phẩm và phân trang
@@ -271,6 +281,16 @@ export const getIDPaymentNews = async(idSanPham) => {
     const res = await http.get(API_ENDPOINT.getIDPayment(idSanPham))
     return Promise.resolve(res);
   } catch (error) {
+    return Promise.reject(error)
+  }
+}
+
+// get all trả giá của user
+export const getProductBidUser = async(IdSanPham , GiaTien , status , pageSize , pageNumber , Skip) => {
+  try{
+    const res = await http.get(API_ENDPOINT.getProductBidUser(IdSanPham , GiaTien , status , pageSize , pageNumber , Skip))
+    return Promise.resolve(res)
+  }catch(error){
     return Promise.reject(error)
   }
 }

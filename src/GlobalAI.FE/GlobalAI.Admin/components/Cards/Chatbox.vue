@@ -1,7 +1,7 @@
 <template lang="">
   <div class="w-[550px] bg-white">
     <div class="flex justify-between pb-2 items-start">
-       <!-- Thông tin User and Sản phẩm -->
+      <!-- Thông tin User and Sản phẩm -->
       <div class="flex gap-[15px]">
         <div class="w-[40px] h-[40px] rounded-[50%] overflow-hidden">
           <img
@@ -42,7 +42,7 @@
           </div>
         </div>
       </div>
-      <form v-if="isOverflowed" @submit="handleSubmitBidPrice" class="box">
+      <form v-show="boxprice.length <= 0" @submit="handleSubmitBidPrice" class="box">
         <div class="flex gap-[15px] items-center py-1 mt-3">
           <label for="" class="w-[30%] text-[16px] font-semibold"
             >Phân Loại</label
@@ -159,6 +159,7 @@
     </div>
     <form
       @submit.prevent="handlePriceChat"
+      v-show="boxprice.length > 0"
       class="mt-4 border-[1px] border-[#ccc] flex items-center rounded-md pr-2"
     >
       <input
@@ -225,6 +226,7 @@ const config = useRuntimeConfig();
 const isOpacity = ref(false);
 const baseUrl = config.public.apiEndpoint;
 const isChatting = ref(false);
+const idPostTraGia = ref();
 
 // Lấy user_id
 const getUserInfor = () => {
@@ -247,7 +249,7 @@ const getImageUrl = (imageUrl) => {
 
 const existingList = localStorage.getItem("listIdTraGia");
 let listIdTraGia = [];
-if(existingList){
+if (existingList) {
   listIdTraGia = JSON.parse(existingList);
 }
 
@@ -300,11 +302,11 @@ const handleDialogYes = async () => {
     boxprice.value.sort((a, b) => {
       return new Date(a.createdDate) - new Date(b.createdDate);
     });
-
-    // Kiểm tra nếu tồn tại trong LocalStorage rồi thì không add vào nữa
-    const index = listIdTraGia.findIndex(
+      // Kiểm tra nếu tồn tại trong LocalStorage rồi thì không add vào nữa
+      const index = listIdTraGia.findIndex(
       (item) =>
         item.idSanPham === props.products.id &&
+        item.idTragia === response.data.data.id &&
         item.idNguoiMua === getUserInfor().user_id
     );
     if (index === -1) {
@@ -323,34 +325,38 @@ const handleDialogYes = async () => {
   showDialog.value = false;
 };
 onMounted(() => {
-  const listIdTraGia = JSON.parse(localStorage.getItem("listIdTraGia")) || [];
-  console.log(listIdTraGia);
-  const index = listIdTraGia.findIndex(
-    (item) =>
-      item.idSanPham === props.products.id &&
-      item.idNguoiMua === getUserInfor().user_id
-  );
-  console.log(index);
-  if (index !== -1) {
-    // Nếu tìm thấy sản phẩm trong mảng listIdTraGia
-    const idTragia = listIdTraGia[index].idTragia;
-    isOverflowed.value = false;
-    console.log(idTragia);
-    getDetailedPayment(idTragia)
-      .then((res) => {
-        console.log(res);
-        if (res.data.data.idSanPham == props.products.id) {
-          isChatting.value = true;
-        } else {
-          isChatting.value = false;
-        }
-        boxprice.value = res.data.data.chiTietTraGias;
-        boxprice.value.sort((a, b) => {
-          return new Date(a.createdDate) - new Date(b.createdDate);
-        });
-      })
-      .catch((err) => console.log(err));
-  }
+  console.log(props.products.id);
+  getProductBidUser(props.products.id, props.products.giaBan, 1, -1, 1, 0)
+    .then((res) => {
+      console.log(res.data.data.items);
+      const index = res?.data?.data?.items.findIndex(
+        (item) =>
+          item.idNguoiMua == getUserInfor().user_id &&
+          item.idSanPham === props.products.id &&
+          item.idNguoiBan === props.products.idGStore
+      );
+      if (index !== -1) {
+        const idTragia = res.data.data.items[index].id;
+        idPostTraGia.value = res.data.data.items[index].id;
+        console.log(idTragia);
+        isOverflowed.value = false;
+        getDetailedPayment(idTragia)
+          .then((res) => {
+            console.log(res);
+            if (res.data.data.idSanPham == props.products.id) {
+              isChatting.value = true;
+            } else {
+              isChatting.value = false;
+            }
+            boxprice.value = res.data.data.chiTietTraGias;
+            boxprice.value.sort((a, b) => {
+              return new Date(a.createdDate) - new Date(b.createdDate);
+            });
+          })
+          .catch((err) => console.log(err));
+      }
+    })
+    .catch((err) => {});
 });
 
 const handleDialogNo = () => {
@@ -360,27 +366,15 @@ const handleDialogNo = () => {
 
 // Xử lý trả giá sau lần trả chi tiết đầu tiên
 const handlePriceChat = async () => {
-  const listIdTraGia = JSON.parse(localStorage.getItem("listIdTraGia")) || [];
-  console.log(listIdTraGia);
-  // Kiểm tra idTraGia cũ có đang lưu không
-  const index = listIdTraGia.findIndex(
-    (item) =>
-      item.idSanPham === props.products.id &&
-      item.idNguoiMua === getUserInfor().user_id
-  );
-  console.log(index);
-  if (index !== -1) {
-    const idTragia = listIdTraGia[index].idTragia;
-    console.log(idTragia);
     const formData = {
-      idTraGia: idTragia,
+      idTraGia: idPostTraGia.value,
       loaiTraGia: 1,
       giaTien: priceChat.value,
     };
     try {
       const response = await postTragiaDetail(formData);
       toast.success("Trả giá thành công!");
-      priceChat.value = ''
+      priceChat.value = "";
       const responseNew = await getDetailedPayment(response.data.data.idTraGia);
       isChatting.value = true;
       boxprice.value = boxprice.value.concat(
@@ -389,26 +383,10 @@ const handlePriceChat = async () => {
       boxprice.value.sort((a, b) => {
         return new Date(a.createdDate) - new Date(b.createdDate);
       });
-
-      const index = listIdTraGia.findIndex(
-        (item) =>
-          item.idSanPham === props.products.id &&
-          item.idNguoiMua === getUserInfor().user_id
-      );
-
-      if (index === -1) {
-        listIdTraGia.push({
-          idSanPham: props.products.id,
-          idTragia: response.data.data.id,
-          idNguoiMua: getUserInfor().user_id,
-        });
-        localStorage.setItem("listIdTraGia", JSON.stringify(listIdTraGia));
-      }
     } catch (error) {
       console.error(error);
       toast.error("Trả giá thất bại , vui lòng thử lại");
     }
-  }
 };
 
 const props = defineProps({

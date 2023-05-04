@@ -343,6 +343,7 @@ const getUserInfor = () => {
   console.log(userInfor);
   return userInfor;
 };
+
 const handleBuyClick = () => {
   console.log("creating...");
   console.log(productId.value);
