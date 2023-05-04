@@ -224,7 +224,6 @@ async function uploadImage(event) {
   }
 }
 
-// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ
 const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
