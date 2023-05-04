@@ -13,8 +13,8 @@ namespace GlobalAI.ProductEntities.Dto.ChiTietDonHang
 {
     public class GetChiTietDonHangDto
     {
+        public int Id { get; set; }
 
-       
         /// <summary>
         /// Id đơn hàng
         /// </summary>

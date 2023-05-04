@@ -24,6 +24,36 @@ namespace GlobalAI.ProductAPI.Controllers
             _chiTietDonHangServices = chiTietDonHang;
         }
 
+
+        [HttpGet]
+        [ProducesResponseType(typeof(APIResponse<List<GetChiTietDonHangDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse GetChiTietDonHang()
+        {
+            try
+            {
+                var result = _chiTietDonHangServices.getChiTietDonHang();
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(APIResponse<List<GetChiTietDonHangDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse GetChiTietDonHangById(int id)
+        {
+            try
+            {
+                var result = _chiTietDonHangServices.getChiTietDonhangById(id);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
         /// <summary>
         /// Tạo chi tiết đơn hàng
         /// </summary>
