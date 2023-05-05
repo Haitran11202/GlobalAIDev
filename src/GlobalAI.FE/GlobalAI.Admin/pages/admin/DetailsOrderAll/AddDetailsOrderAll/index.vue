@@ -81,7 +81,7 @@ function handleDetailsOrderAll() {
   postDetailsOrderAll(body)
     .then((response) => {
       console.log(response);
-      router.push("/admin/postcategory");
+      router.push("/admin/detailsorderall");
       $toast.success("Thêm chi tiết đơn hàng thành công");
     })
     .catch((error) => {

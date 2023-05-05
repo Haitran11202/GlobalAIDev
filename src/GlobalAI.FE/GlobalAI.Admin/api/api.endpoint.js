@@ -45,10 +45,22 @@ export const API_ENDPOINT = {
     `http://localhost:5003/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
 
   postOrder: `/api/product/donhang`,
+  postOrders: (
+    maDonHang,
+    ngayHoanThanh,
+    idGStore,
+    idNguoiMua,
+    soTien,
+    hinhThucThanhToan,
+    diaChi
+  ) =>
+    `/api/product/donhang?MaDonHang=${maDonHang}&NgayHoanThanh=${ngayHoanThanh}&IdGStore=${idGStore}&IdNguoiMua=${idNguoiMua}&SoTien=${soTien}&HinhThucThanhToan=${hinhThucThanhToan}&DiaChi=${diaChi}`,
 
   deleteOrder: (id) => `/api/product/donhang/${id}`,
 
   getOrderById: (id) => `api/product/donhang/${id}`,
+
+  putOrder: (id) => `/api/product/donhang/${id}`,
 
   // Api Bài đăng
   getPostById: (id) => `/api/product/bai-tin/${id}`,

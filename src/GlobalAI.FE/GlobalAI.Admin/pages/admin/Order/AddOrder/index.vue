@@ -1,148 +1,165 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <form
-      @submit.prevent="handlePostOrder"
-      class="m-auto shadow-2xl p-12 h-[670px]"
-    >
+    <div class="m-auto shadow-2xl p-12 h-[670px]">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
-        <div>
+        <div class="col-span-1">
           <label
             for="maDonHang"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Mã đơn hàng</label
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-          <input
+            Mã đơn hàng
+          </label>
+          <Field
             v-model="maDonHang"
+            name="maDonHang"
             type="text"
-            id="maDonHang"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
+            placeholder="Mã đơn hàng..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
+          <error-message name="maDonHang" class="text-red-500" />
         </div>
-        <div>
+        <div class="col-span-1">
           <label
             for="ngayHoanThanh"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Ngày hoàn thành</label
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-          <input
+            Ngày hoàn thành
+          </label>
+          <Field
             v-model="ngayHoanThanh"
+            name="ngayHoanThanh"
             type="date"
-            id="ngayHoanThanh"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
+            placeholder="Ngày hoàn thành..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
+          <error-message name="ngayHoanThanh" class="text-red-500" />
         </div>
-        <div>
+        <div class="col-span-1">
           <label
             for="idGStore"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >ID G-Store</label
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-          <input
+            Mã G-Store
+          </label>
+          <Field
             v-model="idGStore"
+            name="idGStore"
             type="number"
-            id="idGStore"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
+            placeholder="Mã G-Ctore..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
+          <error-message name="idGStore" class="text-red-500" />
         </div>
-        <div>
+        <div class="col-span-1">
           <label
             for="idNguoiMua"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >ID người mua</label
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-          <input
+            Mã người mua
+          </label>
+          <Field
             v-model="idNguoiMua"
+            name="idNguoiMua"
             type="number"
-            id="idNguoiMua"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
+            placeholder="Mã người mua..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
+          <error-message name="idNguoiMua" class="text-red-500" />
         </div>
-        <div>
+        <div class="col-span-1">
           <label
             for="soTien"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Số tiền</label
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-          <input
+            Số tiền
+          </label>
+          <Field
             v-model="soTien"
+            name="soTien"
             type="number"
-            id="soTien"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
+            placeholder="Số tiền..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
+          <error-message name="soTien" class="text-red-500" />
         </div>
-        <div>
+        <div class="col-span-1">
           <label
             for="hinhThucThanhToan"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >Hình thức thanh toán</label
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-          <input
+            Hình thức thanh toán
+          </label>
+          <Field
             v-model="hinhThucThanhToan"
+            name="hinhThucThanhToan"
             type="text"
-            id="hinhThucThanhToan"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            required
+            placeholder="Hình thức thanh toán..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
+          <error-message name="hinhThucThanhToan" class="text-red-500" />
         </div>
       </div>
       <div class="flex justify-end gap-5">
-        <button type="submit" class="btn btn-outline float-right">
+        <button @click="handlePostCategory" class="btn btn-outline">
           Thêm đơn hàng
         </button>
-        <button class="btn btn-outline btn-success">Duyệt đơn hàng</button>
         <button
-          @click="this.$router.push('/admin/order')"
+          @click="router.push('/admin/order')"
           class="btn btn-outline btn-error"
         >
           <span class="flex">Quay về</span>
         </button>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
 <script setup>
+import axios from "axios";
+import { ref } from "vue";
+import NumberInput from "~~/components/Input/NumberInput.vue";
+import Tiptap from "~~/components/TextEditor/Tiptap.vue";
+import { Form, Field, ErrorMessage } from "vee-validate";
+import * as yup from "yup";
+import { postPostCategory } from "~~/composables/useApiPostCategory";
+import { useRouter } from "vue-router";
+const { $toast } = useNuxtApp();
 definePageMeta({
   layout: "admin",
 });
-import Vue3Toastify, { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
-import { postOrder } from "~~/composables/useApiOrder";
+
+const router = useRouter();
 
 const maDonHang = ref("");
 const ngayHoanThanh = ref("");
 const idGStore = ref(0);
 const idNguoiMua = ref(0);
 const soTien = ref(0);
-const status = ref(0);
 const hinhThucThanhToan = ref("");
+const diaChi = ref("");
 
-const handlePostOrder = () => {
-  const orderData = {
+function handlePostCategory() {
+  const postCategoryData = {
     maDonHang: maDonHang.value,
     ngayHoanThanh: ngayHoanThanh.value,
     idGStore: idGStore.value,
     idNguoiMua: idNguoiMua.value,
     soTien: soTien.value,
-    status: status.value,
     hinhThucThanhToan: hinhThucThanhToan.value,
   };
+  const body = {
+    ...postCategoryData,
+  };
 
-  postOrder(orderData)
-    .then((res) => {
-      console.log(res);
-      toast.success("Thêm đơn hàng thành công");
+  postOrder(body)
+    .then((response) => {
+      console.log(response);
+      router.push("/admin/order");
+      $toast.success("Thêm danh mục bài tin thành công");
     })
-    .catch((err) => {
-      console.error(err);
-      toast.error("Thêm đơn hàng thất bại. Vui lòng thử lại!");
+    .catch((error) => {
+      console.error(error);
+      $toast.error("Thêm danh mục bài tin thất bại. Vui lòng thử lại!");
     });
-};
+}
 </script>
-
-<style></style>
