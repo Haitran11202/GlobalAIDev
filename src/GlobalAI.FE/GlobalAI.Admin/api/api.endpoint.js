@@ -72,6 +72,9 @@ export const API_ENDPOINT = {
   getAllPostPhanTrang: (pageSize, pageNumber, skip) =>
     `/api/product/bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
 
+  getBaiTinTheoDanhMuc: (id, pageSize, pageNumber, skip) =>
+    `/api/product/bai-tin/find-all?idDanhMuc=${id}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
+
   deletePost: (id) => `/api/product/bai-tin?id=${id}`,
 
   postPosts: `/api/product/bai-tin`,
@@ -100,8 +103,6 @@ export const API_ENDPOINT = {
   getPostCategoryById: (id) => `/api/product/danh-muc-bai-tin/${id}`,
 
   deletePostCategory: (id) => `/api/product/danh-muc-bai-tin?id=${id}`,
-
-  postPostCategory: `/api/product/danh-muc-bai-tin`,
 
   postPostCategory: `/api/product/danh-muc-bai-tin`,
 
