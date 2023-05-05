@@ -25,7 +25,7 @@
         <tbody>
           <tr
             class="text-sm cursor-pointer border-slate-200 hover:bg-slate-50 border-b-[1px]"
-            @click="ChatDetailId(product.id)"
+            @click="ChatDetailId(product.id , product.idGStore)"
             v-for="product in products"
             :key="product.id"
           >
@@ -83,6 +83,7 @@ import { ref, watchEffect } from "vue";
 import jwt_decode from "jwt-decode";
 import ChatBoxAdmin from "./ChatBoxAdmin.vue";
 import { useUserStorage } from "~~/stores/user";
+import { toast } from "vue3-toastify";
 
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
@@ -119,8 +120,13 @@ const getImageUrl = (imageUrl) => {
   return url;
 };
 
-const ChatDetailId = (id) => {
-  router.push({ name: "ChatDetailId", params: { id: id } });
+const ChatDetailId = (id , idNguoiBan) => {
+   if(idNguoiBan == getUserInfor().user_id){
+    router.push({ name: "ChatDetailId", params: { id: id } });
+   }
+   else{
+    toast.error("Bạn không phải người đăng sản phẩm nên không thể truy cập ")
+   }
 };
 
 const getUserInfor = () => {
