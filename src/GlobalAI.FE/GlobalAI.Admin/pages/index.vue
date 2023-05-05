@@ -339,9 +339,9 @@
         <div class="justify-center flex flex-wrap">
           <div class="w-full lg:w-12/12 px-4 -mt-24">
             <div class="flex flex-wrap">
-              <div class="w-full lg:w-4/12 px-4">
-                <h5 class="text-xl font-semibold pb-4 text-center">Mỹ phẩm</h5>
-                <nuxt-link to="/product/category/1">
+              <div v-for="item in danhmucbaitin" class="w-full lg:w-4/12 px-4">
+                <nuxt-link :to="`/post/postdanhmuc/${ item.id }`">
+                <h5 class="text-xl font-semibold pb-4 text-center">{{ item.tenDanhMuc }}</h5>
                   <div
                     class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
                   >
@@ -352,41 +352,7 @@
                     />
                   </div>
                 </nuxt-link>
-              </div>
-
-              <div class="w-full lg:w-4/12 px-4">
-                <h5 class="text-xl font-semibold pb-4 text-center">
-                  Thời trang
-                </h5>
-                <nuxt-link to="/product/category/1">
-                  <div
-                    class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
-                  >
-                    <img
-                      alt="..."
-                      class="align-middle border-none max-w-full h-[320px] shadow-md rounded-lg w-full"
-                      :src="thoitrang"
-                    />
-                  </div>
-                </nuxt-link>
-              </div>
-
-              <div class="w-full lg:w-4/12 px-4">
-                <h5 class="text-xl font-semibold pb-4 text-center">
-                  Điện máy, điện tử
-                </h5>
-                <nuxt-link to="/product/category/1">
-                  <div
-                    class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
-                  >
-                    <img
-                      alt="..."
-                      class="align-middle border-none max-w-full h-[320px] shadow-md rounded-lg w-full"
-                      :src="dientu"
-                    />
-                  </div>
-                </nuxt-link>
-              </div>
+              </div>    
             </div>
           </div>
         </div>
@@ -465,6 +431,7 @@ import thoitrang from "../assets/img/thoitrang.jpg";
 import dientu from "../assets/img/dientu.jpg";
 
 const baitin = ref([]);
+const danhmucbaitin = ref([]);
 const pageSize = 3;
 const pageNumber = 1;
 const skip = 0;
@@ -478,6 +445,16 @@ onMounted(() => {
     .catch((err) => {
       console.error(err);
     });
+
+    getAllPostCategoryPhanTran(pageSize, pageNumber, skip)
+    .then((response) => {
+      danhmucbaitin.value = response.data.items.reverse();
+      console.log('dsadsa',danhmucbaitin.value)
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
 });
 
 </script>
