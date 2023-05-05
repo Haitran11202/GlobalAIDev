@@ -4,6 +4,7 @@ using GlobalAI.DataAccess.Models;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.TraGia;
 using GlobalAI.Utils;
+using GlobalAI.Utils.ConstantVariables.Core;
 using GlobalAI.Utils.ConstantVariables.Product;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -47,16 +48,16 @@ namespace GlobalAI.ProductRepositories
         /// <param name="idGSaler"></param>
         /// <param name="idGStore"></param>
         /// <returns></returns>
-        public PagingResult<TraGia> FindAll(FilterTraGiaDto input, int? userId = null)
+        public PagingResult<TraGia> FindAll(FilterTraGiaDto input, string usertype, int? userId = null )
         {
             PagingResult<TraGia> result = new();
-    
+
             var traGiaQuery = (from traGia in _dbSet
-                               where traGia.Deleted == DeletedBool.NO      
-                                     && (input.IdSanPham == null || input.IdSanPham == traGia.IdSanPham)
-                                     && (traGia.IdNguoiBan == userId || traGia.IdNguoiMua == userId)
-                                     && (input.Status == null || input.Status == traGia.Status)
-                                     select traGia);
+                           where traGia.Deleted == DeletedBool.NO
+                           && (input.IdSanPham == null || input.IdSanPham == traGia.IdSanPham)
+                           && (usertype == Roles.Admin || (traGia.IdNguoiBan == userId || traGia.IdNguoiMua == userId))
+                           && (input.Status == null || input.Status == traGia.Status)
+                           select traGia);
 
             result.TotalItems = traGiaQuery.Count();
             traGiaQuery = traGiaQuery.OrderByDescending(d => d.Id);

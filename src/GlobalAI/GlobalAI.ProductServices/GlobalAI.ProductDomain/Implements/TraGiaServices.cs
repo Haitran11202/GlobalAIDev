@@ -171,10 +171,10 @@ namespace GlobalAI.ProductDomain.Implements
         public PagingResult<TraGiaDto> FindAll(FilterTraGiaDto input)
         {
             int? userId = CommonUtils.GetCurrentUserId(_httpContext);
-            var usertype = CommonUtils.GetCurrentRole(_httpContext);
+            string usertype = CommonUtils.GetCurrentRole(_httpContext);
             
             var result = new PagingResult<TraGiaDto>();
-            var traGiaQuery = _traGiaRepository.FindAll(input, userId);
+            var traGiaQuery = _traGiaRepository.FindAll(input, usertype, userId );
 
             result.Items = _mapper.Map<List<TraGiaDto>>(traGiaQuery.Items);
             result.TotalItems = traGiaQuery.TotalItems;
