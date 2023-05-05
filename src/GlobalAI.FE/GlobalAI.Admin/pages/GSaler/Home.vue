@@ -3,7 +3,7 @@
     <div class="flex flex-wrap relative">
       <Advisement />
       <div>
-        <h1 class="uppercase text-[24px] text-[#384059] font-bold mb-[40px] mt-[40px]">
+        <h1 class="sm:px-0 px-4 uppercase text-[16px] sm:text-[24px] text-[#384059] font-bold mb-[40px] mt-[40px]">
           Nhà Cung Cấp Nổi Bật
         </h1>
         <Sliderncc />
