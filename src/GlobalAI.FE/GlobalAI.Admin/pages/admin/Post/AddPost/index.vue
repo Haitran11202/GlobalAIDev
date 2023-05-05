@@ -1,6 +1,6 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <form @submit.prevent="handlePostPost" class="m-auto shadow-2xl p-12">
+    <form @submit.prevent="handlePostPost" :validationSchema="postFormBody" class="m-auto shadow-2xl p-12">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
           <label
@@ -15,7 +15,8 @@
             type="text"
             placeholder="Tiêu đề..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          />
+            required
+            />
           <error-message name="tieuDe" class="text-red-500" />
         </div>
         <div class="col-span-1">
@@ -28,7 +29,7 @@
             v-model="idDanhMuc"
             id="idDanhMuc"
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            required
+            required 
           >
             <option value="">-- Lựa chọn danh mục --</option>
             <option
@@ -93,14 +94,13 @@
         </div>
         <div class="flex justify-end gap-5">
           <button
-            @click="this.$router.push('/admin/post')"
             type="submit"
             class="btn btn-outline"
           >
             Thêm bài tin
           </button>
           <button
-            @click="this.$router.push('/admin/post')"
+            @click="$router.push('/admin/post')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>
@@ -122,7 +122,7 @@ import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-
+import { useRouter } from "vue-router";
 import TextEditor from "~~/components/TextEditor/TextEditor.vue";
 
 definePageMeta({
@@ -134,7 +134,7 @@ const noiDung = ref("");
 const thumbnail = ref("");
 const moTa = ref("");
 const danhmucsp = ref([]);
-
+const router = useRouter();
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
@@ -145,18 +145,12 @@ async function uploadImage(event) {
     postImage(formData)
       .then((response) => {
         console.log(response);
-        thumbnail.value = response.data.split("=")[2];
+        thumbnail.value = response.data;
         console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-    const response = await axios.post(
-      "http://globalai-staging.huce.edu.vn:8089/api/file/upload?folder=image",
-      formData
-    );
-    console.log(response.data.data.split("=")[2]);
-    thumbnail.value = response.data.data.split("=")[2];
   } catch (error) {
     console.error(error);
   }
@@ -204,7 +198,9 @@ function ConvertSlug(str) {
   return str;
 }
 
+
 function handlePostPost() {
+
   const postData = {
     idDanhMuc: idDanhMuc.value,
     tieuDe: tieuDe.value,
@@ -220,6 +216,7 @@ function handlePostPost() {
     .then((response) => {
       console.log("res", response);
       toast.success("Thêm bài tin thành công");
+      router.push('/admin/post');
     })
     .catch((error) => {
       console.error(error);
