@@ -29,7 +29,6 @@
           <th>ID</th>
           <th>Danh mục</th>
           <th>Tiêu đề</th>
-          <th>Nội dung</th>
           <th>Mô tả</th>
           <th>Chức năng</th>
         </tr>
@@ -43,7 +42,7 @@
             </label>
           </th>
           <td>{{ post.id }}</td>
-          <td>{{ post.idDanhMuc }}</td>
+          <td>{{ post.tenDanhMuc }}</td>
           <td>
             <div class="flex items-center space-x-3">
               <div class="avatar">
@@ -56,27 +55,7 @@
               </div>
             </div>
           </td>
-          <td class="whitespace-nowrap">
-            <div v-if="post.noiDung && post.noiDung.length > 20">
-              <template v-if="!showMore[post.id]">
-                {{ post.noiDung.slice(0, 20) }}...
-                <span
-                  @click="showMore[post.id] = true"
-                  class="font-bold cursor-pointer"
-                  >Xem thêm</span
-                >
-              </template>
-              <template v-else>
-                {{ post.noiDung }}
-                <span
-                  @click="showMore[post.id] = false"
-                  class="font-bold cursor-pointer"
-                  >Thu gọn</span
-                >
-              </template>
-            </div>
-            <div v-else>{{ post.noiDung }}</div>
-          </td>
+         
           <td>
             {{ post.moTa }}
           </td>
@@ -123,7 +102,7 @@ const router = useRouter();
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
-const pageSize = 5;
+const pageSize = 15;
 const pageNumber = ref(1);
 const skip = ref(0);
 
