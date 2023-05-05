@@ -30,7 +30,7 @@ namespace GlobalAI.ProductRepositories
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
             PagingResult<GetDonHangDto> result = new();
-            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.MaDonHang);
+            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.MaDonHang).Where(s => !s.Deleted);
 
 
             if (input.PageSize != -1)

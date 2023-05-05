@@ -77,7 +77,7 @@ namespace GlobalAI.ProductDomain.Implements
         public PagingResult<DanhMucDto> FindAll(FilterDanhMucDto input)
         {
             int? userId = CommonUtils.GetCurrentUserId(_httpContext);
-            var usertype = CommonUtils.GetCurrentRole(_httpContext);
+            /*var usertype = CommonUtils.GetCurrentRole(_httpContext);*/
 
             var result = new PagingResult<DanhMucDto>();
             var baiTinQuery = _danhMucRepository.FindAll(input, userId);
