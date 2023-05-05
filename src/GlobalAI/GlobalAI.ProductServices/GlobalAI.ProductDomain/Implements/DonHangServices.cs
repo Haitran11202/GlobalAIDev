@@ -106,8 +106,10 @@ namespace GlobalAI.ProductDomain.Implements
             // Save DonHang
             var resultDh = _repositoryDonHang.GetDonHang(maDonHang);
 
+            
             // Save ChiTietDonHang
             var resultChiTiet = _repositoryChiTietDonHang.GetListChiTietDonHang(maDonHang);
+            
 
             DonhangFull.ChiTietDonHangFullDtos = _mapper.Map<List<GetChiTietDonHangDto>>(resultChiTiet);
             DonhangFull.donHang = _mapper.Map<GetDonHangDto>(resultDh);

@@ -889,9 +889,11 @@ const getImageUrl = (imageUrl) => {
 const selectedPaymentType = ref("cash");
 const checkAll = ref(false);
 onMounted(async () => {
-    selectedProducts.value.push(
-        Number(router.currentRoute.value.query.checkedItem)
-    );
+    if (router.currentRoute.value.query.checkedItem != null) {
+        selectedProducts.value.push(
+            Number(router.currentRoute.value.query.checkedItem)
+        );
+    }
     try {
         const res1 = await getSanPhamByNguoiMua();
         products.value = res1?.data?.data;
@@ -1025,7 +1027,9 @@ const checkOut = () => {
     var arrGstore = [];
     //lấy ra idgstore
     console.log("CheckOut");
+    console.log(selectedProducts.value);
     selectedProducts.value.map((idSp) => {
+        console.log(idSp);
         var chiTiet = products.value.find((p) => p.id == idSp);
         console.log(chiTiet);
         arrGstore.push(chiTiet.idGStore);

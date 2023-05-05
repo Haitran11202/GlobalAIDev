@@ -10,7 +10,7 @@
               Danh sách sản phẩm
             </h3>
             <button
-              @click="this.$router.push('/admin/product/addproduct')"
+              @click="$router.push('/admin/product/addproduct')"
               class="btn btn-outline"
             >
               Thêm sản phẩm
@@ -193,11 +193,6 @@ export default {
 <script setup>
 import { ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
-import {
-  getAllProducts,
-  deleteProduct,
-  getProductById,
-} from "~~/composables/useApiProduct.js";
 
 const { $moment } = useNuxtApp();
 
@@ -206,7 +201,7 @@ const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
 // Khởi tạo giá trị mặc định phân trang 5 1 0
-const pageSize = 5;
+const pageSize = 15;
 const pageNumber = ref(1);
 const skip = ref(0);
 
@@ -218,7 +213,7 @@ const showMore = ref({});
 
 // Lấy tất cả sản phẩm
 const fetchData = async () => {
-  getAllProducts(pageSize, pageNumber.value, skip.value)
+  getSanPhamByIdGStore(pageSize, pageNumber.value, skip.value)
     .then((response) => {
       // Gán giá trị mới vào biến reactive
       products.value = response.data.items;

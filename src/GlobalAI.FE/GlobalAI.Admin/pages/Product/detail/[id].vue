@@ -33,7 +33,7 @@
                     <font-awesome-icon :icon="['fas', 'star']" />
                     <font-awesome-icon :icon="['fas', 'star']" />
                 </div>
-                <span>4.9/5</span>
+                4.9/5
             </div>
             <div class="flex items-center mt-[15px]">
                 <h2 class="text-[16px] font-[500] mr-[40px]">Màu Sắc</h2>
