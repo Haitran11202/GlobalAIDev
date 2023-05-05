@@ -10,7 +10,7 @@
         class="cursor-pointer text-black opacity-50 md:hidden px-3 py-1 text-xl leading-none bg-transparent rounded border border-solid border-transparent"
         type="button"
         v-on:click="toggleCollapseShow('bg-white m-2 py-3 px-6')"
-      > 
+      >
         <i class="fas fa-bars"></i>
       </button>
       <!-- Brand -->
@@ -152,10 +152,7 @@
             </router-link>
           </li>
           <li class="items-center">
-            <router-link
-              to="/admin/chat"
-              v-slot="{ href, navigate, isActive }"
-            >
+            <router-link to="/admin/chat" v-slot="{ href, navigate, isActive }">
               <a
                 :href="href"
                 @click="navigate"
@@ -177,7 +174,7 @@
 
           <li class="items-center">
             <router-link
-              to="/admin/postcategory"
+              to="/admin/categoryproduct"
               v-slot="{ href, navigate, isActive }"
             >
               <a
@@ -194,7 +191,7 @@
                   class="fas fa-table mr-2 text-sm"
                   :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
                 ></i>
-                Quản lý danh mục bài tin
+                Quản lý danh mục sản phẩm
               </a>
             </router-link>
           </li>
@@ -222,7 +219,29 @@
               </a>
             </router-link>
           </li>
-
+          <li class="items-center">
+            <router-link
+              to="/admin/detailsorderall"
+              v-slot="{ href, navigate, isActive }"
+            >
+              <a
+                :href="href"
+                @click="navigate"
+                class="text-xs uppercase py-3 font-bold block"
+                :class="[
+                  isActive
+                    ? 'text-emerald-500 hover:text-emerald-600'
+                    : 'text-blueGray-700 hover:text-blueGray-500',
+                ]"
+              >
+                <i
+                  class="fas fa-table mr-2 text-sm"
+                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
+                ></i>
+                Quản lý chi tiết đơn hàng
+              </a>
+            </router-link>
+          </li>
           <li class="items-center">
             <router-link to="/admin/post" v-slot="{ href, navigate, isActive }">
               <a
@@ -240,6 +259,29 @@
                   :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
                 ></i>
                 Quản lý bài tin
+              </a>
+            </router-link>
+          </li>
+          <li class="items-center">
+            <router-link
+              to="/admin/postcategory"
+              v-slot="{ href, navigate, isActive }"
+            >
+              <a
+                :href="href"
+                @click="navigate"
+                class="text-xs uppercase py-3 font-bold block"
+                :class="[
+                  isActive
+                    ? 'text-emerald-500 hover:text-emerald-600'
+                    : 'text-blueGray-700 hover:text-blueGray-500',
+                ]"
+              >
+                <i
+                  class="fas fa-table mr-2 text-sm"
+                  :class="[isActive ? 'opacity-75' : 'text-blueGray-300']"
+                ></i>
+                Quản lý danh mục bài tin
               </a>
             </router-link>
           </li>

@@ -4,19 +4,19 @@
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
           <label
-            for="maDanhMuc"
+            for="idDanhMuc"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-            Mã danh mục
+            Id danh mục
           </label>
           <Field
-            name="maDanhMuc"
+            name="idDanhMuc"
             type="text"
-            v-model="maDanhMuc"
+            v-model="idDanhMuc"
             placeholder="Mã danh mục..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
-          <error-message name="maDanhMuc" class="text-red-500" />
+          <error-message name="idDanhMuc" class="text-red-500" />
         </div>
 
         <div class="col-span-1">
@@ -39,10 +39,10 @@
       <div class="flex flex-col">
         <div class="flex justify-end gap-5">
           <button @click="submitForm" class="btn btn-outline float-right">
-            Cập nhật danh mục bài tin
+            Cập nhật danh mục sản phẩm
           </button>
           <button
-            @click="this.$router.push('/admin/postcategory')"
+            @click="this.$router.push('/admin/categoryproduct')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>
@@ -69,25 +69,25 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref, watchEffect } from "vue";
 definePageMeta({
   layout: "admin",
-  name: "PostCategory",
+  name: "CategoryProduct",
 });
 
-const postCategoryId = ref(0);
-const maDanhMuc = ref("");
+const categoryProductId = ref(0);
+const idDanhMuc = ref("");
 const tenDanhMuc = ref("");
 
 const router = useRouter();
 const config = useRuntimeConfig();
 
 onMounted(() => {
-  postCategoryId.value = router.currentRoute.value.params.id;
+  categoryProductId.value = router.currentRoute.value.params.id;
   watchEffect(async () => {
     try {
-      const data = await getPostCategoryById(postCategoryId.value);
-      maDanhMuc.value = data.data.maDanhMuc;
+      const data = await getPostCategoryById(categoryProductId.value);
+      idDanhMuc.value = data.data.idDanhMuc;
       tenDanhMuc.value = data.data.tenDanhMuc;
 
-      console.log(maDanhMuc.value);
+      console.log(idDanhMuc.value);
     } catch (error) {
       console.log(error);
     }
@@ -95,8 +95,8 @@ onMounted(() => {
 });
 const submitForm = () => {
   const formData = {
-    id: Number(postCategoryId.value),
-    maDanhMuc: maDanhMuc.value,
+    id: Number(categoryProductId.value),
+    idDanhMuc: idDanhMuc.value,
     tenDanhMuc: tenDanhMuc.value,
   };
   const body = {
@@ -107,12 +107,12 @@ const submitForm = () => {
   updatePostCategory(body)
     .then((data) => {
       console.log(data);
-      toast.success("Cập nhật danh mục bài tin thành công");
+      toast.success("Cập nhật danh mục sản phẩm thành công");
       router.push("/admin/postcategory");
     })
     .catch((error) => {
       console.log(error);
-      toast.error("Cập nhật danh mục bài tin thất bại. Vui lòng thử lại!");
+      toast.error("Cập nhật danh mục sản phẩm thất bại. Vui lòng thử lại!");
     });
 };
 </script>

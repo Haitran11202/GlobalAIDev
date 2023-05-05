@@ -50,10 +50,19 @@ export const postPostCategory = async (postCategoryData) => {
   }
 };
 
-// Cập nhật bài tin
-export const updatePost = async (postData) => {
+// Cập nhật danh mục bài tin
+// export const updatePostCategory = async (postCategoryData) => {
+//   try {
+//     const res = await http.put(API_ENDPOINT.putPostCategory, postCategoryData);
+//     return Promise.resolve(res.data);
+//   } catch (err) {
+//     return Promise.reject(err);
+//   }
+// };
+
+export const updatePostCategory = async (postCategoryData) => {
   try {
-    const res = await http.put(API_ENDPOINT.putPost, postData);
+    const res = await http.put(API_ENDPOINT.putPostCategory, postCategoryData);
     console.log(res);
     return Promise.resolve(res.data);
   } catch (err) {

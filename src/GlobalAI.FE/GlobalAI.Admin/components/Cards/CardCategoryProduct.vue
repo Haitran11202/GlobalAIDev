@@ -6,13 +6,13 @@
           class="relative w-full px-4 max-w-full flex justify-between items-center"
         >
           <h3 class="font-semibold text-lg text-slate-800 uppercase">
-            Danh sách danh mục bài tin
+            Danh sách danh mục sản phẩm
           </h3>
           <button
-            @click="this.$router.push('/admin/postcategory/addpostcategory')"
+            @click="router.push('/admin/categoryproduct/addcategoryproduct')"
             class="btn btn-outline"
           >
-            Thêm danh mục bài tin
+            Thêm danh mục sản phẩm
           </button>
         </div>
       </div>
@@ -26,19 +26,28 @@
               <input type="checkbox" class="checkbox" />
             </label>
           </th>
-          <th>Mã danh mục</th>
+          <th>Id</th>
+          <th>Id danh mục</th>
           <th>Tên danh mục</th>
+          <th>Ngày khởi tạo</th>
+          <th>Người tạo</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="post in postCategorys" :key="post.id" class="text-sm">
+        <!-- row 1 -->
+        <tr v-for="post in categoryProducts" :key="post.id" class="text-sm">
           <th>
             <label>
               <input type="checkbox" class="checkbox" />
             </label>
           </th>
-          <td>{{ post.maDanhMuc }}</td>
-          <td>{{ post.tenDanhMuc }}</td>
+          <td>{{ post.id }}</td>
+          <td>{{ post.idDanhMuc }}</td>
+          <td>
+            {{ post.tenDanhMuc }}
+          </td>
+          <td>{{ post.createdDate }}</td>
+          <td>{{ post.createdBy }}</td>
           <td>
             <div class="dropdown dropdown-left dropdown-end">
               <label
@@ -55,7 +64,6 @@
               >
                 <li @click="onEditButtonClick(post.id)"><a>Sửa</a></li>
                 <li @click="onDeleteButtonClick(post.id)"><a>Xoá</a></li>
-                <li><a>Duyệt</a></li>
               </ul>
             </div>
           </td>
@@ -72,27 +80,26 @@
 <script setup>
 import { ref, watchEffect } from "vue";
 import {
-  getAllPostCategoryPhanTran,
-  getPostCategoryById,
-  deletePostCategory,
-} from "~~/composables/useApiPostCategory.js";
+  deleteCategoryProduct,
+  getCategoryProductById,
+} from "~~/composables/useApiCategoryProduct";
 import { useRouter } from "vue-router";
 const { $toast } = useNuxtApp();
 
 const router = useRouter();
+
 const pageSize = 5;
 const pageNumber = ref(1);
 const skip = ref(0);
 
-const postCategorys = ref([]);
-const deletedPostCategory = ref(null);
-const showAction = ref({});
+const categoryProducts = ref([]);
+const deletedCategoryProduct = ref(null);
 
 const fetchData = async () => {
-  getAllPostCategoryPhanTran(pageSize, pageNumber.value, skip.value)
+  getAllCategoryProductPhanTrang(pageSize, pageNumber.value, skip.value)
     .then((response) => {
-      postCategorys.value = response.data.items;
-      console.log(postCategorys.value);
+      categoryProducts.value = response.data.items;
+      console.log(categoryProducts.value);
     })
     .catch((err) => {
       console.error(err);
@@ -107,29 +114,27 @@ const previousPage = () => {
 };
 
 const nextPage = () => {
-  console.log(1);
-  if (postCategorys.value.length < pageSize) {
+  if (categoryProducts.value.length < pageSize) {
     return;
   }
   pageNumber.value += 1;
 };
 
 const onDeleteButtonClick = (id) => {
-  console.log(id);
-  deletePostCategory(id)
+  deleteCategoryProduct(id)
     .then((res) => {
-      deletedPostCategory.value = res;
-      $toast.success("Xoá bài tin thành công.");
+      deletedCategoryProduct.value = res;
+      $toast.success("Xoá danh mục sản phẩm thành công.");
     })
     .catch((err) => {
       console.error(err);
-      $toast.error("Xoá bài tin thất bại. Vui lòng thử lại!");
+      $toast.error("Xoá danh mục sản phẩm thất bại. Vui lòng thử lại!");
     });
 };
 
 const onEditButtonClick = (id) => {
-  router.push({ name: "PostCategory", params: { id: id } });
-  getPostCategoryById(id)
+  router.push({ name: "categoryproduct", params: { id: id } });
+  getCategoryProductById(id)
     .then((res) => {
       res.data;
     })
@@ -141,9 +146,8 @@ const onEditButtonClick = (id) => {
 watchEffect(() => {
   fetchData();
 
-  if (deletedPostCategory.value !== null) {
-    getAllPostCategoryPhanTran();
-    deletedPostCategory.value = null;
+  if (deletedCategoryProduct.value !== null) {
+    deletedCategoryProduct.value = null;
   }
 });
 

@@ -27,13 +27,13 @@
                 <input type="checkbox" class="checkbox" />
               </label>
             </th>
-            <th>Mã</th>
+            <th>Mã đơn hàng</th>
             <th>Ngày hoàn thành</th>
             <th>Mã Gstore</th>
             <th>Mã người mua</th>
             <th>Số tiền</th>
             <th>Hình thức thanh toán</th>
-            <th>Địa chỉ</th>
+            <!-- <th>Địa chỉ</th> -->
             <th></th>
           </tr>
         </thead>
@@ -44,10 +44,16 @@
                 <input type="checkbox" class="checkbox" />
               </label>
             </th>
-            <td @click="onClickOrderDetails(order.id)">{{ order.id }}</td>
+            <td @click="onClickOrderDetails(order.id)">
+              {{ order.maDonHang }}
+            </td>
 
             <td @click="onClickOrderDetails(order.id)">
-              {{ order.ngayHoanThanh }}
+              {{
+                order.ngayHoanThanh
+                  ? $moment(order.ngayHoanThanh).format("DD/MM/YYYY")
+                  : ""
+              }}
             </td>
             <td @click="onClickOrderDetails(order.id)">
               {{ order.idGStore }}
@@ -59,6 +65,9 @@
             <td @click="onClickOrderDetails(order.id)">
               {{ order.soTien }}
             </td>
+            <!-- <td @click="onClickOrderDetails(order.id)">
+              {{ order.diaChi }}
+            </td> -->
 
             <td @click="onClickOrderDetails(order.id)">
               {{ order.hinhThucThanhToan }}
@@ -79,6 +88,7 @@
                 >
                   <li @click="onEditButtonClick(order.id)"><a>Sửa</a></li>
                   <li @click="onDeleteButtonClick(order.id)"><a>Xoá</a></li>
+                  <li><a>Duyệt</a></li>
                 </ul>
               </div>
             </td>
@@ -158,6 +168,7 @@ const showAction = ref({});
 
 const previousPage = () => {
   if (pageNumber.value === 1) {
+    // Kiểm tra xem đã đạt trang đầu tiên hay chưa
     return;
   }
   pageNumber.value -= 1;
@@ -165,7 +176,8 @@ const previousPage = () => {
 
 const nextPage = () => {
   console.log(1);
-  if (posts.value.length < pageSize) {
+  if (orders.value.length < pageSize) {
+    // Kiểm tra xem có đủ sản phẩm để hiển thị trên trang tiếp theo hay không
     return;
   }
   pageNumber.value += 1;
@@ -180,9 +192,9 @@ const fetchData = async () => {
     .catch((err) => console.error(err));
 };
 
-const onClickOrderDetails = (id) => {
-  router.push({ name: "orderdetails", params: { id: id } });
-  getProductById(id)
+const onEditButtonClick = (id) => {
+  router.push({ name: "Order", params: { id: id } });
+  getOrderById(id)
     .then((res) => {
       res.data;
     })

@@ -78,7 +78,6 @@
               type="file"
               id="avatar"
               class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              required
               @change.prevent="uploadImage"
             />
             <img

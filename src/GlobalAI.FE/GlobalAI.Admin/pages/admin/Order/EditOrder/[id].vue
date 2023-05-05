@@ -1,196 +1,214 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <form @submit.prevent="submitForm" class="m-auto shadow-2xl p-12 h-[670px]">
+    <div class="m-auto shadow-2xl p-12">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
           <label
-            for="maSanPham"
+            for="maDonHang"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-            Mã
+            Mã đơn hàng
           </label>
           <Field
-            v-model="product.id"
-            name="maSanPham"
+            name="maDonHang"
             type="text"
-            placeholder="Mã sản phẩm..."
+            v-model="maDonHang"
+            placeholder="Mã đơn hàng..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
-          <error-message name="maSanPham" class="text-red-500" />
+          <error-message name="maDonHang" class="text-red-500" />
         </div>
 
         <div class="col-span-1">
           <label
-            for="tenSanPham"
+            for="ngayHoanThanh"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
             Ngày hoàn thành
           </label>
           <Field
-            v-model="product.tenSanPham"
-            name="tenSanPham"
-            type="text"
-            placeholder="Tên sản phẩm..."
+            name="ngayHoanThanh"
+            type="date"
+            v-model="ngayHoanThanh"
+            placeholder="Ngày hoàn thành..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
-          <error-message name="tenSanPham" class="text-red-500" />
+          <error-message name="ngayHoanThanh" class="text-red-500" />
         </div>
 
         <div class="col-span-1">
           <label
-            for="giaBan"
+            for="idGStore"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-            ID G-Store
+            Mã G-Store
           </label>
           <Field
-            v-model="product.giaBan"
-            name="giaBan"
+            name="idGStore"
             type="number"
+            v-model="idGStore"
+            placeholder="Mã G-Store..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
-          <error-message name="giaBan" class="text-red-500" />
+          <error-message name="idGStore" class="text-red-500" />
         </div>
 
         <div class="col-span-1">
           <label
-            for="giaChietKhau"
+            for="idNguoiMua"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
-            ID người mua
+            Mã người mua
           </label>
           <Field
-            v-model="product.giaChietKhau"
-            name="giaChietKhau"
+            name="idNguoiMua"
             type="number"
+            v-model="idNguoiMua"
+            placeholder="Mã người mua..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
-          <error-message name="giaChietKhau" class="text-red-500" />
+          <error-message name="idNguoiMua" class="text-red-500" />
         </div>
 
         <div class="col-span-1">
           <label
-            for="giaChietKhau"
+            for="soTien"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
             Số tiền
           </label>
           <Field
-            v-model="product.giaChietKhau"
-            name="giaChietKhau"
+            name="soTien"
             type="number"
+            v-model="soTien"
+            placeholder="Số tiền..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
-          <error-message name="giaChietKhau" class="text-red-500" />
+          <error-message name="soTien" class="text-red-500" />
         </div>
 
         <div class="col-span-1">
           <label
-            for="giaChietKhau"
+            for="hinhThucThanhToan"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
             Hình thức thanh toán
           </label>
           <Field
-            v-model="product.giaChietKhau"
-            name="giaChietKhau"
-            type="number"
+            name="hinhThucThanhToan"
+            type="text"
+            v-model="hinhThucThanhToan"
+            placeholder="Hình thức thanh toán..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
-          <error-message name="giaChietKhau" class="text-red-500" />
+          <error-message name="hinhThucThanhToan" class="text-red-500" />
+        </div>
+
+        <div class="col-span-1">
+          <label
+            for="diaChi"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
+          >
+            Địa chỉ
+          </label>
+          <Field
+            name="diaChi"
+            type="text"
+            v-model="diaChi"
+            placeholder="Địa chỉ..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+          />
+          <error-message name="diaChi" class="text-red-500" />
         </div>
       </div>
-      <div class="flex justify-end gap-5">
-        <button type="submit" class="btn btn-outline float-right">
-          Cập nhật sản phẩm
-        </button>
-        <button class="btn btn-outline btn-success">Duyệt sản phẩm</button>
-        <button
-          @click="this.$router.push('/admin/product')"
-          class="btn btn-outline btn-error"
-        >
-          <span class="flex">Quay về</span>
-        </button>
+      <div class="flex flex-col">
+        <div class="flex justify-end gap-5">
+          <button @click="submitForm" class="btn btn-outline float-right">
+            Cập nhật danh mục bài tin
+          </button>
+          <button
+            @click="this.$router.push('/admin/order')"
+            class="btn btn-outline btn-error"
+          >
+            <span class="flex">Quay về</span>
+          </button>
+        </div>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
 <script setup>
 import axios from "axios";
-import { ref } from "vue";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
-import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
-import TextEditor from "~~/components/TextEditor/TextEditor.vue";
+import {
+  getPostCategoryById,
+  updatePostCategory,
+} from "~~/composables/useApiPostCategory.js";
+import { postImage } from "~~/composables/useApiImage";
+import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
+import { ref, watchEffect } from "vue";
 definePageMeta({
   layout: "admin",
-  name: "Product",
+  name: "Order",
 });
 
-const product = ref({});
+const postCategoryId = ref(0);
+const maDonHang = ref("");
+const ngayHoanThanh = ref("");
+const idGStore = ref(0);
+const idNguoiMua = ref(0);
+const soTien = ref(0);
+const hinhThucThanhToan = ref("");
+const diaChi = ref("");
+
 const router = useRouter();
-const productId = ref([]);
-
-const thumbnail = ref("");
-const config = useRuntimeConfig();
-const baseUrl = config.public.apiEndpoint;
-
-// Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
-const getImageUrl = (imageUrl) => {
-  if (!imageUrl) {
-    return "https://placehold.it/50x50";
-  }
-  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
-  )}&download=false`;
-  return url;
-};
-
-async function uploadImage(event) {
-  console.log(event.target.files[0].name);
-  console.log(event.target.files[0].name);
-  try {
-    const formData = new FormData();
-    formData.append("file", event.target.files[0]);
-    postImage(formData)
-      .then((response) => {
-        console.log(response);
-        thumbnail.value = response.data.split("=")[2];
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  } catch (error) {
-    console.error(error);
-  }
-}
 
 onMounted(() => {
-  productId.value = router.currentRoute.value.params.id;
+  postCategoryId.value = router.currentRoute.value.params.id;
   watchEffect(async () => {
     try {
-      const data = await getProductById(productId.value);
-      product.value = data.data;
-      console.log(product.value);
+      const data = await getOrderById(postCategoryId.value);
+      maDonHang.value = data.data.maDonHang;
+      ngayHoanThanh.value = data.data.ngayHoanThanh;
+      idGStore.value = data.data.idGStore;
+      idNguoiMua.value = data.data.idNguoiMua;
+      soTien.value = data.data.soTien;
+      hinhThucThanhToan.value = data.data.hinhThucThanhToan;
+      diaChi.value = data.data.diaChi;
     } catch (error) {
       console.log(error);
     }
   });
 });
 const submitForm = () => {
-  updateProduct(productId.value, product.value)
+  const formData = {
+    id: Number(postCategoryId.value),
+    maDonHang: maDonHang.value,
+    ngayHoanThanh: ngayHoanThanh.value,
+    idGStore: idGStore.value,
+    idNguoiMua: idNguoiMua.value,
+    soTien: soTien.value,
+    hinhThucThanhToan: hinhThucThanhToan.value,
+    diaChi: diaChi.value,
+  };
+  const body = {
+    ...formData,
+  };
+
+  console.log(body);
+  updatePostCategory(body)
     .then((data) => {
       console.log(data);
-      toast.success("Cập nhật sản phẩm thành công");
-      router.push("/admin/product");
+      toast.success("Cập nhật đơn hàng thành công");
+      router.push("/admin/order");
     })
     .catch((error) => {
       console.log(error);
-      toast.error("Cập nhật sản phẩm thất bại. Vui lòng thử lại!");
+      toast.error("Cập nhật đơn hàng thất bại. Vui lòng thử lại!");
     });
 };
 </script>

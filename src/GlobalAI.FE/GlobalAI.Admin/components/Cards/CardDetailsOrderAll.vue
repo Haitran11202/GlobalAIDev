@@ -6,13 +6,15 @@
           class="relative w-full px-4 max-w-full flex justify-between items-center"
         >
           <h3 class="font-semibold text-lg text-slate-800 uppercase">
-            Danh sách danh mục bài tin
+            Danh sách chi tiết đơn hàng
           </h3>
           <button
-            @click="this.$router.push('/admin/postcategory/addpostcategory')"
+            @click="
+              this.$router.push('/admin/detailsorderall/adddetailsorderall')
+            "
             class="btn btn-outline"
           >
-            Thêm danh mục bài tin
+            Thêm chi tiết đơn hàng
           </button>
         </div>
       </div>
@@ -26,8 +28,9 @@
               <input type="checkbox" class="checkbox" />
             </label>
           </th>
-          <th>Mã danh mục</th>
-          <th>Tên danh mục</th>
+          <th>Mã đơn hàng</th>
+          <th>Mã sản phẩm</th>
+          <th>Số lượng</th>
         </tr>
       </thead>
       <tbody>
@@ -37,8 +40,10 @@
               <input type="checkbox" class="checkbox" />
             </label>
           </th>
-          <td>{{ post.maDanhMuc }}</td>
-          <td>{{ post.tenDanhMuc }}</td>
+          <td>{{ post.idDonHang }}</td>
+          <td>{{ post.idSanPham }}</td>
+          <td>{{ post.soLuong }}</td>
+
           <td>
             <div class="dropdown dropdown-left dropdown-end">
               <label
@@ -71,11 +76,6 @@
 
 <script setup>
 import { ref, watchEffect } from "vue";
-import {
-  getAllPostCategoryPhanTran,
-  getPostCategoryById,
-  deletePostCategory,
-} from "~~/composables/useApiPostCategory.js";
 import { useRouter } from "vue-router";
 const { $toast } = useNuxtApp();
 
@@ -85,18 +85,15 @@ const pageNumber = ref(1);
 const skip = ref(0);
 
 const postCategorys = ref([]);
-const deletedPostCategory = ref(null);
-const showAction = ref({});
+const deletedDetails = ref(null);
 
 const fetchData = async () => {
-  getAllPostCategoryPhanTran(pageSize, pageNumber.value, skip.value)
+  getAllDetailsOrderAll()
     .then((response) => {
-      postCategorys.value = response.data.items;
-      console.log(postCategorys.value);
+      console.log(response.data);
+      postCategorys.value = response.data;
     })
-    .catch((err) => {
-      console.error(err);
-    });
+    .catch((err) => console.error(err));
 };
 
 const previousPage = () => {
@@ -115,21 +112,20 @@ const nextPage = () => {
 };
 
 const onDeleteButtonClick = (id) => {
-  console.log(id);
-  deletePostCategory(id)
+  deleteDetailsOrderAll(id)
     .then((res) => {
-      deletedPostCategory.value = res;
-      $toast.success("Xoá bài tin thành công.");
+      deletedDetails.value = res;
+      $toast.success("Xoá chi tiết đơn hàng thành công.");
     })
     .catch((err) => {
       console.error(err);
-      $toast.error("Xoá bài tin thất bại. Vui lòng thử lại!");
+      $toast.error("Xoá chi tiết đơn hàng thất bại. Vui lòng thử lại!");
     });
 };
 
 const onEditButtonClick = (id) => {
-  router.push({ name: "PostCategory", params: { id: id } });
-  getPostCategoryById(id)
+  router.push({ name: "CardDetailsOrderAll", params: { id: id } });
+  getDetailsOrderAllById(id)
     .then((res) => {
       res.data;
     })
@@ -141,9 +137,9 @@ const onEditButtonClick = (id) => {
 watchEffect(() => {
   fetchData();
 
-  if (deletedPostCategory.value !== null) {
-    getAllPostCategoryPhanTran();
-    deletedPostCategory.value = null;
+  if (deletedDetails.value !== null) {
+    getAllDetailsOrderAll();
+    deletedDetails.value = null;
   }
 });
 
