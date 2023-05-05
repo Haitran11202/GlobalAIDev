@@ -3,15 +3,14 @@
     <div class="flex flex-wrap relative">
       <Advisement />
       <div>
-        <h1
-          class="uppercase text-[24px] text-[#384059] font-bold mb-[40px] mt-[40px]"
-        >
+        <h1 class="sm:px-0 px-4 uppercase text-[16px] sm:text-[24px] text-[#384059] font-bold mb-[40px] mt-[40px]">
           Nhà Cung Cấp Nổi Bật
         </h1>
         <Sliderncc />
       </div>
       <card-list-product-short :category="productscategory" :products="products" />
-      <card-list-product-short :category="productSellerCategory"
+      <card-list-product-short
+        :category="productSellerCategory"
         :products="productsSeller"
       />
     </div>
@@ -22,15 +21,15 @@
 import CardListProductShort from "../../components/Cards/CardListProductShort.vue";
 import Sliderncc from "./Sliderncc.vue";
 import Advisement from "./Advisement.vue";
-import toast from 'vue3-toastify'
+import toast from "vue3-toastify";
 import { ref } from "vue";
 
 definePageMeta({
   layout: "layout-default",
 });
 const products = ref([]);
-const productscategory = ref('');
-const productSellerCategory = ref('');
+const productscategory = ref("");
+const productSellerCategory = ref("");
 const productsSeller = ref([]);
 let content = ref("");
 const listDanhMuc = ref([]);
@@ -38,10 +37,11 @@ const listDanhMuc = ref([]);
 // Lấy tất cả sản phẩm theo danh mục
 onMounted(() => {
   getDanhMucSanPham()
-    .then((res) =>{
+    .then((res) => {
+      console.log(res);
       if (res?.data?.data?.items) {
         // Lấy 3 danh mục đầu
-        listDanhMuc.value = res.data.data.items.slice(0 , 3);
+        listDanhMuc.value = res.data.data.items.slice(0, 3);
         productscategory.value = listDanhMuc.value[2];
         productSellerCategory.value = listDanhMuc.value[1];
         getSanPhamDanhMuc(listDanhMuc.value[2].idDanhMuc)
@@ -60,14 +60,13 @@ onMounted(() => {
           })
           .catch((error) => {
             console.error(error);
-            toast.error('Đã xảy ra lỗi trong quá trình get sản phẩm')
+            toast.error("Đã xảy ra lỗi trong quá trình get sản phẩm");
           });
       }
     })
     .catch((error) => {
       console.error(error);
-      toast.error('Đã xảy ra lỗi trong quá trình get sản phẩm')
+      toast.error("Đã xảy ra lỗi trong quá trình get sản phẩm");
     });
 });
-
 </script>

@@ -3,13 +3,13 @@
     <div class="w-full overflow-hidden">
       <div class="slider w-full flex justify-center items-center">
         <button
-          class="prev-button w-12 h-12 rounded-full ml-5 flex items-center justify-center"
+          class="prev-button sm:w-12 sm:h-12 w-[30px] h-[30px] rounded-full ml-5 flex items-center justify-center"
           @click="prevImage"
         >
           <font-awesome-icon :icon="['fas', 'angle-left']" />
         </button>
         <button
-          class="next-button w-12 h-12 rounded-full mr-5 flex items-center justify-center"
+          class="next-button sm:w-12 sm:h-12 w-[30px] h-[30px] rounded-full mr-5 flex items-center justify-center"
           @click="nextImage"
         >
           <font-awesome-icon :icon="['fas', 'angle-right']" />
@@ -27,7 +27,7 @@
             :src="image"
             :class="{ active: currentIndex === index }"
             alt="Slider Image"
-            class="w-full rounded-2xl"
+            class="w-full rounded-2xl sm:px-0 px-4 overflow-hidden"
           />
         </div>
       </div>

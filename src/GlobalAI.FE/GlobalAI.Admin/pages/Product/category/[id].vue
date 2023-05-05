@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col min-h-[100vh] py-4">
     <div class="">
-      <h1 class="text-[24px] font-bold mb-[-20px] ml-4 uppercase">{{ props ? props.category.tenDanhMuc : titleCategory}}</h1>
+      <h1 class="text-[24px] sm:pl-0 pl-4 font-bold ml-4 uppercase">{{ props ? props.category.tenDanhMuc : titleCategory}}</h1>
       <card-list-product :products="products" />
     </div>
     <div class="flex items-center justify-center">

@@ -1,12 +1,12 @@
 <template>
   <div class="w-full mt-[40px] cursor-pointer">
     <div class="flex w-full justify-between items-center mb-[20px]">
-      <h1 class="lg:text-[24px] text-[#384059] uppercase font-bold">
+      <h1 class="lg:text-[24px] sm:pl-0 pl-4 text-[#384059] uppercase font-bold">
         {{ props.category.tenDanhMuc}}
       </h1>
       <RouterLink
         :to="`/product/category/${props.category.idDanhMuc}`"
-        class="font-[500] flex gap-2 items-center justify-center text-[#384059] lg:text-[16px]"
+        class="font-[500] sm:pr-0 pr-4 flex gap-2 items-center justify-center text-[#384059] lg:text-[16px]"
       >
         <span>Xem Thêm </span>
         <span class="text-[18px] mt-1">
@@ -14,7 +14,7 @@
         </span>
       </RouterLink>
     </div>
-    <div class="grid-container">
+    <div class="grid grid-cols-1 sm:px-0 px-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
       <div
         v-for="(item, idx) in products"
         :key="idx"
@@ -144,30 +144,7 @@ const formatMoneyAll = (money) => {
 };
 </script>
 <style lang="css">
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-gap: 10px;
-}
 .card-item:hover {
   box-shadow: 0 0 1px hsla(0, 0%, 100%, 0.5);
-}
-
-@media (max-width: 1024px) {
-  .grid-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 768px) {
-  .grid-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
-  .grid-container {
-    grid-template-columns: 1fr;
-  }
 }
 </style>

@@ -2,10 +2,7 @@
   <div class="relative flex flex-col min-w-0 break-words w-full mb-6 p-5">
     <!-- SẢN PHẨM MỚI -->
     <div>
-      <div class="flex flex-row justify-between mb-[20px] items-center">
-        <h3 class="uppercase text-2xl font-semibold">{{ props.title }}</h3>
-      </div>
-      <div class="grid-container">
+      <div class="grid grid-cols-1 sm:px-0 px-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         <div
           v-for="(item, idx) in products"
           :key="idx"
