@@ -3,7 +3,9 @@
     <div class="overflow-x-auto relative w-full">
       <div class="mb-0 rounded-md px-4 py-3 bg-[#fff] border-0">
         <div class="flex flex-wrap items-center">
-          <div class="relative w-full px-4 max-w-full flex justify-between items-center">
+          <div
+            class="relative w-full px-4 max-w-full flex justify-between items-center"
+          >
             <h3 class="font-semibold text-lg text-slate-800 uppercase">
               Danh sách sản phẩm
             </h3>
@@ -38,7 +40,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="text-sm" v-for="product in products" :key="product.id">
+          <tr
+            class="text-sm hover:bg-slate-400"
+            v-for="product in products"
+            :key="product.id"
+          >
             <th>
               <label>
                 <input type="checkbox" class="checkbox" />
@@ -86,7 +92,9 @@
             <td>{{ product.idGStore }}</td>
             <td>
               {{
-                product.ngayDangKi ? $moment(product.ngayDangKi).format("DD/MM/YYYY") : ""
+                product.ngayDangKi
+                  ? $moment(product.ngayDangKi).format("DD/MM/YYYY")
+                  : ""
               }}
             </td>
             <td class="whitespace-normal">
@@ -113,7 +121,10 @@
             <td>Đã duyệt</td>
             <td>
               <div class="dropdown dropdown-left dropdown-end">
-                <label tabindex="0" class="btn m-1 btn-outline" @click="toggleDropdown"
+                <label
+                  tabindex="0"
+                  class="btn m-1 btn-outline"
+                  @click="toggleDropdown"
                   >...</label
                 >
                 <ul
