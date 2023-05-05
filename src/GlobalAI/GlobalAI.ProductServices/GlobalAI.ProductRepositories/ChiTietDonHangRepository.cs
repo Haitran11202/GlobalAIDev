@@ -24,6 +24,26 @@ namespace GlobalAI.ProductRepositories
             _mapper = mapper;
         }
         /// <summary>
+        /// Get Chi tiết đơn hàng
+        /// </summary>
+        /// <returns></returns>
+        public List<ChiTietDonHang> GetChiTietDonHang()
+        {
+            var result = _dbSet.ToList();
+            return result;
+        }
+        /// <summary>
+        /// Get chi tiết đơn hàng theo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ChiTietDonHang GetChiTietDonHangById(int id)
+        {
+            var result = _dbSet.FirstOrDefault(s => s.Id == id);
+            return result;
+        }
+
+        /// <summary>
         /// Tạo chi tiết đơn hàng
         /// </summary>
         /// <param name="input"></param>

@@ -3,14 +3,12 @@
     <div class="overflow-x-auto relative w-full">
       <div class="mb-0 rounded-md px-4 py-3 bg-[#fff] border-0">
         <div class="flex flex-wrap items-center">
-          <div
-            class="relative w-full px-4 max-w-full flex justify-between items-center"
-          >
+          <div class="relative w-full px-4 max-w-full flex justify-between items-center">
             <h3 class="font-semibold text-lg text-slate-800 uppercase">
               Danh sách sản phẩm
             </h3>
             <button
-              @click="this.$router.push('/admin/product/addproduct')"
+              @click="$router.push('/admin/product/addproduct')"
               class="btn btn-outline"
             >
               Thêm sản phẩm
@@ -88,9 +86,7 @@
             <td>{{ product.idGStore }}</td>
             <td>
               {{
-                product.ngayDangKi
-                  ? $moment(product.ngayDangKi).format("DD/MM/YYYY")
-                  : ""
+                product.ngayDangKi ? $moment(product.ngayDangKi).format("DD/MM/YYYY") : ""
               }}
             </td>
             <td class="whitespace-normal">
@@ -117,10 +113,7 @@
             <td>Đã duyệt</td>
             <td>
               <div class="dropdown dropdown-left dropdown-end">
-                <label
-                  tabindex="0"
-                  class="btn m-1 btn-outline"
-                  @click="toggleDropdown"
+                <label tabindex="0" class="btn m-1 btn-outline" @click="toggleDropdown"
                   >...</label
                 >
                 <ul
@@ -193,11 +186,6 @@ export default {
 <script setup>
 import { ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
-import {
-  getAllProducts,
-  deleteProduct,
-  getProductById,
-} from "~~/composables/useApiProduct.js";
 
 const { $moment } = useNuxtApp();
 
@@ -206,7 +194,7 @@ const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
 // Khởi tạo giá trị mặc định phân trang 5 1 0
-const pageSize = 5;
+const pageSize = 15;
 const pageNumber = ref(1);
 const skip = ref(0);
 
@@ -218,7 +206,7 @@ const showMore = ref({});
 
 // Lấy tất cả sản phẩm
 const fetchData = async () => {
-  getAllProducts(pageSize, pageNumber.value, skip.value)
+  getSanPhamByIdGStore(pageSize, pageNumber.value, skip.value)
     .then((response) => {
       // Gán giá trị mới vào biến reactive
       products.value = response.data.items;

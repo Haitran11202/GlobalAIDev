@@ -38,6 +38,25 @@ namespace GlobalAI.ProductDomain.Implements
             _httpContext = httpContext;
 
         }
+        /// <summary>
+        /// Get Chi tiết đơn hàng
+        /// </summary>
+        /// <returns></returns>
+        public List<GetChiTietDonHangDto> getChiTietDonHang()
+        {
+            var result = _repositoryChiTietDonHang.GetChiTietDonHang();
+            return _mapper.Map<List<GetChiTietDonHangDto>>(result);
+        }
+        /// <summary>
+        /// Get chi tiết đơn hàng theo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public GetChiTietDonHangDto getChiTietDonhangById(int id)
+        {
+            var result = _repositoryChiTietDonHang.GetChiTietDonHangById(id);
+            return _mapper.Map<GetChiTietDonHangDto>(result);    
+        }
 
         /// <summary>
         /// Get list demo product phân trang

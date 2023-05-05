@@ -23,6 +23,6 @@ namespace GlobalAI.ProductDomain.Interfaces
         void DeleteSanPham(int id);
 
         public void ApproveSanPham(int id);
-        public List<GetSanPhamDto> GetSanPhamByIdGstore(int idGstore);
+        public PagingResult<GetSanPhamDto> GetSanPhamByIdGstore(GetSanPhamIdGstoreDto input);
     }
 }

@@ -1,13 +1,11 @@
 <template>
   <div>
-    <div class="overflow-x-auto  relative w-full">
+    <div class="overflow-x-auto relative w-full">
       <div class="mb-0 rounded-md px-4 py-3 bg-[#fff] border-0">
         <div class="flex flex-wrap items-center">
-          <div
-            class="relative w-full px-4 max-w-full flex justify-between items-center"
-          >
+          <div class="relative w-full px-4 max-w-full flex justify-between items-center">
             <h3 class="font-semibold text-lg text-slate-800 uppercase">
-              Danh Sách Sản Phẩm 
+              Danh Sách Sản Phẩm
             </h3>
           </div>
         </div>
@@ -28,10 +26,12 @@
           <tr
             class="text-sm cursor-pointer border-slate-200 hover:bg-slate-50 border-b-[1px]"
             @click="ChatDetailId(product.id)"
-            v-for="product in products.slice(skip, skip + pageSize)"
+            v-for="product in products"
             :key="product.id"
           >
-            <td class="text-center items-center justify-center py-5 px-2" >{{ product.id }}</td>
+            <td class="text-center items-center justify-center py-5 px-2">
+              {{ product.id }}
+            </td>
             <td class="text-center items-center justify-center py-5 px-2">
               <div class="flex justify-center items-center space-x-3">
                 <div class="avatar">
@@ -73,7 +73,6 @@
     </div>
     <div class="btn-group flex justify-center mt-2">
       <button @click="previousPage" class="btn">«</button>
-      <span class="btn">{{ pageNumber }} / {{ totalPages }}</span>
       <button @click="nextPage" class="btn">»</button>
     </div>
   </div>
@@ -91,8 +90,8 @@ const token = useUserStorage();
 const router = useRouter();
 const accesstoken = token.accessToken;
 
-// Khởi tạo giá trị mặc định phân trang 5 1 0
-const pageSize = 5;
+// Khởi tạo giá trị mặc định phân trang 15 1 0
+const pageSize = 15;
 const pageNumber = ref(1);
 const skip = ref(0);
 const totalPages = ref(1);
@@ -101,19 +100,13 @@ const totalPages = ref(1);
 const products = ref([]);
 
 // Lấy tất cả sản phẩm
-onMounted(() => {
-  if (getUserInfor().user_type === "GSTORE") {
-    getSanPhamTheoIdGStore(getUserInfor().user_id)
-      .then((res) => {
-        console.log(res.data.data);
-        products.value = res?.data?.data;
-        watchEffect(() => {
-          skip.value = (pageNumber.value - 1) * pageSize;
-          totalPages.value = Math.ceil(products.value.length / pageSize);
-        });
-      })
-      .catch((err) => console.log(err));
-  }
+watchEffect(() => {
+  getSanPhamByIdGStore(pageSize, pageNumber.value, skip.value)
+    .then((res) => {
+      console.log(res.data.items);
+      products.value = res?.data?.items;
+    })
+    .catch((err) => console.log(err));
 });
 // Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
 const getImageUrl = (imageUrl) => {
