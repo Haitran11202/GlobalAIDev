@@ -22,6 +22,7 @@ export const API_ENDPOINT = {
     `http://localhost:5003/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
   postProducts: `api/product/sanpham`,
   putProduct: (id) => `api/product/sanpham/${id}`,
+  getSanPhamIdGStore: (id) => `/api/product/sanpham/get-idGstore/${id}`,
   // API Giỏ Hàng
   getGioHang: "api/product/giohang",
   getGioHangByIdSanPham: (id) => `api/product/giohang/giohangByIdSanPham/${id}`,
@@ -102,7 +103,7 @@ export const API_ENDPOINT = {
 
   postPostCategory: `/api/product/danh-muc-bai-tin`,
 
-  putPostCategory: `/api/product/danh-muc-bai-tin`,
+  postPostCategory: `/api/product/danh-muc-bai-tin`,
 
   // Danh mục sản phẩm
   getAllCategoryProductPhanTrang: (pageSize, pageNumber, skip) =>
@@ -117,4 +118,13 @@ export const API_ENDPOINT = {
   getDetailsOrderAllById: (id) => `/api/product/ct-donhang/${id}`,
   putDetailsOrderAll: (id) => `/api/product/ct-donhang/${id}`,
   deleteDetailsOrderAll: (id) => `/api/product/ct-donhang/${id}`,
+
+  // API trả giá
+  postProductBid: `/api/product/tra-gia`,
+  postTragiaDetail: `/api/product/tra-gia/add-detail`,
+  getDetailedPayment: (idTraGia) => `/api/product/tra-gia/${idTraGia}`,
+  getProductBidUser: (IdSanPham, GiaTien, status, pageSize, pageNumber, Skip) =>
+    `/api/product/tra-gia/find-all?IdSanPham=${IdSanPham}&GiaTien=${GiaTien}&status=${status}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
+  getIDPayment: (idSanPham) =>
+    `/api/product/tra-gia/FindTraGiaBySanPham?idSanPham=${idSanPham}`,
 };

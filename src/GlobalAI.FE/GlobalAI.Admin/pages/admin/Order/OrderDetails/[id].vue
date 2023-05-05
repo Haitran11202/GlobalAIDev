@@ -350,6 +350,7 @@ export default {
 
 <script setup>
 import { toast } from 'vue3-toastify';
+const router = useRouter();
 definePageMeta({
   layout: "admin",
   name: "orderdetails",

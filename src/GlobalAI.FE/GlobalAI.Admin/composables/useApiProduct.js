@@ -42,13 +42,25 @@ export const getFullSanPham = async (id) => {
 };
 
 export const getDanhMucSanPham = async () => {
-    const res = await http.get(API_ENDPOINT.getDanhMucSanPham);
+  const res = await http.get(API_ENDPOINT.getDanhMucSanPham)
+  try {
+   return Promise.resolve(res)
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
+export const getSanPhamByIdGStore = async (pageSize, pageNumber, skip) => {
     try {
-        return Promise.resolve(res);
-    } catch (error) {
-        return Promise.reject(error);
+        const response = await http.get(
+            API_ENDPOINT.getSanPhamByIdGStore(pageSize, pageNumber, skip)
+        );
+        return Promise.resolve(response.data);
+    } catch (err) {
+        return Promise.reject(err);
     }
 };
+
+
 // Cương code
 
 // Lấy tất cả sản phẩm và phân trang
@@ -264,23 +276,22 @@ export const getDetailedPayment = async (idTraGia) => {
     }
 };
 
-export const getIDPaymentNews = async (idSanPham) => {
-    console.log(idSanPham);
-    try {
-        const res = await http.get(API_ENDPOINT.getIDPayment(idSanPham));
-        return Promise.resolve(res);
-    } catch (error) {
-        return Promise.reject(error);
-    }
-};
+export const getIDPaymentNews = async(idSanPham) => {
+  console.log(idSanPham);
+  try {
+    const res = await http.get(API_ENDPOINT.getIDPayment(idSanPham))
+    return Promise.resolve(res);
+  } catch (error) {
+    return Promise.reject(error)
+  }
+}
 
-export const getSanPhamByIdGStore = async (pageSize, pageNumber, skip) => {
-    try {
-        const response = await http.get(
-            API_ENDPOINT.getSanPhamByIdGStore(pageSize, pageNumber, skip)
-        );
-        return Promise.resolve(response.data);
-    } catch (err) {
-        return Promise.reject(err);
-    }
-};
+// get all trả giá của user
+export const getProductBidUser = async(IdSanPham , GiaTien , status , pageSize , pageNumber , Skip) => {
+  try{
+    const res = await http.get(API_ENDPOINT.getProductBidUser(IdSanPham , GiaTien , status , pageSize , pageNumber , Skip))
+    return Promise.resolve(res)
+  }catch(error){
+    return Promise.reject(error)
+  }
+}
