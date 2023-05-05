@@ -81,11 +81,11 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns></returns>
         public PagingResult<DanhMucBaiTinDto> FindAll(FilterDanhMucBaiTinDto input)
         {
-            int? userId = CommonUtils.GetCurrentUserId(_httpContext);
-            var usertype = CommonUtils.GetCurrentRole(_httpContext);
+            //int? userId = CommonUtils.GetCurrentUserId(_httpContext);
+            //var usertype = CommonUtils.GetCurrentRole(_httpContext);
 
             var result = new PagingResult<DanhMucBaiTinDto>();
-            var baiTinQuery = _danhMucBaiTinRepository.FindAll(input, userId);
+            var baiTinQuery = _danhMucBaiTinRepository.FindAll(input);
 
             result.Items = _mapper.Map<List<DanhMucBaiTinDto>>(baiTinQuery.Items);
             result.TotalItems = baiTinQuery.TotalItems;
@@ -95,7 +95,7 @@ namespace GlobalAI.ProductDomain.Implements
 
         public DanhMucBaiTinDto GetById(int id)
         {
-            int? userId = CommonUtils.GetCurrentUserId(_httpContext);
+            //int? userId = CommonUtils.GetCurrentUserId(_httpContext);
             var baiTin = _danhMucBaiTinRepository.FindById(id);
             var result = _mapper.Map<DanhMucBaiTinDto>(baiTin);
             return result;

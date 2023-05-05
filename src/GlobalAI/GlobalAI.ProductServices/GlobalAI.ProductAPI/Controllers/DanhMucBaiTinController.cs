@@ -73,6 +73,8 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        /// 
+        [AllowAnonymous]
         [HttpGet("find-all")]
         [ProducesResponseType(typeof(APIResponse<List<DanhMucBaiTinDto>>), (int)HttpStatusCode.OK)]
         public APIResponse FindAll([FromQuery] FilterDanhMucBaiTinDto input)
@@ -93,6 +95,8 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(APIResponse), (int)HttpStatusCode.OK)]
         public APIResponse GetById(int id)
