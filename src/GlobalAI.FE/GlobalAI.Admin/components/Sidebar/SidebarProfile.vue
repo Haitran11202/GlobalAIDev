@@ -1,6 +1,6 @@
 <template>
     <aside 
-        class="fixed top-0 left-0 z-40 w-64 h-screen block transition-transform lg:translate-x-0"
+        class="transition-transform lg:translate-x-0"
         :class="props.showMenu" 
     >
         <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
@@ -9,17 +9,10 @@
                     class="text-2xl"
                     @click="handleClose"
                 >
-                <font-awesome-icon  :icon="['fass', 'xmark']" />
+                <font-awesome-icon :icon="['fass', 'xmark']" />
                 </button>
             </div>
             <ul class="space-y-2 font-medium">
-                <li class="py-4">
-                    <NuxtLink to="/gsaler/home" href="#" class="font-bold p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                    GLOBAL AI
-                    </NuxtLink>
-                    
-                </li>
-                <hr>
                 <li>
                     <a href="#" class="flex text-lg items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <div class="pl-3 pr-8">
