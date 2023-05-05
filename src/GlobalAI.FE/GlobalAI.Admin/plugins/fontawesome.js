@@ -49,6 +49,7 @@ import {
   faRedo,
   faTrash,
   faPenToSquare,
+  faPhone,
 } from "@fortawesome/free-solid-svg-icons";
 /* add icons to the library */
 library.add(
@@ -94,7 +95,8 @@ library.add(
   faRedo,
   faCircleInfo,
   faTrash,
-  faPenToSquare
+  faPenToSquare,
+  faPhone
 );
 
 export default defineNuxtPlugin((nuxtApp) => {
