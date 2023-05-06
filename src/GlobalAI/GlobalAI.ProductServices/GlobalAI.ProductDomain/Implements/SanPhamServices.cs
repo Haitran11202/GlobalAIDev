@@ -99,7 +99,7 @@ namespace GlobalAI.ProductDomain.Implements
             return findSanPham;
         }
 
-        public DanhMuc EditDanhMuc(int id, DanhMucDto newDanhMuc)
+        public DanhMuc EditDanhMuc(int id, CreateDanhMucDto newDanhMuc)
         {
             var findDanhMuc = _repositorySanPham.FindByIdDanhMuc(id);
             if (findDanhMuc != null)
