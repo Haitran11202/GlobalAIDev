@@ -242,7 +242,7 @@
               </a>
             </router-link>
           </li>
-          <li class="items-center">
+          <!-- <li class="items-center">
             <router-link to="/admin/post" v-slot="{ href, navigate, isActive }">
               <a
                 :href="href"
@@ -261,7 +261,7 @@
                 Quản lý bài tin
               </a>
             </router-link>
-          </li>
+          </li> -->
           <li class="items-center">
             <router-link
               to="/admin/postcategory"

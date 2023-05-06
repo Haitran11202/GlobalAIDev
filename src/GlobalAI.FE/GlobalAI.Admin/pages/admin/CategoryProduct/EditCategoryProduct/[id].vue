@@ -58,8 +58,10 @@ import axios from "axios";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
-import { getCategoryProductById } from "~~/composables/useApiCategoryProduct";
-import { postImage } from "~~/composables/useApiImage";
+import {
+  getCategoryProductById,
+  updateCategoryProduct,
+} from "~~/composables/useApiCategoryProduct";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref, watchEffect } from "vue";
@@ -99,11 +101,11 @@ const submitForm = () => {
   };
 
   console.log(body);
-  updatePostCategory(body)
+  updateCategoryProduct(body)
     .then((data) => {
-      console.log(data);
+      console.log("Cuong", data);
       toast.success("Cập nhật danh mục sản phẩm thành công");
-      router.push("/admin/postcategory");
+      router.push("/admin/categoryproduct");
     })
     .catch((error) => {
       console.log(error);

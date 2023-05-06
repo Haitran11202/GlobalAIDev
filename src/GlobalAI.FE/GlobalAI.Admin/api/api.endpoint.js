@@ -116,13 +116,15 @@ export const API_ENDPOINT = {
   postCategoryProduct: `/api/product/sanpham/danh-muc`,
   deleteCategoryProduct: (id) => `/api/product/sanpham/danh-muc?id=${id}`,
   getCategoryProductById: (id) => `/api/product/sanpham/danhmuc-id/${id}`,
+  putCategoryProduct: (id) => `/api/product/sanpham/edit-danhmuc/${id}`,
 
   // Chi tiết đơn hàng
   getAllDetailsOrderAll: `/api/product/ct-donhang`,
   postDetailsOrderAll: `/api/product/ct-donhang`,
   getDetailsOrderAllById: (id) => `/api/product/ct-donhang/${id}`,
-  putDetailsOrderAll: (id) => `/api/product/ct-donhang/${id}`,
   deleteDetailsOrderAll: (id) => `/api/product/ct-donhang/${id}`,
+
+  putDetailsOrderAll: (id) => `/api/product/ct-donhang/${id}`,
 
   // API trả giá
   postProductBid: `/api/product/tra-gia`,
