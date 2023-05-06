@@ -59,7 +59,8 @@ export const API_ENDPOINT = {
 
   deleteOrder: (id) => `/api/product/donhang/${id}`,
 
-  getOrderById: (id) => `api/product/donhang/${id}`,
+  // getOrderById: (id) => `api/product/donhang/${id}`,
+  getOrderById: (id) => `/api/product/donhang/${id}`,
 
   putOrder: (id) => `/api/product/donhang/${id}`,
 
@@ -123,7 +124,6 @@ export const API_ENDPOINT = {
   postDetailsOrderAll: `/api/product/ct-donhang`,
   getDetailsOrderAllById: (id) => `/api/product/ct-donhang/${id}`,
   deleteDetailsOrderAll: (id) => `/api/product/ct-donhang/${id}`,
-
   putDetailsOrderAll: (id) => `/api/product/ct-donhang/${id}`,
 
   // API trả giá

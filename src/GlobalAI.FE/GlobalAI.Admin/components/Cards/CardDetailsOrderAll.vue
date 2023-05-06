@@ -31,6 +31,7 @@
           <th>Mã đơn hàng</th>
           <th>Mã sản phẩm</th>
           <th>Số lượng</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>

@@ -68,7 +68,12 @@
             </td>
 
             <td @click="onClickOrderDetails(order.id)">
-              {{ order.soTien }}
+              {{
+                order.soTien.toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })
+              }}
             </td>
             <td @click="onClickOrderDetails(order.id)">
               {{ order.diaChi }}
