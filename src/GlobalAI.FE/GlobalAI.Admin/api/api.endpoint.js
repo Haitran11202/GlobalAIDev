@@ -115,7 +115,7 @@ export const API_ENDPOINT = {
     `/api/product/sanpham/danh-muc?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
   postCategoryProduct: `/api/product/sanpham/danh-muc`,
   deleteCategoryProduct: (id) => `/api/product/sanpham/danh-muc?id=${id}`,
-  getCategoryProductById: (id) => `/api/product/sanpham/danh-muc?id=${id}`,
+  getCategoryProductById: (id) => `/api/product/sanpham/danhmuc-id/${id}`,
 
   // Chi tiết đơn hàng
   getAllDetailsOrderAll: `/api/product/ct-donhang`,

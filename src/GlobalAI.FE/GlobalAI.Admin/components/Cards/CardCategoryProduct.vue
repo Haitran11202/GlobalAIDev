@@ -31,6 +31,7 @@
           <th>Tên danh mục</th>
           <th>Ngày khởi tạo</th>
           <th>Người tạo</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -133,7 +134,7 @@ const onDeleteButtonClick = (id) => {
 };
 
 const onEditButtonClick = (id) => {
-  router.push({ name: "categoryproduct", params: { id: id } });
+  router.push({ name: "CategoryProduct", params: { id: id } });
   getCategoryProductById(id)
     .then((res) => {
       res.data;

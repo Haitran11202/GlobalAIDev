@@ -42,9 +42,7 @@
             Cập nhật chi tiết đơn hàng
           </button>
           <button
-            @click="
-              this.$router.push('/admin/detailsorderall/adddetailsorderall')
-            "
+            @click="this.$router.push('/admin/detailsorderall')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>
@@ -60,11 +58,10 @@ import axios from "axios";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
-// import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
 import {
-  getPostCategoryById,
-  updatePostCategory,
-} from "~~/composables/useApiPostCategory.js";
+  updateDetailsOrderAll,
+  getDetailsOrderAllById,
+} from "~~/composables/useApiDetailsOrderAll";
 import { postImage } from "~~/composables/useApiImage";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
@@ -106,15 +103,15 @@ const submitForm = () => {
   };
 
   console.log(body);
-  updatePostCategory(body)
+  updateDetailsOrderAll(body)
     .then((data) => {
       console.log(data);
-      toast.success("Cập nhật danh mục bài tin thành công");
+      toast.success("Cập nhật chi tiết đơn hàng thành công");
       router.push("/admin/detailsorderall");
     })
     .catch((error) => {
       console.log(error);
-      toast.error("Cập nhật danh mục bài tin thất bại. Vui lòng thử lại!");
+      toast.error("Cập nhật chi tiết đơn hàng thất bại. Vui lòng thử lại!");
     });
 };
 </script>

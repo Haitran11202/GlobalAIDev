@@ -58,11 +58,7 @@ import axios from "axios";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
-// import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
-import {
-  getPostCategoryById,
-  updatePostCategory,
-} from "~~/composables/useApiPostCategory.js";
+import { getCategoryProductById } from "~~/composables/useApiCategoryProduct";
 import { postImage } from "~~/composables/useApiImage";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
@@ -77,13 +73,12 @@ const idDanhMuc = ref("");
 const tenDanhMuc = ref("");
 
 const router = useRouter();
-const config = useRuntimeConfig();
 
 onMounted(() => {
   categoryProductId.value = router.currentRoute.value.params.id;
   watchEffect(async () => {
     try {
-      const data = await getPostCategoryById(categoryProductId.value);
+      const data = await getCategoryProductById(categoryProductId.value);
       idDanhMuc.value = data.data.idDanhMuc;
       tenDanhMuc.value = data.data.tenDanhMuc;
 

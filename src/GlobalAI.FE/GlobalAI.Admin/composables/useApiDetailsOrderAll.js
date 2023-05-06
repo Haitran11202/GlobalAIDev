@@ -44,3 +44,17 @@ export const getDetailsOrderAllById = async (id) => {
     return Promise.reject(err);
   }
 };
+
+// Cập nhật chi tiết đơn hàng
+export const updateDetailsOrderAll = async (detailsOrderAllData) => {
+  try {
+    const res = await http.put(
+      API_ENDPOINT.putDetailsOrderAll,
+      detailsOrderAllData
+    );
+    console.log(res);
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};

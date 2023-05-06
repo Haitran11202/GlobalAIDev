@@ -77,6 +77,11 @@
 <script setup>
 import { ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
+import {
+  getAllDetailsOrderAll,
+  deleteDetailsOrderAll,
+  getDetailsOrderAllById,
+} from "~~/composables/useApiDetailsOrderAll";
 const { $toast } = useNuxtApp();
 
 const router = useRouter();
