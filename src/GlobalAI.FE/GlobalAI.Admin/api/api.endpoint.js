@@ -63,6 +63,8 @@ export const API_ENDPOINT = {
 
   putOrder: (id) => `/api/product/donhang/${id}`,
 
+  getDetailsOrder: (id) => `/api/product/donhang/full?maDonHang=${id}`,
+
   // Api Bài đăng
   getPostById: (id) => `/api/product/bai-tin/${id}`,
   getBaiTinBySlug: (slug) => `/api/product/bai-tin/find/slug/${slug}`,

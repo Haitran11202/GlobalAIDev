@@ -6,7 +6,7 @@
       ref="btnDropdownRef"
       v-on:click="toggleDropdown($event)"
     >
-      <div class="items-center flex">
+      <!-- <div class="items-center flex">
         <span
           class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
         >
@@ -16,6 +16,11 @@
             :src="image"
           />
         </span>
+      </div> -->
+      <div class="avatar items-center flex online">
+        <div class="w-11 rounded-full">
+          <img :src="image" alt="Tailwind-CSS-Avatar-component" />
+        </div>
       </div>
     </a>
     <div>
@@ -99,6 +104,6 @@ const handleLogout = () => {
   router.push("/auth/login");
 };
 const handleChatDetail = () => {
-  router.push(`/BoxChat/${getUserInfor().user_id}`)
-}
+  router.push(`/BoxChat/${getUserInfor().user_id}`);
+};
 </script>

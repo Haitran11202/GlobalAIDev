@@ -13,16 +13,34 @@ export const getAllOrder = async (pageSize, pageNumber, skip) => {
 };
 
 // Thêm đơn hàng
-export const postOrder = async (orderData) => {
+export const postOrders = async (
+  maDonHang,
+  ngayHoanThanh,
+  idGStore,
+  idNguoiMua,
+  soTien,
+  hinhThucThanhToan,
+  diaChi
+) => {
   try {
-    const res = await http.post(API_ENDPOINT.postOrder, orderData);
-    return Promise.resolve(res.data);
+    const response = await http.post(
+      API_ENDPOINT.postOrders(
+        maDonHang,
+        ngayHoanThanh,
+        idGStore,
+        idNguoiMua,
+        soTien,
+        hinhThucThanhToan,
+        diaChi
+      )
+    );
+    return Promise.resolve(response.data);
   } catch (err) {
     return Promise.reject(err);
   }
 };
 
-// Xoá bài tin dựa theo id
+// Xoá đơn hàng dựa theo id
 export const deleteOrder = async (id) => {
   console.log(API_ENDPOINT.deleteOrder(id));
   try {
@@ -33,10 +51,20 @@ export const deleteOrder = async (id) => {
   }
 };
 
-// Lấy đơn hàng dựa theo ids
+// Lấy đơn hàng dựa theo id
 export const getOrderById = async (id) => {
   try {
     const res = await http.get(API_ENDPOINT.getOrderById(id));
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+// Cập nhật đơn hàng theo id
+export const updateOrder = async (id, order) => {
+  try {
+    const res = await http.put(API_ENDPOINT.putOrder(id), order);
     return Promise.resolve(res.data);
   } catch (err) {
     return Promise.reject(err);

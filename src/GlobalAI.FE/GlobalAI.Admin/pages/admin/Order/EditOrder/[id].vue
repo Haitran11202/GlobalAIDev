@@ -143,10 +143,7 @@ import axios from "axios";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
-import {
-  getPostCategoryById,
-  updatePostCategory,
-} from "~~/composables/useApiPostCategory.js";
+import { getOrderById, updateOrder } from "~~/composables/useApiOrder";
 import { postImage } from "~~/composables/useApiImage";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
@@ -156,7 +153,7 @@ definePageMeta({
   name: "Order",
 });
 
-const postCategoryId = ref(0);
+const postOrder = ref(0);
 const maDonHang = ref("");
 const ngayHoanThanh = ref("");
 const idGStore = ref(0);
@@ -168,10 +165,10 @@ const diaChi = ref("");
 const router = useRouter();
 
 onMounted(() => {
-  postCategoryId.value = router.currentRoute.value.params.id;
+  postOrder.value = router.currentRoute.value.params.id;
   watchEffect(async () => {
     try {
-      const data = await getOrderById(postCategoryId.value);
+      const data = await getOrderById(postOrder.value);
       maDonHang.value = data.data.maDonHang;
       ngayHoanThanh.value = data.data.ngayHoanThanh;
       idGStore.value = data.data.idGStore;
@@ -186,7 +183,7 @@ onMounted(() => {
 });
 const submitForm = () => {
   const formData = {
-    id: Number(postCategoryId.value),
+    id: Number(postOrder.value),
     maDonHang: maDonHang.value,
     ngayHoanThanh: ngayHoanThanh.value,
     idGStore: idGStore.value,
