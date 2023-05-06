@@ -108,6 +108,8 @@ export const API_ENDPOINT = {
 
   postPostCategory: `/api/product/danh-muc-bai-tin`,
 
+  putPostCategory: `/api/product/danh-muc-bai-tin`,
+
   // Danh mục sản phẩm
   getAllCategoryProductPhanTrang: (pageSize, pageNumber, skip) =>
     `/api/product/sanpham/danh-muc?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
