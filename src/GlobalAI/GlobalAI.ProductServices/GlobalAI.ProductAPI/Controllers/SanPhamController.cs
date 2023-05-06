@@ -242,6 +242,24 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+        [HttpPut("edit-danhmuc/{id}")]
+        [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
+        public APIResponse PutDanhMuc(int id, [FromBody] DanhMucDto input)
+        {
+            try
+            {
+                var result = _sanPhamServices.EditDanhMuc(id, input);
+                if (result == null)
+                {
+                    return new APIResponse(Utils.StatusCode.Error, result, 404, "NotFound");
+                }
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
         /// <summary>
         /// Lấy sản phẩm theo id Gstore
         /// </summary>
