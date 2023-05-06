@@ -29,7 +29,7 @@ namespace GlobalAI.ProductRepositories
         /// <returns></returns>
         public List<ChiTietDonHang> GetChiTietDonHang()
         {
-            var result = _dbSet.ToList();
+            var result = _dbSet.AsNoTracking().Where(s => !s.Deleted).ToList();
             return result;
         }
         /// <summary>
@@ -56,9 +56,9 @@ namespace GlobalAI.ProductRepositories
         /// <summary>
         /// Tìm sản phẩm cần sửa, xóa
         /// </summary>
-        public ChiTietDonHang FindChiTietDonHang(int maDonHang, int maSanPham)
+        public ChiTietDonHang FindChiTietDonHang(int maDonHang)
         {
-            var donHang = _dbSet.FirstOrDefault(sp => sp.IdDonHang == maDonHang && sp.IdSanPham == maSanPham);
+            var donHang = _dbSet.FirstOrDefault(sp => sp.Id == maDonHang);
             if (donHang != null && donHang.Deleted == true)
             {
                 return null;
@@ -75,7 +75,6 @@ namespace GlobalAI.ProductRepositories
         {
             return _dbSet.Where(dh => dh.IdDonHang == maDonHang).ToList();
         }
-
         public void DeleteChiTietDonHangById(int id)
         {
             var Result = _dbSet.FirstOrDefault((Order) => Order.Id == id);

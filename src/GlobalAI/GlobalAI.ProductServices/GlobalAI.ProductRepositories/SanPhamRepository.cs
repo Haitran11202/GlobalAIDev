@@ -135,6 +135,20 @@ namespace GlobalAI.ProductRepositories
             }
             return result;
         }
+        public DanhMuc FindByIdDanhMuc(int idDanhMuc)
+        {
+
+            var result = _globalAIDbContext.DanhMucs.FirstOrDefault(d => d.Id == idDanhMuc);
+            if (result == null)
+            {
+                throw new Exception("Danh muc khong ton tai");
+            }
+            else if (result.Deleted == true)
+            {
+                throw new Exception("Danh muc khong ton tai");
+            }
+            return result;
+        }
         public List<SanPham> GetSanPhamFull()
         {
             var result = _dbSet.ToList();

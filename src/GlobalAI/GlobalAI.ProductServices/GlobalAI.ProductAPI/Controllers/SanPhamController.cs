@@ -214,9 +214,28 @@ namespace GlobalAI.ProductAPI.Controllers
         {
             try
             {
-                _sanPhamServices.ApproveSanPham(id);
+                var result = _sanPhamServices.GetDanhMucById(id);
 
-                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+        /// <summary>
+        /// Get Danh muc theo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("danhmuc-id/{id}")]
+        public APIResponse GetDanhMucSanPhamTheoId( int id)
+        {
+            try
+            {
+                 var result = _sanPhamServices.GetDanhMucById(id);
+
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)
             {

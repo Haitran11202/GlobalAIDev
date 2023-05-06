@@ -120,6 +120,12 @@ namespace GlobalAI.ProductDomain.Implements
 
             return _repositorySanPham.GetById(idSanPham);
         }
+
+        public DanhMuc GetDanhMucById (int idDanhMuc)
+        {
+            var result = _repositorySanPham.FindByIdDanhMuc(idDanhMuc);
+            return result;
+        }
         /// <summary>
         /// Lấy sản phẩm theo danh mục
         /// </summary>
