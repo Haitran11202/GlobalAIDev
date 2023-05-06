@@ -125,6 +125,20 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(APIResponse<int>), (int)HttpStatusCode.OK)]
+        public APIResponse GetDonHangById(string id)
+        {
+            try
+            {
+                var input = _donHangServices.GetDonhangById(id);
+                return new APIResponse(Utils.StatusCode.Success, input, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
 
         /// <summary>
         /// Lấy đơn hàng và chi tiết đơn hàng
