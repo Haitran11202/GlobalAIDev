@@ -6,12 +6,39 @@
       <div class="rounded-t mb-0 py-3 border-0">
         <div class="flex flex-wrap items-center">
           <div class="relative w-full max-w-full flex-grow flex-1">
-            <h3
-              class="py-1 text-base font-medium border-b uppercase"
-              :class="[color === 'light' ? 'text-blueGray-700' : 'text-white']"
-            >
-              Quản lý đơn hàng
-            </h3>
+            <div class="flex justify-between">
+              <h3
+                class="py-1 text-base font-medium border-b uppercase"
+                :class="[
+                  color === 'light' ? 'text-blueGray-700' : 'text-white',
+                ]"
+              >
+                Quản lý đơn hàng
+              </h3>
+              <div
+                class="py-1 text-base font-medium uppercase"
+                :class="[
+                  color === 'light' ? 'text-blueGray-700' : 'text-white',
+                ]"
+              >
+                <button
+                  v-if="isStatus == 1"
+                  @click="ConfirmOrder"
+                  class="px-[15px] py-[8px] bg-[#10b981] text-white rounded-md"
+                >
+                  Xác Nhận Đơn Hàng
+                </button>
+                <button
+                  v-if="isStatus == 2"
+                  class="bg-[#ec4899] px-[15px] py-[8px] text-white rounded-md"
+                  @click="
+                    toast.success('Đơn hàng đã được chuyển giao vận chuyển')
+                  "
+                >
+                  Hoàn Thành
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -116,16 +143,18 @@
                       <tr
                         v-for="(item, index) in orderProducts"
                         :key="index"
-                        class="hover:bg-gray-100 border-b"
+                        class="hover:bg-gray-100 border-b cursor-pointer"
                       >
                         <td
                           class="px-6 py-4 align-middle border-t border-gray-200 border-l-0 border-r-0 text-xs"
                         >
-                          <img
-                            class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
-                            :src="item.image"
-                            alt=""
-                          />
+                          <div class="avatar">
+                            <div
+                              class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
+                            >
+                              <img :src="item.image" />
+                            </div>
+                          </div>
                         </td>
                         <td
                           class="px-6 py-4 align-middle border-t border-gray-200 border-l-0 border-r-0 text-xs"
@@ -292,12 +321,6 @@
                   trực thuộc TW)
                 </p>
               </div>
-              <div class="w-full flex items-center justify-center">
-                <button v-if="isStatus == 1" @click="ConfirmOrder" class="px-[15px] py-[8px] bg-[#10b981] text-white rounded-md">
-                  Xác Nhận Đơn Hàng
-                </button>
-                <button v-if="isStatus == 2" class="bg-[#ec4899] px-[15px] py-[8px] text-white rounded-md " @click="toast.success('Đơn hàng đã được chuyển giao vận chuyển')">Hoàn Thành</button>
-              </div>
             </div>
           </div>
         </div>
@@ -349,14 +372,13 @@ export default {
 </script>
 
 <script setup>
-import { toast } from 'vue3-toastify';
+import { toast } from "vue3-toastify";
 const router = useRouter();
 definePageMeta({
   layout: "admin",
   name: "orderdetails",
 });
 const isStatus = ref(1);
-
 
 const orderProducts = [
   {
@@ -405,8 +427,8 @@ const ConfirmOrder = () => {
   //   id : id,
   //   status:2
   // }
-  // // Gọi API xác nhận đơn hàng 
-  toast.success('Đơn hàng đã được xác nhận')
+  // // Gọi API xác nhận đơn hàng
+  toast.success("Đơn hàng đã được xác nhận");
   isStatus.value = 2;
-}
+};
 </script>
