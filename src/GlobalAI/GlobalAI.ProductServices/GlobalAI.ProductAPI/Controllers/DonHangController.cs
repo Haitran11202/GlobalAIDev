@@ -67,7 +67,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<AddDonHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse EditDonHang([FromRoute]string id, AddDonHangDto newDonHang )
+        public APIResponse EditDonHang([FromRoute]int id, AddDonHangDto newDonHang )
         {
             try
             {
@@ -127,7 +127,7 @@ namespace GlobalAI.ProductAPI.Controllers
         }
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(APIResponse<int>), (int)HttpStatusCode.OK)]
-        public APIResponse GetDonHangById(string id)
+        public APIResponse GetDonHangById(int id)
         {
             try
             {
