@@ -40,9 +40,9 @@ namespace GlobalAI.ProductRepositories
         {
             _mapper.Map(newSanPham, oldSanPham);
         }
-        public void EditDanhMuc(DanhMucDto newSanPham, DanhMuc oldSanPham)
+        public void EditDanhMuc(CreateDanhMucDto newDanhMuc, DanhMuc oldDanhmuc)
         {
-            _mapper.Map(newSanPham, oldSanPham);
+            _mapper.Map(newDanhMuc, oldDanhmuc);
         }
         public void Delete(SanPham sanPham)
         {

@@ -244,7 +244,7 @@ namespace GlobalAI.ProductAPI.Controllers
         }
         [HttpPut("edit-danhmuc/{id}")]
         [ProducesResponseType(typeof(APIResponse<AddSanPhamDto>), (int)HttpStatusCode.OK)]
-        public APIResponse PutDanhMuc(int id, [FromBody] DanhMucDto input)
+        public APIResponse PutDanhMuc(int id, [FromBody] CreateDanhMucDto input)
         {
             try
             {
