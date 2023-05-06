@@ -24,5 +24,6 @@ namespace GlobalAI.ProductDomain.Interfaces
 
         public void ApproveSanPham(int id);
         public PagingResult<GetSanPhamDto> GetSanPhamByIdGstore(GetSanPhamIdGstoreDto input);
+        DanhMuc GetDanhMucById(int idDanhMuc);
     }
 }
