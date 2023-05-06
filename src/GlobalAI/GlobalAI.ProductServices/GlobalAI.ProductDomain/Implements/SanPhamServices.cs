@@ -25,6 +25,7 @@ using GlobalAI.Utils;
 using GlobalAI.Utils.ConstantVariables.Product;
 using GlobalAI.Utils.ConstantVariables.Core;
 using GlobalAI.CoreEntities.DataEntities;
+using GlobalAI.ProductEntities.Dto.DanhMuc;
 
 namespace GlobalAI.ProductDomain.Implements
 {
@@ -97,6 +98,17 @@ namespace GlobalAI.ProductDomain.Implements
             _dbContext.SaveChanges();
             return findSanPham;
         }
+
+        public DanhMuc EditDanhMuc(int id, DanhMucDto newDanhMuc)
+        {
+            var findDanhMuc = _repositorySanPham.FindByIdDanhMuc(id);
+            if (findDanhMuc != null)
+            {
+                _repositorySanPham.EditDanhMuc(newDanhMuc, findDanhMuc);
+            }
+            _dbContext.SaveChanges();
+            return findDanhMuc;
+        }
         /// <summary>
         /// Get list demo product phân trang
         /// </summary>
@@ -126,6 +138,7 @@ namespace GlobalAI.ProductDomain.Implements
             var result = _repositorySanPham.FindByIdDanhMuc(idDanhMuc);
             return result;
         }
+        
         /// <summary>
         /// Lấy sản phẩm theo danh mục
         /// </summary>

@@ -2,7 +2,7 @@
 ﻿using GlobalAI.DataAccess.Models;
 using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductEntities.DataEntities;
-
+using GlobalAI.ProductEntities.Dto.DanhMuc;
 using GlobalAI.ProductEntities.Dto.Product;
 using System;
 using System.Collections.Generic;
@@ -25,5 +25,6 @@ namespace GlobalAI.ProductDomain.Interfaces
         public void ApproveSanPham(int id);
         public PagingResult<GetSanPhamDto> GetSanPhamByIdGstore(GetSanPhamIdGstoreDto input);
         DanhMuc GetDanhMucById(int idDanhMuc);
+        DanhMuc EditDanhMuc(int id, DanhMucDto newDanhMuc);
     }
 }

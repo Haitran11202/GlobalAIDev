@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http.Internal;
 using System.Net.WebSockets;
 using Microsoft.AspNetCore.Mvc;
 using GlobalAI.Utils.ConstantVariables.Product;
+using GlobalAI.ProductEntities.Dto.DanhMuc;
 
 namespace GlobalAI.ProductRepositories
 {
@@ -36,6 +37,10 @@ namespace GlobalAI.ProductRepositories
             _dbSet.Add(sanPham);
         }
         public void EditSanPham(AddSanPhamDto newSanPham, SanPham oldSanPham)
+        {
+            _mapper.Map(newSanPham, oldSanPham);
+        }
+        public void EditDanhMuc(DanhMucDto newSanPham, DanhMuc oldSanPham)
         {
             _mapper.Map(newSanPham, oldSanPham);
         }
