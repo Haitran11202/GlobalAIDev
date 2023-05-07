@@ -1,50 +1,41 @@
 ﻿using GlobalAI.Utils.Attributes;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace GlobalAI.ProductEntities.DataEntities
 {
-    [Table("P_ChiTietDonHang")]
-    [Comment("bảng chi tiết đơn hàng")]
-    public class ChiTietDonHang
+    [Table("P_ThuocTinh")]
+    [Comment("bảng thuộc tính theo danh mục")]
+    public class ThuocTinh
     {
-        /// <summary>
-        /// Id chi tiết đơn hàng
-        /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [ColumnSnackCase(nameof(Id))]
-        public int Id {get; set;}
+        public int Id { get; set; }
 
         /// <summary>
-        /// Id đơn hàng
+        /// Id danh mục
         /// </summary>
-        [ColumnSnackCase(nameof(IdDonHang))]
-        public int IdDonHang { get; set; }
+        [ColumnSnackCase(nameof(IdDanhMuc))]
+        public int IdDanhMuc { get; set; }
 
         /// <summary>
-        /// Id sản phẩm
+        /// Tên thuộc tính
         /// </summary>
-        [ColumnSnackCase(nameof(IdSanPham))]
-        public int IdSanPham { get; set; }
-
-        /// <summary>
-        /// Id sản phẩm chi tiết
-        /// </summary>
-        [ColumnSnackCase(nameof(IdSanPhamChiTiet))]
-        public int IdSanPhamChiTiet { get; set; }
-
-        /// <summary>
-        /// Số lượng sản phẩm
-        /// </summary>
-        [ColumnSnackCase(nameof(SoLuong))]
-        public int SoLuong { get; set; }
+        [ColumnSnackCase(nameof(TenThuocTinh), TypeName = "VARCHAR2")]
+        [MaxLength(150)]
+        public string TenThuocTinh { get; set; }
 
         #region audit
         [MaxLength(50)]
         [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]
-        public string CreatedBy { get; set; } = String.Empty;
+        public string? CreatedBy { get; set; } = String.Empty;
 
         [ColumnSnackCase(nameof(CreatedDate), TypeName = "DATE")]
         public DateTime? CreatedDate { get; set; }
@@ -54,11 +45,17 @@ namespace GlobalAI.ProductEntities.DataEntities
 
         [MaxLength(50)]
         [ColumnSnackCase(nameof(DeletedBy), TypeName = "VARCHAR2")]
-        public string DeletedBy { get; set; } = String.Empty;
+        public string? DeletedBy { get; set; } = String.Empty;
 
         [ColumnSnackCase(nameof(DeletedDate), TypeName = "DATE")]
         public DateTime? DeletedDate { get; set; }
-        #endregion
 
+        [MaxLength(50)]
+        [ColumnSnackCase(nameof(ModifiedBy), TypeName = "VARCHAR2")]
+        public string? ModifiedBy { get; set; } = String.Empty;
+
+        [ColumnSnackCase(nameof(ModifiedDate), TypeName = "DATE")]
+        public DateTime? ModifiedDate { get; set; }
+        #endregion
     }
 }
