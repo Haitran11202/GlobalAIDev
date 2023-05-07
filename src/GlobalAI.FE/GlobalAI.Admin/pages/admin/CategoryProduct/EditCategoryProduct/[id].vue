@@ -58,12 +58,10 @@ import axios from "axios";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
-// import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
 import {
-  getPostCategoryById,
-  updatePostCategory,
-} from "~~/composables/useApiPostCategory.js";
-import { postImage } from "~~/composables/useApiImage";
+  getCategoryProductById,
+  updateCategoryProduct,
+} from "~~/composables/useApiCategoryProduct";
 import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref, watchEffect } from "vue";
@@ -77,13 +75,12 @@ const idDanhMuc = ref("");
 const tenDanhMuc = ref("");
 
 const router = useRouter();
-const config = useRuntimeConfig();
 
 onMounted(() => {
   categoryProductId.value = router.currentRoute.value.params.id;
   watchEffect(async () => {
     try {
-      const data = await getPostCategoryById(categoryProductId.value);
+      const data = await getCategoryProductById(categoryProductId.value);
       idDanhMuc.value = data.data.idDanhMuc;
       tenDanhMuc.value = data.data.tenDanhMuc;
 
@@ -104,11 +101,11 @@ const submitForm = () => {
   };
 
   console.log(body);
-  updatePostCategory(body)
+  updateCategoryProduct(body)
     .then((data) => {
-      console.log(data);
+      console.log("Cuong", data);
       toast.success("Cập nhật danh mục sản phẩm thành công");
-      router.push("/admin/postcategory");
+      router.push("/admin/categoryproduct");
     })
     .catch((error) => {
       console.log(error);

@@ -30,6 +30,7 @@
           <th>Danh mục</th>
           <th>Tiêu đề</th>
           <th>Mô tả</th>
+          <th>Nội dung</th>
           <th>Chức năng</th>
         </tr>
       </thead>
@@ -55,9 +56,54 @@
               </div>
             </div>
           </td>
-         
-          <td>
+
+          <!-- <td>
             {{ post.moTa }}
+          </td> -->
+          <td class="whitespace-normal">
+            <div v-if="post.moTa && post.moTa.length > 20">
+              <template v-if="!showMore[post.id]">
+                {{ post.moTa.slice(0, 20) }}...
+                <span
+                  @click="showMore[post.id] = true"
+                  class="font-bold cursor-pointer"
+                  >Xem thêm</span
+                >
+              </template>
+              <template v-else>
+                {{ post.moTa }}
+                <span
+                  @click="showMore[post.id] = false"
+                  class="font-bold cursor-pointer"
+                  >Thu gọn</span
+                >
+              </template>
+            </div>
+            <div v-else>{{ post.moTa }}</div>
+          </td>
+          <!-- <td>
+            {{ post.noiDung }}
+          </td> -->
+          <td class="whitespace-normal">
+            <div v-if="post.noiDung && post.noiDung.length > 20">
+              <template v-if="!showMore[post.id]">
+                {{ post.noiDung.slice(0, 20) }}...
+                <span
+                  @click="showMore[post.id] = true"
+                  class="font-bold cursor-pointer"
+                  >Xem thêm</span
+                >
+              </template>
+              <template v-else>
+                {{ post.noiDung }}
+                <span
+                  @click="showMore[post.id] = false"
+                  class="font-bold cursor-pointer"
+                  >Thu gọn</span
+                >
+              </template>
+            </div>
+            <div v-else>{{ post.noiDung }}</div>
           </td>
           <td>
             <div class="dropdown dropdown-left dropdown-end">
@@ -91,10 +137,7 @@
 
 <script setup>
 import { ref, watchEffect } from "vue";
-import {
-  deletePost,
-  getPostById,
-} from "~~/composables/useApiPost.js";
+import { deletePost, getPostById } from "~~/composables/useApiPost.js";
 import { useRouter } from "vue-router";
 const { $toast } = useNuxtApp();
 
@@ -102,7 +145,7 @@ const router = useRouter();
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
-const pageSize = 15;
+const pageSize = 5;
 const pageNumber = ref(1);
 const skip = ref(0);
 

@@ -59,9 +59,12 @@ export const API_ENDPOINT = {
 
   deleteOrder: (id) => `/api/product/donhang/${id}`,
 
-  getOrderById: (id) => `api/product/donhang/${id}`,
+  // getOrderById: (id) => `api/product/donhang/${id}`,
+  getOrderById: (id) => `/api/product/donhang/${id}`,
 
   putOrder: (id) => `/api/product/donhang/${id}`,
+
+  getDetailsOrder: (id) => `/api/product/donhang/full?maDonHang=${id}`,
 
   // Api Bài đăng
   getPostById: (id) => `/api/product/bai-tin/${id}`,
@@ -106,19 +109,23 @@ export const API_ENDPOINT = {
 
   postPostCategory: `/api/product/danh-muc-bai-tin`,
 
+  putPostCategory: `/api/product/danh-muc-bai-tin`,
+
   // Danh mục sản phẩm
   getAllCategoryProductPhanTrang: (pageSize, pageNumber, skip) =>
     `/api/product/sanpham/danh-muc?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
   postCategoryProduct: `/api/product/sanpham/danh-muc`,
   deleteCategoryProduct: (id) => `/api/product/sanpham/danh-muc?id=${id}`,
-  getCategoryProductById: (id) => `/api/product/sanpham/danh-muc?id=${id}`,
+  getCategoryProductById: (id) => `/api/product/sanpham/danhmuc-id/${id}`,
+  putCategoryProduct: (id) => `/api/product/sanpham/edit-danhmuc/${id}`,
 
   // Chi tiết đơn hàng
   getAllDetailsOrderAll: `/api/product/ct-donhang`,
   postDetailsOrderAll: `/api/product/ct-donhang`,
   getDetailsOrderAllById: (id) => `/api/product/ct-donhang/${id}`,
-  putDetailsOrderAll: (id) => `/api/product/ct-donhang/${id}`,
   deleteDetailsOrderAll: (id) => `/api/product/ct-donhang/${id}`,
+  putDetailsOrderAll: (id) => `/api/product/ct-donhang/${id}`,
+  getDetailOrderByCodeOrders : (id) => `/api/product/donhang/full?maDonHang=${id}`,
 
   // API trả giá
   postProductBid: `/api/product/tra-gia`,

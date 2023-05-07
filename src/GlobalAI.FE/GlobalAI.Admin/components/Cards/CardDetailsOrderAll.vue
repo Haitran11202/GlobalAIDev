@@ -31,6 +31,7 @@
           <th>Mã đơn hàng</th>
           <th>Mã sản phẩm</th>
           <th>Số lượng</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -77,6 +78,11 @@
 <script setup>
 import { ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
+import {
+  getAllDetailsOrderAll,
+  deleteDetailsOrderAll,
+  getDetailsOrderAllById,
+} from "~~/composables/useApiDetailsOrderAll";
 const { $toast } = useNuxtApp();
 
 const router = useRouter();
