@@ -67,7 +67,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<AddDonHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse EditDonHang([FromRoute]string id, AddDonHangDto newDonHang )
+        public APIResponse EditDonHang([FromRoute]int id, AddDonHangDto newDonHang )
         {
             try
             {
@@ -118,6 +118,20 @@ namespace GlobalAI.ProductAPI.Controllers
             try
             {
                 var input = _donHangServices.GetDonHangFull(maDonHang);
+                return new APIResponse(Utils.StatusCode.Success, input, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(APIResponse<int>), (int)HttpStatusCode.OK)]
+        public APIResponse GetDonHangById(int id)
+        {
+            try
+            {
+                var input = _donHangServices.GetDonhangById(id);
                 return new APIResponse(Utils.StatusCode.Success, input, 200, "Ok");
             }
             catch (Exception ex)

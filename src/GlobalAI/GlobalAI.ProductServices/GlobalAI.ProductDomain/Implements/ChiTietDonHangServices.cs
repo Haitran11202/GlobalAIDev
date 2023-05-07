@@ -83,9 +83,9 @@ namespace GlobalAI.ProductDomain.Implements
         /// <param name="maSanPham"></param>
         /// <param name="newDonHang"></param>
         /// <returns></returns>
-        public ChiTietDonHang EditChiTietDonhang(int maDonHang, int maSanPham, EditChiTietDonHangDto newDonHang)
+        public ChiTietDonHang EditChiTietDonhang(int idDonHang, EditChiTietDonHangDto newDonHang)
         {
-            var result = _repositoryChiTietDonHang.FindChiTietDonHang(maDonHang, maSanPham);
+            var result = _repositoryChiTietDonHang.FindChiTietDonHang(idDonHang);
             if (result != null)
             {
                 _repositoryChiTietDonHang.EditChiTietDonHang(result, newDonHang);

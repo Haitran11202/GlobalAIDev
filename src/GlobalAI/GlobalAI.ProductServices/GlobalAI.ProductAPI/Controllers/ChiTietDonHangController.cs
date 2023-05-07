@@ -82,11 +82,11 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<AddChiTietDonHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse EditChiTietDonHang([FromRoute]int id, int maSanPham, EditChiTietDonHangDto newDonHang)
+        public APIResponse EditChiTietDonHang([FromRoute]int id ,EditChiTietDonHangDto newDonHang)
         {
             try
             {
-                var donHang = _chiTietDonHangServices.EditChiTietDonhang(id, maSanPham, newDonHang);
+                var donHang = _chiTietDonHangServices.EditChiTietDonhang(id, newDonHang);
                 if (donHang == null)
                 {
                     return new APIResponse(Utils.StatusCode.Success, null, 404, "Not Found");

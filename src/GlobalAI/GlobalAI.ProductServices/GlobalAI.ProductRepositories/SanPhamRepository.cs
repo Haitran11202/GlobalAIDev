@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http.Internal;
 using System.Net.WebSockets;
 using Microsoft.AspNetCore.Mvc;
 using GlobalAI.Utils.ConstantVariables.Product;
+using GlobalAI.ProductEntities.Dto.DanhMuc;
 
 namespace GlobalAI.ProductRepositories
 {
@@ -38,6 +39,10 @@ namespace GlobalAI.ProductRepositories
         public void EditSanPham(AddSanPhamDto newSanPham, SanPham oldSanPham)
         {
             _mapper.Map(newSanPham, oldSanPham);
+        }
+        public void EditDanhMuc(CreateDanhMucDto newDanhMuc, DanhMuc oldDanhmuc)
+        {
+            _mapper.Map(newDanhMuc, oldDanhmuc);
         }
         public void Delete(SanPham sanPham)
         {
@@ -132,6 +137,20 @@ namespace GlobalAI.ProductRepositories
             else if(result.Deleted == true)
             {
                 throw new Exception("San pham khong ton tai");
+            }
+            return result;
+        }
+        public DanhMuc FindByIdDanhMuc(int idDanhMuc)
+        {
+
+            var result = _globalAIDbContext.DanhMucs.FirstOrDefault(d => d.Id == idDanhMuc);
+            if (result == null)
+            {
+                throw new Exception("Danh muc khong ton tai");
+            }
+            else if (result.Deleted == true)
+            {
+                throw new Exception("Danh muc khong ton tai");
             }
             return result;
         }

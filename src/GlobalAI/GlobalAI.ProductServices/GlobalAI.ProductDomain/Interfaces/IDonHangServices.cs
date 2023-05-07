@@ -17,7 +17,7 @@ namespace GlobalAI.ProductDomain.Interfaces
     {
         public PagingResult<GetDonHangDto> FindAll(FindDonHangDto input);
         public DonHang CreateDonhang(AddDonHangDto input);
-        public DonHang EditDonhang(string id, AddDonHangDto newDonHang);
+        public DonHang EditDonhang(int id, AddDonHangDto newDonHang);
 
 
         public void DeleteDonHangById(int id);
@@ -27,6 +27,6 @@ namespace GlobalAI.ProductDomain.Interfaces
         public void CreateDonHangFull(AddDonHangFullDto donHangFullDto);
 
         public DonHang UpdateStatusDonHang(UpdateStatusDonHangDto updateDonHangDto);
-       
+        DonHang GetDonhangById(int id);
     }
 }
