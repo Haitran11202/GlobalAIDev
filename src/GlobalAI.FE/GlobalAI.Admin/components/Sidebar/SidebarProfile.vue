@@ -12,9 +12,9 @@
                 <font-awesome-icon :icon="['fass', 'xmark']" />
                 </button>
             </div>
-            <ul class="space-y-2 font-medium">
+            <ul class="space-y-2 font-medium text-[14px]">
                 <li>
-                    <a href="#" class="flex text-lg items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <div class="pl-3 pr-8">
                         <font-awesome-icon :icon="['fass', 'pen-to-square']" />
                     </div>
@@ -22,7 +22,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="flex text-lg items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <div class="pl-3 pr-8 text-green-500">
                         <font-awesome-icon :icon="['fass', 'circle-info']" />
                     </div>
@@ -30,7 +30,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" class="flex text-lg items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                     <div class="pl-3 pr-8 text-red-500" >
                         <font-awesome-icon :icon="['fass', 'trash']" />
                     </div>
