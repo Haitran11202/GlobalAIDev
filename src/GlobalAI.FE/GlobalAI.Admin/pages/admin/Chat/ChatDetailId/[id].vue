@@ -1,168 +1,196 @@
-<template>
-  <div>
-    <div class="overflow-x-auto relative w-full">
-      <div class="mb-0 rounded-md px-4 py-3 bg-[#fff] border-0">
-        <div class="flex flex-wrap items-center">
-          <div
-            class="relative w-full px-4 max-w-full flex justify-between items-center"
-          >
-            <h3 class="font-semibold text-lg text-slate-800 uppercase">
-              Danh Sách Tương Tác Người Dùng
-            </h3>
+<template lang="">
+  <div class="mt-[100px] w-full border-[1px] flex bg-white min-h-[100vh]">
+    <SidebarChatAdmin />
+    <div v-if="chatBid.length > 0" class="flex-1 pt-[15px]">
+      <div
+        class="flex px-[15px] pb-[15px] border-b-[1px] border-[#f4f4f4] justify-between"
+      >
+        <div class="flex gap-[10px]">
+          <div class="w-[40px] h-[40px] rounded-[50%] overflow-hidden">
+            <img
+              :src="image"
+              alt=""
+              class="object-cover"
+            />
           </div>
+          <h2 class="text-[16px] text-[#000000] font-sm">Nguyễn Tiến Dũng</h2>
+        </div>
+        <button class="text-[25px]">
+          <font-awesome-icon :icon="['fas', 'ellipsis-vertical']" />
+        </button>
+      </div>
+      <div
+        class="px-[15px] py-[15px] border-b-[1px] flex gap-[10px] items-start"
+      >
+        <div class="w-[60px] h-[60px] rounded-md overflow-hidden">
+          <img
+            :src="getImageUrl(productBid?.thumbnail)"
+            alt=""
+            class="object-cover"
+          />
+        </div>
+        <div>
+          <h2 class="text-[16px] font-bold text-[#000000]">
+            {{ productBid?.tenSanPham }}
+          </h2>
+          <p class="text-red-500 text-[14px] mt-1">{{ productBid?.giaBan }}</p>
         </div>
       </div>
-      <table class="w-full mt-2 bg-white">
-        <!-- head -->
-        <thead>
-          <tr class="bg-slate-200 py-2 px-2">
-            <th>Mã</th>
-            <th>ID Người Mua</th>
-            <th>ID Sản Phẩm</th>
-            <th>Giá Cuối</th>
-            <th class="py-3 px-2">Trạng Thái</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            class="text-sm cursor-pointer border-slate-200 hover:bg-slate-50 border-b-[1px]"
-            @click="handleChatDetailProduct(product)"
-            v-for="product in products.slice(skip, skip + pageSize)"
-            :key="product.id"
+      <div class="h-[480px] px-[15px] overflow-y-auto">
+        <div
+          v-for="price in chatBid"
+          ::key="price"
+          :class="
+            price.loaiTraGia == 1
+              ? 'gsaler float-right rounded-md  w-[70%] mt-[20px] justify-between px-2 py-2 border-[1px] bg-[#f4f4f4] flex items-center gap-[10px]'
+              : 'gstore float-left rounded-md  w-[70%] mt-[20px] justify-between px-2 py-2 border-[1px] bg-[#fff4d6] flex items-center gap-[10px]'
+          "
+        >
+          <div class="flex gap-[10px]">
+            <div class="w-[50px] h-[50px] rounded-[md] overflow-hidden">
+              <img
+                :src="getImageUrl(productBid?.thumbnail)"
+                alt=""
+                class="object-cover"
+              />
+            </div>
+            <div>
+              <h2
+                class="text-[14px] font-bold leading-[1.3] w-[180px] h-[20.08px] text-ellipsis line-clamp-1 mr-2"
+              >
+                {{ productBid?.tenSanPham }}
+              </h2>
+              <span v-if="price.loaiTraGia === 1"
+                >Trả giá :{{ formatMoneyAll(price.giaTien) }}</span
+              >
+              <span v-else-if="price.loaiTraGia === 2"
+                >Yêu cầu :{{ formatMoneyAll(price.giaTien) }}</span
+              >
+            </div>
+          </div>
+          <button
+            v-if="price.loaiTraGia === 2"
+            class="px-1 py-1 border-[1px] bg-blue-100 rounded-md"
           >
-            <td class="text-center items-center justify-center py-5 px-2">{{ product.id }}</td>
-
-            <td  class="text-center items-center justify-center py-5 px-2">
-              {{ product.idNguoiMua }}
-            </td>
-
-            <td  class="text-center items-center justify-center py-5 px-2">{{ product.idSanPham }}</td>
-            <td  class="text-center items-center justify-center py-5 px-2">{{ product.giaCuoi }}</td>
-            <td  class="text-center items-center justify-center py-5 px-2">{{ product.status }}</td>
-          </tr>
-        </tbody>
-      </table>
+            Chỉnh Sửa
+          </button>
+          <button
+            v-else-if="price.loaiTraGia === 1"
+            @click="handleAgreePrice"
+            class="px-1 py-1 border-[1px] bg-blue-100 rounded-md"
+          >
+            Đồng ý
+          </button>
+        </div>
+      </div>
+      <form
+        @submit.prevent="handleBidChat"
+        class="flex gap-[15px] items-center mt-[20px] px-[15px] py-[15px]"
+      >
+        <div class="flex w-[10%] gap-[10px] items-center">
+          <button class="text-blue-500 text-[20px]">
+            <font-awesome-icon :icon="['fas', 'circle-plus']" />
+          </button>
+          <button class="text-blue-500 text-[20px]">
+            <font-awesome-icon :icon="['fass', 'file-image']" />
+          </button>
+          <button class="text-blue-500 text-[20px]">
+            <font-awesome-icon :icon="['fass', 'location-dot']" />
+          </button>
+        </div>
+        <div class="flex-1 rounded-2xl overflow-hidden border-[1px]">
+          <input
+            v-model="chatValue"
+            class="px-[10px] py-[5px] w-full outline-none bg-slate-100"
+            type="number"
+            placeholder="Nhập giá muốn thương lượng"
+          />
+        </div>
+        <div class="w-10%">
+          <button type="submit">
+            <font-awesome-icon
+              :class="chatValue.length > 0 ? 'text-blue-500' : ''"
+              :icon="['fas', 'paper-plane']"
+            />
+          </button>
+        </div>
+      </form>
     </div>
-    <div class="btn-group flex justify-center mt-2">
-      <button @click="previousPage" class="btn">«</button>
-      <button @click="nextPage" class="btn">»</button>
-    </div>
-    <div
-      v-if="isCheckedChat"
-      class="fixed bottom-0 right-[5%] bg-white border-[1px] shadow-md rounded-t-md px-[15px] py-[15px]"
-    >
-      <ChatBoxAdmin
-        v-on:close-box="handleCloseBoxChat"
-        :products="productsChat"
-      />
+    <div v-else class="flex-1 pt-[15px] flex items-center justify-center">
+      <h1>Tích cực chat , săn quà khủng !!!</h1>
     </div>
   </div>
 </template>
-<script>
-import TableDropdown from "@/components/Dropdowns/TableDropdown.vue";
-
-import bootstrap from "@/assets/img/bootstrap.jpg";
-import angular from "@/assets/img/angular.jpg";
-import sketch from "@/assets/img/sketch.jpg";
-import react from "@/assets/img/react.jpg";
-import vue from "@/assets/img/react.jpg";
-
-import team1 from "@/assets/img/team-1-800x800.jpg";
-import team2 from "@/assets/img/team-2-800x800.jpg";
-import team3 from "@/assets/img/team-3-800x800.jpg";
-import team4 from "@/assets/img/team-4-470x470.png";
-
-export default {
-  data() {
-    return {
-      bootstrap,
-      angular,
-      sketch,
-      react,
-      vue,
-      team1,
-      team2,
-      team3,
-      team4,
-    };
-  },
-  components: {
-    TableDropdown,
-  },
-  props: {
-    color: {
-      default: "light",
-      validator: function (value) {
-        // The value must match one of these strings
-        return ["light", "dark"].indexOf(value) !== -1;
-      },
-    },
-  },
-};
-</script>
-
 <script setup>
 import { toast } from "vue3-toastify";
-import ChatBoxAdmin from "~~/components/Cards/ChatBoxAdmin.vue";
+import SidebarChatAdmin from "~~/components/Sidebar/SidebarChatAdmin.vue";
+import image from "@/assets/img/team-1-800x800.jpg";
 const router = useRouter();
-const isCheckedChat = ref(false);
-const products = ref([]);
-const productsChat = ref({});
-const pageSize = 5;
-const pageNumber = ref(1);
-const skip = ref(0);
-const totalPages = ref(1);
-const isStatus = ref(1);
+const chatBid = ref([]);
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiEndpoint;
+const chatValue = ref("");
+const productBid = ref({});
 
-const handleChatDetailProduct = (product) => {
-  console.log(product);
-  isCheckedChat.value = true;
-  productsChat.value = product;
-};
-
-const handleIdDetail = (id) => {
-  console.log(id);
-  router.push({ name: "ChatDetailProductId", params: { id: id } });
-};
-
-onMounted(() => {
-  console.log(router.currentRoute.value.params.id);
-  getSanPhamById(router.currentRoute.value.params.id).then((res) => {
-    console.log(res.data.data);
-    getProductBidUser(res?.data?.data.id, res?.data?.data.giaBan, 1, -1, 1, 0)
-      .then((res) => {
-        console.log(res?.data?.data.items);
-        products.value = res?.data?.data.items;
-        watchEffect(() => {
-          skip.value = (pageNumber.value - 1) * pageSize;
-          totalPages.value = Math.ceil(products.value.length / pageSize);
-        });
-      })
-      .catch((err) => console.log(err))
-      .catch((err) => console.log(err));
-  });
+watchEffect(() => {
+  getDetailedPayment(router.currentRoute.value.params.id)
+    .then((res) => {
+      chatBid.value = res.data.data.chiTietTraGias;
+      chatBid.value.sort((a, b) => {
+        return new Date(a.createdDate) - new Date(b.createdDate);
+      });
+      getSanPhamById(res.data.data.idSanPham)
+        .then((res) => {
+          productBid.value = res?.data?.data;
+        })
+        .catch((error) => console.log(error));
+    })
+    .catch((error) => console.log(error));
 });
-
-const handleCloseBoxChat = () => {
-  isCheckedChat.value = false;
-};
-const previousPage = () => {
-  if (pageNumber.value === 1) {
-    // Kiểm tra xem đã đạt trang đầu tiên hay chưa
-    return;
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
   }
-  pageNumber.value -= 1;
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl,
+  )}&download=false`;
+  return url;
 };
-
-const nextPage = () => {
-  if (products.value.length < pageSize) {
-    // Kiểm tra xem có đủ sản phẩm để hiển thị trên trang tiếp theo hay không
-    return;
-  }
-  pageNumber.value += 1;
+const formatMoneyAll = (money) => {
+  money = Number(money);
+  return money.toLocaleString("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  });
 };
+// Xử lý gửi chat tiếp
+const handleBidChat = () => {
+  const formData = {
+    idTraGia: router.currentRoute.value.params.id,
+    loaiTraGia: 2,
+    giaTien: chatValue.value,
+  };
+  postTragiaDetail(formData)
+  .then((res) => {
+    toast.success("Trả giá thành công");
+    chatValue.value = "";
+    getDetailedPayment(router.currentRoute.value.params.id).then((res) => {
+      console.log(res.data.data.chiTietTraGias);
+      chatBid.value = res.data.data.chiTietTraGias;
+      chatBid.value.sort((a, b) => {
+        return new Date(a.createdDate) - new Date(b.createdDate);
+      });
+    });
+  })
+  .catch((error) => console.log(error))
+};
+// Xử lý chấp nhận giá của người mua
+const handleAgreePrice = ()=> {
+  toast.success("Đã chấp nhận giá của user , giá sẽ được cập nhật sau ít phút ")
+}
 definePageMeta({
   layout: "admin",
-  name: "ChatDetailId",
+  name: "BoxChatIDAdmin",
 });
 </script>
+<style lang=""></style>

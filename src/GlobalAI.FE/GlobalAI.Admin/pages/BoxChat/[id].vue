@@ -1,60 +1,6 @@
 <template lang="">
   <div class="w-full border-[1px] flex bg-white min-h-[100vh]">
-    <div class="w-[40%] py-[15px] border-r-[1px]">
-      <div class="header flex justify-between px-[10px] items-center">
-        <h1 class="text-[24px] font-bold">Chat</h1>
-        <div class="flex gap-[15px]">
-          <select
-            name=""
-            id=""
-            class="border rounded-md px-2 py-2 outline-none"
-          >
-            <option value="">Tất cả</option>
-            <option value="">Mới Mua</option>
-            <option value="">Trò Chuyện</option>
-          </select>
-          <button class="text-[22px]">
-            <font-awesome-icon :icon="['fass', 'gear']" />
-          </button>
-        </div>
-      </div>
-      <div class="max-h-[600px] mt-[15px] overflow-y-auto">
-        <div
-          v-for="data in infoProductAndChat"
-          :key="data"
-          @click="handleClickChat(data)"
-          class="px-[15px] cursor-pointer hover:bg-[#f4f4f4] flex items-center gap-[15px] border-b-[1px] py-[10px]"
-        >
-          <div class="w-[48px] h-[48px] rounded-[50%] border overflow-hidden">
-            <img
-              src="https://scontent.fhan14-2.fna.fbcdn.net/v/t39.30808-1/336366957_760316142328885_5078514438208431576_n.jpg?stp=dst-jpg_p320x320&_nc_cat=106&ccb=1-7&_nc_sid=7206a8&_nc_ohc=zFKWEyKOmBQAX8uNAtE&_nc_ht=scontent.fhan14-2.fna&oh=00_AfDqB-V9UQjAqwOgQ0kluneWW3O4lvLIMmR3sWdKiATyog&oe=644C35A3"
-              alt=""
-              class="object-cover"
-            />
-          </div>
-          <div class="flex-1 flex gap-[6px] flex-col font-[400]">
-            <h3 class="text-[16px] text-[#000000]">{{ data.sanPham.tenSanPham}}</h3>
-            <p
-              class="text-[12px] leading-[1.2] h-[14.4px] whitespace-normal text-ellipsis line-clamp-1 text-[#9B9B9B] font-[500]"
-            >
-              {{ data.sanPham.tenSanPham }}
-            </p>
-            <p
-              class="text-[12px] text-[#9B9B9B] font-[400] leading-[1.2] h-[14.4px] whitespace-normal text-ellipsis line-clamp-1"
-            >
-              {{data.sanPham.giaBan }}
-            </p>
-          </div>
-          <div class="w-[65px] h-[65px] rounded-md overflow-hidden">
-            <img
-              :src="getImageUrl(data.sanPham.thumbnail)"
-              alt=""
-              class="object-cover"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+    <SidebarChat />
     <div v-if="chatBid.length > 0" class="flex-1 pt-[15px]">
       <div
         class="flex px-[15px] pb-[15px] border-b-[1px] border-[#f4f4f4] justify-between"
@@ -62,7 +8,7 @@
         <div class="flex gap-[10px]">
           <div class="w-[40px] h-[40px] rounded-[50%] overflow-hidden">
             <img
-              src="https://scontent.fhan14-2.fna.fbcdn.net/v/t39.30808-1/336366957_760316142328885_5078514438208431576_n.jpg?stp=dst-jpg_p320x320&_nc_cat=106&ccb=1-7&_nc_sid=7206a8&_nc_ohc=zFKWEyKOmBQAX8uNAtE&_nc_ht=scontent.fhan14-2.fna&oh=00_AfDqB-V9UQjAqwOgQ0kluneWW3O4lvLIMmR3sWdKiATyog&oe=644C35A3"
+              :src="image"
               alt=""
               class="object-cover"
             />
@@ -129,6 +75,7 @@
             Chỉnh Sửa
           </button>
           <button
+           @click="handleAgreePriceAdmin"
             v-else-if="price.loaiTraGia === 2"
             class="px-1 py-1 border-[1px] bg-blue-100 rounded-md"
           >
@@ -175,121 +122,74 @@
   </div>
 </template>
 <script setup>
-import jwt_decode from "jwt-decode";
 import { toast } from "vue3-toastify";
-import { useUserStorage } from "~~/stores/user";
+import SidebarChat from "~~/components/Sidebar/SidebarChat.vue";
+import image from "@/assets/img/team-1-800x800.jpg";
+const router = useRouter();
+const chatBid = ref([]);
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
-const token = useUserStorage();
-let listIdChat = ref([]);
-const accesstoken = token.accessToken;
-const productBid = ref({});
-const chatBid = ref([]);
-const infoProductAndChat = ref([])
-const idSanPhamClick = ref('')
-const idTraGiaClick = ref('')
-// Lấy user_id
-const getUserInfor = () => {
-  const userInfor = jwt_decode(accesstoken);
-  return userInfor;
-};
-
 const chatValue = ref("");
+const productBid = ref({});
 
-// Lấy ra idTraGia của người mua và idSanPham
-if (process.client) {
-  const existingList = localStorage.getItem("listIdTraGia");
-  if (existingList) {
-    // Lấy ra idTraGia của riêng User
-    listIdChat = JSON.parse(existingList).filter(
-      (item) => item.idNguoiMua == getUserInfor().user_id
-    );
-    console.log(listIdChat);
-  }
-}
-// Lấy thông tin sản phẩm và thông tin đoạn chat 
-onMounted(() => {
-  const existingList = localStorage.getItem("listIdTraGia");
-  console.log(existingList);
-  console.log(listIdChat);
-  listIdChat.forEach((product) => {
-    getSanPhamById(product.idSanPham)
-     .then((res) => {
-      console.log(res.data.data);
-      const singleData = {
-          sanPham:res.data.data,
-          idTraGia:product.idTragia
-      }
-      infoProductAndChat.value.push(singleData)
-     })
-  })
-});
-
-
-// Xử lý khi click vào từng đoạn chat 
-const handleClickChat = (data) => {
-  idSanPhamClick.value = data.sanPham.id
-  idTraGiaClick.value = data.idTraGia
-};
-const formatMoneyAll = (money) => {
-  money = Number(money);
-  return money.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
-};
-
-// Xử lý hiển thị đoạn chat tương ứng với từng sản phẩm
 watchEffect(() => {
-  if (idSanPhamClick && idSanPhamClick.value) {
-    getSanPhamById(idSanPhamClick.value)
-      .then((res) => {
-        productBid.value = res.data.data;
-        console.log(productBid.value);
-        if(idTraGiaClick && idTraGiaClick.value) {
-          getDetailedPayment(idTraGiaClick.value).then((res) => {
-          chatBid.value = res.data.data.chiTietTraGias;
-          chatBid.value.sort((a, b) => {
-            return new Date(a.createdDate) - new Date(b.createdDate);
-          });
-        });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-});
-
-// Xử lý gửi chat tiếp 
-const handleBidChat = () => {
-  const formData = {
-    idTraGia: idTraGiaClick.value,
-    loaiTraGia: 1,
-    giaTien: chatValue.value,
-  };
-  postTragiaDetail(formData).then((res) => {
-    toast.success("Trả giá thành công");
-    chatValue.value=''
-    getDetailedPayment(idTraGiaClick.value).then((res) => {
-      console.log(res.data.data.chiTietTraGias);
-      chatBid.value = chatBid.value.concat(res.data.data.chiTietTraGias);
+  getDetailedPayment(router.currentRoute.value.params.id)
+    .then((res) => {
+      chatBid.value = res.data.data.chiTietTraGias;
       chatBid.value.sort((a, b) => {
         return new Date(a.createdDate) - new Date(b.createdDate);
       });
-    });
-  });
-};
-
-// Xử lý ảnh
+      getSanPhamById(res.data.data.idSanPham)
+        .then((res) => {
+          productBid.value = res?.data?.data;
+        })
+        .catch((error) => console.log(error));
+    })
+    .catch((error) => console.log(error));
+});
 const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
   }
   const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
+    imageUrl,
   )}&download=false`;
   return url;
 };
+const formatMoneyAll = (money) => {
+  money = Number(money);
+  return money.toLocaleString("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  });
+};
+// Xử lý gửi chat tiếp
+const handleBidChat = () => {
+  const formData = {
+    idTraGia: router.currentRoute.value.params.id,
+    loaiTraGia: 1,
+    giaTien: chatValue.value,
+  };
+  postTragiaDetail(formData)
+  .then((res) => {
+    toast.success("Trả giá thành công");
+    chatValue.value = "";
+    getDetailedPayment(router.currentRoute.value.params.id).then((res) => {
+      console.log(res.data.data.chiTietTraGias);
+      chatBid.value = res.data.data.chiTietTraGias;
+      chatBid.value.sort((a, b) => {
+        return new Date(a.createdDate) - new Date(b.createdDate);
+      });
+    });
+  })
+  .catch((error) => console.log(error))
+};
+const handleAgreePriceAdmin = () => {
+  toast.success("Bạn đã đồng ý giá của Store , giá sẽ được cập nhật sau ít phút ")
+}
 definePageMeta({
   layout: "layout-default",
-  name: "BoxChat",
+  name: "BoxChatID",
 });
 </script>
+<style lang=""></style>

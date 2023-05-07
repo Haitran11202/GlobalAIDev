@@ -11,7 +11,7 @@ export const API_ENDPOINT = {
     `api/product/sanpham/danh-muc/${categoryId}?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
   getFullSanPham: (id) =>
     `api/product/sanpham/danh-muc/${id}?pageSize=10000000&pageNumber=1&Skip=0`,
-  getDanhMucSanPham: `/api/product/sanpham/danh-muc?pageSize=10&pageNumber=1&Skip=0`,
+  getDanhMucSanPham: `/api/product/sanpham/danh-muc?pageSize=-1&pageNumber=1&Skip=0`,
 
   getSanPhamByIdGStore: (pageSize, pageNumber, skip) =>
     `api/product/sanpham/get-sanpham-gstore?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
@@ -124,6 +124,7 @@ export const API_ENDPOINT = {
   postProductBid: `/api/product/tra-gia`,
   postTragiaDetail: `/api/product/tra-gia/add-detail`,
   getDetailedPayment: (idTraGia) => `/api/product/tra-gia/${idTraGia}`,
+  getAllChatUser:`/api/product/tra-gia/find-all?pageSize=-1&pageNumber=1&Skip=0`,
   getProductBidUser: (IdSanPham, GiaTien, status, pageSize, pageNumber, Skip) =>
     `/api/product/tra-gia/find-all?IdSanPham=${IdSanPham}&GiaTien=${GiaTien}&status=${status}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
   getIDPayment: (idSanPham) =>
