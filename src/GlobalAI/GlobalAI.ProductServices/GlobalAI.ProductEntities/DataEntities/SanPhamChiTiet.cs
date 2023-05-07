@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.ProductEntities.DataEntities
 {
-    [Table("P_SanPham")]
-    [Comment("bảng sản phẩm")]
-    public class SanPham
+    [Table("P_SanPhamChiTiet")]
+    [Comment("bảng sản phẩm chi tiết")]
+    public class SanPhamChiTiet
     {
         //public static string SEQ { get; } = $"SEQ_{nameof(DemoProduct).ToSnakeUpperCase()}";
 
@@ -24,15 +24,8 @@ namespace GlobalAI.ProductEntities.DataEntities
         /// <summary>
         /// Mã sản phẩm
         /// </summary>
-        [ColumnSnackCase(nameof(MaSanPham))]
-        public string MaSanPham { get; set; }
-
-        /// <summary>
-        /// Tên sản phẩm
-        /// </summary>
-        [StringLength(400)]
-        [ColumnSnackCase(nameof(TenSanPham))]
-        public string TenSanPham { get; set; } = String.Empty;
+        [ColumnSnackCase(nameof(MaSanPhamChiTiet))]
+        public string MaSanPhamChiTiet { get; set; }
 
         /// <summary>
         /// Mô tả
@@ -54,18 +47,6 @@ namespace GlobalAI.ProductEntities.DataEntities
         public decimal? GiaChietKhau { get; set; }
 
         /// <summary>
-        /// Id danh mục
-        /// </summary>
-        [ColumnSnackCase(nameof(IdDanhMuc))]
-        public string IdDanhMuc { get; set; }
-
-        /// <summary>
-        /// Id Gstore
-        /// </summary>
-        [ColumnSnackCase(nameof(IdGStore))]
-        public int IdGStore { get; set; }
-
-        /// <summary>
         /// Ngày đăng ký
         /// </summary>
         [ColumnSnackCase(nameof(NgayDangKi))]
@@ -76,9 +57,6 @@ namespace GlobalAI.ProductEntities.DataEntities
         /// </summary>
         [ColumnSnackCase(nameof(NgayDuyet))]
         public DateTime? NgayDuyet { get; set; }
-
-        [ColumnSnackCase(nameof(Deleted))]
-        public bool Deleted { get; set; }
 
         /// <summary>
         /// Trạng thái
@@ -93,7 +71,7 @@ namespace GlobalAI.ProductEntities.DataEntities
         public decimal? GiaToiThieu { get; set; }
 
         /// <summary>
-        /// Immage của sp
+        /// Immage của chi tiết sp
         /// </summary>
         [ColumnSnackCase(nameof(Thumbnail))]
         public string Thumbnail { get; set; }
@@ -110,6 +88,13 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(LuotBan))]
         public int? LuotBan { get; set; }
 
+        /// <summary>
+        /// Số lượng
+        /// </summary>
+        [ColumnSnackCase(nameof(SoLuong))]
+        public int? SoLuong { get; set; }
+
+
         #region audit
         [MaxLength(50)]
         [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]
@@ -117,6 +102,9 @@ namespace GlobalAI.ProductEntities.DataEntities
 
         [ColumnSnackCase(nameof(CreatedDate), TypeName = "DATE")]
         public DateTime? CreatedDate { get; set; }
+
+        [ColumnSnackCase(nameof(Deleted))]
+        public bool Deleted { get; set; }
 
         [MaxLength(50)]
         [ColumnSnackCase(nameof(DeletedBy), TypeName = "VARCHAR2")]
