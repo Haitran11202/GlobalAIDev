@@ -35,7 +35,7 @@
               <div>
                 <a
                   class="text-slate-700 text-xl font-bold leading-relaxed inline-block mr-4 whitespace-nowrap"
-                  href="/gsaler/home"
+                  href="/"
                 >
                 <img
                       alt="..."
