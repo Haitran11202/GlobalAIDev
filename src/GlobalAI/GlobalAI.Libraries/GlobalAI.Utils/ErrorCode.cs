@@ -30,17 +30,26 @@ namespace GlobalAI.Utils
         /// </summary>
         HttpRequestThirdPartDomainError = 1506,
 
-        ///user
+        #region user
         UserUsernameDuplicated = 1001,
         UserEmailDuplicated = 1002,
         UserPhoneDuplicated = 1003,
         UserLoginNotFound = 1004,
         UserRoleNotFound = 1005,
+        #endregion
 
+        #region sp
+        /// sp
+        ProductDanhMucThuocTinhNotFound = 2001,
+        ProductThuocTinhNotFound = 2002,
+        #endregion
+
+        #region file
         /// file
         FileExtensionNoAllow = 5001,
         FileUploadNoContent = 5002,
         FileOverUploadLimit = 5003
+        #endregion
     }
 
 }
