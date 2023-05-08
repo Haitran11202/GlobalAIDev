@@ -355,7 +355,7 @@ export default {
 import { toast } from "vue3-toastify";
 const router = useRouter();
 const priceOrder = ref();
-const InforOrder = ref([])
+const InforOrder = ref([]);
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 definePageMeta({
@@ -366,26 +366,24 @@ const isStatus = ref(1);
 
 onMounted(() => {
   console.log(router.currentRoute.value.params.id);
-})
+});
 watchEffect(() => {
   getDetailOrderByCodeOrders(router.currentRoute.value.params.id)
-  .then((res) => {
-    priceOrder.value = res.data.donHang.soTien
-    res.data.chiTietDonHangFullDtos.forEach((item) => {
-      getSanPhamById(item.idSanPham)
-        .then((res) => {
-            const singleData = {
-                sanPham:res.data.data,
-                soLuong:item.soLuong
-            }
-            console.log(singleData);
-            InforOrder.value.push(singleData)
-         })
-  
+    .then((res) => {
+      priceOrder.value = res.data.donHang.soTien;
+      res.data.chiTietDonHangFullDtos.forEach((item) => {
+        getSanPhamById(item.idSanPham).then((res) => {
+          const singleData = {
+            sanPham: res.data.data,
+            soLuong: item.soLuong,
+          };
+          console.log(singleData);
+          InforOrder.value.push(singleData);
+        });
+      });
     })
-  })
-  .catch(err => console.log(err))
-})
+    .catch((err) => console.log(err));
+});
 const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
@@ -447,4 +445,31 @@ const ConfirmOrder = () => {
   toast.success("Đơn hàng đã được xác nhận");
   isStatus.value = 2;
 };
+
+const postOrderId = ref(0);
+const maDonHang = ref("");
+const ngayHoanThanh = ref("");
+const idGStore = ref(0);
+const idNguoiMua = ref(0);
+const soTien = ref(0);
+const hinhThucThanhToan = ref("");
+const diaChi = ref("");
+
+onMounted(() => {
+  postOrderId.value = router.currentRoute.value.params.id;
+  watchEffect(async () => {
+    try {
+      const data = await getOrderById(postOrderId.value);
+      maDonHang.value = data.data.maDonHang;
+      ngayHoanThanh.value = data.data.ngayHoanThanh;
+      idGStore.value = data.data.idGStore;
+      idNguoiMua.value = data.data.idNguoiMua;
+      soTien.value = data.data.soTien;
+      hinhThucThanhToan.value = data.data.hinhThucThanhToan;
+      diaChi.value = data.data.diaChi;
+    } catch (error) {
+      console.log(error);
+    }
+  });
+});
 </script>
