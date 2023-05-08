@@ -82,20 +82,7 @@
             <div
               class="hover:scale-90 text-slate-800 p-3 w-32 h-32 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
             >
-              <svg
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M16.5 18.75h-9m9 0a3 3 0 013 3h-15a3 3 0 013-3m9 0v-3.375c0-.621-.503-1.125-1.125-1.125h-.871M7.5 18.75v-3.375c0-.621.504-1.125 1.125-1.125h.872m5.007 0H9.497m5.007 0a7.454 7.454 0 01-.982-3.172M9.497 14.25a7.454 7.454 0 00.981-3.172M5.25 4.236c-.982.143-1.954.317-2.916.52A6.003 6.003 0 007.73 9.728M5.25 4.236V4.5c0 2.108.966 3.99 2.48 5.228M5.25 4.236V2.721C7.456 2.41 9.71 2.25 12 2.25c2.291 0 4.545.16 6.75.47v1.516M7.73 9.728a6.726 6.726 0 002.748 1.35m8.272-6.842V4.5c0 2.108-.966 3.99-2.48 5.228m2.48-5.492a46.32 46.32 0 012.916.52 6.003 6.003 0 01-5.395 4.972m0 0a6.726 6.726 0 01-2.749 1.35m0 0a6.772 6.772 0 01-3.044 0"
-                ></path>
-              </svg>
+              <img :src="imgUyTin"/>
             </div>
             <h6 class="text-xl mt-5 font-semibold text-white">Uy tín</h6>
             <p class="mt-2 mb-4 text-slate-400">
@@ -106,20 +93,7 @@
             <div
               class="hover:scale-90 text-slate-800 p-3 w-32 h-32 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
             >
-              <svg
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"
-                ></path>
-              </svg>
+            <img :src="imgMoRongThiTruong"/>
             </div>
             <h6 class="text-xl mt-5 font-semibold text-white">
               Mở rộng thị trường
@@ -132,20 +106,7 @@
             <div
               class="hover:scale-90 text-slate-800 p-3 w-32 h-32 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
             >
-              <svg
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"
-                ></path>
-              </svg>
+            <img :src="imgChiPhiThap"/>
             </div>
             <h6 class="text-xl mt-5 font-semibold text-white">Chi phí thấp</h6>
             <p class="mt-2 mb-4 text-slate-400">
@@ -156,20 +117,7 @@
             <div
               class="hover:scale-90 text-slate-800 p-3 w-32 h-32 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
             >
-              <svg
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                ></path>
-              </svg>
+            <img :src="imgDeDangQuanLy"/>
             </div>
             <h6 class="text-xl mt-5 font-semibold text-white">
               Dễ dàng quản lý
@@ -182,20 +130,7 @@
             <div
               class="hover:scale-90 text-slate-800 p-3 w-32 h-32 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
             >
-              <svg
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6.633 10.5c.806 0 1.533-.446 2.031-1.08a9.041 9.041 0 012.861-2.4c.723-.384 1.35-.956 1.653-1.715a4.498 4.498 0 00.322-1.672V3a.75.75 0 01.75-.75A2.25 2.25 0 0116.5 4.5c0 1.152-.26 2.243-.723 3.218-.266.558.107 1.282.725 1.282h3.126c1.026 0 1.945.694 2.054 1.715.045.422.068.85.068 1.285a11.95 11.95 0 01-2.649 7.521c-.388.482-.987.729-1.605.729H13.48c-.483 0-.964-.078-1.423-.23l-3.114-1.04a4.501 4.501 0 00-1.423-.23H5.904M14.25 9h2.25M5.904 18.75c.083.205.173.405.27.602.197.4-.078.898-.523.898h-.908c-.889 0-1.713-.518-1.972-1.368a12 12 0 01-.521-3.507c0-1.553.295-3.036.831-4.398C3.387 10.203 4.167 9.75 5 9.75h1.053c.472 0 .745.556.5.96a8.958 8.958 0 00-1.302 4.665c0 1.194.232 2.333.654 3.375z"
-                ></path>
-              </svg>
+            <img :src="imgTangTinhCanhTranh"/>
             </div>
             <h5 class="text-xl mt-5 font-semibold text-white">
               Tăng tính cạnh tranh
@@ -208,20 +143,7 @@
             <div
               class="hover:scale-90 text-slate-800 p-3 w-32 h-32 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
             >
-              <svg
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18"
-                ></path>
-              </svg>
+            <img :src="imgTietKiem"/>
             </div>
             <h5 class="text-xl mt-5 font-semibold text-white">Tiết kiệm</h5>
             <p class="mt-2 mb-4 text-slate-400">
@@ -339,9 +261,9 @@
         <div class="justify-center flex flex-wrap">
           <div class="w-full lg:w-12/12 px-4 -mt-24">
             <div class="flex flex-wrap">
-              <div class="w-full lg:w-4/12 px-4">
-                <h5 class="text-xl font-semibold pb-4 text-center">Mỹ phẩm</h5>
-                <nuxt-link to="/product/category/1">
+              <div v-for="item in danhmucbaitin" class="w-full lg:w-4/12 px-4">
+                <nuxt-link :to="`/post/postdanhmuc/${ item.id }`">
+                <h5 class="text-xl font-semibold pb-4 text-center">{{ item.tenDanhMuc }}</h5>
                   <div
                     class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
                   >
@@ -352,41 +274,7 @@
                     />
                   </div>
                 </nuxt-link>
-              </div>
-
-              <div class="w-full lg:w-4/12 px-4">
-                <h5 class="text-xl font-semibold pb-4 text-center">
-                  Thời trang
-                </h5>
-                <nuxt-link to="/product/category/1">
-                  <div
-                    class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
-                  >
-                    <img
-                      alt="..."
-                      class="align-middle border-none max-w-full h-[320px] shadow-md rounded-lg w-full"
-                      :src="thoitrang"
-                    />
-                  </div>
-                </nuxt-link>
-              </div>
-
-              <div class="w-full lg:w-4/12 px-4">
-                <h5 class="text-xl font-semibold pb-4 text-center">
-                  Điện máy, điện tử
-                </h5>
-                <nuxt-link to="/product/category/1">
-                  <div
-                    class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
-                  >
-                    <img
-                      alt="..."
-                      class="align-middle border-none max-w-full h-[320px] shadow-md rounded-lg w-full"
-                      :src="dientu"
-                    />
-                  </div>
-                </nuxt-link>
-              </div>
+              </div>    
             </div>
           </div>
         </div>
@@ -452,9 +340,16 @@
 <script setup>
 import IndexNavbar from "../components/Navbars/IndexNavbar.vue";
 import FooterComponent from "../components/Footers/Footer.vue";
-import patternVue from "../assets/3297746_16544.jpg";
+import patternVue from "../assets/img/Home/san-thuong-mai-dien-tu.png";
 import adminMale from "../assets/icons8-administrator-male-40.png";
 import freeShopping from "../assets/z4225887963689_bcc32d4fe527e8a0cc92d16d234b00b0.jpg";
+import imgUyTin from "../assets/img/Home/uy-tin.png";
+import imgChiPhiThap from "../assets/img/Home/chi-phi-thap.png";
+import imgDeDangQuanLy from "../assets/img/Home/de-dang-quan-ly.png";
+import imgTangTinhCanhTranh from "../assets/img/Home/tang-tinh-canh-tranh.png";
+import imgTietKiem from "../assets/img/Home/tiet-kiem.png";
+import imgMoRongThiTruong from "../assets/img/Home/mo-rong-thi-truong.png";
+
 
 import login from "../assets/img/login.jpg";
 import profile from "../assets/img/profile.jpg";
@@ -465,6 +360,7 @@ import thoitrang from "../assets/img/thoitrang.jpg";
 import dientu from "../assets/img/dientu.jpg";
 
 const baitin = ref([]);
+const danhmucbaitin = ref([]);
 const pageSize = 3;
 const pageNumber = 1;
 const skip = 0;
@@ -478,6 +374,16 @@ onMounted(() => {
     .catch((err) => {
       console.error(err);
     });
+
+    getAllPostCategoryPhanTran(pageSize, pageNumber, skip)
+    .then((response) => {
+      danhmucbaitin.value = response.data.items.reverse();
+      console.log('dsadsa',danhmucbaitin.value)
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+
 });
 
 </script>

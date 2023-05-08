@@ -70,3 +70,13 @@ export const updateOrder = async (id, order) => {
     return Promise.reject(err);
   }
 };
+
+// Lấy chi tiết đơn hàng theo mã đơn hàng 
+export const getDetailOrderByCodeOrders = async (id) => {
+  try{
+    const res = await http.get(API_ENDPOINT.getDetailOrderByCodeOrders(id))
+    return Promise.resolve(res.data)
+  }catch(err){
+    return Promise.reject(err)
+  }
+}

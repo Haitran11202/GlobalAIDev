@@ -70,7 +70,7 @@
                   </div>
                   <h2 class="text-[14px] leading-[1.3] w-[180px] h-[20.08px] text-ellipsis line-clamp-1 mr-2 ">{{ quantityProduct.tenSanPham }}</h2>
                 </div>
-                <span class="text-[14px] text-red-500">{{ formatMoneyAll(quantityProduct.giaBan)}} đ</span>
+                <span class="text-[14px] text-red-500">{{ formatMoneyAll(quantityProduct.giaBan)}}</span>
               </div>
               </div>
               <button
@@ -153,6 +153,7 @@ const handleDetail = (id) => {
   isHovering.value = false;
   router.push({ name: "ProductDetail", params: { id } });
 };
+
 const handleCartManage = () => {
   const userId = getUserInfor().user_id;
   console.log(userId);

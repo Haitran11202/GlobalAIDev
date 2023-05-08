@@ -3,6 +3,7 @@ using System;
 using GlobalAI.DataAccess.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    partial class GlobalAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230506071706_update-tbl-add-col")]
+    partial class updatetbladdcol
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,11 +203,6 @@ namespace GlobalAI.HostConsole.Migrations
 
                     OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
 
-                    b.Property<string>("Avatar")
-                        .HasMaxLength(500)
-                        .HasColumnType("VARCHAR2")
-                        .HasColumnName("AVATAR");
-
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(50)
                         .HasColumnType("VARCHAR2")
@@ -289,10 +287,6 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("PHONE");
-
-                    b.Property<string>("Policy")
-                        .HasColumnType("CLOB")
-                        .HasColumnName("POLICY");
 
                     b.Property<string>("ResetPasswordToken")
                         .HasMaxLength(500)

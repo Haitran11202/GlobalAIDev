@@ -48,6 +48,13 @@ namespace GlobalAI.ProductEntities.DataEntities
         public decimal GiaCuoi { get; set; }
 
         /// <summary>
+        /// Nội dung khi trả giá
+        /// </summary>
+        [ColumnSnackCase(nameof(NoiDung), TypeName = "VARCHAR2")]
+        [MaxLength(500)]
+        public string NoiDung { get; set; }
+
+        /// <summary>
         /// Trạng thái của đợt trả giá
         /// <see cref="TrangThaiTraGia"/>
         /// </summary>

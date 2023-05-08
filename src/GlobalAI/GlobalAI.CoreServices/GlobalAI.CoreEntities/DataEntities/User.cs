@@ -152,6 +152,19 @@ namespace GlobalAI.CoreEntities.DataEntities
         [MaxLength(100)]
         public string? VerifyEmailCode { get; set; } = String.Empty;
 
+        /// <summary>
+        /// Ảnh đại diện 
+        /// </summary>
+        [ColumnSnackCase(nameof(Avatar), TypeName = "VARCHAR2")]
+        [MaxLength(500)]
+        public string Avatar { get; set; }
+
+        /// <summary>
+        /// Điều khoản
+        /// </summary>
+        [ColumnSnackCase(nameof(Policy), TypeName = "CLOB")]
+        public string Policy { get; set; }
+
         #region audit
         [MaxLength(50)]
         [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]

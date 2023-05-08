@@ -107,14 +107,14 @@
           <error-message name="moTa" class="text-red-500" />
         </div>
       </div>
-      <div class="mb-6">
+      <!-- <div class="mb-6">
         <label
           for="noiDung"
           class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >Nội dung</label
         >
         <div class="w-full">
-          <tiptap
+          <TextEditor
             v-model="noiDung"
             class="border-0 px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
           />
@@ -131,6 +131,31 @@
         >
           <span class="flex">Quay về</span>
         </button>
+      </div> -->
+      <div class="flex flex-col">
+        <div class="col-span-1">
+          <label
+            for="noiDung"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
+            >Nội dung</label
+          >
+          <div class="w-full h-[300px]">
+            <div class="min-h-screen">
+              <TextEditor v-model="noiDung" />
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-end gap-5">
+          <button type="submit" class="btn btn-outline">
+            Cập nhật bài tin
+          </button>
+          <button
+            @click="$router.push('/admin/post')"
+            class="btn btn-outline btn-error"
+          >
+            <span class="flex">Quay về</span>
+          </button>
+        </div>
       </div>
     </form>
   </div>

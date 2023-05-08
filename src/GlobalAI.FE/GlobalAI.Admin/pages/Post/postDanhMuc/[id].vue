@@ -22,12 +22,12 @@
                                         Danh mục bài viết
                                     </p>
                                 </div>
-                                <a class="text-4xl font-bold leading-none lg:text-5xl xl:text-6xl">Bài Viết Nổi Bật</a>
+                                <a class="text-4xl font-bold leading-none lg:text-5xl xl:text-6xl">{{ danhMuc.tenDanhMuc }}</a>
                                 <div class="pt-2 pr-0 pb-0 pl-0">
                                     <p class="text-sm font-medium inline">
-                                        Tác giả:
+                                        Tác giả: 
                                     </p>
-                                    <a class="inline text-sm font-medium mt-0 mr-1 mb-0 ml-1 underline">Hidden</a>
+                                    <a class="inline text-sm font-medium mt-0 mr-1 mb-0 ml-1 underline">Admin</a>
                                     <p class="inline text-sm font-medium mt-0 mr-1 mb-0 ml-1">
                                         · 31/03/2023 ·
                                     </p>
@@ -102,6 +102,14 @@ definePageMeta({
 onMounted(() => {
     console.log(router.currentRoute.value.params.id);
     
+    getPostCategoryById(router.currentRoute.value.params.id)
+    .then((res) => {
+            danhMuc.value = res.data;
+            console.log('danhmuc',danhMuc.value)
+        })
+        .catch(() => { 
+        });
+
     getBaiTinTheoDanhMuc(router.currentRoute.value.params.id, 15, 1,0)
         .then((res) => {
             datas.value = res?.data?.data.items;

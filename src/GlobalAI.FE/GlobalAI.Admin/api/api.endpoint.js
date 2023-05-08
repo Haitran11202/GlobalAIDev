@@ -11,7 +11,7 @@ export const API_ENDPOINT = {
     `api/product/sanpham/danh-muc/${categoryId}?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
   getFullSanPham: (id) =>
     `api/product/sanpham/danh-muc/${id}?pageSize=10000000&pageNumber=1&Skip=0`,
-  getDanhMucSanPham: `/api/product/sanpham/danh-muc?pageSize=10&pageNumber=1&Skip=0`,
+  getDanhMucSanPham: `/api/product/sanpham/danh-muc?pageSize=-1&pageNumber=1&Skip=0`,
 
   getSanPhamByIdGStore: (pageSize, pageNumber, skip) =>
     `api/product/sanpham/get-sanpham-gstore?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
@@ -19,7 +19,7 @@ export const API_ENDPOINT = {
   postImages: "api/filFe/upload?folder=image",
   // Quản lý đơn hàng
   getAllOrder: (pageSize, pageNumber, skip) =>
-    `http://localhost:5003/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
+    `/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
   postProducts: `api/product/sanpham`,
   putProduct: (id) => `api/product/sanpham/${id}`,
   getSanPhamIdGStore: (id) => `/api/product/sanpham/get-idGstore/${id}`,
@@ -43,7 +43,7 @@ export const API_ENDPOINT = {
   postImages: "api/filFe/upload?folder=image",
   // Quản lý đơn hàng
   getAllOrder: (pageSize, pageNumber, skip) =>
-    `http://localhost:5003/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
+    `/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
 
   postOrder: `/api/product/donhang`,
   postOrders: (
@@ -125,11 +125,14 @@ export const API_ENDPOINT = {
   getDetailsOrderAllById: (id) => `/api/product/ct-donhang/${id}`,
   deleteDetailsOrderAll: (id) => `/api/product/ct-donhang/${id}`,
   putDetailsOrderAll: (id) => `/api/product/ct-donhang/${id}`,
+  getDetailOrderByCodeOrders: (id) =>
+    `/api/product/donhang/full?maDonHang=${id}`,
 
   // API trả giá
   postProductBid: `/api/product/tra-gia`,
   postTragiaDetail: `/api/product/tra-gia/add-detail`,
   getDetailedPayment: (idTraGia) => `/api/product/tra-gia/${idTraGia}`,
+  getAllChatUser: `/api/product/tra-gia/find-all?pageSize=-1&pageNumber=1&Skip=0`,
   getProductBidUser: (IdSanPham, GiaTien, status, pageSize, pageNumber, Skip) =>
     `/api/product/tra-gia/find-all?IdSanPham=${IdSanPham}&GiaTien=${GiaTien}&status=${status}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
   getIDPayment: (idSanPham) =>

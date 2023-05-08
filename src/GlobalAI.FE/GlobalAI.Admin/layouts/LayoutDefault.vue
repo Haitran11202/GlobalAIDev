@@ -29,7 +29,7 @@ const showColor = ref(false);
 const changeSideBarShow = () => {
   if (
     router.currentRoute.value.name !== "ManageCart" &&
-    router.currentRoute.value.name !== "ProductDetail" && router.currentRoute.value.name !== "BoxChat"
+    router.currentRoute.value.name !== "ProductDetail" && router.currentRoute.value.name !== "BoxChat" && router.currentRoute.value.name !== "BoxChatID"
   ) {
     console.log(1);
     console.log(router.currentRoute.value.name);

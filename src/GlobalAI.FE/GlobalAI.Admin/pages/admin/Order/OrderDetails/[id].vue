@@ -127,21 +127,11 @@
                         >
                           Số lượng
                         </th>
-                        <th
-                          class="px-6 py-3 text-xs font-semibold text-left uppercase whitespace-nowrap align-middle border-b border-gray-200"
-                        >
-                          Đơn giá
-                        </th>
-                        <th
-                          class="px-6 py-3 text-xs font-semibold text-left uppercase whitespace-nowrap align-middle border-b border-gray-200"
-                        >
-                          Thành tiền
-                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(item, index) in orderProducts"
+                        v-for="(item, index) in InforOrder"
                         :key="index"
                         class="hover:bg-gray-100 border-b cursor-pointer"
                       >
@@ -152,29 +142,19 @@
                             <div
                               class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
                             >
-                              <img :src="item.image" />
+                              <img :src="getImageUrl(item.sanPham.thumbnail)" />
                             </div>
                           </div>
                         </td>
                         <td
                           class="px-6 py-4 align-middle border-t border-gray-200 border-l-0 border-r-0 text-xs"
                         >
-                          {{ item.name }}
+                          {{ item.sanPham.tenSanPham }}
                         </td>
                         <td
                           class="px-6 py-4 align-middle border-t border-gray-200 border-l-0 border-r-0 text-xs"
                         >
-                          {{ item.id }}
-                        </td>
-                        <td
-                          class="px-6 py-4 align-middle border-t border-gray-200 border-l-0 border-r-0 text-xs"
-                        >
-                          {{ item.price }}
-                        </td>
-                        <td
-                          class="px-6 py-4 align-middle border-t border-gray-200 border-l-0 border-r-0 text-xs"
-                        >
-                          {{ item.price }}
+                          {{ item.soLuong }}
                         </td>
                       </tr>
                     </tbody>
@@ -185,7 +165,7 @@
                         <span class="px-12 text-sm uppercase font-normal"
                           >Tổng tiền hàng</span
                         >
-                        <p class="text-sm">100.000.000đ</p>
+                        <p class="text-sm">{{ priceOrder }}</p>
                       </div>
                       <div class="flex justify-between gap-20 py-1">
                         <span class="px-12 text-sm uppercase font-normal"
@@ -221,7 +201,7 @@
                         <span class="px-12 text-sm uppercase font-normal"
                           >Tổng giá trị đơn hàng</span
                         >
-                        <p class="text-sm">100.000.000đ</p>
+                        <p class="text-sm">{{ priceOrder }}</p>
                       </div>
                     </div>
                   </div>
@@ -373,13 +353,47 @@ export default {
 
 <script setup>
 import { toast } from "vue3-toastify";
-import { useRouter } from "vue-router";
-import { getOrderById, updateOrder } from "~~/composables/useApiOrder";
+const router = useRouter();
+const priceOrder = ref();
+const InforOrder = ref([]);
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiEndpoint;
 definePageMeta({
   layout: "admin",
   name: "orderdetails",
 });
 const isStatus = ref(1);
+
+onMounted(() => {
+  console.log(router.currentRoute.value.params.id);
+});
+watchEffect(() => {
+  getDetailOrderByCodeOrders(router.currentRoute.value.params.id)
+    .then((res) => {
+      priceOrder.value = res.data.donHang.soTien;
+      res.data.chiTietDonHangFullDtos.forEach((item) => {
+        getSanPhamById(item.idSanPham).then((res) => {
+          const singleData = {
+            sanPham: res.data.data,
+            soLuong: item.soLuong,
+          };
+          console.log(singleData);
+          InforOrder.value.push(singleData);
+        });
+      });
+    })
+    .catch((err) => console.log(err));
+});
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
+};
+
 const orderProducts = [
   {
     id: 1,
@@ -440,8 +454,6 @@ const idNguoiMua = ref(0);
 const soTien = ref(0);
 const hinhThucThanhToan = ref("");
 const diaChi = ref("");
-
-const router = useRouter();
 
 onMounted(() => {
   postOrderId.value = router.currentRoute.value.params.id;

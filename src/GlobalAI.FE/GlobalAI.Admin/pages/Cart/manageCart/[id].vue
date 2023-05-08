@@ -980,6 +980,7 @@ const deleteGh = (idsp) => {
     deleteGioHang(gioHangsanpham.id)
         .then((res) => {
             console.log(res.data);
+            useCart.getGioHang();
             getSanPhamByNguoiMua()
                 .then((res) => (products.value = res?.data?.data))
                 .catch(() => {});

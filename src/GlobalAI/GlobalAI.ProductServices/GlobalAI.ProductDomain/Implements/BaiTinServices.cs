@@ -92,7 +92,7 @@ namespace GlobalAI.ProductDomain.Implements
             result.TotalItems = baiTinQuery.TotalItems;
             foreach (var item in result.Items)
             {
-                item.TenDanhMuc = _danhMucBaiTinRepository.FindById(item.IdDanhMuc).TenDanhMuc;
+                item.TenDanhMuc = (item.IdDanhMuc != 0) ? _danhMucBaiTinRepository.FindById(item.IdDanhMuc).TenDanhMuc : item.TenDanhMuc;
             }
 
             return result;

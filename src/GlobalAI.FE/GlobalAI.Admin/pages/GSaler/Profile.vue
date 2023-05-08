@@ -1,129 +1,73 @@
 <template>
-  <div
-    class=" mx-auto flex flex-col bg-slate-100 w-full mb-6 shadow-xl rounded-lg mt-4"
-  >
-    <div class="">
-      <div class="flex flex-wrap justify-center">
-        <!-- <div class="w-full px-4 flex justify-center">
-          <div class="">
-            <img
-              alt="..."
-              :src="lewy"
-              class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
-            />
-          </div>
-        </div> -->
-        
-        <div class="flex justify-center">
-            <img 
-                alt="..."
-                class="w-1/4 rounded-full align-middle border-none shadow-lg mt-14"
-                :src="image"
-            >
-        </div>
-        <div class="w-full text-center">
-          <div class="flex justify-center py-4 pt-8 gap-x-5">
-            <div class="p-3 text-center">
-              <span
-                class="text-xl font-bold block uppercase tracking-wide text-slate-600"
-              >
-                22
-              </span>
-              <span class="text-sm text-slate-400">Bạn bè</span>
-            </div>
-            <div class="p-3 text-center">
-              <span
-                class="text-xl font-bold block uppercase tracking-wide text-slate-600"
-              >
-                10
-              </span>
-              <span class="text-sm text-slate-400">Ảnh</span>
-            </div>
-            <div class="p-3 text-center">
-              <span
-                class="text-xl font-bold block uppercase tracking-wide text-slate-600"
-              >
-                89
-              </span>
-              <span class="text-sm text-slate-400">Bình luận</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="flex lg:w-2/3 md:full mx-auto grid-cols-2 lg:gap-x-28 gap-x-10 mt-10 justify-center">
-        <div class="flex flex-col gap-y-3 ">
-          <h3 class="lg:text-xl md:text-lg font-semibold leading-normal text-slate-400">
-            Tên đăng nhập
-          </h3>
-          <h3 class="lg:text-xl md:text-lg text-sm font-semibold leading-normal text-slate-400">
-            Email
-          </h3>
-          <h3 class="lg:text-xl md:text-lg text-sm font-semibold leading-normal text-slate-400">
-            Số điện thoại
-          </h3>
-          <h3 h3 class="lg:text-xl md:text-lg text-sm font-semibold leading-normal text-slate-400">
-            Địa chỉ
-          </h3>
-        </div>
-        <div class="flex flex-col gap-y-3">
-          <h3 class="lg:text-xl md:text-lg text-sm font-semibold leading-normal text-slate-700">
-            {{ userinfo.name }}
-          </h3>
-          <h3 class="lg:text-xl md:text-lg text-sm font-semibold leading-normal text-slate-700">
-            {{ userinfo.email }}
-          </h3>
-          <h3 class="lg:text-xl md:text-lg text-sm font-semibold leading-normal text-slate-700">
-            0912345678
-          </h3>
-          <h3 h3 class="lg:text-xl md:text-lg text-sm font-semibold leading-normal text-slate-700">
-            Ha Noi
-          </h3>
-        </div>
-      </div>
-      <div class="mt-10 py-10 border-t border-slate-200 text-center">
-        <div class="flex flex-wrap justify-center">
-          <div class="w-full lg:w-9/12 px-4">
-            <p class="mb-4 text-lg leading-relaxed text-slate-700">
-              An artist of considerable range, Jenna the name taken by
-              Melbourne-raised, Brooklyn-based Nick Murphy writes, performs and
-              records all of his own music, giving it a warm, intimate feel with
-              a solid groove structure. An artist of considerable range.
-            </p>
-            <a href="javascript:void(0);" class="font-normal text-emerald-500">
-              Chỉnh sửa
-            </a>
-          </div>
+  <div class="lg:w-4/5 container w-full bg-white">
+    <!-- Ảnh đại diện -->
+    <div class="bg-green-300 h-40 pr-4">
+    </div>
+    <div class="lg:-mt-16 -mt-12 flex lg:ml-10 ml-4 items-center lg:gap-x-7 gap-x-4 mb-8">
+      <img class="lg:w-32 lg:h-32 w-20 h-20 rounded-full object-cover" :src="image" alt="Avatar">
+      <div>
+        <h2 class="lg:text-2xl text-lg font-bold text-gray-800 mb-4">{{ userinfo.name }}</h2>
+        <div class="flex flex-row gap-x-4 lg:text-lg text-sm">
+          <span>Người theo dõi: <span class="font-semibold">0</span></span>
+          <span>Đang theo dõi: <span class="font-semibold">0</span></span>
         </div>
       </div>
     </div>
+    <!-- Thông tin cá nhân -->
+    <div class="pb-6 px-14">
+      <ul>
+        <li class="mb-4 flex items-center gap-x-5">
+          <div class="text-gray-500 md:text-2xl text-xl">
+            <font-awesome-icon :icon="['fass', 'envelope']" />
+          </div>
+          <span class="text-gray-700 md:text-lg text-sm">{{ userinfo.email }}</span>
+        </li>
+        <li class="mb-4 flex items-center gap-x-5">
+          <div class="text-gray-500 md:text-2xl text-xl">
+            <font-awesome-icon :icon="['fass', 'phone']" />
+          </div>
+          <span class="text-gray-700 md:text-lg text-sm">123-456-789 </span>
+        </li>
+        <li class="mb-4 flex items-center gap-x-7">
+          <div class="text-gray-500 md:text-2xl text-xl">
+            <font-awesome-icon :icon="['fass', 'location-dot']" />
+          </div>
+          <span class="text-gray-700 md:text-lg text-sm">55-Giải Phóng, Đồng Tâm, Hai Bà Trưng, Hà Nội</span>
+        </li>
+    </ul>
   </div>
+</div>
 </template>
 <script setup>
-definePageMeta({
-  layout: "layout-profile",
-});
 import team2 from "../../assets/img/team-2-800x800.jpg";
 import lewy from "../../assets/img/lewy.png";
 import image from "@/assets/img/team-1-800x800.jpg";
 import jwt_decode from "jwt-decode";
 import { useUserStorage } from "~~/stores/user";
 import {ref} from "vue"
-
+import DefaultNavbar from "~~/components/Navbars/DefaultNavbar.vue";
+const changeBackground = ref(true)
 const token = useUserStorage();
 const accesstoken = token.accessToken;
 const router = useRouter();
 const userinfo = ref({});
 
+const onChange = () => {
+  changeBackground.value = !changeBackground.value
+}
 const getUserInfor = () => {
   const user = jwt_decode(accesstoken);
   userinfo.value = {
     name : user.name,
     email : user.email
   }
-  };
+};
 onMounted(() =>{
   getUserInfor();
 })
+definePageMeta({
+  layout: "layout-profile",
+});
 </script>
 
 

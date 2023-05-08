@@ -75,6 +75,13 @@ namespace GlobalAI.ProductEntities.DataEntities
         [MaxLength(1000)]
         public string DiaChi { get; set; }
 
+        /// <summary>
+        /// Ảnh của danh mục bài tin
+        /// </summary>
+        [ColumnSnackCase(nameof(Thumbnail), TypeName = "VARCHAR2")]
+        [MaxLength(1000)]
+        public string Thumbnail { get; set; }
+
         #region audit
         [MaxLength(50)]
         [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]
