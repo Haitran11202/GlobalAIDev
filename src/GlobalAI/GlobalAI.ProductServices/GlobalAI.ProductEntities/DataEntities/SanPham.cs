@@ -110,6 +110,12 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(LuotBan))]
         public int? LuotBan { get; set; }
 
+        /// <summary>
+        /// Id danh mục thuộc tính
+        /// </summary>
+        [ColumnSnackCase(nameof(IdDanhMucThuocTinh))]
+        public int? IdDanhMucThuocTinh { get; set; }
+
         #region audit
         [MaxLength(50)]
         [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]
