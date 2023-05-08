@@ -51,15 +51,6 @@ export const postPostCategory = async (postCategoryData) => {
 };
 
 // Cập nhật danh mục bài tin
-// export const updatePostCategory = async (postCategoryData) => {
-//   try {
-//     const res = await http.put(API_ENDPOINT.putPostCategory, postCategoryData);
-//     return Promise.resolve(res.data);
-//   } catch (err) {
-//     return Promise.reject(err);
-//   }
-// };
-
 export const updatePostCategory = async (postCategoryData) => {
   try {
     const res = await http.put(API_ENDPOINT.putPostCategory, postCategoryData);

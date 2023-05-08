@@ -84,6 +84,22 @@
         </div>
         <div class="col-span-1">
           <label
+            for="diaChi"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
+          >
+            Địa chỉ
+          </label>
+          <Field
+            v-model="diaChi"
+            name="diaChi"
+            type="text"
+            placeholder="Địa chỉ..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+          />
+          <error-message name="diaChi" class="text-red-500" />
+        </div>
+        <div class="col-span-1">
+          <label
             for="hinhThucThanhToan"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
           >
@@ -100,7 +116,7 @@
         </div>
       </div>
       <div class="flex justify-end gap-5">
-        <button @click="handlePostCategory" class="btn btn-outline">
+        <button @click="handleOrder" class="btn btn-outline">
           Thêm đơn hàng
         </button>
         <button
@@ -138,28 +154,39 @@ const soTien = ref(0);
 const hinhThucThanhToan = ref("");
 const diaChi = ref("");
 
-function handlePostCategory() {
-  const postCategoryData = {
-    maDonHang: maDonHang.value,
-    ngayHoanThanh: ngayHoanThanh.value,
-    idGStore: idGStore.value,
-    idNguoiMua: idNguoiMua.value,
-    soTien: soTien.value,
-    hinhThucThanhToan: hinhThucThanhToan.value,
-  };
-  const body = {
-    ...postCategoryData,
-  };
+function handleOrder() {
+  // const ordersData = {
+  //   maDonHang: maDonHang.value,
+  //   ngayHoanThanh: ngayHoanThanh.value,
+  //   idGStore: idGStore.value,
+  //   idNguoiMua: idNguoiMua.value,
+  //   soTien: soTien.value,
+  //   hinhThucThanhToan: hinhThucThanhToan.value,
+  //   diaChi: diaChi.value,
+  // };
+  // const body = {
+  //   ...ordersData,
+  // };
 
-  postOrder(body)
+  // console.log(body);
+
+  postOrders(
+    maDonHang.value,
+    ngayHoanThanh.value,
+    idGStore.value,
+    idNguoiMua.value,
+    soTien.value,
+    hinhThucThanhToan.value,
+    diaChi.value
+  )
     .then((response) => {
-      console.log(response);
+      console.log("Cuongthem", response);
       router.push("/admin/order");
-      $toast.success("Thêm danh mục bài tin thành công");
+      $toast.success("Thêm đơn hàng thành công");
     })
     .catch((error) => {
       console.error(error);
-      $toast.error("Thêm danh mục bài tin thất bại. Vui lòng thử lại!");
+      $toast.error("Thêm đơn hàng thất bại. Vui lòng thử lại!");
     });
 }
 </script>

@@ -377,9 +377,7 @@ const handlePriceChat = async () => {
       priceChat.value = "";
       const responseNew = await getDetailedPayment(response.data.data.idTraGia);
       isChatting.value = true;
-      boxprice.value = boxprice.value.concat(
-        responseNew.data.data.chiTietTraGias
-      );
+      boxprice.value =  responseNew.data.data.chiTietTraGias
       boxprice.value.sort((a, b) => {
         return new Date(a.createdDate) - new Date(b.createdDate);
       });

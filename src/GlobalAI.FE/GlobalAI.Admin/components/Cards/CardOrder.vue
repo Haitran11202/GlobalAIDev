@@ -27,13 +27,14 @@
                 <input type="checkbox" class="checkbox" />
               </label>
             </th>
+            <th>ID</th>
             <th>Mã đơn hàng</th>
             <th>Ngày hoàn thành</th>
             <th>Mã Gstore</th>
             <th>Mã người mua</th>
             <th>Số tiền</th>
+            <th>Địa chỉ</th>
             <th>Hình thức thanh toán</th>
-            <!-- <th>Địa chỉ</th> -->
             <th></th>
           </tr>
         </thead>
@@ -44,6 +45,10 @@
                 <input type="checkbox" class="checkbox" />
               </label>
             </th>
+            <td @click="onClickOrderDetails(order.id)">
+              {{ order.id }}
+            </td>
+
             <td @click="onClickOrderDetails(order.id)">
               {{ order.maDonHang }}
             </td>
@@ -63,11 +68,16 @@
             </td>
 
             <td @click="onClickOrderDetails(order.id)">
-              {{ order.soTien }}
+              {{
+                order.soTien.toLocaleString("vi-VN", {
+                  style: "currency",
+                  currency: "VND",
+                })
+              }}
             </td>
-            <!-- <td @click="onClickOrderDetails(order.id)">
+            <td @click="onClickOrderDetails(order.id)">
               {{ order.diaChi }}
-            </td> -->
+            </td>
 
             <td @click="onClickOrderDetails(order.id)">
               {{ order.hinhThucThanhToan }}
@@ -192,8 +202,8 @@ const fetchData = async () => {
     .catch((err) => console.error(err));
 };
 
-const onEditButtonClick = (id) => {
-  router.push({ name: "Order", params: { id: id } });
+const onClickOrderDetails = (id) => {
+  router.push({ name: "orderdetails", params: { id: id } });
   getOrderById(id)
     .then((res) => {
       res.data;
@@ -218,16 +228,16 @@ const onDeleteButtonClick = (id) => {
 };
 
 // Gọi hàm sửa bắn dữ liệu và form
-// const onEditButtonClick = (id) => {
-//   router.push({ name: "Order", params: { id: id } });
-//   getOrderById(id)
-//     .then((res) => {
-//       res.data;
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//     });
-// };
+const onEditButtonClick = (id) => {
+  router.push({ name: "Order", params: { id: id } });
+  getOrderById(id)
+    .then((res) => {
+      res.data;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
 
 watchEffect(() => {
   fetchData();

@@ -44,3 +44,27 @@ export const getDetailsOrderAllById = async (id) => {
     return Promise.reject(err);
   }
 };
+
+// Cập nhật chi tiết đơn hàng
+// export const updateDetailsOrderAll = async (id, detailsOrderAllData) => {
+//   try {
+//     const res = await http.put(
+//       API_ENDPOINT.putDetailsOrderAll(id),
+//       detailsOrderAllData
+//     );
+//     console.log("Co data k", res);
+//     return Promise.resolve(res.data);
+//   } catch (err) {
+//     return Promise.reject(err);
+//   }
+// };
+
+export const updateDetailsOrderAll = async (detailsOrderAllData) => {
+  const { id, ...data } = detailsOrderAllData;
+  try {
+    const res = await http.put(API_ENDPOINT.putDetailsOrderAll(id), data);
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};

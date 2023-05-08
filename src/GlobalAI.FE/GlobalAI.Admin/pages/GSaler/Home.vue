@@ -38,18 +38,18 @@ const listDanhMuc = ref([]);
 onMounted(() => {
   getDanhMucSanPham()
     .then((res) => {
-      console.log(res);
-      if (res?.data?.data?.items) {
-        // Lấy 3 danh mục đầu
-        listDanhMuc.value = res.data.data.items.slice(0, 3);
-        productscategory.value = listDanhMuc.value[2];
-        productSellerCategory.value = listDanhMuc.value[1];
-        getSanPhamDanhMuc(listDanhMuc.value[2].idDanhMuc)
+        console.log(res.data.data.items);
+        listDanhMuc.value = res.data.data.items.slice(0, 2);
+        console.log(listDanhMuc.value);
+        productscategory.value = listDanhMuc.value[1];
+        productSellerCategory.value = listDanhMuc.value[0];
+        getSanPhamDanhMuc(listDanhMuc.value[1].idDanhMuc)
           .then((res) => {
+            console.log(res);
             if (res?.data?.data?.items) {
               products.value = res.data.data.items;
               console.log(products.value);
-              return getSanPhamDanhMuc(listDanhMuc.value[1].idDanhMuc);
+              return getSanPhamDanhMuc(listDanhMuc.value[0].idDanhMuc);
             }
           })
           .then((res) => {
@@ -62,7 +62,6 @@ onMounted(() => {
             console.error(error);
             toast.error("Đã xảy ra lỗi trong quá trình get sản phẩm");
           });
-      }
     })
     .catch((error) => {
       console.error(error);

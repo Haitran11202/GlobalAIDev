@@ -6,7 +6,7 @@
       ref="btnDropdownRef"
       v-on:click="toggleDropdown($event)"
     >
-      <div class="items-center flex">
+      <!-- <div class="items-center flex">
         <span
           class="w-12 h-12 text-sm text-white bg-blueGray-200 inline-flex items-center justify-center rounded-full"
         >
@@ -16,6 +16,11 @@
             :src="image"
           />
         </span>
+      </div> -->
+      <div class="avatar items-center flex online">
+        <div class="w-11 rounded-full">
+          <img :src="image" alt="Tailwind-CSS-Avatar-component" />
+        </div>
       </div>
     </a>
     <div>
@@ -29,20 +34,20 @@
       >
         <span
           @click="router.push('/gsaler/profile')"
-          class="text-sm font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
+          class="text-sm cursor-pointer font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
         >
           Hồ sơ
         </span>
         <span
           @click="handleChatDetail"
-          class="text-sm font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
+          class="text-sm cursor-pointer font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
         >
           Chat chi tiết
         </span>
         <hr />
         <span
           @click="handleLogout"
-          class="text-sm font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
+          class="text-sm cursor-pointer font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
         >
           Đăng xuất
         </span>
@@ -55,6 +60,7 @@
 import { createPopper } from "@popperjs/core";
 
 import image from "@/assets/img/team-1-800x800.jpg";
+import { toast } from "vue3-toastify";
 
 export default {
   data() {
@@ -99,6 +105,11 @@ const handleLogout = () => {
   router.push("/auth/login");
 };
 const handleChatDetail = () => {
-  router.push(`/BoxChat/${getUserInfor().user_id}`)
-}
+  if(getUserInfor().user_type === 'GSTORE'){
+    toast.error('Bạn là GSTORE , truy cập chi tiết chat trong admin nhé !!!')
+  }
+  else{
+    router.push(`/BoxChat/Chat`);
+  }
+};
 </script>

@@ -49,3 +49,14 @@ export const getCategoryProductById = async (id) => {
     return Promise.reject(err);
   }
 };
+
+// Cập nhật danh mục sản phẩm
+export const updateCategoryProduct = async (categoryProductData) => {
+  const { id, ...data } = categoryProductData;
+  try {
+    const res = await http.put(API_ENDPOINT.putCategoryProduct(id), data);
+    return Promise.resolve(res.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};

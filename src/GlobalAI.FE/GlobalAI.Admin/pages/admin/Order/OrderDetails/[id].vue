@@ -6,12 +6,39 @@
       <div class="rounded-t mb-0 py-3 border-0">
         <div class="flex flex-wrap items-center">
           <div class="relative w-full max-w-full flex-grow flex-1">
-            <h3
-              class="py-1 text-base font-medium border-b uppercase"
-              :class="[color === 'light' ? 'text-blueGray-700' : 'text-white']"
-            >
-              Quản lý đơn hàng
-            </h3>
+            <div class="flex justify-between">
+              <h3
+                class="py-1 text-base font-medium border-b uppercase"
+                :class="[
+                  color === 'light' ? 'text-blueGray-700' : 'text-white',
+                ]"
+              >
+                Quản lý đơn hàng
+              </h3>
+              <div
+                class="py-1 text-base font-medium uppercase"
+                :class="[
+                  color === 'light' ? 'text-blueGray-700' : 'text-white',
+                ]"
+              >
+                <button
+                  v-if="isStatus == 1"
+                  @click="ConfirmOrder"
+                  class="px-[15px] py-[8px] bg-[#10b981] text-white rounded-md"
+                >
+                  Xác Nhận Đơn Hàng
+                </button>
+                <button
+                  v-if="isStatus == 2"
+                  class="bg-[#ec4899] px-[15px] py-[8px] text-white rounded-md"
+                  @click="
+                    toast.success('Đơn hàng đã được chuyển giao vận chuyển')
+                  "
+                >
+                  Hoàn Thành
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -100,52 +127,34 @@
                         >
                           Số lượng
                         </th>
-                        <th
-                          class="px-6 py-3 text-xs font-semibold text-left uppercase whitespace-nowrap align-middle border-b border-gray-200"
-                        >
-                          Đơn giá
-                        </th>
-                        <th
-                          class="px-6 py-3 text-xs font-semibold text-left uppercase whitespace-nowrap align-middle border-b border-gray-200"
-                        >
-                          Thành tiền
-                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr
-                        v-for="(item, index) in orderProducts"
+                        v-for="(item, index) in InforOrder"
                         :key="index"
-                        class="hover:bg-gray-100 border-b"
+                        class="hover:bg-gray-100 border-b cursor-pointer"
                       >
                         <td
                           class="px-6 py-4 align-middle border-t border-gray-200 border-l-0 border-r-0 text-xs"
                         >
-                          <img
-                            class="w-10 h-10 rounded-full border-2 border-blueGray-50 shadow"
-                            :src="item.image"
-                            alt=""
-                          />
+                          <div class="avatar">
+                            <div
+                              class="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2"
+                            >
+                              <img :src="getImageUrl(item.sanPham.thumbnail)" />
+                            </div>
+                          </div>
                         </td>
                         <td
                           class="px-6 py-4 align-middle border-t border-gray-200 border-l-0 border-r-0 text-xs"
                         >
-                          {{ item.name }}
+                          {{ item.sanPham.tenSanPham }}
                         </td>
                         <td
                           class="px-6 py-4 align-middle border-t border-gray-200 border-l-0 border-r-0 text-xs"
                         >
-                          {{ item.id }}
-                        </td>
-                        <td
-                          class="px-6 py-4 align-middle border-t border-gray-200 border-l-0 border-r-0 text-xs"
-                        >
-                          {{ item.price }}
-                        </td>
-                        <td
-                          class="px-6 py-4 align-middle border-t border-gray-200 border-l-0 border-r-0 text-xs"
-                        >
-                          {{ item.price }}
+                          {{ item.soLuong }}
                         </td>
                       </tr>
                     </tbody>
@@ -156,7 +165,7 @@
                         <span class="px-12 text-sm uppercase font-normal"
                           >Tổng tiền hàng</span
                         >
-                        <p class="text-sm">100.000.000đ</p>
+                        <p class="text-sm">{{ priceOrder }}</p>
                       </div>
                       <div class="flex justify-between gap-20 py-1">
                         <span class="px-12 text-sm uppercase font-normal"
@@ -192,7 +201,7 @@
                         <span class="px-12 text-sm uppercase font-normal"
                           >Tổng giá trị đơn hàng</span
                         >
-                        <p class="text-sm">100.000.000đ</p>
+                        <p class="text-sm">{{ priceOrder }}</p>
                       </div>
                     </div>
                   </div>
@@ -292,12 +301,6 @@
                   trực thuộc TW)
                 </p>
               </div>
-              <div class="w-full flex items-center justify-center">
-                <button v-if="isStatus == 1" @click="ConfirmOrder" class="px-[15px] py-[8px] bg-[#10b981] text-white rounded-md">
-                  Xác Nhận Đơn Hàng
-                </button>
-                <button v-if="isStatus == 2" class="bg-[#ec4899] px-[15px] py-[8px] text-white rounded-md " @click="toast.success('Đơn hàng đã được chuyển giao vận chuyển')">Hoàn Thành</button>
-              </div>
             </div>
           </div>
         </div>
@@ -349,14 +352,49 @@ export default {
 </script>
 
 <script setup>
-import { toast } from 'vue3-toastify';
+import { toast } from "vue3-toastify";
 const router = useRouter();
+const priceOrder = ref();
+const InforOrder = ref([])
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiEndpoint;
 definePageMeta({
   layout: "admin",
   name: "orderdetails",
 });
 const isStatus = ref(1);
 
+onMounted(() => {
+  console.log(router.currentRoute.value.params.id);
+})
+watchEffect(() => {
+  getDetailOrderByCodeOrders(router.currentRoute.value.params.id)
+  .then((res) => {
+    priceOrder.value = res.data.donHang.soTien
+    res.data.chiTietDonHangFullDtos.forEach((item) => {
+      getSanPhamById(item.idSanPham)
+        .then((res) => {
+            const singleData = {
+                sanPham:res.data.data,
+                soLuong:item.soLuong
+            }
+            console.log(singleData);
+            InforOrder.value.push(singleData)
+         })
+  
+    })
+  })
+  .catch(err => console.log(err))
+})
+const getImageUrl = (imageUrl) => {
+  if (!imageUrl) {
+    return "https://placehold.it/50x50";
+  }
+  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+    imageUrl
+  )}&download=false`;
+  return url;
+};
 
 const orderProducts = [
   {
@@ -405,8 +443,8 @@ const ConfirmOrder = () => {
   //   id : id,
   //   status:2
   // }
-  // // Gọi API xác nhận đơn hàng 
-  toast.success('Đơn hàng đã được xác nhận')
+  // // Gọi API xác nhận đơn hàng
+  toast.success("Đơn hàng đã được xác nhận");
   isStatus.value = 2;
-}
+};
 </script>

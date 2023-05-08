@@ -39,9 +39,6 @@
 </div>
 </template>
 <script setup>
-definePageMeta({
-  layout: "layout-profile",
-});
 import team2 from "../../assets/img/team-2-800x800.jpg";
 import lewy from "../../assets/img/lewy.png";
 import image from "@/assets/img/team-1-800x800.jpg";
@@ -68,6 +65,9 @@ const getUserInfor = () => {
 onMounted(() =>{
   getUserInfor();
 })
+definePageMeta({
+  layout: "layout-profile",
+});
 </script>
 
 
