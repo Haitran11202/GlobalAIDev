@@ -373,13 +373,13 @@ export default {
 
 <script setup>
 import { toast } from "vue3-toastify";
-const router = useRouter();
+import { useRouter } from "vue-router";
+import { getOrderById, updateOrder } from "~~/composables/useApiOrder";
 definePageMeta({
   layout: "admin",
   name: "orderdetails",
 });
 const isStatus = ref(1);
-
 const orderProducts = [
   {
     id: 1,
@@ -431,4 +431,33 @@ const ConfirmOrder = () => {
   toast.success("Đơn hàng đã được xác nhận");
   isStatus.value = 2;
 };
+
+const postOrderId = ref(0);
+const maDonHang = ref("");
+const ngayHoanThanh = ref("");
+const idGStore = ref(0);
+const idNguoiMua = ref(0);
+const soTien = ref(0);
+const hinhThucThanhToan = ref("");
+const diaChi = ref("");
+
+const router = useRouter();
+
+onMounted(() => {
+  postOrderId.value = router.currentRoute.value.params.id;
+  watchEffect(async () => {
+    try {
+      const data = await getOrderById(postOrderId.value);
+      maDonHang.value = data.data.maDonHang;
+      ngayHoanThanh.value = data.data.ngayHoanThanh;
+      idGStore.value = data.data.idGStore;
+      idNguoiMua.value = data.data.idNguoiMua;
+      soTien.value = data.data.soTien;
+      hinhThucThanhToan.value = data.data.hinhThucThanhToan;
+      diaChi.value = data.data.diaChi;
+    } catch (error) {
+      console.log(error);
+    }
+  });
+});
 </script>
