@@ -15,6 +15,12 @@ namespace GlobalAI.Utils
             { (int)ErrorCode.UserEmailDuplicated, "Email đã được tồn tại." },
             { (int)ErrorCode.UserPhoneDuplicated, "Số điện thoại đã tồn tại." },
             { (int)ErrorCode.UserLoginNotFound, "Tên đăng nhập hoặc mật khẩu không chính xác." },
+
+            { (int)ErrorCode.ProductDanhMucThuocTinhNotFound, "Danh mục không tồn tại" },
+            { (int)ErrorCode.ProductThuocTinhNotFound, "Thuộc tính không tồn tại" },
+            { (int)ErrorCode.ProductDanhMucThuocTinhInUsed, "Danh mục đang được sử dụng" },
+            { (int)ErrorCode.ProductThuocTinhInUsed, "Thuộc tính đang được sử dụng" },
+            { (int)ErrorCode.ProductThuocTinhGiaTriInUsed, "Giá trị thuộc tính đang được sử dụng" },
         };
 
         /// <summary>

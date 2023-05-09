@@ -74,7 +74,7 @@ namespace GlobalAI.ProductRepositories
         {
             _logger.LogInformation($"{nameof(FindById)} -> {nameof(DanhMucThuocTinh)}: id={id}");
 
-            var result = _dbSet.FirstOrDefault(x => x.Id == id && !x.Deleted).ThrowIfNull(_globalAIDbContext, Utils.ErrorCode.ProductDanhMucThuocTinhNotFound);
+            var result = _dbSet.FirstOrDefault(x => x.Id == id && !x.Deleted);
             return result;
         }
 
@@ -86,7 +86,9 @@ namespace GlobalAI.ProductRepositories
         public void UpdateDanhMucThuocTinh(UpdateDanhMucThuocTinhDto dto, string username)
         {
             _logger.LogInformation($"{nameof(UpdateDanhMucThuocTinh)}: dto={JsonSerializer.Serialize(dto)}");
-            var entity = FindById(dto.Id);
+            var entity = FindById(dto.Id).ThrowIfNull(_globalAIDbContext, Utils.ErrorCode.ProductDanhMucThuocTinhNotFound);
+
+            checkInUsed(entity.Id);
 
             entity.ModifiedBy = username;
             entity.ModifiedDate = DateTime.Now;
@@ -102,12 +104,28 @@ namespace GlobalAI.ProductRepositories
         public void DeleteDanhMucThuocTinh(int id, string username)
         {
             _logger.LogInformation($"{nameof(DeleteDanhMucThuocTinh)}: id={id}");
-            var entity = FindById(id);
+            var entity = FindById(id).ThrowIfNull(_globalAIDbContext, Utils.ErrorCode.ProductDanhMucThuocTinhNotFound);
+
+            checkInUsed(entity.Id);
 
             entity.DeletedBy = username;
             entity.DeletedDate = DateTime.Now;
             entity.Deleted = true;
         }
 
+        /// <summary>
+        /// Check danh mục thuộc tính đã sử dụng lần nào chưa
+        /// </summary>
+        /// <param name="id"></param>
+        private void checkInUsed(int id)
+        {
+            var inUsedThuocTinh = _globalAIDbContext.ThuocTinhs.AsNoTracking().Any(x => !x.Deleted && x.IdDanhMucThuocTinh == id);
+            var inUsedSanPham = _globalAIDbContext.SanPhams.AsNoTracking().Any(x => !x.Deleted && x.IdDanhMucThuocTinh == id);
+
+            if (inUsedSanPham || inUsedThuocTinh)
+            {
+                ThrowException(Utils.ErrorCode.ProductDanhMucThuocTinhInUsed);
+            }
+        }
     }
 }
