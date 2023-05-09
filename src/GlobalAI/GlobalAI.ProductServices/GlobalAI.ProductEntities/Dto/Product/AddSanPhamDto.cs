@@ -1,9 +1,11 @@
-﻿namespace GlobalAI.ProductEntities.Dto.Product
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace GlobalAI.ProductEntities.Dto.Product
 {
     public class AddSanPhamDto
     {
         public string MaSanPham { get; set; }
-        public string TenSanPham { get; set; } = String.Empty;
+        public string TenSanPham { get; set; }  
         public string MoTa { get; set; } = String.Empty;
         public decimal GiaBan { get; set; }
         public decimal GiaChietKhau { get; set; }
