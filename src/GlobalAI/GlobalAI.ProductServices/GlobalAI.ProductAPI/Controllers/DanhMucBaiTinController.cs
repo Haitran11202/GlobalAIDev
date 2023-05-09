@@ -62,6 +62,10 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// xoa
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("")]
         public void Delete(int id)
         {
@@ -69,7 +73,7 @@ namespace GlobalAI.ProductAPI.Controllers
         }
 
         /// <summary>
-        /// danh sach 
+        /// danh sach dang list
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -82,6 +86,27 @@ namespace GlobalAI.ProductAPI.Controllers
             try
             {
                 var result = _danhMucBaiTinServices.FindAll(input);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
+        /// <summary>
+        /// danh sach dang cay
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        [HttpGet("find-all-trees")]
+        [ProducesResponseType(typeof(APIResponse<List<TreesDanhMucBaiTinDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse FindAllTress([FromQuery] FilterDanhMucBaiTinDto input)
+        {
+            try
+            {
+                var result = _danhMucBaiTinServices.FindAllTrees(input);
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
             }
             catch (Exception ex)

@@ -43,12 +43,15 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<ChiTietTraGia, AddChiTietTraGiaDto>().ReverseMap();
             CreateMap<ChiTietTraGia, ChiTietTraGiaDto>().ReverseMap();
             CreateMap<TraGia, TraGiaDto>().ReverseMap();
+
             CreateMap<BaiTin, CreateBaiTin>().ReverseMap();
             CreateMap<BaiTin, UpdateBaiTinDto>().ReverseMap();
             CreateMap<BaiTin, BaiTinDto>().ReverseMap();
             CreateMap<DanhMucBaiTin, CreateDanhMucBaiTin>().ReverseMap();
             CreateMap<DanhMucBaiTin, UpdateDanhMucBaiTinDto>().ReverseMap();
             CreateMap<DanhMucBaiTin, DanhMucBaiTinDto>().ReverseMap();
+            CreateMap<TreesDanhMucBaiTinDto, DanhMucBaiTin>().ReverseMap();
+
             CreateMap<DanhMuc, CreateDanhMucDto>().ReverseMap();
             CreateMap<DanhMuc, DanhMucDto>().ReverseMap();
             CreateMap<Voucher, CreateVoucherDto>().ReverseMap();
