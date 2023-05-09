@@ -2,15 +2,15 @@
   <div class="w-full mt-[40px] cursor-pointer">
     <div class="flex w-full justify-between items-center mb-[20px]">
       <h1 class="lg:text-[24px] sm:pl-0 pl-4 text-[#384059] uppercase font-bold">
-        {{ props.category.tenDanhMuc}}
+        {{ props.category?.tenDanhMuc}}
       </h1>
       <RouterLink
-        :to="`/product/category/${props.category.idDanhMuc}`"
+        :to="`/product/category/${props.category?.idDanhMuc}`"
         class="font-[500] sm:pr-0 pr-4 flex gap-2 items-center justify-center text-[#384059] lg:text-[16px]"
       >
-        <span>Xem Thêm </span>
+        <span v-if="props.category?.idDanhMuc">Xem Thêm </span>
         <span class="text-[18px] mt-1">
-          <font-awesome-icon :icon="['fas', 'angle-right']" />
+          <font-awesome-icon v-if="props.category?.idDanhMuc" :icon="['fas', 'angle-right']" />
         </span>
       </RouterLink>
     </div>
@@ -118,10 +118,6 @@ const getImageUrl = (imageUrl) => {
   return url;
 };
 
-
-onMounted(() => {
-  console.log(props.category.idDanhMuc);
-})
 
 const props = defineProps({
   category: {

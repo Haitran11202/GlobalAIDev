@@ -1,5 +1,5 @@
 <template>
-  <div class="relative flex flex-col min-w-0 break-words w-full mb-6 p-5">
+  <div class="relative flex flex-col min-w-0 break-words w-full mb-6 mt-[20px]">
     <!-- SẢN PHẨM MỚI -->
     <div>
       <div class="grid grid-cols-1 sm:px-0 px-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
