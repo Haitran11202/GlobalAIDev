@@ -13,9 +13,8 @@ namespace GlobalAI.ProductEntities.Dto.DanhMucBaiTin
         public int Id { get; set; }
         public string MaDanhMuc { get; set; }
         public string TenDanhMuc { get; set; }
-        public int Status { get; set; }
+        public int? Status { get; set; }
         public int? ParentId { get; set; }
-        public bool IsDisplayOnHomePage { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         public List<TreesDanhMucBaiTinDto> Children { get; set; }
@@ -23,9 +22,9 @@ namespace GlobalAI.ProductEntities.Dto.DanhMucBaiTin
 
         #endregion
 
-        public TreesDanhMucBaiTinDto()
-        {
-            Children = new List<TreesDanhMucBaiTinDto>();
-        }
+        //public TreesDanhMucBaiTinDto()
+        //{
+        //    Children = new List<TreesDanhMucBaiTinDto>();
+        //}
     }
 }

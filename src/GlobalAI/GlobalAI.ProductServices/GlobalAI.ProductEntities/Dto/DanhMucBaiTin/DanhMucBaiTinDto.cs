@@ -13,7 +13,6 @@ namespace GlobalAI.ProductEntities.Dto.DanhMucBaiTin
         public string TenDanhMuc { get; set; }
         public int Status { get; set; }
         public int? ParentId { get; set; }
-        public bool IsDisplayOnHomePage { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string CreatedBy { get; set; }
         #region Các thông tin khác

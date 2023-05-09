@@ -62,6 +62,10 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// xoa
+        /// </summary>
+        /// <param name="id"></param>
         [HttpDelete("")]
         public void Delete(int id)
         {
@@ -69,7 +73,7 @@ namespace GlobalAI.ProductAPI.Controllers
         }
 
         /// <summary>
-        /// danh sach 
+        /// danh sach dang list
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -90,6 +94,11 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// danh sach dang cay
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         [AllowAnonymous]
         [HttpGet("find-all-trees")]
         [ProducesResponseType(typeof(APIResponse<List<TreesDanhMucBaiTinDto>>), (int)HttpStatusCode.OK)]

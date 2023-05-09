@@ -17,6 +17,5 @@ namespace GlobalAI.ProductEntities.Dto.DanhMucBaiTin
         [FromQuery(Name = "status")]
         public int? Status { get; set; }
         public int? ParentId { get; set; }
-        public bool IsDisplayOnHomePage { get; set; }
     }
 }

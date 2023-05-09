@@ -16,7 +16,7 @@ namespace GlobalAI.ProductDomain.Interfaces
         DanhMucBaiTin Add(CreateDanhMucBaiTin input);
         void Delete(int id);
         PagingResult<DanhMucBaiTinDto> FindAll(FilterDanhMucBaiTinDto input);
-        PagingResult<TreesDanhMucBaiTinDto> FindAllTrees(FilterDanhMucBaiTinDto input);
+        List<TreesDanhMucBaiTinDto> FindAllTrees(FilterDanhMucBaiTinDto input);
         DanhMucBaiTinDto GetById(int id);
         void Update(UpdateDanhMucBaiTinDto input);
     }

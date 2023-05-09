@@ -18,6 +18,8 @@ using GlobalAI.ProductRepositories;
 using GlobalAI.ProductEntities.Dto.DanhMucBaiTin;
 using GlobalAI.ProductEntities.Dto.Voucher;
 using System.Xml.Linq;
+using Microsoft.EntityFrameworkCore;
+using GlobalAI.ProductEntities.Dto.GioHang;
 
 namespace GlobalAI.ProductDomain.Implements
 {
@@ -100,64 +102,47 @@ namespace GlobalAI.ProductDomain.Implements
             return result;
         }
 
-
-        public PagingResult<TreesDanhMucBaiTinDto> FindAllTrees(FilterDanhMucBaiTinDto input)
+        public List<TreesDanhMucBaiTinDto> FindAllTrees(FilterDanhMucBaiTinDto input)
         {
-            var result = new PagingResult<TreesDanhMucBaiTinDto>();
+            //lay ra danh sach bai tin
+            var danhMucBaiTins = _dbContext.DanhMucBaiTins.Where(g => !g.Deleted).ToList();
 
-            // Lấy danh sách cây danh mục bài tin
-            var danhMucBaiTinQuery = _danhMucBaiTinRepository.FindAll(input);
-            var danhMucBaiTinDtos = _mapper.Map<List<DanhMucBaiTinDto>>(danhMucBaiTinQuery.Items);
+            var danhMucBaiTinMap = _mapper.Map<List<TreesDanhMucBaiTinDto>>(danhMucBaiTins);
 
-            // Xây dựng cây danh mục bài tin
-            var trees = BuildDanhMucBaiTinTrees(danhMucBaiTinDtos);
+            //tim tat ca cac nut cha
+            var filteredDanhMucBaiTinMap = danhMucBaiTinMap.Where(d => d.ParentId == null).ToList();
 
-            // Phân trang
-            result.TotalItems = trees.Count;
-            //if (input.PageSize != -1)
-            //{
-            //    trees = trees.Skip(input.Skip).Take(input.PageSize);
-            //}
-            result.Items = trees;
-            //result.Items = trees.Skip(input.Skip).Take(input.Take).ToList();
-
-            return result;
-        }
-
-        private List<TreesDanhMucBaiTinDto> BuildDanhMucBaiTinTrees(List<DanhMucBaiTinDto> danhMucBaiTinDtos)
-        {
-            var treeMap = new Dictionary<int, TreesDanhMucBaiTinDto>();
-            var roots = new List<TreesDanhMucBaiTinDto>();
-
-            foreach (var dto in danhMucBaiTinDtos)
+            //xu ly cac nut cha
+            foreach (var node in filteredDanhMucBaiTinMap)
             {
-                var node = new TreesDanhMucBaiTinDto
-                {
-                    Id = dto.Id,
-                    TenDanhMuc = dto.TenDanhMuc,
-                    MaDanhMuc = dto.MaDanhMuc,
-                    CreatedDate = dto.CreatedDate,
-                    CreatedBy = dto.CreatedBy,
-                    ParentId = dto.ParentId,
-                    IsDisplayOnHomePage = dto.IsDisplayOnHomePage,
-                    Status = dto.Status,
-                    Children = new List<TreesDanhMucBaiTinDto>()
-                };
-
-                treeMap[dto.Id] = node;
-
-                if (dto.ParentId == null)
-                {
-                    roots.Add(node);
-                }
-                else
-                {
-                    var parent = treeMap.GetValueOrDefault(dto.ParentId.Value);
-                    parent?.Children.Add(node);
-                }
+                node.Children = BuildTree(danhMucBaiTinMap, node.Id, input.ParentId);
             }
 
-            return roots;
+            return filteredDanhMucBaiTinMap;
+        }
+
+        /// <summary>
+        /// tao cay danh muc bai tin
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        public static List<TreesDanhMucBaiTinDto> BuildTree(List<TreesDanhMucBaiTinDto> nodes, int? parentId = null, int? id = null)
+        {
+            return nodes
+                .Where(node => node.ParentId == parentId)
+                .Select(node => new TreesDanhMucBaiTinDto
+                {
+                    Id = node.Id,
+                    TenDanhMuc = node.TenDanhMuc,
+                    MaDanhMuc = node.MaDanhMuc,
+                    CreatedDate = node.CreatedDate,
+                    CreatedBy = node.CreatedBy,
+                    ParentId = node.ParentId,
+                    Status = node.Status,
+                    Children = BuildTree(nodes, node.Id)
+                })
+                .ToList();
         }
 
         /// <summary>

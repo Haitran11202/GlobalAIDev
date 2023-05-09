@@ -11,6 +11,5 @@ namespace GlobalAI.ProductEntities.Dto.DanhMucBaiTin
         public string MaDanhMuc { get; set; }
         public string TenDanhMuc { get; set; }
         public int? ParentId { get; set; }
-        public bool IsDisplayOnHomePage { get; set; }
     }
 }
