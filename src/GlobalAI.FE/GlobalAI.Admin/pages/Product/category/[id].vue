@@ -1,10 +1,10 @@
 <template>
-  <div class="flex flex-col min-h-[100vh] py-4">
-    <div class="">
+  <div class="flex flex-col relative min-h-[100vh] py-4">
+    <div class="mb-[40px]">
       <h1 class="text-[24px] sm:pl-0 pl-4 font-bold ml-4 uppercase">{{ props ? props.category.tenDanhMuc : titleCategory}}</h1>
       <card-list-product :products="products" />
     </div>
-    <div class="flex items-center justify-center">
+    <div class="flex absolute bottom-0 w-full items-center justify-center">
       <card-pagination
       :pageNumber="pageNumber"
       :total-pages="totalPages" :next-page="nextPage" :prev-page="prevPage"
