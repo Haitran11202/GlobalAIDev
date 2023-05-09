@@ -50,6 +50,7 @@ namespace GlobalAI.ProductRepositories
 
             var query = from danhMuc in _dbSet.AsNoTracking()
                         where !danhMuc.Deleted && (dto.Keyword == null || danhMuc.Ma.ToLower().Contains(dto.Keyword.ToLower()) || danhMuc.Ten.ToLower().Contains(dto.Keyword.ToLower()))
+                        orderby danhMuc.Ten
                         select new ViewDanhMucThuocTinhDto
                         {
                             Id = danhMuc.Id,

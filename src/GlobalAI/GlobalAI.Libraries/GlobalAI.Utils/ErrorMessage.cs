@@ -21,6 +21,8 @@ namespace GlobalAI.Utils
             { (int)ErrorCode.ProductDanhMucThuocTinhInUsed, "Danh mục đang được sử dụng" },
             { (int)ErrorCode.ProductThuocTinhInUsed, "Thuộc tính đang được sử dụng" },
             { (int)ErrorCode.ProductThuocTinhGiaTriInUsed, "Giá trị thuộc tính đang được sử dụng" },
+            { (int)ErrorCode.ProductThuocTinhGiaTriNotFound, "Giá trị không tồn tại" },
+            { (int)ErrorCode.ProductDanhMucThuocTinhMaExisted, "Mã danh mục thuộc tính đã tồn tại" },
         };
 
         /// <summary>

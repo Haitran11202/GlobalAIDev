@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -61,8 +62,8 @@ namespace GlobalAI.ProductDomain.Implements
 
                 if (dto.ListThuocTinh.Count > 0)
                 {
-                    var dict = new Dictionary<int, int>();
-                    var dictName = new Dictionary<int, string>();
+                    var dict = new Dictionary<int, ThuocTinh>();
+
                     for (int i = 0; i < dto.ListThuocTinh.Count; i++)
                     {
                         var tmpThuocTinh = dto.ListThuocTinh[i];
@@ -71,8 +72,7 @@ namespace GlobalAI.ProductDomain.Implements
                         mapped.IdDanhMucThuocTinh = danhMuc.Id;
 
                         var thuocTinh = _thuocTinhRepository.Add(mapped, username);
-                        dict.Add(i, thuocTinh.Id);
-                        dictName.Add(i, thuocTinh.TenThuocTinh);
+                        dict.Add(i, thuocTinh);
                     }
                     _dbContext.SaveChanges();
 
@@ -86,8 +86,8 @@ namespace GlobalAI.ProductDomain.Implements
                             foreach (var tmpGiaTri in tmpThuocTinh.ListThuocTinhGiaTri)
                             {
                                 var mapped = _mapper.Map<ThuocTinhGiaTri>(tmpGiaTri);
-                                mapped.IdThuocTinh = dict[i];
-                                mapped.TenThuocTinh = dictName[i];
+                                mapped.IdThuocTinh = dict[i].Id;
+                                mapped.TenThuocTinh = dict[i].TenThuocTinh;
 
                                 _thuocTinhRepository.AddGiaTri(mapped, username);
                             }
@@ -150,6 +150,8 @@ namespace GlobalAI.ProductDomain.Implements
         /// <param name="dto"></param>
         public void Update(UpdateDanhMucThuocTinhDto dto)
         {
+            _logger.LogInformation($"{nameof(Update)}: dto={JsonSerializer.Serialize(dto)}");
+
             string username = CommonUtils.GetCurrentUsername(_httpContext);
             _danhMucThuocTinhRepository.UpdateDanhMucThuocTinh(dto, username);
             _dbContext.SaveChanges();
@@ -161,6 +163,8 @@ namespace GlobalAI.ProductDomain.Implements
         /// <param name="id"></param>
         public void Delete(int id)
         {
+            _logger.LogInformation($"{nameof(Delete)}: id={id}");
+
             string username = CommonUtils.GetCurrentUsername(_httpContext);
             _danhMucThuocTinhRepository.DeleteDanhMucThuocTinh(id, username);
             _dbContext.SaveChanges();
