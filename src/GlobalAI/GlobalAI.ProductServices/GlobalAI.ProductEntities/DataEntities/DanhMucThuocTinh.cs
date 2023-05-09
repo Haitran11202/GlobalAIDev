@@ -10,43 +10,30 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.ProductEntities.DataEntities
 {
-    [Table("P_DanhMucBaiTin")]
-    [Comment("Bảng danh mục bài tin")]
-    public class DanhMucBaiTin
+    [Table("P_DanhMucThuocTinh")]
+    [Comment("Demo bảng danh mục thuộc tính")]
+    public class DanhMucThuocTinh
     {
         /// <summary>
-        /// Id danh mục
+        /// Id danh mục thuộc tính
         /// </summary>
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [ColumnSnackCase(nameof(Id))]
         public int Id { get; set; }
 
         /// <summary>
-        /// Mã danh mục
+        /// Mã danh mục thuộc tính
         /// </summary>
-        [ColumnSnackCase(nameof(MaDanhMuc), TypeName = "VARCHAR2")]
-        [MaxLength(50)]
-        public string MaDanhMuc { get; set; }        
+        [ColumnSnackCase(nameof(Ma), TypeName = "VARCHAR2")]
+        [MaxLength(100)]
+        public string Ma { get; set; }        
 
         /// <summary>
-        /// Tên danh mục
+        /// Tên danh mục thuộc tính
         /// </summary>
-        [ColumnSnackCase(nameof(TenDanhMuc), TypeName = "VARCHAR2")]
-        [MaxLength(120)]
-        public string TenDanhMuc { get; set; }
-
-        /// <summary>
-        /// Trạng thái
-        /// </summary>
-        [ColumnSnackCase(nameof(Status))]
-        public int? Status { get; set; }
-
-        /// <summary>
-        /// Parent id
-        /// </summary>
-        [ColumnSnackCase(nameof(ParentId))]
-        public int? ParentId { get; set; }
+        [ColumnSnackCase(nameof(Ten), TypeName = "VARCHAR2")]
+        [MaxLength(250)]
+        public string Ten { get; set; }
 
         #region audit
         [MaxLength(50)]

@@ -159,9 +159,11 @@
           class="container mx-auto px-4 lg:pt-24 bg-state-800 flex flex-wrap"
         >
           <div class="lg:w-6/12 px-4 py-2.5 float-right">
-            <img class="mx-auto" :src="freeShopping" alt="free shoping" />
+            <nuxt-link to="/gsaler/home">
+            <img class="mx-auto" :src="imgShopping" alt="free shoping" />
+          </nuxt-link>
           </div>
-          <div class="w-full lg:w-6/12 px-4 py-2.5">
+          <div class="w-full lg:w-6/12 px-4 py-2.5 flex flex-col ">
             <h2 class="sm:text-4xl lg:text-6xl font-bold my-4">
               Global AI mang lại những gì cho người dùng?
             </h2>
@@ -175,6 +177,15 @@
               Giúp các nhà cung cấp mở rộng thị trường bán hàng và tìm kiếm
               khách hàng mới trên khắp mọi nơi.
             </p>
+            <div class="py-10 flex flex-row justify-center w-full">
+              <nuxt-link
+                to="/gsaler/home"
+                class="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-[#3192cd] hover:bg-emerald-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+              >
+               Đi đến trang mua bán >>>
+              </nuxt-link>
+            </div>
+            
           </div>
         </div>
       </section>
@@ -280,6 +291,7 @@
         </div>
       </div>
     </section>
+
     <!-- Đối tác  -->
     <section>
       <div class="bg-white py-24 sm:py-28">
@@ -342,13 +354,13 @@ import IndexNavbar from "../components/Navbars/IndexNavbar.vue";
 import FooterComponent from "../components/Footers/Footer.vue";
 import patternVue from "../assets/img/Home/san-thuong-mai-dien-tu.png";
 import adminMale from "../assets/icons8-administrator-male-40.png";
-import freeShopping from "../assets/z4225887963689_bcc32d4fe527e8a0cc92d16d234b00b0.jpg";
 import imgUyTin from "../assets/img/Home/uy-tin.png";
 import imgChiPhiThap from "../assets/img/Home/chi-phi-thap.png";
 import imgDeDangQuanLy from "../assets/img/Home/de-dang-quan-ly.png";
 import imgTangTinhCanhTranh from "../assets/img/Home/tang-tinh-canh-tranh.png";
 import imgTietKiem from "../assets/img/Home/tiet-kiem.png";
 import imgMoRongThiTruong from "../assets/img/Home/mo-rong-thi-truong.png";
+import imgShopping from "../assets/img/Home/dang-nhap-san-thuong-mai-dien-tu.png";
 
 
 import login from "../assets/img/login.jpg";

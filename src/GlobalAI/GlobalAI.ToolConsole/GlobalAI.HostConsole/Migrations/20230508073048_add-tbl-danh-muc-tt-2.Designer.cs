@@ -3,6 +3,7 @@ using System;
 using GlobalAI.DataAccess.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    partial class GlobalAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230508073048_add-tbl-danh-muc-tt-2")]
+    partial class addtbldanhmuctt2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -573,10 +576,6 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("NVARCHAR2(2000)")
                         .HasColumnName("ID_DANH_MUC");
 
-                    b.Property<bool>("IsDisplayOnHomePage")
-                        .HasColumnType("NUMBER(1)")
-                        .HasColumnName("IS_DISPLAY_ON_HOME_PAGE");
-
                     b.Property<string>("ModifiedBy")
                         .HasMaxLength(50)
                         .HasColumnType("VARCHAR2")
@@ -643,10 +642,6 @@ namespace GlobalAI.HostConsole.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("DATE")
                         .HasColumnName("MODIFIED_DATE");
-
-                    b.Property<int?>("ParentId")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("PARENT_ID");
 
                     b.Property<int?>("Status")
                         .HasColumnType("NUMBER(10)")
@@ -1028,10 +1023,6 @@ namespace GlobalAI.HostConsole.Migrations
                     b.Property<decimal?>("GiaToiThieu")
                         .HasColumnType("DECIMAL(18, 2)")
                         .HasColumnName("GIA_TOI_THIEU");
-
-                    b.Property<int>("IdSanPham")
-                        .HasColumnType("NUMBER(10)")
-                        .HasColumnName("ID_SAN_PHAM");
 
                     b.Property<int?>("LuotBan")
                         .HasColumnType("NUMBER(10)")

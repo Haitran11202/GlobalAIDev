@@ -17,6 +17,9 @@ using System.Threading.Tasks;
 using GlobalAI.ProductRepositories;
 using GlobalAI.ProductEntities.Dto.DanhMucBaiTin;
 using GlobalAI.ProductEntities.Dto.Voucher;
+using System.Xml.Linq;
+using Microsoft.EntityFrameworkCore;
+using GlobalAI.ProductEntities.Dto.GioHang;
 
 namespace GlobalAI.ProductDomain.Implements
 {
@@ -53,7 +56,10 @@ namespace GlobalAI.ProductDomain.Implements
             var userType = CommonUtils.GetCurrentRole(_httpContext);
             var userId = CommonUtils.GetCurrentUserId(_httpContext);
             var username = CommonUtils.GetCurrentUsername(_httpContext);
-
+            if(input.ParentId == 0 )
+            {
+                input.ParentId = null;
+            }
             var inputInsert = _mapper.Map<DanhMucBaiTin>(input);
 
             inputInsert.CreatedBy = username;
@@ -66,7 +72,10 @@ namespace GlobalAI.ProductDomain.Implements
         }
 
 
-
+        /// <summary>
+        /// xoa danh muc bai tin
+        /// </summary>
+        /// <param name="id"></param>
         public void Delete(int id)
         {
             var username = CommonUtils.GetCurrentUsername(_httpContext);
@@ -75,7 +84,7 @@ namespace GlobalAI.ProductDomain.Implements
         }
 
         /// <summary>
-        /// Danh sach 
+        /// Danh sach dang to list
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -93,6 +102,54 @@ namespace GlobalAI.ProductDomain.Implements
             return result;
         }
 
+        public List<TreesDanhMucBaiTinDto> FindAllTrees(FilterDanhMucBaiTinDto input)
+        {
+            //lay ra danh sach bai tin
+            var danhMucBaiTins = _dbContext.DanhMucBaiTins.Where(g => !g.Deleted).ToList();
+
+            var danhMucBaiTinMap = _mapper.Map<List<TreesDanhMucBaiTinDto>>(danhMucBaiTins);
+
+            //tim tat ca cac nut cha
+            var filteredDanhMucBaiTinMap = danhMucBaiTinMap.Where(d => d.ParentId == null).ToList();
+
+            //xu ly cac nut cha
+            foreach (var node in filteredDanhMucBaiTinMap)
+            {
+                node.Children = BuildTree(danhMucBaiTinMap, node.Id, input.ParentId);
+            }
+
+            return filteredDanhMucBaiTinMap;
+        }
+
+        /// <summary>
+        /// tao cay danh muc bai tin
+        /// </summary>
+        /// <param name="nodes"></param>
+        /// <param name="parentId"></param>
+        /// <returns></returns>
+        public static List<TreesDanhMucBaiTinDto> BuildTree(List<TreesDanhMucBaiTinDto> nodes, int? parentId = null, int? id = null)
+        {
+            return nodes
+                .Where(node => node.ParentId == parentId)
+                .Select(node => new TreesDanhMucBaiTinDto
+                {
+                    Id = node.Id,
+                    TenDanhMuc = node.TenDanhMuc,
+                    MaDanhMuc = node.MaDanhMuc,
+                    CreatedDate = node.CreatedDate,
+                    CreatedBy = node.CreatedBy,
+                    ParentId = node.ParentId,
+                    Status = node.Status,
+                    Children = BuildTree(nodes, node.Id)
+                })
+                .ToList();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public DanhMucBaiTinDto GetById(int id)
         {
             //int? userId = CommonUtils.GetCurrentUserId(_httpContext);

@@ -20,10 +20,10 @@ namespace GlobalAI.ProductEntities.DataEntities
         public int Id { get; set; }
 
         /// <summary>
-        /// Id danh mục
+        /// Id danh mục thuộc tính
         /// </summary>
-        [ColumnSnackCase(nameof(IdDanhMuc))]
-        public int IdDanhMuc { get; set; }
+        [ColumnSnackCase(nameof(IdDanhMucThuocTinh))]
+        public int IdDanhMucThuocTinh { get; set; }
 
         /// <summary>
         /// Tên thuộc tính

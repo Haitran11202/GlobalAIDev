@@ -37,20 +37,14 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import imgShopping from "~~/assets/img/Home/banner-slider.jpg";
+
 definePageMeta({
   layout: "layout-default",
 });
 
 const images = [
-  "https://media.sellycdn.net/files/md_2023_04_16_11_45_02_0700_pUtwwfyglM.jpg",
-  "https://media.sellycdn.net/files/md_2023_03_31_08_24_23_0700_ipMNOLVEoW.jpg",
-  "https://media.sellycdn.net/files/md_2023_04_16_11_55_35_0700_AKkTlqAJLH.jpg",
-  "https://media.sellycdn.net/files/md_2023_04_16_11_45_02_0700_pUtwwfyglM.jpg",
-  "https://media.sellycdn.net/files/md_2023_03_31_08_24_23_0700_ipMNOLVEoW.jpg",
-  "https://media.sellycdn.net/files/md_2023_04_16_11_55_35_0700_AKkTlqAJLH.jpg",
-  "https://media.sellycdn.net/files/md_2023_04_16_11_45_02_0700_pUtwwfyglM.jpg",
-  "https://media.sellycdn.net/files/md_2023_03_31_08_24_23_0700_ipMNOLVEoW.jpg",
-  "https://media.sellycdn.net/files/md_2023_04_16_11_55_35_0700_AKkTlqAJLH.jpg",
+  imgShopping
 ];
 
 let currentIndex = ref(0);
