@@ -55,8 +55,9 @@ namespace GlobalAI.ProductRepositories
             PagingResult<DanhMuc> result = new();
 
             var query = (from danhMuc in _dbSet
-                               where danhMuc.Deleted == DeletedBool.NO                                  
-                               select danhMuc);
+                               where danhMuc.Deleted == DeletedBool.NO
+                              && (input.IsDisplayOnHomePage == null || input.IsDisplayOnHomePage == danhMuc.IsDisplayOnHomePage)
+                         select danhMuc);
 
             result.TotalItems = query.Count();
             query = query.OrderByDescending(d => d.Id);
