@@ -39,24 +39,20 @@
 </template>
 
 <script setup>
+import imgBanChayNhat from "~~/assets/img/Home/ban-chay-nhat.jpg";
+import imgDanhGiaCao from "~~/assets/img/Home/danh-gia-cao.jpg";
+import imgMoiThamGia from "~~/assets/img/Home/moi-tham-gia.jpg";
+import imgXacThuc from "~~/assets/img/Home/xac-thuc.jpg";
+import imgFreeShip from "~~/assets/img/Home/freeship-den-80k.jpg";
+
+
+
 const images = [
-  "https://media.sellycdn.net/files/sm_464115393638_1646095333442.jpg",
-  "https://media.sellycdn.net/files/sm_148177223345_1646095384719.jpg",
-  "https://media.sellycdn.net/files/sm_439409253535_1646095363779.jpg",
-  "https://media.sellycdn.net/files/sm_2022_12_05_11_32_49_0700_SPjLbUCOmT.jpg",
-  "https://media.sellycdn.net/files/sm_2022_08_01_06_47_17_0700_HgNKtIVXdM.jpg",
-  "https://media.sellycdn.net/files/sm_464115393638_1646095333442.jpg",
-  "https://media.sellycdn.net/files/sm_464115393638_1646095333442.jpg",
-  "https://media.sellycdn.net/files/sm_148177223345_1646095384719.jpg",
-  "https://media.sellycdn.net/files/sm_439409253535_1646095363779.jpg",
-  "https://media.sellycdn.net/files/sm_2022_12_05_11_32_49_0700_SPjLbUCOmT.jpg",
-  "https://media.sellycdn.net/files/sm_2022_08_01_06_47_17_0700_HgNKtIVXdM.jpg",
-  "https://media.sellycdn.net/files/sm_464115393638_1646095333442.jpg",
-  "https://media.sellycdn.net/files/sm_2022_12_05_11_32_49_0700_SPjLbUCOmT.jpg",
-  "https://media.sellycdn.net/files/sm_2022_12_05_11_32_49_0700_SPjLbUCOmT.jpg",
-  "https://media.sellycdn.net/files/sm_2022_12_05_11_32_49_0700_SPjLbUCOmT.jpg",
-  "https://media.sellycdn.net/files/sm_2022_12_05_11_32_49_0700_SPjLbUCOmT.jpg",
-  "https://media.sellycdn.net/files/sm_2022_12_05_11_32_49_0700_SPjLbUCOmT.jpg",
+imgBanChayNhat,
+imgDanhGiaCao,
+imgMoiThamGia,
+imgXacThuc,
+imgFreeShip
 ];
 
 const slidesToShow = 4;
