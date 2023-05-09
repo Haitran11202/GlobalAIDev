@@ -42,6 +42,12 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(Status))]
         public int? Status { get; set; }
 
+        /// <summary>
+        /// Parent id
+        /// </summary>
+        [ColumnSnackCase(nameof(ParentId))]
+        public int? ParentId { get; set; }
+
         #region audit
         [MaxLength(50)]
         [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]
