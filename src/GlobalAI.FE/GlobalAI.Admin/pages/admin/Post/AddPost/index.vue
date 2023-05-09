@@ -1,6 +1,10 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <form @submit.prevent="handlePostPost" :validationSchema="postFormBody" class="m-auto shadow-2xl p-12">
+    <form
+      @submit.prevent="handlePostPost"
+      :validationSchema="postFormBody"
+      class="m-auto shadow-2xl p-12"
+    >
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
           <label
@@ -16,10 +20,10 @@
             placeholder="Tiêu đề..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             required
-            />
+          />
           <error-message name="tieuDe" class="text-red-500" />
         </div>
-        <div class="col-span-1">
+        <!-- <div class="col-span-1">
           <label
             for="idDanhMuc"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
@@ -29,7 +33,7 @@
             v-model="idDanhMuc"
             id="idDanhMuc"
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            required 
+            required
           >
             <option value="">-- Lựa chọn danh mục --</option>
             <option
@@ -40,7 +44,37 @@
               {{ danhmuc.tenDanhMuc }}
             </option>
           </select>
+        </div> -->
+        <div class="col-span-1">
+          <label
+            for="idDanhMuc"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
+            >Danh mục</label
+          >
+          <select
+            v-model="idDanhMuc"
+            id="idDanhMuc"
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+            required
+          >
+            <option value="">-- Lựa chọn danh mục --</option>
+            <optgroup class="font-bold" label="Danh mục sản phẩm">
+              <option
+                v-for="danhmuc in danhmucsp"
+                :value="danhmuc.id"
+                :key="danhmuc.id"
+              >
+                {{ danhmuc.tenDanhMuc }}
+              </option>
+            </optgroup>
+            <optgroup class="font-bold" label="Danh mục khác">
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </optgroup>
+          </select>
         </div>
+
         <div class="col-span-1">
           <label
             for="image"
@@ -93,12 +127,7 @@
           </div>
         </div>
         <div class="flex justify-end gap-5">
-          <button
-            type="submit"
-            class="btn btn-outline"
-          >
-            Thêm bài tin
-          </button>
+          <button type="submit" class="btn btn-outline">Thêm bài tin</button>
           <button
             @click="$router.push('/admin/post')"
             class="btn btn-outline btn-error"
@@ -198,9 +227,7 @@ function ConvertSlug(str) {
   return str;
 }
 
-
 function handlePostPost() {
-
   const postData = {
     idDanhMuc: idDanhMuc.value,
     tieuDe: tieuDe.value,
@@ -216,7 +243,7 @@ function handlePostPost() {
     .then((response) => {
       console.log("res", response);
       toast.success("Thêm bài tin thành công");
-      router.push('/admin/post');
+      router.push("/admin/post");
     })
     .catch((error) => {
       console.error(error);
@@ -239,3 +266,21 @@ onMounted(() => {
     });
 });
 </script>
+
+<style>
+/* since nested groupes are not supported we have to use 
+         regular css for the nested dropdowns
+      */
+li > ul {
+  transform: translatex(100%) scale(0);
+}
+li:hover > ul {
+  transform: translatex(101%) scale(1);
+}
+li > button svg {
+  transform: rotate(-90deg);
+}
+li:hover > button svg {
+  transform: rotate(-270deg);
+}
+</style>

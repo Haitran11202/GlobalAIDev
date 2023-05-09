@@ -75,7 +75,10 @@
                 })
               }}
             </td>
-            <td @click="onClickOrderDetails(order.id)">
+            <td
+              class="whitespace-pre-line"
+              @click="onClickOrderDetails(order.id)"
+            >
               {{ order.diaChi }}
             </td>
 
@@ -108,6 +111,7 @@
     </div>
     <div class="btn-group flex justify-center mt-2">
       <button @click="previousPage" class="btn">«</button>
+      <button class="btn">Trang {{ pageNumber }}</button>
       <button @click="nextPage" class="btn">»</button>
     </div>
   </div>

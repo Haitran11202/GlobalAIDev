@@ -3,13 +3,13 @@
     <div class="w-full overflow-hidden">
       <div class="slider w-full flex justify-center items-center">
         <button
-          class="prev-button sm:w-12 sm:h-12 w-[30px] h-[30px] rounded-full ml-5 flex items-center justify-center"
+          class="prev-button w-12 h-12 rounded-full ml-5 flex items-center justify-center"
           @click="prevImage"
         >
           <font-awesome-icon :icon="['fas', 'angle-left']" />
         </button>
         <button
-          class="next-button sm:w-12 sm:h-12 w-[30px] h-[30px] rounded-full mr-5 flex items-center justify-center"
+          class="next-button w-12 h-12 rounded-full mr-5 flex items-center justify-center"
           @click="nextImage"
         >
           <font-awesome-icon :icon="['fas', 'angle-right']" />
@@ -27,7 +27,7 @@
             :src="image"
             :class="{ active: currentIndex === index }"
             alt="Slider Image"
-            class="w-full rounded-2xl sm:px-0 px-4 overflow-hidden"
+            class="w-full rounded-2xl"
           />
         </div>
       </div>
@@ -61,11 +61,8 @@ function nextImage() {
     currentIndex.value = 0;
   }
   // Thêm dòng sau để di chuyển đến ảnh mới
-  if(imagesContainer.value){
-
-    imagesContainer.value.style.transform =
-      "translateX(" + -currentIndex.value * 100 + "%)";
-  }
+  imagesContainer.value.style.transform =
+    "translateX(" + -currentIndex.value * 100 + "%)";
 }
 
 function prevImage() {
@@ -73,20 +70,14 @@ function prevImage() {
   if (currentIndex.value < 0) {
     currentIndex.value = images.length - 1;
   }
-
   // Thêm dòng sau để di chuyển đến ảnh mới
-if(imagesContainer.value){
   imagesContainer.value.style.transform =
     "translateX(" + -currentIndex.value * 100 + "%)";
-
-}
 }
 function setCurrentIndex(index) {
   currentIndex.value = index;
-  if(imagesContainer.value){
-    imagesContainer.value.style.transform =
-      "translateX(" + -currentIndex.value * 100 + "%)";
-  }
+  imagesContainer.value.style.transform =
+    "translateX(" + -currentIndex.value * 100 + "%)";
 }
 
 const currentImage = computed(() => images[currentIndex.value]);
