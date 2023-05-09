@@ -90,6 +90,22 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpGet("find-all-trees")]
+        [ProducesResponseType(typeof(APIResponse<List<TreesDanhMucBaiTinDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse FindAllTress([FromQuery] FilterDanhMucBaiTinDto input)
+        {
+            try
+            {
+                var result = _danhMucBaiTinServices.FindAllTrees(input);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
         /// <summary>
         /// chi tiet 
         /// </summary>

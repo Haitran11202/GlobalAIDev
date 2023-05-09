@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 using GlobalAI.ProductRepositories;
 using GlobalAI.ProductEntities.Dto.DanhMucBaiTin;
 using GlobalAI.ProductEntities.Dto.Voucher;
+using System.Xml.Linq;
 
 namespace GlobalAI.ProductDomain.Implements
 {
@@ -53,7 +54,10 @@ namespace GlobalAI.ProductDomain.Implements
             var userType = CommonUtils.GetCurrentRole(_httpContext);
             var userId = CommonUtils.GetCurrentUserId(_httpContext);
             var username = CommonUtils.GetCurrentUsername(_httpContext);
-
+            if(input.ParentId == 0 )
+            {
+                input.ParentId = null;
+            }
             var inputInsert = _mapper.Map<DanhMucBaiTin>(input);
 
             inputInsert.CreatedBy = username;
@@ -66,7 +70,10 @@ namespace GlobalAI.ProductDomain.Implements
         }
 
 
-
+        /// <summary>
+        /// xoa danh muc bai tin
+        /// </summary>
+        /// <param name="id"></param>
         public void Delete(int id)
         {
             var username = CommonUtils.GetCurrentUsername(_httpContext);
@@ -75,7 +82,7 @@ namespace GlobalAI.ProductDomain.Implements
         }
 
         /// <summary>
-        /// Danh sach 
+        /// Danh sach dang to list
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -93,6 +100,71 @@ namespace GlobalAI.ProductDomain.Implements
             return result;
         }
 
+
+        public PagingResult<TreesDanhMucBaiTinDto> FindAllTrees(FilterDanhMucBaiTinDto input)
+        {
+            var result = new PagingResult<TreesDanhMucBaiTinDto>();
+
+            // Lấy danh sách cây danh mục bài tin
+            var danhMucBaiTinQuery = _danhMucBaiTinRepository.FindAll(input);
+            var danhMucBaiTinDtos = _mapper.Map<List<DanhMucBaiTinDto>>(danhMucBaiTinQuery.Items);
+
+            // Xây dựng cây danh mục bài tin
+            var trees = BuildDanhMucBaiTinTrees(danhMucBaiTinDtos);
+
+            // Phân trang
+            result.TotalItems = trees.Count;
+            //if (input.PageSize != -1)
+            //{
+            //    trees = trees.Skip(input.Skip).Take(input.PageSize);
+            //}
+            result.Items = trees;
+            //result.Items = trees.Skip(input.Skip).Take(input.Take).ToList();
+
+            return result;
+        }
+
+        private List<TreesDanhMucBaiTinDto> BuildDanhMucBaiTinTrees(List<DanhMucBaiTinDto> danhMucBaiTinDtos)
+        {
+            var treeMap = new Dictionary<int, TreesDanhMucBaiTinDto>();
+            var roots = new List<TreesDanhMucBaiTinDto>();
+
+            foreach (var dto in danhMucBaiTinDtos)
+            {
+                var node = new TreesDanhMucBaiTinDto
+                {
+                    Id = dto.Id,
+                    TenDanhMuc = dto.TenDanhMuc,
+                    MaDanhMuc = dto.MaDanhMuc,
+                    CreatedDate = dto.CreatedDate,
+                    CreatedBy = dto.CreatedBy,
+                    ParentId = dto.ParentId,
+                    IsDisplayOnHomePage = dto.IsDisplayOnHomePage,
+                    Status = dto.Status,
+                    Children = new List<TreesDanhMucBaiTinDto>()
+                };
+
+                treeMap[dto.Id] = node;
+
+                if (dto.ParentId == null)
+                {
+                    roots.Add(node);
+                }
+                else
+                {
+                    var parent = treeMap.GetValueOrDefault(dto.ParentId.Value);
+                    parent?.Children.Add(node);
+                }
+            }
+
+            return roots;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public DanhMucBaiTinDto GetById(int id)
         {
             //int? userId = CommonUtils.GetCurrentUserId(_httpContext);

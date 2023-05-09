@@ -1,12 +1,14 @@
-﻿using System;
+﻿using GlobalAI.ProductEntities.DataEntities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace GlobalAI.ProductEntities.Dto.DanhMucBaiTin
 {
-    public class DanhMucBaiTinDto
+    public class TreesDanhMucBaiTinDto
     {
         public int Id { get; set; }
         public string MaDanhMuc { get; set; }
@@ -16,8 +18,14 @@ namespace GlobalAI.ProductEntities.Dto.DanhMucBaiTin
         public bool IsDisplayOnHomePage { get; set; }
         public DateTime? CreatedDate { get; set; }
         public string CreatedBy { get; set; }
+        public List<TreesDanhMucBaiTinDto> Children { get; set; }
         #region Các thông tin khác
 
         #endregion
+
+        public TreesDanhMucBaiTinDto()
+        {
+            Children = new List<TreesDanhMucBaiTinDto>();
+        }
     }
 }
