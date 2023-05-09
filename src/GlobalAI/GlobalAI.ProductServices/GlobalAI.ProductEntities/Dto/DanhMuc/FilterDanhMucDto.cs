@@ -11,6 +11,6 @@ namespace GlobalAI.ProductEntities.Dto.DanhMuc
 {
     public class FilterDanhMucDto : PagingRequestBaseDto
     {
-
+        public bool? IsDisplayOnHomePage { get; set; }
     }
 }

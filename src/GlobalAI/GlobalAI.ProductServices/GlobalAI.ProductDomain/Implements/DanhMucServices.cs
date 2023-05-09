@@ -60,8 +60,10 @@ namespace GlobalAI.ProductDomain.Implements
             return inputInsert;
         }
 
-
-
+        /// <summary>
+        /// xoa danh muc san pham
+        /// </summary>
+        /// <param name="id"></param>
         public void Delete(int id)
         {
             var username = CommonUtils.GetCurrentUsername(_httpContext);
@@ -88,6 +90,11 @@ namespace GlobalAI.ProductDomain.Implements
             return result;
         }
 
+        /// <summary>
+        /// lay theo id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public DanhMucDto GetById(int id)
         {
             int? userId = CommonUtils.GetCurrentUserId(_httpContext);
