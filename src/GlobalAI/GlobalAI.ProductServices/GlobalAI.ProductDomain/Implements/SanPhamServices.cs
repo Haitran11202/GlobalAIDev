@@ -35,39 +35,77 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly ILogger<SanPhamServices> _logger;
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
-        private readonly SanPhamRepository _repositorySanPham;
+        private readonly SanPhamRepository _sanPhamRepository;
+        private readonly SanPhamChiTietRepository _sanPhamChiTietRepository;
         private readonly IMapper _mapper;
         public SanPhamServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
         {
-            _repositorySanPham = new SanPhamRepository(dbContext, logger, mapper);
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
             _mapper = mapper;
             _dbContext = dbContext;
             _httpContext = httpContext;
 
+            _sanPhamRepository = new SanPhamRepository(dbContext, logger, mapper);
+            _sanPhamChiTietRepository = new SanPhamChiTietRepository(dbContext, logger, mapper);
         }
+
         public List<GetSanPhamDto> GetFullSanPham()
         {
-            return _repositorySanPham.GetFullSanPham();
+            return _sanPhamRepository.GetFullSanPham();
         }
+
         /// <summary>
         /// Thêm sản phẩm
         /// </summary>
-        /// <param name="sanPham"></param>
+        /// <param name="dto"></param>
         /// <returns>Sản phẩm vừa thêm vào</returns>
-        public SanPham AddSanPham(AddSanPhamDto sanPham)
+        public SanPham AddSanPham(AddSanPhamDto dto)
         {
-            var newSanPham = _mapper.Map<SanPham>(sanPham);
-            _repositorySanPham.Add(newSanPham);
-            newSanPham.NgayDangKi = DateTime.Now;
-            newSanPham.Deleted = false;
-            newSanPham.IdGStore = CommonUtils.GetCurrentUserId(_httpContext);
-            newSanPham.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);
-            newSanPham.CreatedDate = DateTime.Now;
-            _dbContext.SaveChanges();
-            return newSanPham;
+            string username = CommonUtils.GetCurrentUsername(_httpContext);
+            int userId = CommonUtils.GetCurrentUserId(_httpContext);
+
+            using (var tran = _dbContext.Database.BeginTransaction())
+            {
+                // Them sp
+                var newSanPham = _mapper.Map<SanPham>(dto);
+
+                newSanPham.IdGStore = userId;
+                newSanPham.CreatedBy = username;
+
+                _sanPhamRepository.Add(newSanPham);
+                _dbContext.SaveChanges();
+
+                if (dto.ListChiTiet != null)
+                {
+                    // Them sp chi tiet
+                    var dict = new Dictionary<int, SanPhamChiTiet>();
+                    for (int i = 0; i < dto.ListChiTiet.Count; i++)
+                    {
+                        var spChiTiet = dto.ListChiTiet[i];
+                        spChiTiet.IdSanPham = newSanPham.Id;
+
+                        var dbSpChiTiet = _sanPhamChiTietRepository.Add(_mapper.Map<SanPhamChiTiet>(spChiTiet), username);
+                        dict.Add(i, dbSpChiTiet);
+                    }
+                    _dbContext.SaveChanges();
+
+                    // Them thuoc tinh cho sp chi tiet
+                    for (int i = 0; i < dto.ListChiTiet.Count; i++)
+                    {
+                        var spChiTiet = dto.ListChiTiet[i];
+
+                        _sanPhamChiTietRepository.AddSanPhamChiTietThuocTinh(dict[i].Id, spChiTiet.ListIdThuocTinhGiaTri, username);
+                    }
+                }
+
+                _dbContext.SaveChanges();
+                tran.Commit();
+
+                return newSanPham;
+            }
         }
+
         /// <summary>
         /// Xóa sản phẩm
         /// </summary>
@@ -76,7 +114,7 @@ namespace GlobalAI.ProductDomain.Implements
         public void DeleteSanPham(int idSanPham)
         {
             var username = CommonUtils.GetCurrentUsername(_httpContext);
-            var query = _repositorySanPham.Entity.FirstOrDefault(x => x.Id == idSanPham);
+            var query = _sanPhamRepository.Entity.FirstOrDefault(x => x.Id == idSanPham);
             query.Deleted = DeletedBool.YES;
             query.DeletedBy = username;
             query.DeletedDate = DateTime.Now;
@@ -90,10 +128,10 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns>Trả về sản phẩm đã được sửa</returns>
         public SanPham EditSanPham(int id, AddSanPhamDto newSanPham)
         {
-            var findSanPham = _repositorySanPham.FindByIdSanPham(id);
+            var findSanPham = _sanPhamRepository.FindByIdSanPham(id);
             if (findSanPham != null)
             {
-                _repositorySanPham.EditSanPham(newSanPham, findSanPham);
+                _sanPhamRepository.EditSanPham(newSanPham, findSanPham);
             }
             _dbContext.SaveChanges();
             return findSanPham;
@@ -101,10 +139,10 @@ namespace GlobalAI.ProductDomain.Implements
 
         public DanhMuc EditDanhMuc(int id, CreateDanhMucDto newDanhMuc)
         {
-            var findDanhMuc = _repositorySanPham.FindByIdDanhMuc(id);
+            var findDanhMuc = _sanPhamRepository.FindByIdDanhMuc(id);
             if (findDanhMuc != null)
             {
-                _repositorySanPham.EditDanhMuc(newDanhMuc, findDanhMuc);
+                _sanPhamRepository.EditDanhMuc(newDanhMuc, findDanhMuc);
             }
             _dbContext.SaveChanges();
             return findDanhMuc;
@@ -118,7 +156,7 @@ namespace GlobalAI.ProductDomain.Implements
         {
             //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
 
-            return _repositorySanPham.FindAll(input);
+            return _sanPhamRepository.FindAll(input);
         }
 
         /// <summary>
@@ -130,12 +168,12 @@ namespace GlobalAI.ProductDomain.Implements
         {
             //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
 
-            return _repositorySanPham.GetById(idSanPham);
+            return _sanPhamRepository.GetById(idSanPham);
         }
 
         public DanhMuc GetDanhMucById (int idDanhMuc)
         {
-            var result = _repositorySanPham.FindByIdDanhMuc(idDanhMuc);
+            var result = _sanPhamRepository.FindByIdDanhMuc(idDanhMuc);
             return result;
         }
         
@@ -148,7 +186,7 @@ namespace GlobalAI.ProductDomain.Implements
         {
             //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(id)}");
             
-            return _repositorySanPham.GetByCategory(idDanhMuc, input);
+            return _sanPhamRepository.GetByCategory(idDanhMuc, input);
         }
 
         /// <summary>
@@ -158,7 +196,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// <returns></returns>
         public void ApproveSanPham(int id)
         {
-            var Result = _repositorySanPham.FindByIdSanPham(id);
+            var Result = _sanPhamRepository.FindByIdSanPham(id);
             if (Result != null)
             {
                 Result.NgayDuyet = DateTime.Now;
@@ -172,12 +210,12 @@ namespace GlobalAI.ProductDomain.Implements
             string userRole = CommonUtils.GetCurrentRole(_httpContext);
             if (userRole == Roles.Admin)
             {
-                return _repositorySanPham.GetSanPhamByIdGstore(null, input);
+                return _sanPhamRepository.GetSanPhamByIdGstore(null, input);
             }
             if(userRole == Roles.GStore)
             {
                 int userId = CommonUtils.GetCurrentUserId(_httpContext);
-                return _repositorySanPham.GetSanPhamByIdGstore(userId, input);
+                return _sanPhamRepository.GetSanPhamByIdGstore(userId, input);
             }
             return null;
         }

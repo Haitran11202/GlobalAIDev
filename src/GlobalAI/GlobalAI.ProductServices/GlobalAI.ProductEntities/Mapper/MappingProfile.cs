@@ -15,6 +15,7 @@ using GlobalAI.ProductEntities.Dto.VoucherChiTiet;
 using GlobalAI.ProductEntities.Dto.DanhMucThuocTinh;
 using GlobalAI.ProductEntities.Dto.ThuocTinh;
 using GlobalAI.ProductEntities.Dto.ThuocTinhGiaTri;
+using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 
 namespace GlobalAI.ProductEntities.DataEntities.Mapper
 {
@@ -29,6 +30,7 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<GetSanPhamDto, SanPham>().ReverseMap();
             CreateMap<DonHang, AddDonHangDto>().ReverseMap();
             CreateMap<DonHang, AddDonHangDto>().ReverseMap();
+            CreateMap<SanPhamChiTiet, AddSanPhamChiTietDto>().ReverseMap();
             //CreateMap<List<ChiTietDonHang>, List<AddChiTietDonHangDto>>().ReverseMap();
             CreateMap<ChiTietDonHang, AddChiTietDonHangDto>().ReverseMap();
             CreateMap<ChiTietDonHang, EditChiTietDonHangDto>().ReverseMap();
