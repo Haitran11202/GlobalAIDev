@@ -34,6 +34,12 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(TenDanhMuc))]
         public string TenDanhMuc { get; set; }
 
+        /// <summary>
+        /// Có show ngoài trang chủ không
+        /// </summary>
+        [ColumnSnackCase(nameof(IsDisplayOnHomePage))]
+        public bool IsDisplayOnHomePage { get; set; }
+
         #region audit
         [MaxLength(50)]
         [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]

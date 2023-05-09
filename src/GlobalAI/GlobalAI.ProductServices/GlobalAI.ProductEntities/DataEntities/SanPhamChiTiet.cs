@@ -22,6 +22,12 @@ namespace GlobalAI.ProductEntities.DataEntities
         public int Id { get; set; }
 
         /// <summary>
+        /// Id sản phẩm
+        /// </summary>
+        [ColumnSnackCase(nameof(IdSanPham))]
+        public int IdSanPham { get; set; }
+
+        /// <summary>
         /// Mã sản phẩm
         /// </summary>
         [ColumnSnackCase(nameof(MaSanPhamChiTiet))]
