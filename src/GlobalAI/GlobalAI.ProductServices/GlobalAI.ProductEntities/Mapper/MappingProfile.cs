@@ -77,8 +77,10 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<DanhMucThuocTinh, ViewSingleDanhMucThuocTinhDto>().ReverseMap();
             CreateMap<ThuocTinh, AddThuocTinhDto>().ReverseMap();
             CreateMap<ThuocTinh, ViewThuocTinhDto>().ReverseMap();
+            CreateMap<ThuocTinh, GetThuocTinhDto>().ReverseMap();
             CreateMap<ThuocTinhGiaTri, AddThuocTinhGiaTriDto>().ReverseMap();
             CreateMap<ThuocTinhGiaTri, ViewThuocTinhGiaTriDto>().ReverseMap();
+            CreateMap<SanPhamChiTiet, GetSanPhamChiTietDto>().ReverseMap();
         }
     }
 }

@@ -25,6 +25,7 @@ namespace GlobalAI.ProductRepositories
         public SanPhamChiTietRepository(DbContext dbContext, ILogger logger, IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
         {
             _mapper = mapper;
+            
         }
 
         public PagingResult<SanPhamChiTiet> FindAll(FilterSanPhamChiTietDto input)
@@ -133,6 +134,7 @@ namespace GlobalAI.ProductRepositories
                 });
             }
         }
+
 
     }
 }
