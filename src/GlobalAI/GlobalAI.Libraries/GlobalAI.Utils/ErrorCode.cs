@@ -47,6 +47,7 @@ namespace GlobalAI.Utils
         ProductThuocTinhGiaTriInUsed = 2005,
         ProductThuocTinhGiaTriNotFound = 2006,
         ProductDanhMucThuocTinhMaExisted = 2007,
+        ProductDanhMucNotFound = 2008,
         #endregion
 
         #region file
