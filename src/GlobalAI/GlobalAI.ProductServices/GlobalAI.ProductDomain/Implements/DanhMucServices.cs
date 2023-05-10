@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GlobalAI.ProductEntities.Dto.Voucher;
 
 namespace GlobalAI.ProductDomain.Implements
 {
@@ -38,6 +39,36 @@ namespace GlobalAI.ProductDomain.Implements
             _logger = logger;
             _dbContext = dbContext;
             _httpContext = httpContext;
+
+        }
+
+        /// <summary>
+        /// cap nhieu danh muc theo is display home page
+        /// </summary>
+        /// <param name="input"></param>
+        public void UpdateDanhMucHomePage(DanhMucHomePageDto input)
+        {
+            var userType = CommonUtils.GetCurrentRole(_httpContext);
+            var userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+            var isValid = input.DanhMucIds?.All(id =>
+            _dbContext.DanhMucs.Any(c => c.Id == id)) ?? false;
+            if (!isValid)
+            {
+                
+            }
+            foreach (var item in _dbContext.DanhMucs)
+            {
+                if (input.DanhMucIds.Contains(item.Id))
+                {
+                    item.IsDisplayOnHomePage = true;
+                }
+                else
+                {
+                    item.IsDisplayOnHomePage = false;
+                }
+            }
+            _dbContext.SaveChanges();
 
         }
 

@@ -13,6 +13,7 @@ namespace GlobalAI.ProductDomain.Interfaces
     {
         DanhMuc Add(CreateDanhMucDto input);
         void Delete(int id);
+        void UpdateDanhMucHomePage(DanhMucHomePageDto input);
         PagingResult<DanhMucDto> FindAll(FilterDanhMucDto input);
         DanhMucDto GetById(int id);
     }

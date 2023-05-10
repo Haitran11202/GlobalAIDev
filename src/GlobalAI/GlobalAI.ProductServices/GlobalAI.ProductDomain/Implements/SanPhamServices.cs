@@ -2,7 +2,7 @@
 using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
 
-﻿using AutoMapper;
+using AutoMapper;
 
 using GlobalAI.DemoEntities.Dto.Product;
 
@@ -26,6 +26,9 @@ using GlobalAI.Utils.ConstantVariables.Product;
 using GlobalAI.Utils.ConstantVariables.Core;
 using GlobalAI.CoreEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.DanhMuc;
+using GlobalAI.ProductEntities.Dto.ChiTietTraGia;
+using GlobalAI.ProductEntities.Dto.TraGia;
+using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 using GlobalAI.ProductEntities.Dto.ThuocTinh;
 using GlobalAI.ProductEntities.Dto.ThuocTinhGiaTri;
@@ -52,6 +55,33 @@ namespace GlobalAI.ProductDomain.Implements
             _thuocTinhRepository = new ThuocTinhRepository(dbContext, logger, mapper);
             _sanPhamRepository = new SanPhamRepository(dbContext, logger, mapper);
             _sanPhamChiTietRepository = new SanPhamChiTietRepository(dbContext, logger, mapper);
+        }
+
+        /// <summary>
+        /// danh sach san pham cho home page
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public PagingResult<SanPhamChiTietDto> FindAllHomePage(FilterSanPhamChiTietDto input)
+        {
+            int? userId = CommonUtils.GetCurrentUserId(_httpContext);
+            string usertype = CommonUtils.GetCurrentRole(_httpContext);
+
+            var result = new PagingResult<SanPhamChiTietDto>();
+            var query = _sanPhamChiTietRepository.FindAll(input);
+
+            result.Items = _mapper.Map<List<SanPhamChiTietDto>>(query.Items);
+            result.TotalItems = query.TotalItems;
+            foreach (var item in result.Items)
+            {;
+                var sanPham = _sanPhamRepository.GetById(item.IdSanPham);
+                item.MaSanPham = sanPham.MaSanPham;
+                item.TenSanPham = sanPham.TenSanPham;
+                item.MoTaSanPham = sanPham.MoTa;
+                item.IdDanhMuc = sanPham.IdDanhMuc;
+                item.ThumbnailSanPham = sanPham.Thumbnail;
+            }
+            return result;
         }
 
         public List<GetSanPhamDto> GetFullSanPham()
@@ -198,12 +228,12 @@ namespace GlobalAI.ProductDomain.Implements
             return _sanPhamRepository.GetById(idSanPham);
         }
 
-        public DanhMuc GetDanhMucById (int idDanhMuc)
+        public DanhMuc GetDanhMucById(int idDanhMuc)
         {
             var result = _sanPhamRepository.FindByIdDanhMuc(idDanhMuc);
             return result;
         }
-        
+
         /// <summary>
         /// Lấy sản phẩm theo danh mục
         /// </summary>
@@ -212,7 +242,7 @@ namespace GlobalAI.ProductDomain.Implements
         public PagingResult<GetSanPhamDto> GetByCategory(string idDanhMuc, FindSanPhamByCatetoryDto input)
         {
             //_logger.LogInformation($"{nameof(FindAll)}: input = {JsonSerializer.Serialize(id)}");
-            
+
             return _sanPhamRepository.GetByCategory(idDanhMuc, input);
         }
 
@@ -232,14 +262,14 @@ namespace GlobalAI.ProductDomain.Implements
             }
         }
 
-        public PagingResult<GetSanPhamDto> GetSanPhamByIdGstore (GetSanPhamIdGstoreDto input)
+        public PagingResult<GetSanPhamDto> GetSanPhamByIdGstore(GetSanPhamIdGstoreDto input)
         {
             string userRole = CommonUtils.GetCurrentRole(_httpContext);
             if (userRole == Roles.Admin)
             {
                 return _sanPhamRepository.GetSanPhamByIdGstore(null, input);
             }
-            if(userRole == Roles.GStore)
+            if (userRole == Roles.GStore)
             {
                 int userId = CommonUtils.GetCurrentUserId(_httpContext);
                 return _sanPhamRepository.GetSanPhamByIdGstore(userId, input);

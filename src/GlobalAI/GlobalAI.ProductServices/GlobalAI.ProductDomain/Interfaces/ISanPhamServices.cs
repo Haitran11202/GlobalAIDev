@@ -16,6 +16,7 @@ namespace GlobalAI.ProductDomain.Interfaces
 {
     public interface ISanPhamServices
     {
+        public PagingResult<SanPhamChiTietDto> FindAllHomePage(FilterSanPhamChiTietDto input);
         public List<GetSanPhamDto> GetFullSanPham();
         public PagingResult<GetSanPhamDto> FindAll(FindSanPhamDto input);
         public SanPham GetById(int input);
