@@ -60,6 +60,15 @@ export const getSanPhamByIdGStore = async (pageSize, pageNumber, skip) => {
     }
 };
 
+export const getSanPhamNews = async (SortBy , SortOrder) => {
+    try {
+        const response = await http.get(API_ENDPOINT.getSanPhamTrangHome(SortBy , SortOrder));
+        return Promise.resolve(response.data);
+    } catch (error) {
+        return Promise.reject(error)
+    }
+}
+
 
 // Cương code
 

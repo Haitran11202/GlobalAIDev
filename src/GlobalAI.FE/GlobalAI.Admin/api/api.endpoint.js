@@ -12,6 +12,9 @@ export const API_ENDPOINT = {
   getFullSanPham: (id) =>
     `api/product/sanpham/danh-muc/${id}?pageSize=-1&pageNumber=1&Skip=0`,
   getDanhMucSanPham: `/api/product/sanpham/danh-muc?pageSize=-1&pageNumber=1&Skip=0`,
+  
+    // Get sản phẩm mới nhất
+  getSanPhamTrangHome:(SortBy , SortOrder) => `/api/product/sanpham/home-page?SortBy=${SortBy}&SortOrder%20=${SortOrder}&pageSize=-1&pageNumber=15&Skip=0`,
 
   getSanPhamByIdGStore: (pageSize, pageNumber, skip) =>
     `api/product/sanpham/get-sanpham-gstore?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
