@@ -17,7 +17,9 @@ namespace GlobalAI.ProductRepositories
 {
     public class ThuocTinhRepository : BaseEFRepository<ThuocTinh>
     {
-        public ThuocTinhRepository(DbContext dbContext, ILogger logger, string seqName = null) : base(dbContext, logger, seqName)
+        private readonly IMapper _mapper;
+
+        public ThuocTinhRepository(DbContext dbContext, ILogger logger,IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
         {
 
         }
@@ -95,7 +97,7 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="idDanhMucThuoctinh"></param>
         /// <returns></returns>
-        public List<ThuocTinh> FindByIdDanhMucThuocTinh(int idDanhMucThuoctinh)
+        public List<ThuocTinh> FindByIdDanhMucThuocTinh(int? idDanhMucThuoctinh)
         {
             _logger.LogInformation($"{nameof(FindByIdDanhMucThuocTinh)} -> {nameof(List<ThuocTinh>)}: idDanhMucThuoctinh={idDanhMucThuoctinh}");
 
@@ -224,6 +226,6 @@ namespace GlobalAI.ProductRepositories
                 ThrowException(Utils.ErrorCode.ProductThuocTinhGiaTriInUsed);
             }
         }
-
+       
     }
 }

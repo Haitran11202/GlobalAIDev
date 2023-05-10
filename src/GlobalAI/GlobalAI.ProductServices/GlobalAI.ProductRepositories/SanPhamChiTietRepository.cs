@@ -25,6 +25,7 @@ namespace GlobalAI.ProductRepositories
         public SanPhamChiTietRepository(DbContext dbContext, ILogger logger, IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
         {
             _mapper = mapper;
+            
         }
 
         public PagingResult<SanPhamChiTiet> FindAll(FilterSanPhamChiTietDto input)
@@ -135,6 +136,23 @@ namespace GlobalAI.ProductRepositories
         }
 
         /// <summary>
+        /// Lấy list sp chi tiết theo id sp
+        /// </summary>
+        /// <param name="idSanPham"></param>
+        /// <returns></returns>
+        public List<SanPhamChiTiet> GetListByIdSanPham(int idSanPham)
+        {
+            _logger.LogInformation($"{nameof(GetListByIdSanPham)}: idSanPham={idSanPham}");
+
+            var query = from spct in _dbSet.AsNoTracking()
+                        join sp in _globalAIDbContext.SanPhams.AsNoTracking() on spct.IdSanPham equals sp.Id
+                        where !spct.Deleted && !sp.Deleted && sp.Id == idSanPham
+                        select spct;
+            return query.ToList();
+
+        }
+
+        /// <summary>
         /// Cập nhật sản phẩm chi tiết
         /// </summary>
         /// <param name="entity"></param>
@@ -205,6 +223,31 @@ namespace GlobalAI.ProductRepositories
             spChiTiet.DeletedBy = username;
             spChiTiet.DeletedDate = DateTime.Now;
             spChiTiet.Deleted = true;
+        }
+
+        /// <summary>
+        /// Get list thuộc tính bằng id sản phẩm chi tiết
+        /// </summary>
+        /// <param name="idSanPhamChiTiet"></param>
+        /// <returns></returns>
+        public List<ViewSanPhamChiTietThuocTinhDto> GetListThuocTinhByIdSanPhamChiTiet(int idSanPhamChiTiet)
+        {
+            _logger.LogInformation($"{nameof(GetListThuocTinhByIdSanPhamChiTiet)}: idSanPhamChiTiet={idSanPhamChiTiet}");
+
+            var query = from spct in _dbSet.AsNoTracking()
+                        join spcttt in _globalAIDbContext.SanPhamChiTietThuocTinhs.AsNoTracking() on spct.Id equals spcttt.IdSanPhamChiTiet
+                        join gt in _globalAIDbContext.ThuocTinhGiaTris.AsNoTracking() on spcttt.IdThuocTinhGiaTri equals gt.Id
+                        join tt in _globalAIDbContext.ThuocTinhs.AsNoTracking() on gt.IdThuocTinh equals tt.Id
+                        where !spct.Deleted && !spcttt.Deleted && !gt.Deleted && !tt.Deleted && spct.Id == idSanPhamChiTiet
+                        select new ViewSanPhamChiTietThuocTinhDto
+                        {
+                            Id = spcttt.Id,
+                            IdSanPhamChiTiet = spcttt.IdSanPhamChiTiet,
+                            IdThuocTinhGiaTri = spcttt.IdThuocTinhGiaTri,
+                            TenThuocTinh = tt.TenThuocTinh,
+                            GiaTri = gt.GiaTri
+                        };
+            return query.ToList();
         }
 
         /// <summary>
