@@ -5,6 +5,7 @@ using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.DanhMuc;
 using GlobalAI.ProductEntities.Dto.DanhMucBaiTin;
 using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
 using Microsoft.AspNetCore.Authorization;
@@ -27,6 +28,26 @@ namespace GlobalAI.ProductAPI.Controllers
         }
 
         /// <summary>
+        /// danh sach chi tiet san pham cho home page
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet("home-page")]
+        [ProducesResponseType(typeof(APIResponse<List<SanPhamChiTietDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse FindAllHomePage([FromQuery] FilterSanPhamChiTietDto input)
+        {
+            try
+            {
+                var result = _sanPhamServices.FindAllHomePage(input);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
+        /// <summary>
         /// them danh muc cua san pham ( luc them san pham dang dung IdDanhMuc )
         /// </summary>
         /// <param name="input"></param>
@@ -38,6 +59,20 @@ namespace GlobalAI.ProductAPI.Controllers
             {
                 var result = _danhMucServices.Add(input);
                 return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
+        [HttpPut("danh-muc-home-page")]
+        public APIResponse DanhMucHomePage([FromBody] DanhMucHomePageDto input)
+        {
+            try
+            {
+                _danhMucServices.UpdateDanhMucHomePage(input);
+                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
             }
             catch (Exception ex)
             {
