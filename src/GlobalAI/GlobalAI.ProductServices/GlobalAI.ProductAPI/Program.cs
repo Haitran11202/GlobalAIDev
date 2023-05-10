@@ -125,6 +125,7 @@ services.AddScoped<IVoucherServices, VoucherServices>();
 services.AddScoped<IDanhMucServices, DanhMucServices>();
 services.AddScoped<IDanhMucThuocTinhServices, DanhMucThuocTinhServices>();
 services.AddScoped<IThuocTinhServices, ThuocTinhServices>();
+services.AddScoped<ISanPhamChiTietServices, SanPhamChiTietServices>();
 #endregion
 #region Add Auto Mapper
 services.AddAutoMapper(typeof(MappingProfile));
