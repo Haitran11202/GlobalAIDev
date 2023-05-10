@@ -22,6 +22,7 @@ namespace GlobalAI.ProductRepositories
         public SanPhamChiTietRepository(DbContext dbContext, ILogger logger, IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
         {
             _mapper = mapper;
+            
         }
 
         /// <summary>
@@ -64,6 +65,7 @@ namespace GlobalAI.ProductRepositories
                 });
             }
         }
+
 
     }
 }

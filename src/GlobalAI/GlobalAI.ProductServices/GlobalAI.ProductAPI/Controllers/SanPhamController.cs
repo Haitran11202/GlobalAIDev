@@ -45,6 +45,25 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
         /// <summary>
+        /// Get SanPham Chi tiet
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet("get-all-san-pham-ct/{id}")]
+        public APIResponse GetSanPhamChiTiet(int id)
+        {
+            try
+            {
+                var result = _sanPhamServices.GetSanPhamChiTiet(id);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
+        /// <summary>
         /// get danh sach danh muc
         /// </summary>
         /// <param name="input"></param>
