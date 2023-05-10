@@ -4,6 +4,7 @@ using GlobalAI.DemoEntities.Dto.Product;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.DanhMuc;
 using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace GlobalAI.ProductDomain.Interfaces
 {
     public interface ISanPhamServices
     {
+        public PagingResult<SanPhamChiTietDto> FindAllHomePage(FilterSanPhamChiTietDto input);
         public List<GetSanPhamDto> GetFullSanPham();
         public PagingResult<GetSanPhamDto> FindAll(FindSanPhamDto input);
         public SanPham GetById(int input);
