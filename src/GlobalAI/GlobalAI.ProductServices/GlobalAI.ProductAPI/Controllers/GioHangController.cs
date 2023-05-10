@@ -111,7 +111,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("sanpham-giohang")]
-        [ProducesResponseType(typeof(APIResponse<List<GetSanPhamDto>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(APIResponse<List<GetSanPhamChiTietDto>>), (int)HttpStatusCode.OK)]
         public APIResponse GetSanPhamGioHang()
         {
             try
@@ -129,7 +129,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("giohangByIdSanPham/{id}")]
-        [ProducesResponseType(typeof(APIResponse<List<GetSanPhamDto>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(APIResponse<List<GetSanPhamChiTietDto>>), (int)HttpStatusCode.OK)]
         public APIResponse GetGioHangByIdSanPham([FromRoute] int id)
         {
             try

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,13 +9,10 @@ namespace GlobalAI.ProductEntities.Dto.GioHang
 {
     public class EditGioHangDto
     {
-        
-
         /// <summary>
-        /// Id Sản phẩm (Có thể trùng nhau)
+        /// Id Sản phẩm chi tiết
         /// </summary>
-        public int? IdSanPham { get; set; }
-
+        public int? IdSanPhamChiTiet { get; set; }
         /// <summary>
         /// Số lượng sp
         /// </summary>

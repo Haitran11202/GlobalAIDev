@@ -89,7 +89,7 @@ namespace GlobalAI.ProductDomain.Implements
         /// Lấy ra danh sách sản phẩm trong giỏ hàng của người dùng
         /// </summary>
         /// <returns></returns>
-        public List<GetSanPhamDto> getSanPhamTheoNguoiMua()
+        public List<GetSanPhamChiTietDto> getSanPhamTheoNguoiMua()
         {
             var userId = CommonUtils.GetCurrentUserId(_httpContext);
             var sanPhams = _repositoryGioHang.GetSanPhamByNguoiMua(userId);
@@ -98,7 +98,11 @@ namespace GlobalAI.ProductDomain.Implements
         public GetGioHangDto GetGioHangTheoIdSanPham(int idSanPham)
         {
             
-            var sanPhams = _repositoryGioHang.GetGioHangByIdSanPham(idSanPham);
+            var sanPhams = _repositoryGioHang.GetGioHangByIdSanPhamChiTiet(idSanPham);
+            if(sanPhams == null)
+            {
+                throw new Exception("Không tìm thấy giỏ hàng");
+            }    
             return sanPhams;
         }
     }
