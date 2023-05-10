@@ -5,6 +5,7 @@ using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.DanhMuc;
 using GlobalAI.ProductEntities.Dto.DanhMucBaiTin;
 using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
 using Microsoft.AspNetCore.Authorization;
@@ -24,6 +25,26 @@ namespace GlobalAI.ProductAPI.Controllers
         {
             _sanPhamServices = sanPhamServices;
             _danhMucServices = danhMucServices;
+        }
+
+        /// <summary>
+        /// danh sach chi tiet san pham cho home page
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet("home-page")]
+        [ProducesResponseType(typeof(APIResponse<List<SanPhamChiTietDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse FindAllHomePage([FromQuery] FilterSanPhamChiTietDto input)
+        {
+            try
+            {
+                var result = _sanPhamServices.FindAllHomePage(input);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
         }
 
         /// <summary>
