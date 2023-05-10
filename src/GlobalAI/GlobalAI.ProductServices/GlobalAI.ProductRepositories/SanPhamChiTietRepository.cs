@@ -33,7 +33,7 @@ namespace GlobalAI.ProductRepositories
 
             var sanPhamChiTietQuery = (from sanPhamChiTiet in _dbSet
                                where sanPhamChiTiet.Deleted == DeletedBool.NO
-                               && (input.IdSanPham == null || input.IdSanPham == sanPhamChiTiet.IdSanPham)
+                               //&& (input.IdSanPham == null || input.IdSanPham == sanPhamChiTiet.IdSanPham)
                                && (input.Status == null || input.Status == sanPhamChiTiet.Status)
                                select sanPhamChiTiet);
 

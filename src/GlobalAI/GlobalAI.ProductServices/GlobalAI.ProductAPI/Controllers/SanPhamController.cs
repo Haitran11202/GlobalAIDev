@@ -65,6 +65,20 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+
+        [HttpPut("danh-muc-home-page")]
+        public APIResponse DanhMucHomePage([FromBody] DanhMucHomePageDto input)
+        {
+            try
+            {
+                _danhMucServices.UpdateDanhMucHomePage(input);
+                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
         /// <summary>
         /// get danh sach danh muc
         /// </summary>
