@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="overflow-x-auto relative w-full">
+    <div class="relative w-full overflow-x-auto">
       <div class="mb-0 rounded-md px-4 py-3 bg-[#fff] border-0">
         <div class="flex flex-wrap items-center">
           <div
@@ -34,8 +34,8 @@
             <th>Mã danh mục</th>
             <th>Mã GStore</th>
             <th>Ngày đăng ký</th>
-            <td>Mô tả</td>
-            <th>Trạng thái sản phẩm</th>
+            <!-- <td>Mô tả</td> -->
+            <th>Trạng thái</th>
             <th></th>
           </tr>
         </thead>
@@ -97,7 +97,7 @@
                   : ""
               }}
             </td>
-            <td class="whitespace-normal">
+            <!-- <td class="whitespace-normal">
               <div v-if="product.moTa && product.moTa.length > 20">
                 <template v-if="!showMore[product.id]">
                   {{ product.moTa.slice(0, 20) }}...
@@ -117,7 +117,7 @@
                 </template>
               </div>
               <div v-else>{{ product.moTa }}</div>
-            </td>
+            </td> -->
             <td>Đã duyệt</td>
             <td>
               <div class="dropdown dropdown-left dropdown-end">
@@ -145,6 +145,7 @@
     </div>
     <div class="btn-group flex justify-center mt-2">
       <button @click="previousPage" class="btn">«</button>
+      <button class="btn">Trang {{ pageNumber }}</button>
       <button @click="nextPage" class="btn">»</button>
     </div>
   </div>

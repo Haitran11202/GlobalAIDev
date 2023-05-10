@@ -24,13 +24,13 @@
                 <button
                   v-if="isStatus == 1"
                   @click="ConfirmOrder"
-                  class="px-[15px] py-[8px] bg-[#10b981] text-white rounded-md"
+                  class="btn btn-outline"
                 >
                   Xác Nhận Đơn Hàng
                 </button>
                 <button
                   v-if="isStatus == 2"
-                  class="bg-[#ec4899] px-[15px] py-[8px] text-white rounded-md"
+                  class="btn btn-success"
                   @click="
                     toast.success('Đơn hàng đã được chuyển giao vận chuyển')
                   "
