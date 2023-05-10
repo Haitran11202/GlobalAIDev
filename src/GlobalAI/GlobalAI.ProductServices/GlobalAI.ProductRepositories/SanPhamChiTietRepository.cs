@@ -3,8 +3,11 @@ using GlobalAI.DataAccess.Base;
 using GlobalAI.DataAccess.Models;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.DanhMuc;
+using GlobalAI.ProductEntities.Dto.Product;
 using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
+using GlobalAI.ProductEntities.Dto.TraGia;
 using GlobalAI.Utils;
+using GlobalAI.Utils.ConstantVariables.Core;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -22,6 +25,72 @@ namespace GlobalAI.ProductRepositories
         public SanPhamChiTietRepository(DbContext dbContext, ILogger logger, IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
         {
             _mapper = mapper;
+        }
+
+        public PagingResult<SanPhamChiTiet> FindAll(FilterSanPhamChiTietDto input)
+        {
+            PagingResult<SanPhamChiTiet> result = new();
+
+            var sanPhamChiTietQuery = (from sanPhamChiTiet in _dbSet
+                               where sanPhamChiTiet.Deleted == DeletedBool.NO
+                               && (input.IdSanPham == null || input.IdSanPham == sanPhamChiTiet.IdSanPham)
+                               && (input.Status == null || input.Status == sanPhamChiTiet.Status)
+                               select sanPhamChiTiet);
+
+            result.TotalItems = sanPhamChiTietQuery.Count();
+            if (!string.IsNullOrEmpty(input.SortBy) && !string.IsNullOrEmpty(input.SortOrder))
+            {
+                switch (input.SortBy)
+                {
+                    case "SoLuong":
+                        if (input.SortOrder.ToLower() == "asc")
+                        {
+                            sanPhamChiTietQuery = sanPhamChiTietQuery.OrderBy(x => x.SoLuong);
+                        }
+                        else
+                        {
+                            sanPhamChiTietQuery = sanPhamChiTietQuery.OrderByDescending(x => x.SoLuong);
+                        }
+                        break;
+
+                    case "CreatedDate":
+                        if (input.SortOrder.ToLower() == "asc")
+                        {
+                            sanPhamChiTietQuery = sanPhamChiTietQuery.OrderBy(x => x.CreatedDate);
+                        }
+                        else
+                        {
+                            sanPhamChiTietQuery = sanPhamChiTietQuery.OrderByDescending(x => x.CreatedDate);
+                        }
+                        break;
+
+                    case "LuotBan":
+                        if (input.SortOrder.ToLower() == "asc")
+                        {
+                            sanPhamChiTietQuery = sanPhamChiTietQuery.OrderBy(x => x.LuotBan);
+                        }
+                        else
+                        {
+                            sanPhamChiTietQuery = sanPhamChiTietQuery.OrderByDescending(x => x.LuotBan);
+                        }
+                        break;
+                    // Các trường hợp sắp xếp theo các trường khác có thể được thêm vào ở đây
+                    default:
+                        sanPhamChiTietQuery = sanPhamChiTietQuery.OrderByDescending(x => x.Id);
+                        break;
+                }
+            }
+            else
+            {
+                sanPhamChiTietQuery = sanPhamChiTietQuery.OrderByDescending(x => x.Id);
+            }
+
+            if (input.PageSize != -1)
+            {
+                sanPhamChiTietQuery = sanPhamChiTietQuery.Skip(input.Skip).Take(input.PageSize);
+            }
+            result.Items = sanPhamChiTietQuery;
+            return result;
         }
 
         /// <summary>
