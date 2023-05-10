@@ -10,7 +10,7 @@ export const API_ENDPOINT = {
   getSanPhamDanhMucPhanTrang: (categoryId, pageSize, pageNumber, Skip) =>
     `api/product/sanpham/danh-muc/${categoryId}?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
   getFullSanPham: (id) =>
-    `api/product/sanpham/danh-muc/${id}?pageSize=10000000&pageNumber=1&Skip=0`,
+    `api/product/sanpham/danh-muc/${id}?pageSize=-1&pageNumber=1&Skip=0`,
   getDanhMucSanPham: `/api/product/sanpham/danh-muc?pageSize=-1&pageNumber=1&Skip=0`,
 
   getSanPhamByIdGStore: (pageSize, pageNumber, skip) =>

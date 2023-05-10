@@ -10,5 +10,6 @@ namespace GlobalAI.ProductEntities.Dto.DanhMuc
     {
         public string IdDanhMuc { get; set; }
         public string TenDanhMuc { get; set; }
+        public bool IsDisplayOnHomePage { get; set; }
     }
 }

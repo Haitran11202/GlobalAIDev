@@ -27,7 +27,7 @@ namespace GlobalAI.DataAccess.Base
         #region Product
         public DbSet<SanPham> SanPhams { get; set; }
         public DbSet<SanPhamChiTiet> SanPhamChiTiets { get; set; }
-        public DbSet<SanPhamChiTietThuocTinh> PhamChiTietThuocTinhs { get; set; }
+        public DbSet<SanPhamChiTietThuocTinh> SanPhamChiTietThuocTinhs { get; set; }
         public DbSet<DanhMuc> DanhMucs { get; set; }
         public DbSet<DonHang> DonHangs { get; set; }
         public DbSet<ChiTietDonHang> ChiTietDonHangs { get; set; }

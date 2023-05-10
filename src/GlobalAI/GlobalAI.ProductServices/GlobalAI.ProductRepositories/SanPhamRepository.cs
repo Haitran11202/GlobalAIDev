@@ -13,6 +13,7 @@ using System.Net.WebSockets;
 using Microsoft.AspNetCore.Mvc;
 using GlobalAI.Utils.ConstantVariables.Product;
 using GlobalAI.ProductEntities.Dto.DanhMuc;
+using GlobalAI.Utils;
 
 namespace GlobalAI.ProductRepositories
 {
@@ -27,6 +28,7 @@ namespace GlobalAI.ProductRepositories
             var result = _dbSet.AsNoTracking().Where(p => p.Deleted == false).ToList();
             return _mapper.Map<List<GetSanPhamDto>>(result);
         }
+
         /// <summary>
         /// Tạo mới product
         /// </summary>
@@ -34,8 +36,13 @@ namespace GlobalAI.ProductRepositories
         /// <returns></returns>
         public void Add(SanPham sanPham)
         {
+            sanPham.NgayDangKi = DateTime.Now;
+            sanPham.Deleted = false;
+            sanPham.CreatedDate = DateTime.Now;
+
             _dbSet.Add(sanPham);
         }
+
         public void EditSanPham(AddSanPhamDto newSanPham, SanPham oldSanPham)
         {
             _mapper.Map(newSanPham, oldSanPham);
