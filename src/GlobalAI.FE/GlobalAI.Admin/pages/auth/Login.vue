@@ -3,9 +3,9 @@
     <div
       class="absolute bg-gradient-to-b from-green-500 to-green-400 opacity-75 inset-0 z-0"
     ></div>
-    <div class="min-h-screen flex flex-col justify-center items-center">
+    <div class="min-h-screen flex justify-center items-center">
       <div
-        class="flex-col flex self-center p-10 sm:max-w-5xl xl:max-w-2xl z-10"
+        class="flex-col p-0 flex self-center p-10 sm:max-w-5xl xl:max-w-2xl z-10"
       >
         <div class="self-start hidden lg:flex flex-col text-white">
           <img src="" class="mb-3" />
