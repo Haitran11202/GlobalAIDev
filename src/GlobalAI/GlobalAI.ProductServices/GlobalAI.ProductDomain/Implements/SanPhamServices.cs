@@ -139,6 +139,11 @@ namespace GlobalAI.ProductDomain.Implements
                 return newSanPham;
             }
         }
+        /// <summary>
+        /// Lấy ra chi tiết sản phẩm có thuocj tính
+        /// </summary>
+        /// <param name="idSanPham"></param>
+        /// <returns></returns>
         public GetSanPhamChiTietDto GetSanPhamChiTiet(int idSanPham)
         {
             var sanPham = _sanPhamRepository.FindByIdSanPham(idSanPham);

@@ -84,7 +84,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
-        [HttpGet("get-all-san-pham-ct/{id}")]
+        [HttpGet("san-pham-ct/{id}")]
         public APIResponse GetSanPhamChiTiet(int id)
         {
             try

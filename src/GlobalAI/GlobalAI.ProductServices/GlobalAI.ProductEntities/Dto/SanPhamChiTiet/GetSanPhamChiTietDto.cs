@@ -14,13 +14,13 @@ namespace GlobalAI.ProductEntities.Dto.SanPhamChiTiet
     {
         private string _moTa;
 
-        [Required(ErrorMessage = "Sản phẩm không được bỏ trống")]
+        
         public int IdSanPham { get; set; }
 
-        [Required(ErrorMessage = "Thuộc tính giá trị không được bỏ trống")]
+       
         public Dictionary<String, List<AddThuocTinhGiaTriDto>> ThuocTinhs { get; set; }
 
-        //[Required(ErrorMessage = "Danh mục thuộc tính không được bỏ trống")]
+       
         public int? IdDanhMucThuocTinh { get; set; }
 
        
