@@ -1,6 +1,6 @@
 ﻿using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.GioHang;
-using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 using System;
 using System.Collections.Generic;
 using System.Linq;

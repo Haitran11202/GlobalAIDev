@@ -25,6 +25,7 @@ namespace GlobalAI.ProductRepositories
         public SanPhamChiTietRepository(DbContext dbContext, ILogger logger, IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
         {
             _mapper = mapper;
+            
         }
 
         public PagingResult<SanPhamChiTiet> FindAll(FilterSanPhamChiTietDto input)
@@ -33,7 +34,7 @@ namespace GlobalAI.ProductRepositories
 
             var sanPhamChiTietQuery = (from sanPhamChiTiet in _dbSet
                                where sanPhamChiTiet.Deleted == DeletedBool.NO
-                               && (input.IdSanPham == null || input.IdSanPham == sanPhamChiTiet.IdSanPham)
+                               //&& (input.IdSanPham == null || input.IdSanPham == sanPhamChiTiet.IdSanPham)
                                && (input.Status == null || input.Status == sanPhamChiTiet.Status)
                                select sanPhamChiTiet);
 
@@ -133,6 +134,7 @@ namespace GlobalAI.ProductRepositories
                 });
             }
         }
+
 
     }
 }

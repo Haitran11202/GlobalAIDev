@@ -14,8 +14,8 @@ namespace GlobalAI.ProductEntities.Dto.SanPhamChiTiet
         /// <summary>
         /// Sản phẩm
         /// </summary>
-        [FromQuery(Name = "IdSanPham")]
-        public int? IdSanPham { get; set; }
+        //[FromQuery(Name = "IdSanPham")]
+        //public int? IdSanPham { get; set; }
         [FromQuery(Name = "SortBy")]
         public string? SortBy { get; set; }
         [FromQuery(Name = "SortOrder ")]

@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using GlobalAI.Utils.ConstantVariables.Product;
 using GlobalAI.ProductEntities.Dto.DanhMuc;
 using GlobalAI.Utils;
+using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 
 namespace GlobalAI.ProductRepositories
 {
@@ -82,6 +83,9 @@ namespace GlobalAI.ProductRepositories
             result.Items = sanphamDtos;
             return result;
         }
+
+        
+
         /// <summary>
         /// Lấy demo product phân trang
         /// </summary>

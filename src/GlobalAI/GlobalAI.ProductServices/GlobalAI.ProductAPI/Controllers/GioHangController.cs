@@ -1,6 +1,6 @@
 ﻿using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.Dto.GioHang;
-using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
 using Microsoft.AspNetCore.Authorization;
@@ -125,7 +125,7 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
         /// <summary>
-        /// Lấy ra sản phẩm theo giỏ hàng
+        /// Lấy ra sản phẩm theo giỏ hàng 
         /// </summary>
         /// <returns></returns>
         [HttpGet("giohangByIdSanPham/{id}")]

@@ -65,6 +65,39 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+
+        [HttpPut("danh-muc-home-page")]
+        public APIResponse DanhMucHomePage([FromBody] DanhMucHomePageDto input)
+        {
+            try
+            {
+                _danhMucServices.UpdateDanhMucHomePage(input);
+                return new APIResponse(Utils.StatusCode.Success, null, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+        /// <summary>
+        /// Get SanPham Chi tiet
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet("get-all-san-pham-ct/{id}")]
+        public APIResponse GetSanPhamChiTiet(int id)
+        {
+            try
+            {
+                var result = _sanPhamServices.GetSanPhamChiTiet(id);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
         /// <summary>
         /// get danh sach danh muc
         /// </summary>

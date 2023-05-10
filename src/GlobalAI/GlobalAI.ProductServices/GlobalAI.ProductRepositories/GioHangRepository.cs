@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using GlobalAI.DemoEntities.Dto.Product;
-using GlobalAI.ProductEntities.Dto.Product;
 using AutoMapper;
 using Microsoft.AspNetCore.Http.Internal;
 using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
@@ -15,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Mail;
 using GlobalAI.ProductEntities.Dto.GioHang;
 using GlobalAI.Utils;
+using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 
 namespace GlobalAI.ProductRepositories
 {

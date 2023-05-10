@@ -6,7 +6,7 @@ using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.ProductEntities.Dto.GioHang;
-using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 using GlobalAI.ProductRepositories;
 using GlobalAI.Utils;
 using log4net.Repository.Hierarchy;
