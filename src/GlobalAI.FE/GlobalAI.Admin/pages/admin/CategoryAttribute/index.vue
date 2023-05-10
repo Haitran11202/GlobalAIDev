@@ -2,11 +2,11 @@
   <card-category-attribute></card-category-attribute>
 </template>
 
-<script>
+<script setup>
 import CardCategoryAttribute from "../../../components/Cards/CardCategoryAttribute.vue";
-export default {
-  components: { CardCategoryAttribute },
-};
+definePageMeta({
+  layout: "admin",
+});
 </script>
 
 <style></style>
