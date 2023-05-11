@@ -5,7 +5,7 @@
       v-if="useSideBar.getShowSideBar"
       v-on:category-clicked="handleCategoryClick"
     />
-    <div class="container mx-auto lg:px-[185px]">
+    <div :class="checkContainer ? 'container mx-auto lg:px-[185px]' : 'container'">
       <div class="flex-1 lg:px-1 flex-col">
         <!-- Slot tượng trưng cho từng layout trong trang web -->
         <NuxtPage :category="selectedCategory" />
@@ -26,10 +26,11 @@ const router = useRouter();
 const useSideBar = useSideBarStorage();
 const selectedCategory = ref("");
 const showColor = ref(false);
+const checkContainer = ref(true)
 const changeSideBarShow = () => {
   if (
     router.currentRoute.value.name !== "ManageCart" &&
-    router.currentRoute.value.name !== "ProductDetail" && router.currentRoute.value.name !== "BoxChat" && router.currentRoute.value.name !== "BoxChatID"
+    router.currentRoute.value.name !== "ProductDetail" && router.currentRoute.value.name !== "BoxChat" && router.currentRoute.value.name !== "BoxChatID" && router.currentRoute.value.name !== "SupplierPage"
   ) {
     console.log(1);
     console.log(router.currentRoute.value.name);
@@ -39,8 +40,17 @@ const changeSideBarShow = () => {
   }
 };
 
+const changeWidthContainer = () => {
+  if(router.currentRoute.value.name !== "SupplierPage"){
+    checkContainer.value = true;
+  }else{
+    checkContainer.value = false;
+  }
+}
+
 watchEffect(() => {
   changeSideBarShow();
+  changeWidthContainer();
 });
 const handleCategoryClick = (category) => {
   console.log(category);

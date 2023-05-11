@@ -1,60 +1,85 @@
 <template>
-  <div class="w-full mt-[40px] cursor-pointer">
-    <div class="flex w-full justify-between items-center mb-[20px]">
-      <h1 class="lg:text-[24px] sm:pl-0 pl-4 text-[#384059] uppercase font-bold">
-        {{ props?.category}}
-      </h1>
-      <RouterLink
-        :to="`/product/category/${props.category?.idDanhMuc}`"
-        class="font-[500] sm:pr-0 pr-4 flex gap-2 items-center justify-center text-[#384059] lg:text-[16px]"
-      >
-        <span v-if="props.category?.idDanhMuc">Xem Thêm </span>
-        <span class="text-[18px] mt-1">
-          <font-awesome-icon v-if="props.category?.idDanhMuc" :icon="['fas', 'angle-right']" />
-        </span>
-      </RouterLink>
-    </div>
-    <div class="grid grid-cols-1 sm:px-0 px-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+  <div class="bg-white cursor-pointer hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)]  rounded-xl overflow-hidden">
+    <!-- Header Card -->
+    <div class="flex justify-between items-center">
       <div
-        v-for="(item, idx) in products"
-        :key="idx"
-        class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] bg-white rounded-[10px] overflow-hidden"
-        @click="detail(item.id)"
+        class="py-[3px] gap-[6px] bg-[#32476d] rounded-br-xl px-[10px] flex items-center"
       >
-        <div class="px-[8px] py-[8px]">
-          <img
-            :src="getImageUrl(item.thumbnail)"
-            class="rounded-md object-cover w-full h-48"
-            alt=""
-          />
-        </div>
-        <div class="bg-white flex flex-col gap-[4px] pt-2">
-          <div class="px-[10px]">
-            <h2 class="text-[18px] leading-[1.3] h-[46.8px] text-ellipsis line-clamp-2 uppercase text-[#384059]">
-              {{ item.tenSanPham }}
-            </h2>
-            <p class="text-[13px] mt-3 text-[#384059]">
-              Giá gốc :
-              <span class="text-[18px] text-[#cc3366]">{{
-                formatMoneyAll(item.giaBan)
-              }}</span>
-            </p>
-            <p class="text-[13px]">
-              Giá chiết khấu : {{ formatMoneyAll(item.giaChietKhau) }}
-            </p>
-            <div class="text-[12px] mt-3 flex justify-between items-center">
-              <div class="flex gap-1 text-[#f8ac59] text-[10px] items-center">
-                <font-awesome-icon :icon="['fas', 'star']" />
-                <font-awesome-icon :icon="['fas', 'star']" />
-                <font-awesome-icon :icon="['fas', 'star']" />
-                <font-awesome-icon :icon="['fas', 'star']" />
-                <font-awesome-icon :icon="['fas', 'star']" />
-              </div>
-              Đã bán : 85
-            </div>
+        <img
+          :src="imgUyTin"
+          class="object-cover w-[20px] h-[20px]"
+          alt=""
+        />
+        <span class="text-white font-bold text-[10px]">Uy Tín</span>
+      </div>
+      <div
+        class="py-[3px] gap-[6px] bg-[#53b7ea] rounded-bl-xl px-[10px] flex items-center"
+      >
+        <img
+          :src="imgXacThuc"
+          class="object-cover w-[20px] h-[20px]"
+          alt=""
+        />
+        <span class="text-white font-bold text-[10px]">Xác thực</span>
+      </div>
+    </div>
+    <!-- Content Card -->
+    <div class="flex mb-[32px] gap-[15px] px-[5px] items-center">
+      <div class="w-[70px] h-[70px] overflow-hidden bg-red-400 rounded-full">
+        <img
+          :src="imgSeaGull"
+          alt="img-card"
+          class="object-contain"
+        />
+      </div>
+      <!-- Content -->
+      <div>
+        <h3 class="text-[18px] text-[#384059] font-medium">SeaGull</h3>
+        <div>
+          <div class="flex items-center gap-[5px]">
+            <span class="text-[#6C757D]"
+              ><span class="text-[14px] font-bold text-[#CC3366]">71</span> sản phẩm</span
+            >
+            <span class="text-[#6C757D]"
+              ><span class="text-[14px]  font-bold text-[#CC3366]">45.3K</span> đã bán</span
+            >
           </div>
-          <div
-            class="flex mt-2 items-center justify-center w-[55%] py-[3px] gap-[5px] px-[10px] bg-[#23c6c8] text-white text-[13px] rounded-tr-md font-bold"
+          <div>
+            <span class="text-[#6C757D]"
+            ><span class="text-[14px]  font-bold text-[#CC3366]">5.9K</span> seller bán
+            hàng</span
+          ></div>
+          <span class="text-[#6C757D]"
+            ><span class="text-[14px]  font-bold text-[#CC3366]">5.5K</span> seller theo
+            dõi</span
+          >
+          <!-- Số sao đánh giá -->
+          <div class="flex gap-1 text-[#f8ac59] text-[14px] items-center">
+            <div class="flex items-center">
+              <font-awesome-icon :icon="['fas', 'star']" />
+              <font-awesome-icon :icon="['fas', 'star']" />
+              <font-awesome-icon :icon="['fas', 'star']" />
+              <font-awesome-icon :icon="['fas', 'star']" />
+              <font-awesome-icon :icon="['fas', 'star']" />
+            </div>
+            4.9/5
+          </div>
+          <!-- Vị trí -->
+          <div class="flex items-center gap-[5px] mt-1">
+            <div>
+                <font-awesome-icon :icon="['fas', 'location-dot']" />
+            </div>
+           <span class="text-[14px] font-[450] text-[#6C757D]">Thành phố Hà Nội và 1 kho khác</span>
+          </div>
+        </div>
+      </div>
+       <div class="flex-1 pr-[10px]">
+        <font-awesome-icon class="float-right text-[24px]" :icon="['fas', 'angle-right']" />
+       </div>
+    </div>
+    <!-- Footer Card -->
+    <div
+            class="flex mt-2 items-center justify-center w-[32%] py-[3px] gap-[5px] px-[10px] bg-[#23c6c8] text-white text-[13px] rounded-tr-md font-bold"
           >
             <svg width="16" height="16" viewBox="0 0 15 12" fill="currentColor">
               <rect
@@ -97,50 +122,10 @@
             </svg>
             <span class="italic">Freeship 80k</span>
           </div>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
-
 <script setup>
-import { useRouter } from "vue-router";
-const router = useRouter();
-const config = useRuntimeConfig();
-const baseUrl = config.public.apiEndpoint;
-const getImageUrl = (imageUrl) => {
-  if (!imageUrl) {
-    return "https://placehold.it/50x50";
-  }
-  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
-  )}&download=false`;
-  return url;
-};
-
-
-const props = defineProps({
-  category: {
-    type: String,
-  },
-  products: {
-    id: Number,
-    name: String,
-    imgUrl: String,
-    price: String,
-    discount: String,
-  },
-});
-
-const detail = (id) => {
-  router.push({ name: "ProductDetail", params: { id } });
-};
-const formatMoneyAll = (money) => {
-  return money.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
-};
+import imgSeaGull from "~~/assets/img/Home/Sea-gull.jpg"
+import imgUyTin from "~~/assets/img/Home/uy-tin.png"
+import imgXacThuc from "~~/assets/img/Home/xac-thuc.jpg"
 </script>
-<style lang="css">
-.card-item:hover {
-  box-shadow: 0 0 1px hsla(0, 0%, 100%, 0.5);
-}
-</style>

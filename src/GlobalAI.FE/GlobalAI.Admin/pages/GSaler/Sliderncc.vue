@@ -22,9 +22,10 @@
         ref="imagesContainer"
       >
         <div
-          class="hover:bg-[rgba(255, 255, 255, 0.8)] w-[25%] px-[12px] max-h-full flex-shrink-0 opacity-2 ease-in-out"
+          class="cursor-pointer hover:bg-[rgba(255, 255, 255, 0.8)] w-[25%] px-[12px] max-h-full flex-shrink-0 opacity-2 ease-in-out"
           v-for="(image, index) in images"
           :key="index"
+          @click="goToSupplierPage"
         >
           <img
             :src="image"
@@ -44,6 +45,7 @@ import imgDanhGiaCao from "~~/assets/img/Home/danh-gia-cao.jpg";
 import imgMoiThamGia from "~~/assets/img/Home/moi-tham-gia.jpg";
 import imgXacThuc from "~~/assets/img/Home/xac-thuc.jpg";
 import imgFreeShip from "~~/assets/img/Home/freeship-den-80k.jpg";
+import { useRouter } from "vue-router";
 
 
 
@@ -57,7 +59,7 @@ imgFreeShip
 
 const slidesToShow = 4;
 const slidesToScroll = 1;
-
+const router = useRouter();
 let currentIndex = ref(0);
 
 function nextImage() {
@@ -97,9 +99,14 @@ watchEffect(() => {
     imagesContainer.value = slider.value.querySelector(".images-container");
   }
 });
-console.log(slidesToShow);
 
-console.log(images.length);
+const goToSupplierPage = () => {
+    router.push({
+      name:"SupplierPage",
+      query:{collectionId : '1'}
+    })
+}
+
 </script>
 
 <style>
