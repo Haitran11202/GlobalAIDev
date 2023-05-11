@@ -52,53 +52,50 @@
                 </div>
               </div>
               <div>
-                <div class="font-bold">{{ post.tieuDe }}</div>
+                <div class="font-bold">{{ post.tieuDe.slice(0, 20) }}...</div>
               </div>
             </div>
           </td>
-
-          <!-- <td>
-            {{ post.moTa }}
-          </td> -->
           <td class="whitespace-normal">
-            <div v-if="post.moTa && post.moTa.length > 20">
+            <div v-if="post.moTa && post.moTa.length > 30">
               <template v-if="!showMore[post.id]">
-                {{ post.moTa.slice(0, 20) }}...
+                {{ post.moTa.slice(0, 30) }}...
+                <br />
                 <span
                   @click="showMore[post.id] = true"
-                  class="font-bold cursor-pointer"
+                  class="font-bold text-sm cursor-pointer"
                   >Xem thêm</span
                 >
               </template>
               <template v-else>
                 {{ post.moTa }}
+                <br />
                 <span
                   @click="showMore[post.id] = false"
-                  class="font-bold cursor-pointer"
+                  class="font-bold text-sm cursor-pointer"
                   >Thu gọn</span
                 >
               </template>
             </div>
             <div v-else>{{ post.moTa }}</div>
           </td>
-          <!-- <td>
-            {{ post.noiDung }}
-          </td> -->
           <td class="whitespace-normal">
-            <div v-if="post.noiDung && post.noiDung.length > 20">
-              <template v-if="!showMore[post.id]">
-                {{ post.noiDung.slice(0, 20) }}...
+            <div v-if="post.noiDung && post.noiDung.length > 30">
+              <template v-if="!showMoreNext[post.id]">
+                {{ post.noiDung.slice(0, 30) }}...
+                <br />
                 <span
-                  @click="showMore[post.id] = true"
-                  class="font-bold cursor-pointer"
+                  @click="showMoreNext[post.id] = true"
+                  class="font-bold text-sm cursor-pointer"
                   >Xem thêm</span
                 >
               </template>
               <template v-else>
                 {{ post.noiDung }}
+                <br />
                 <span
-                  @click="showMore[post.id] = false"
-                  class="font-bold cursor-pointer"
+                  @click="showMoreNext[post.id] = false"
+                  class="font-bold text-sm cursor-pointer"
                   >Thu gọn</span
                 >
               </template>
@@ -130,6 +127,7 @@
     </table>
     <div class="btn-group flex justify-center mt-2">
       <button @click="previousPage" class="btn">«</button>
+      <button class="btn">Trang {{ pageNumber }}</button>
       <button @click="nextPage" class="btn">»</button>
     </div>
   </div>
@@ -153,6 +151,7 @@ const posts = ref([]);
 const deletedPost = ref(null);
 const showAction = ref({});
 const showMore = ref({});
+const showMoreNext = ref({});
 
 const fetchData = async () => {
   getBaiTinPhanTrang(pageSize, pageNumber.value, skip.value)

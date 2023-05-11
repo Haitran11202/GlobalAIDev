@@ -42,7 +42,7 @@ namespace GlobalAI.ProductDomain.Implements
             _httpContext = httpContext;
 
             _danhMucThuocTinhRepository = new DanhMucThuocTinhRepository(dbContext, logger);
-            _thuocTinhRepository = new ThuocTinhRepository(dbContext, logger);
+            _thuocTinhRepository = new ThuocTinhRepository(dbContext, logger, mapper);
         }
 
         /// <summary>
