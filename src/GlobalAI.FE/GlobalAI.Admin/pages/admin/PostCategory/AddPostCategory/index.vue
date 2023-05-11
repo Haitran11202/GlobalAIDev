@@ -34,7 +34,31 @@
           />
           <error-message name="tenDanhMuc" class="text-red-500" />
         </div>
+        <div class="col-span-1"> 
+          <label
+            for="parrentId"
+            class="block uppercase text-slate-600 text-xs font-bold mb-2"
+            >Danh mục cha</label
+          >
+          <select
+            v-model="parentId"
+            id="parentId"
+            class="block w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            required 
+          >
+            <option value="">-- Lựa chọn danh mục --</option>
+            <option
+              v-for="danhmuc in danhmucsp"
+              :value="danhmuc.id"
+              :key="danhmuc.id"
+             >
+             <span v-if = "danhmuc.parentId !== null" >--</span>
+              {{ danhmuc.tenDanhMuc }}
+            </option>
+          </select>
+        </div>
       </div>
+      
       <div class="flex justify-end gap-5">
         <button @click="handlePostCategory" class="btn btn-outline">
           Thêm danh mục bài tin
@@ -68,11 +92,15 @@ const router = useRouter();
 
 const maDanhMuc = ref("");
 const tenDanhMuc = ref("");
+const parentId = ref(0);
+const danhmucsp = ref("");
+
 
 function handlePostCategory() {
   const postCategoryData = {
     maDanhMuc: maDanhMuc.value,
     tenDanhMuc: tenDanhMuc.value,
+    parentId: parentId.value
   };
   const body = {
     ...postCategoryData,
@@ -89,4 +117,30 @@ function handlePostCategory() {
       $toast.error("Thêm danh mục bài tin thất bại. Vui lòng thử lại!");
     });
 }
+onMounted(() => {
+  getAllPostCategoryTree()
+    .then((response) => {
+      danhmucsp.value = flattenData(response.data);
+      console.log('danhmuc',danhmucsp.value)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+function flattenData(data) {
+  let flattenedData = [];
+  let level = 0;
+  data.forEach((item) => {
+    flattenedData.push(item);
+    if (item.children && item.children.length > 0) {
+      const children = flattenData(item.children);
+      flattenedData = flattenedData.concat(children);
+    }
+  });
+
+  return flattenedData;
+}
+
+
+
 </script>
