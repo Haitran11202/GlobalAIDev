@@ -6,7 +6,7 @@
         class="py-[3px] gap-[6px] bg-[#32476d] rounded-br-xl px-[10px] flex items-center"
       >
         <img
-          src="https://media.sellycdn.net/files/md_2022_11_14_07_52_58_0700_LASfoGXIIK.png"
+          :src="imgUyTin"
           class="object-cover w-[20px] h-[20px]"
           alt=""
         />
@@ -16,7 +16,7 @@
         class="py-[3px] gap-[6px] bg-[#53b7ea] rounded-bl-xl px-[10px] flex items-center"
       >
         <img
-          src="https://media.sellycdn.net/files/md_2022_11_14_07_51_01_0700_pYTjdyvKUg.png"
+          :src="imgXacThuc"
           class="object-cover w-[20px] h-[20px]"
           alt=""
         />
@@ -27,7 +27,7 @@
     <div class="flex mb-[32px] gap-[15px] px-[5px] items-center">
       <div class="w-[70px] h-[70px] overflow-hidden bg-red-400 rounded-full">
         <img
-          src="https://media.sellycdn.net/files/sm_2022_05_13_11_04_42_0700_TmLZJtUNkG.jpg"
+          :src="imgSeaGull"
           alt="img-card"
           class="object-contain"
         />
@@ -125,4 +125,7 @@
   </div>
 </template>
 <script setup>
+import imgSeaGull from "~~/assets/img/Home/Sea-gull.jpg"
+import imgUyTin from "~~/assets/img/Home/uy-tin.png"
+import imgXacThuc from "~~/assets/img/Home/xac-thuc.jpg"
 </script>

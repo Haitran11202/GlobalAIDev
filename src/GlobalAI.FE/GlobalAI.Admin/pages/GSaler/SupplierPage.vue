@@ -181,7 +181,20 @@
 <script setup>
 import { toast } from "vue3-toastify";
 import CardSupplier from "~~/components/Cards/CardSupplier.vue";
-const navItems = ref([]);
+const navItems = [
+  {
+    idDanhMuc:'1',
+    tenDanhMuc:'Bán Chạy'
+  },
+  {
+    idDanhMuc:'2',
+    tenDanhMuc:'Hoa Hồng Cao'
+  },
+  {
+    idDanhMuc:'3',
+    tenDanhMuc:'Mới Nhất'
+  },
+];
 const checkColor = ref("1");
 const categoryId = ref("1");
 const checkModel = ref(false);
@@ -264,15 +277,6 @@ const fakeDataTime = [
     title: "60 ngày gần đây",
   },
 ];
-onMounted(() => {
-  getDanhMucSanPham()
-    .then((res) => {
-      navItems.value = res?.data?.data.items;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-});
 
 const handleModel = () => {
   checkModel.value = !checkModel.value;

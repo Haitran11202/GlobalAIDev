@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { getSanPhamNews } from "~~/composables/useApiProduct";
+import { getSanPhamHome } from "~~/composables/useApiProduct";
 import EasySell from "./EasySell.vue";
 import BuyAndSell from "./BuyAndSell.vue";
 import NavItemCategory from "./NavItemCategory.vue";
@@ -52,14 +52,15 @@ const newProducts = ref({LuotBan :'LuotBan' , desc:'desc'})
 // Lấy sản phẩm bán chạy và sản phẩm mới nhất
 onMounted(() => {
   console.log(123);
-  getSanPhamNews(hotProducts.value.CreatedDate , hotProducts.value.desc)
+  getSanPhamHome(hotProducts.value.CreatedDate , hotProducts.value.desc)
   .then((res) => {
+    console.log(res.data.items);
     products.value = res.data.items;
-    return getSanPhamNews(newProducts.value.LuotBan , newProducts.value.desc)
+    return getSanPhamHome(newProducts.value.LuotBan , newProducts.value.desc)
   })
   .then((res) => {
     console.log(res.data.items);
-    productsSeller.value = res.data.items;
+    productsSeller.value =  res.data.items;
   })
 })
 

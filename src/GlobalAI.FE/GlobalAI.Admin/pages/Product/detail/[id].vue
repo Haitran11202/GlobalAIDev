@@ -18,29 +18,35 @@
         <p class="text-[18px]">{{ formatMoneyAll(products.giaChietKhau) }}</p>
       </div>
       <div class="flex gap-1 mt-2 text-[#f8ac59] text-[18px] items-center">
-         <div class="flex items-center">
-            <font-awesome-icon :icon="['fas', 'star']" />
-        <font-awesome-icon :icon="['fas', 'star']" />
-        <font-awesome-icon :icon="['fas', 'star']" />
-        <font-awesome-icon :icon="['fas', 'star']" />
-        <font-awesome-icon :icon="['fas', 'star']" />
-         </div>
+        <div class="flex items-center">
+          <font-awesome-icon :icon="['fas', 'star']" />
+          <font-awesome-icon :icon="['fas', 'star']" />
+          <font-awesome-icon :icon="['fas', 'star']" />
+          <font-awesome-icon :icon="['fas', 'star']" />
+          <font-awesome-icon :icon="['fas', 'star']" />
+        </div>
         4.9/5
       </div>
-      <div class="flex items-center mt-[15px]">
-        <h2 class="text-[16px] font-[500] mr-[40px]">Màu Sắc</h2>
-        <div class="flex items-center gap-4">
+      <div
+        v-for="data in ProductAttributtes"
+        :key="data"
+        class="flex items-center mt-[15px]"
+      >
+        <div class="w-[120px]">
+          <h2 class="text-[16px] font-[500]">{{ data.name }}</h2>
+        </div>
+        <div class="grid grid-cols-5 gap-2">
           <button
-            @click="handleSelectColor(color.id)"
-            v-for="color in ListColor"
-            :key="color"
             :class="
-              idColor === color.id
-                ? 'px-[12px] bg-white text-red-500 py-[6px] border-2 rounded-md border-red-400'
-                : 'px-[12px] bg-slate-100 py-[6px] border-2 rounded-md'
+              idColor === attribute.giaTri
+                ? 'border-[1px] border-red-300 text-red-500 px-[10px] py-[5px] rounded-sm'
+                : 'border-[1px] px-[10px] py-[5px] rounded-sm'
             "
+            @click="handleSelectColor(attribute.giaTri)"
+            v-for="attribute in data.value"
+            :key="attribute"
           >
-            {{ color.label }}
+            {{ attribute.giaTri }}
           </button>
         </div>
       </div>
@@ -276,21 +282,7 @@ const token = useUserStorage();
 const useCart = useCartStorage();
 const accesstoken = token.accessToken;
 const idColor = ref("");
-
-const ListColor = [
-  {
-    label: "Trắng",
-    id: 1,
-  },
-  {
-    label: "Xanh",
-    id: 2,
-  },
-  {
-    label: "Đỏ",
-    id: 3,
-  },
-];
+const ProductAttributtes = ref([]);
 const handleSelectColor = (id) => {
   idColor.value = id;
 };
@@ -315,7 +307,7 @@ const getImageUrl = (imageUrl) => {
     return "https://placehold.it/50x50";
   }
   const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
+    imageUrl,
   )}&download=false`;
   return url;
 };
@@ -328,6 +320,23 @@ watchEffect(() => {
       products.value = res?.data?.data;
       console.log(products.value);
       imagelink.value = getImageUrl(products.value.thumbnail);
+      // Lấy thuộc tính sản phẩm
+      getProductAttributes(productId.value)
+        .then((res) => {
+          console.log(Object.entries(res.data.thuocTinhs));
+          Object.entries(res.data.thuocTinhs).forEach(
+            ([attributeName, attributeValue]) => {
+              ProductAttributtes.value.push({
+                name: attributeName,
+                value: attributeValue,
+              });
+            },
+          );
+          console.log(ProductAttributtes.value);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     })
     .catch(() => {});
 });
@@ -346,7 +355,7 @@ const getUserInfor = () => {
 
 onMounted(() => {
   getUserInfor();
-})
+});
 
 const handleBuyClick = () => {
   console.log("creating...");

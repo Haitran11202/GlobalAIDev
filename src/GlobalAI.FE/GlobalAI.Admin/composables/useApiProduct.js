@@ -60,11 +60,20 @@ export const getSanPhamByIdGStore = async (pageSize, pageNumber, skip) => {
     }
 };
 
-export const getSanPhamNews = async (SortBy , SortOrder) => {
+export const getSanPhamHome = async (SortBy , SortOrder) => {
     try {
         const response = await http.get(API_ENDPOINT.getSanPhamTrangHome(SortBy , SortOrder));
         return Promise.resolve(response.data);
     } catch (error) {
+        return Promise.reject(error)
+    }
+}
+
+export const getProductAttributes = async (id) => {
+    try{
+        const response = await http.get(API_ENDPOINT.getThuocTinhSanPham(id));
+        return Promise.resolve(response.data)
+    }catch(error){
         return Promise.reject(error)
     }
 }
