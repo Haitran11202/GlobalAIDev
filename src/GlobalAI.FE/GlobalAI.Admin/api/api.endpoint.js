@@ -12,9 +12,12 @@ export const API_ENDPOINT = {
   getFullSanPham: (id) =>
     `api/product/sanpham/danh-muc/${id}?pageSize=-1&pageNumber=1&Skip=0`,
   getDanhMucSanPham: `/api/product/sanpham/danh-muc?pageSize=-1&pageNumber=1&Skip=0`,
-
+  
+    // Get sản phẩm mới nhất
+  getSanPhamTrangHome:(SortBy , SortOrder) => `/api/product/sanpham/home-page?SortBy=${SortBy}&SortOrder%20=${SortOrder}&pageSize=-1&pageNumber=15&Skip=0`,
   getSanPhamByIdGStore: (pageSize, pageNumber, skip) =>
     `api/product/sanpham/get-sanpham-gstore?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
+  getThuocTinhSanPham :(id) => `/api/product/sanpham/san-pham-ct/${id}`,
   //Image
   postImages: "api/filFe/upload?folder=image",
   // Quản lý đơn hàng
@@ -102,6 +105,8 @@ export const API_ENDPOINT = {
   // Danh mục bài tin
   getAllPostCategoryPhanTran: (pageSize, pageNumber, skip) =>
     `/api/product/danh-muc-bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
+
+  getAllPostCategoryTree: ()=> `/api/product/danh-muc-bai-tin/find-all-trees`,
 
   getPostCategoryById: (id) => `/api/product/danh-muc-bai-tin/${id}`,
 

@@ -16,7 +16,17 @@ export const getAllPostCategoryPhanTran = async (
     return Promise.reject(err);
   }
 };
-
+//
+export const getAllPostCategoryTree = async () => {
+  try {
+    const response = await http.get(
+      API_ENDPOINT.getAllPostCategoryTree()
+    );
+    return Promise.resolve(response.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
 // Xoá danh mục bài tin dựa theo id
 export const deletePostCategory = async (id) => {
   try {

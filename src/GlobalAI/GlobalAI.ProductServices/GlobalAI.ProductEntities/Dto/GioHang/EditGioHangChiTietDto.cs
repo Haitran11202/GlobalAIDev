@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.ProductEntities.Dto.GioHang
 {
-    public class EditGioHangDto
+    public class EditGioHangChiTietDto
     {
         /// <summary>
         /// Id Sản phẩm chi tiết

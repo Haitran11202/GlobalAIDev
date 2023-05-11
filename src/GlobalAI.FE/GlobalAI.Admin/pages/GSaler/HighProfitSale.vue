@@ -8,7 +8,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-[20px]">
           <div class="sm:px-0 px-4 cursor-pointer">
             <img
-              src="https://media.sellycdn.net/files/md_825823087971_1638238126101.jpg"
+              :src="imgGiaDungThongMinh"
               alt=""
               class="h-full object-cover rounded-2xl"
             />
@@ -16,7 +16,7 @@
           <div class="sm:flex-1 mt-[20px] sm:mt-0">
             <div class="sm:px-0 px-4 cursor-pointer grid grid-cols-1">
               <img
-                src="https://media.sellycdn.net/files/md_631117644165_1638238114651.jpg"
+                :src="imgDungCuLamDep"
                 class="h-[195px] w-full rounded-2xl object-cover"
                 alt=""
               />
@@ -26,14 +26,14 @@
             >
               <div>
                 <img
-                  src="https://media.sellycdn.net/files/md_895115064233_1645628071566.jpg"
+                  :src="imgNuocHoaChinhHang"
                   class="object-cover rounded-2xl"
                   alt=""
                 />
               </div>
               <div>
                 <img
-                  src="https://media.sellycdn.net/files/md_895115064233_1645628071566.jpg"
+                  :src="imgGiayDepNam"
                   class="object-cover rounded-2xl"
                   alt=""
                 />
@@ -43,7 +43,11 @@
         </div>
       </div>
 </template>
-<script>
+<script setup>
+import imgGiaDungThongMinh from "~~/assets/img/Home/gia-dung-thong-minh.jpg"
+import imgDungCuLamDep from "~~/assets/img/Home/dung-cu-lam-dep.jpg"
+import imgNuocHoaChinhHang from "~~/assets/img/Home/nuoc-hoa-chinh-hang.jpg"
+import imgGiayDepNam from "~~/assets/img/Home/giay-dep-nam.jpg";
 </script>
 <style>
     
