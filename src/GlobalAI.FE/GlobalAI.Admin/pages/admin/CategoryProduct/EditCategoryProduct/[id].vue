@@ -54,7 +54,6 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
@@ -62,7 +61,6 @@ import {
   getCategoryProductById,
   updateCategoryProduct,
 } from "~~/composables/useApiCategoryProduct";
-import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref, watchEffect } from "vue";
 definePageMeta({
