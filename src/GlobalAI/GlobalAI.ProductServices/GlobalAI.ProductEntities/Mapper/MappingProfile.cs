@@ -46,9 +46,11 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<GetChiTietDonHangDto, ChiTietDonHang>().ReverseMap();
             CreateMap<GetGioHangDto, GioHang>().ReverseMap();
             CreateMap<ChiTietDonHang, GetChiTietDonHangDto>().ReverseMap();
+            //Giỏ hàng
             CreateMap<GioHang, EditGioHangDto>().ReverseMap();
             CreateMap<GioHang, AddGioHangDto>().ReverseMap();
             CreateMap<GioHang, GetGioHangDto>().ReverseMap();
+            CreateMap<GioHang, AddGioHangChiTietDto>().ReverseMap();
 
             CreateMap<TraGia, AddTraGiaDto>().ReverseMap();
             CreateMap<TraGia, UpdateTraGiaDto>().ReverseMap();
@@ -88,6 +90,7 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<ThuocTinh, GetThuocTinhDto>().ReverseMap();
             CreateMap<ThuocTinhGiaTri, AddThuocTinhGiaTriDto>().ReverseMap();
             CreateMap<ThuocTinhGiaTri, ViewThuocTinhGiaTriDto>().ReverseMap();
+
 
         }
     }

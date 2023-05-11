@@ -46,7 +46,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(APIResponse<List<AddGioHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateGioHang([FromBody] AddGioHangDto input)
+        public APIResponse CreateGioHang([FromBody] AddGioHangChiTietDto input)
         {
             try
             {

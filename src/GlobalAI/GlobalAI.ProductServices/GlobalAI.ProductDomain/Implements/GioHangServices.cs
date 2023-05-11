@@ -59,16 +59,11 @@ namespace GlobalAI.ProductDomain.Implements
             };
             return getFullDonHangDto;
         }
-        public GioHang CreateGiohang(AddGioHangDto input)
+        public GioHang CreateGiohang(AddGioHangChiTietDto input)
         {
-            
-            var gioHang = _mapper.Map<GioHang>(input);
             var idNguoiMua = CommonUtils.GetCurrentUserId(_httpContext);
-            _repositoryGioHang.AddGioHang(gioHang, idNguoiMua);
-            gioHang.IdNguoiMua = idNguoiMua;
-
-            gioHang.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);
-            gioHang.CreatedDate = DateTime.Now;
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+            var gioHang = _repositoryGioHang.AddGioHang(input, idNguoiMua, username);
             _dbContext.SaveChanges();
             return gioHang;
         }
@@ -105,9 +100,11 @@ namespace GlobalAI.ProductDomain.Implements
             foreach (var giohang in gioHangs)
             {
                 var sanPham = _sanPhamRepository.FindByIdSanPham(giohang.IdSanPham);
+                
                 var sanPhamChiTietGioHang = new GetSanPhamChiTietGioHangDto()
                 {
                     IdSanPham = giohang.IdSanPham,
+                    TenSanPham = sanPham.TenSanPham,
                     GiaBan = sanPham.GiaBan,
                     MoTa = sanPham.MoTa,
                     GiaChietKhau = sanPham.GiaChietKhau,

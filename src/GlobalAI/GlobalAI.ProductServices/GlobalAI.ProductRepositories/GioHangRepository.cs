@@ -51,20 +51,38 @@ namespace GlobalAI.ProductRepositories
         /// <param name="dto"></param>
         /// <param name="idNguoiMua"></param>
         /// <returns></returns>
-        public GioHang AddGioHang(GioHang dto, int idNguoiMua)
+        public GioHang AddGioHang(AddGioHangChiTietDto dto, int idNguoiMua, string username)
         {
             _logger.LogInformation($"{nameof(GioHangRepository)} -> {nameof(AddGioHang)} : GioHang = {JsonSerializer.Serialize(dto)}, idNguoiMua = {idNguoiMua}");
-            
-            var item = _dbSet.FirstOrDefault(g => g.IdSanPhamChiTiet == dto.IdSanPhamChiTiet && !g.Deleted && g.IdNguoiMua == idNguoiMua);
+            var listIdSanPhamChiTiet = _globalAIDbContext.SanPhamChiTiets.Where(spct => spct.IdSanPham == dto.IdSanPham).Select(spct => spct.Id).ToList();
+            var addGioHangDto = new AddGioHangDto() 
+            {
+                IdSanPham = dto.IdSanPham,
+                SoLuong = dto.SoLuong,
+                Status = dto.Status,
+            };
+            for (int i = 0; i < listIdSanPhamChiTiet.Count(); i ++)
+            {
+                var listThuocTinhGiaTri = _globalAIDbContext.SanPhamChiTietThuocTinhs.Where(spcttt => spcttt.IdSanPhamChiTiet == listIdSanPhamChiTiet[i]).Select(spcttt => spcttt.IdThuocTinhGiaTri).ToList();
+                if(listThuocTinhGiaTri.SequenceEqual(dto.ThuocTinhs))
+                {
+                    addGioHangDto.IdSanPhamChiTiet = listIdSanPhamChiTiet[i];
+                }    
+            }    
+            var item = _dbSet.FirstOrDefault(g => g.IdSanPhamChiTiet == addGioHangDto.IdSanPhamChiTiet && !g.Deleted && g.IdNguoiMua == idNguoiMua);
             if (item != null)
             {
                 item.SoLuong += dto.SoLuong;
             }
             else
             {
-                _dbSet.Add(dto);
+                var gioHang = _mapper.Map<GioHang>(addGioHangDto);
+                gioHang.IdNguoiMua = idNguoiMua;
+                gioHang.CreatedBy = username;
+                gioHang.CreatedDate = DateTime.Now;
+                _dbSet.Add(gioHang);
             }
-            return dto;
+            return _mapper.Map<GioHang>(addGioHangDto);
         }
         /// <summary>
         /// Tìm sản phẩm cần sửa, xóa
