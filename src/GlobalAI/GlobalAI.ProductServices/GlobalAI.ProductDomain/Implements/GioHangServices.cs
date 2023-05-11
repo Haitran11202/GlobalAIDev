@@ -7,6 +7,8 @@ using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.ProductEntities.Dto.GioHang;
 using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
+using GlobalAI.ProductEntities.Dto.ThuocTinh;
+using GlobalAI.ProductEntities.Dto.ThuocTinhGiaTri;
 using GlobalAI.ProductRepositories;
 using GlobalAI.Utils;
 using log4net.Repository.Hierarchy;
@@ -30,11 +32,15 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
         private readonly GioHangRepository _repositoryGioHang;
+        private readonly ThuocTinhRepository _thuocTinhRepository;
+        private readonly SanPhamRepository _sanPhamRepository;
         private readonly ISanPhamServices _sanPhamServices;
         private readonly IMapper _mapper;
         public GioHangServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper, ISanPhamServices sanPhamServices) 
         {
             _repositoryGioHang = new GioHangRepository(dbContext, logger, mapper);
+            _thuocTinhRepository = new ThuocTinhRepository(dbContext, logger, mapper);
+            _sanPhamRepository = new SanPhamRepository(dbContext, logger, mapper);
             _sanPhamServices = sanPhamServices;
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
@@ -91,17 +97,36 @@ namespace GlobalAI.ProductDomain.Implements
         /// Lấy ra danh sách sản phẩm trong giỏ hàng của người dùng
         /// </summary>
         /// <returns></returns>
-        public List<GetSanPhamChiTietDto> getSanPhamTheoNguoiMua()
+        public List<GetSanPhamChiTietGioHangDto> getSanPhamTheoNguoiMua()
         {
             var userId = CommonUtils.GetCurrentUserId(_httpContext);
             var gioHangs = _repositoryGioHang.GetSanPhamByNguoiMua(userId);
-            var idSanPhams = gioHangs.Select(sp => sp.IdSanPham);
-            var listSanPhamChiTiet = new List<GetSanPhamChiTietDto>();
-            foreach(int idSanPham in idSanPhams)
+            var sanPhams = new List<GetSanPhamChiTietGioHangDto>();
+            foreach (var giohang in gioHangs)
             {
-                listSanPhamChiTiet.Add(_sanPhamServices.GetSanPhamChiTiet(idSanPham));
-            }    
-            return listSanPhamChiTiet;
+                var sanPham = _sanPhamRepository.FindByIdSanPham(giohang.IdSanPham);
+                var sanPhamChiTietGioHang = new GetSanPhamChiTietGioHangDto()
+                {
+                    IdSanPham = giohang.IdSanPham,
+                    GiaBan = sanPham.GiaBan,
+                    MoTa = sanPham.MoTa,
+                    GiaChietKhau = sanPham.GiaChietKhau,
+                    GiaToiThieu = sanPham.GiaToiThieu,
+                    Thumbnail = sanPham.Thumbnail, 
+                    SoLuong = giohang.SoLuong
+                };
+                var dict = new Dictionary<String, AddThuocTinhGiaTriDto>();
+                var listDanhMucThuocTinhs = _thuocTinhRepository.FindByIdDanhMucThuocTinh(sanPham.IdDanhMucThuocTinh);
+                var listIdThuocTinhGiaTris = giohang.IdThuocTinhs.ToList();
+                for (int i = 0; i < listDanhMucThuocTinhs.Count; i++)
+                {
+                    var giatritt = _thuocTinhRepository.FindGiaTriById(listIdThuocTinhGiaTris[i]);
+                    dict.Add(listDanhMucThuocTinhs[i].TenThuocTinh, _mapper.Map<AddThuocTinhGiaTriDto>(giatritt));
+                }
+                sanPhamChiTietGioHang.ThuocTinhs = dict;
+                sanPhams.Add(sanPhamChiTietGioHang);
+            }
+            return sanPhams;
         }
         public GetGioHangDto GetGioHangTheoIdSanPham(int idSanPham)
         {

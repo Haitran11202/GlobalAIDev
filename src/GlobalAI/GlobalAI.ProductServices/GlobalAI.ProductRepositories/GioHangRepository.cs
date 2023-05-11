@@ -15,6 +15,8 @@ using System.Net.Mail;
 using GlobalAI.ProductEntities.Dto.GioHang;
 using GlobalAI.Utils;
 using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
+using GlobalAI.ProductEntities.Dto.ThuocTinhGiaTri;
+using GlobalAI.ProductEntities.Dto.ThuocTinh;
 
 namespace GlobalAI.ProductRepositories
 {
@@ -36,6 +38,11 @@ namespace GlobalAI.ProductRepositories
 
             var gioHangs = _dbSet.Where(g => g.IdNguoiMua == idNguoiMua && !g.Deleted).ToList();
             var results = _mapper.Map<List<GetGioHangDto>>(gioHangs);
+            foreach (var gioHang in results)
+            {
+                gioHang.IdThuocTinhs = _globalAIDbContext.SanPhamChiTietThuocTinhs.Where(spcttt => spcttt.IdSanPhamChiTiet == gioHang.IdSanPhamChiTiet)
+                                                            .Select(spcttt => spcttt.IdThuocTinhGiaTri).ToList();
+            }
             return results;
         }
         /// <summary>
@@ -110,12 +117,14 @@ namespace GlobalAI.ProductRepositories
         public List<GetGioHangDto> GetSanPhamByNguoiMua(int idNguoiMua)
         {
             _logger.LogInformation($"{nameof(GioHangRepository)} -> {nameof(GetSanPhamByNguoiMua)}: idNguoiMua = {idNguoiMua}");
-            var giohangs = _dbSet.Where(gh => gh.IdNguoiMua == idNguoiMua && !gh.Deleted).ToList();
-            if (giohangs.Count() < 0)
+            var gioHangs = _dbSet.Where(gh => gh.IdNguoiMua == idNguoiMua && !gh.Deleted).ToList();
+            var result = _mapper.Map<List<GetGioHangDto>>(gioHangs);
+            foreach(var gioHang in result)
             {
-                throw new Exception();
+                gioHang.IdThuocTinhs = _globalAIDbContext.SanPhamChiTietThuocTinhs.Where(spcttt => spcttt.IdSanPhamChiTiet == gioHang.IdSanPhamChiTiet)
+                                                            .Select(spcttt => spcttt.IdThuocTinhGiaTri).ToList();
             }    
-            return _mapper.Map<List<GetGioHangDto>>(giohangs); 
+            return result;
         }
         /// <summary>
         /// Lấy ra giỏ hàng theo id sản phẩm chi tiết 
