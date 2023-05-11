@@ -55,8 +55,10 @@ function nextImage() {
     currentIndex.value = 0;
   }
   // Thêm dòng sau để di chuyển đến ảnh mới
-  imagesContainer.value.style.transform =
+  if (imagesContainer.value) {
+    imagesContainer.value.style.transform =
     "translateX(" + -currentIndex.value * 100 + "%)";
+  }
 }
 
 function prevImage() {
@@ -65,13 +67,19 @@ function prevImage() {
     currentIndex.value = images.length - 1;
   }
   // Thêm dòng sau để di chuyển đến ảnh mới
-  imagesContainer.value.style.transform =
+  if (imagesContainer.value) {
+    
+    imagesContainer.value.style.transform =
     "translateX(" + -currentIndex.value * 100 + "%)";
+  }
 }
 function setCurrentIndex(index) {
   currentIndex.value = index;
-  imagesContainer.value.style.transform =
-    "translateX(" + -currentIndex.value * 100 + "%)";
+  if (imagesContainer.value) {
+    
+    imagesContainer.value.style.transform =
+      "translateX(" + -currentIndex.value * 100 + "%)";
+  }
 }
 
 const currentImage = computed(() => images[currentIndex.value]);

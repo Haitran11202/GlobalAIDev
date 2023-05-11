@@ -154,7 +154,7 @@
         </div>
         <div class="flex justify-end gap-5">
           <button
-            @click="this.$router.push('/admin/product')"
+            @click="router.push('/admin/product')"
             type="submit"
             class="btn btn-outline"
           >
@@ -162,7 +162,7 @@
           </button>
           <button class="btn btn-outline btn-success">Duyệt sản phẩm</button>
           <button
-            @click="this.$router.push('/admin/product')"
+            @click="router.push('/admin/product')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>
@@ -181,7 +181,6 @@ import "vue3-toastify/dist/index.css";
 import { postProduct } from "~~/composables/useApiProduct";
 import { ref } from "vue";
 import NumberInput from "~~/components/Input/NumberInput.vue";
-import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import TextEditor from "~~/components/TextEditor/TextEditor.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
@@ -197,6 +196,7 @@ const idDanhMuc = ref("");
 const thumbnail = ref("");
 const danhmucsp = ref([]);
 
+const router = useRouter();
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
