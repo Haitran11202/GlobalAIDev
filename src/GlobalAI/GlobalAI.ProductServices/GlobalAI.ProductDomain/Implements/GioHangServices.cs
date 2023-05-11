@@ -112,7 +112,8 @@ namespace GlobalAI.ProductDomain.Implements
                     MoTa = sanPham.MoTa,
                     GiaChietKhau = sanPham.GiaChietKhau,
                     GiaToiThieu = sanPham.GiaToiThieu,
-                    Thumbnail = sanPham.Thumbnail
+                    Thumbnail = sanPham.Thumbnail, 
+                    SoLuong = giohang.SoLuong
                 };
                 var dict = new Dictionary<String, AddThuocTinhGiaTriDto>();
                 var listDanhMucThuocTinhs = _thuocTinhRepository.FindByIdDanhMucThuocTinh(sanPham.IdDanhMucThuocTinh);
