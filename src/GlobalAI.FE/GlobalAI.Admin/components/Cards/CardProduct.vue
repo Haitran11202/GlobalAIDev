@@ -13,114 +13,69 @@
           </div>
         </div>
       </div>
-      <table class="table w-full mt-2">
-        <!-- head -->
-        <thead>
-          <tr>
-            <th>
-              <label>
-                <input type="checkbox" class="checkbox" />
-              </label>
-            </th>
-            <th>Mã</th>
-            <th>Tên sản phẩm</th>
-            <th>Giá bán</th>
-            <th>Giá chiết khấu</th>
-            <th>Mã danh mục</th>
-            <th>Mã GStore</th>
-            <th>Ngày đăng ký</th>
-            <!-- <td>Mô tả</td> -->
-            <th>Trạng thái</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="text-sm hover:bg-slate-400" v-for="product in products" :key="product.id">
-            <th>
-              <label>
-                <input type="checkbox" class="checkbox" />
-              </label>
-            </th>
-            <td>{{ product.id }}</td>
-            <td>
-              <div class="flex items-center space-x-3">
-                <div class="avatar">
-                  <div class="mask mask-squircle w-12 h-12">
-                    <img :src="getImageUrl(product.thumbnail)" alt="Avatar Tailwind CSS Component" />
-                  </div>
-                </div>
-                <div>
-                  <div class="font-bold">
-                    {{
-                      product.tenSanPham.length > 30
-                      ? product.tenSanPham.slice(0, 30) + "..."
-                      : product.tenSanPham
-                    }}
-                  </div>
-                </div>
+      <EasyDataTable table-class-name="mc-tbl" 
+        class="mx-2 md:mx-0 hover:cursor-pointer mt-2" 
+        :headers="headers"
+        :hide-footer="true" :loading="tblLoading" :items="products" >
+        <template #item-tenSanPham="item">
+          <div class="flex items-center space-x-3">
+            <div class="avatar">
+              <div class="mask mask-squircle w-12 h-12">
+                <img :src="getImageUrl(item.thumbnail)" alt="Avatar Tailwind CSS Component" />
               </div>
-            </td>
-            <td>
-              {{
-                product.giaBan.toLocaleString("vi-VN", {
-                  style: "currency",
-                  currency: "VND",
-                })
-              }}
-            </td>
-            <td>
-              {{
-                product.giaChietKhau.toLocaleString("vi-VN", {
-                  style: "currency",
-                  currency: "VND",
-                })
-              }}
-            </td>
-            <td>{{ product.idDanhMuc }}</td>
-            <td>{{ product.idGStore }}</td>
-            <td>
-              {{
-                product.ngayDangKi
-                ? $moment(product.ngayDangKi).format("DD/MM/YYYY")
-                : ""
-              }}
-            </td>
-            <!-- <td class="whitespace-normal">
-              <div v-if="product.moTa && product.moTa.length > 20">
-                <template v-if="!showMore[product.id]">
-                  {{ product.moTa.slice(0, 20) }}...
-                  <span
-                    @click="showMore[product.id] = true"
-                    class="font-bold cursor-pointer"
-                    >Xem thêm</span
-                  >
-                </template>
-                <template v-else>
-                  {{ product.moTa }}
-                  <span
-                    @click="showMore[product.id] = false"
-                    class="font-bold cursor-pointer"
-                    >Thu gọn</span
-                  >
-                </template>
+            </div>
+            <div>
+              <div class="font-bold">
+                {{
+                  item.tenSanPham.length > 30
+                  ? item.tenSanPham.slice(0, 30) + "..."
+                  : item.tenSanPham
+                }}
               </div>
-              <div v-else>{{ product.moTa }}</div>
-            </td> -->
-            <td>Đã duyệt</td>
-            <td>
-              <div class="dropdown dropdown-left dropdown-end">
-                <label tabindex="0" class="btn m-1 btn-outline" @click="toggleDropdown">...</label>
-                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52" v-if="isOpen"
-                  @click="closeDropdown">
-                  <li @click="onEditButtonClick(product.id)"><a>Sửa</a></li>
-                  <li @click="onDeleteButtonClick(product.id)"><a>Xoá</a></li>
-                  <li><a>Duyệt</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </div>
+          </div>
+        </template>
+        <template #item-giaBan="item">
+          <span>
+            {{
+              item?.giaBan.toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              })
+            }}
+          </span>
+        </template>
+        <template #item-giaChietKhau="item">
+          <span>
+            {{
+              item?.giaChietKhau.toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              })
+            }}
+          </span>
+        </template>
+        <template #item-ngayDangKi="item">
+          <span>
+            {{
+              item?.ngayDangKi
+              ? $moment(item.ngayDangKi).format("DD/MM/YYYY")
+              : ""
+            }}
+          </span>
+        </template>
+        <template #item-action="item">
+          <div class="dropdown dropdown-left dropdown-end">
+            <label tabindex="0" class="btn m-1 btn-outline" @click="toggleDropdown">...</label>
+            <ul tabindex="0" class="dropdown-content menu z-50 p-2 shadow bg-base-100 rounded-box w-52" v-if="isOpen"
+              @click="closeDropdown">
+              <li @click="onEditButtonClick(item.id)"><a>Sửa</a></li>
+              <li @click="onDeleteButtonClick(item.id)"><a>Xoá</a></li>
+              <li><a>Duyệt</a></li>
+            </ul>
+          </div>
+        </template>
+      </EasyDataTable>
     </div>
     <div class="btn-group flex justify-center mt-2">
       <Pagination v-model="pageNumber" @page-change="fetchData" :page-count="pageTotalItems / pageSize" />
@@ -141,7 +96,7 @@ const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
 // Khởi tạo giá trị mặc định phân trang 5 1 0
-const pageSize = 2;
+const pageSize = 16;
 const pageTotalItems = ref(1);
 const pageNumber = ref(1);
 const skip = ref(0);
@@ -151,9 +106,23 @@ const products = ref([]);
 const deletedProduct = ref(null);
 const showAction = ref({});
 const showMore = ref({});
+let tblLoading = ref(false)
+
+const headers = [
+  { text: "MÃ", value: "id" },
+  { text: "TÊN SẢN PHẨM", value: "tenSanPham" },
+  { text: "GIÁ BÁN", value: "giaBan" },
+  { text: "GIÁ CHIẾT KHẤU", value: "giaChietKhau" },
+  { text: "MÃ DANH MỤC", value: "idDanhMuc" },
+  { text: "MÃ GSTORE", value: "idGStore", sortable: true },
+  { text: "NGÀY ĐĂNG KÝ", value: "ngayDangKi", width: 200 },
+  { text: "TRẠNG THÁI", value: "status" },
+  { text: "", value: "action" },
+];
 
 // Lấy tất cả sản phẩm
 const fetchData = () => {
+  tblLoading.value = true;
   getSanPhamByIdGStore(pageSize, pageNumber.value, skip.value)
     .then((response) => {
       // Gán giá trị mới vào biến reactive
@@ -163,7 +132,14 @@ const fetchData = () => {
     })
     .catch((err) => {
       console.error(err);
-    });
+    })
+    .finally(() => {
+      tblLoading.value = false;
+    })
+};
+
+const headerItemClassNameFunction = (header, columnNumber) => {
+  return 'text-';
 };
 
 // Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
