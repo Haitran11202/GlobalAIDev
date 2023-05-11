@@ -107,13 +107,15 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="idNguoiMua"></param>
         /// <returns></returns>
-        public List<GetSanPhamChiTietDto> GetSanPhamByNguoiMua(int idNguoiMua)
+        public List<GetGioHangDto> GetSanPhamByNguoiMua(int idNguoiMua)
         {
             _logger.LogInformation($"{nameof(GioHangRepository)} -> {nameof(GetSanPhamByNguoiMua)}: idNguoiMua = {idNguoiMua}");
-            var gioHangs = _dbSet.Where(gh => gh.IdNguoiMua == idNguoiMua && !gh.Deleted);
-            var idSanPhamChiTiets = gioHangs.Select(sp => sp.IdSanPhamChiTiet);
-            var sanPhamChiTiets = _globalAIDbContext.SanPhamChiTiets.Where(sp => idSanPhamChiTiets.Contains(sp.Id)).ToList();
-            return _mapper.Map<List<GetSanPhamChiTietDto>>(sanPhamChiTiets);
+            var giohangs = _dbSet.Where(gh => gh.IdNguoiMua == idNguoiMua && !gh.Deleted).ToList();
+            if (giohangs.Count() < 0)
+            {
+                throw new Exception();
+            }    
+            return _mapper.Map<List<GetGioHangDto>>(giohangs); 
         }
         /// <summary>
         /// Lấy ra giỏ hàng theo id sản phẩm chi tiết 

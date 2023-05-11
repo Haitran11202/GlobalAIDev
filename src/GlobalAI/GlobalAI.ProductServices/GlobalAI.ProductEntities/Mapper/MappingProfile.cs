@@ -28,10 +28,18 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<SanPham, AddSanPhamDto>().ReverseMap();
             CreateMap<SanPham, GetSanPhamChiTietDto>().ReverseMap();
             CreateMap<GetSanPhamChiTietDto, SanPham>().ReverseMap();
+            CreateMap<SanPham, GetSanPhamDto>().ReverseMap();
+            CreateMap<SanPham, ViewAdminSanPhamDto>().ReverseMap();
+            CreateMap<SanPhamChiTiet, GetSanPhamChiTietDto>().ReverseMap();
+            CreateMap<SanPhamChiTiet, ViewSanPhamChiTietDto>().ReverseMap();
+            CreateMap<GetSanPhamDto, SanPham>().ReverseMap();
+
             CreateMap<DonHang, AddDonHangDto>().ReverseMap();
             CreateMap<DonHang, AddDonHangDto>().ReverseMap();
             CreateMap<SanPhamChiTiet, AddSanPhamChiTietDto>().ReverseMap();
             CreateMap<SanPhamChiTiet, SanPhamChiTietDto>().ReverseMap();
+            CreateMap<SanPhamChiTiet, UpdateSanPhamChiTietDto>().ReverseMap();
+            /*CreateMap<SanPhamChiTiet, GetSanPhamChiTietDto>().ReverseMap();*/
             //CreateMap<List<ChiTietDonHang>, List<AddChiTietDonHangDto>>().ReverseMap();
             CreateMap<ChiTietDonHang, AddChiTietDonHangDto>().ReverseMap();
             CreateMap<ChiTietDonHang, EditChiTietDonHangDto>().ReverseMap();
@@ -80,11 +88,6 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<ThuocTinh, GetThuocTinhDto>().ReverseMap();
             CreateMap<ThuocTinhGiaTri, AddThuocTinhGiaTriDto>().ReverseMap();
             CreateMap<ThuocTinhGiaTri, ViewThuocTinhGiaTriDto>().ReverseMap();
-<<<<<<< HEAD
-
-=======
->>>>>>> 605bdbb7c526b19bf144712e30c046d6abe5fa56
-            CreateMap<SanPhamChiTiet, GetSanPhamChiTietDto>().ReverseMap();
 
         }
     }

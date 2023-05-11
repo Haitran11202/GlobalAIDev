@@ -24,11 +24,11 @@ namespace GlobalAI.ProductEntities.Dto.GioHang
         /// <summary>
         /// Id Sản phẩm (Có thể trùng nhau)
         /// </summary>
-        public int? IdSanPham { get; set; }
+        public int IdSanPham { get; set; }
         /// <summary>
         /// Id Sản phẩm chi tiết
         /// </summary>
-        public int? IdSanPhamChiTiet { get; set; }
+        public int IdSanPhamChiTiet { get; set; }
         /// <summary>
         /// Số lượng sp
         /// </summary>

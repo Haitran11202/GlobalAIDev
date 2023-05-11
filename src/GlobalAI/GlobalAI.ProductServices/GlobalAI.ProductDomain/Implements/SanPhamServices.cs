@@ -139,6 +139,11 @@ namespace GlobalAI.ProductDomain.Implements
                 return newSanPham;
             }
         }
+        /// <summary>
+        /// Lấy ra chi tiết sản phẩm có thuocj tính
+        /// </summary>
+        /// <param name="idSanPham"></param>
+        /// <returns></returns>
         public GetSanPhamChiTietDto GetSanPhamChiTiet(int idSanPham)
         {
             var sanPham = _sanPhamRepository.FindByIdSanPham(idSanPham);
@@ -275,6 +280,32 @@ namespace GlobalAI.ProductDomain.Implements
                 return _sanPhamRepository.GetSanPhamByIdGstore(userId, input);
             }
             return null;
+        }
+
+        /// <summary>
+        /// Get sp cho admin/gstore theo sp id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ViewAdminSanPhamDto GetAdminSanPhamById(int id)
+        {
+            _logger.LogInformation($"{nameof(GetAdminSanPhamById)}: id={id}");
+
+            var sp = _sanPhamRepository.FindByIdSanPham(id);
+            var result = _mapper.Map<ViewAdminSanPhamDto>(sp);
+
+            var queryListSpChiTiet = _sanPhamChiTietRepository.GetListByIdSanPham(id);
+            var listSpChiTiet = _mapper.Map<List<ViewSanPhamChiTietDto>>(queryListSpChiTiet);
+
+            if (listSpChiTiet.Count > 0)
+            {
+                foreach (var spChiTiet in listSpChiTiet)
+                {
+                    spChiTiet.ListThuocTinh = _sanPhamChiTietRepository.GetListThuocTinhByIdSanPhamChiTiet(spChiTiet.Id);
+                }
+            }
+            result.ListSanPhamChiTiet = listSpChiTiet;
+            return result;
         }
     }
 }
