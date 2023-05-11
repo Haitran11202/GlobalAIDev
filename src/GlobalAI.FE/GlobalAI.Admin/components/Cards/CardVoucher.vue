@@ -10,7 +10,7 @@
               Danh sách Voucher
             </h3>
             <button
-              @click="this.$router.push('/admin/voucher/addvoucher')"
+              @click="router.push('/admin/voucher/addvoucher')"
               class="btn btn-outline"
             >
               Thêm Voucher

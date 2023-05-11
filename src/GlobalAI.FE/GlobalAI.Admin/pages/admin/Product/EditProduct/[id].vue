@@ -160,7 +160,7 @@
           </button>
           <button class="btn btn-outline btn-success">Duyệt sản phẩm</button>
           <button
-            @click="this.$router.push('/admin/product')"
+            @click="router.push('/admin/product')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>
@@ -178,7 +178,6 @@ import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
 import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
 import { postImage } from "~~/composables/useApiImage";
-import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import TextEditor from "~~/components/TextEditor/TextEditor.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref, watchEffect } from "vue";

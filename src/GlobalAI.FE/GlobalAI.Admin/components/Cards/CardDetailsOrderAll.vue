@@ -10,7 +10,7 @@
           </h3>
           <button
             @click="
-              this.$router.push('/admin/detailsorderall/adddetailsorderall')
+              router.push('/admin/detailsorderall/adddetailsorderall')
             "
             class="btn btn-outline"
           >

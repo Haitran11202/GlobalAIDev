@@ -42,7 +42,7 @@
             Cập nhật danh mục sản phẩm
           </button>
           <button
-            @click="this.$router.push('/admin/categoryproduct')"
+            @click="router.push('/admin/categoryproduct')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>

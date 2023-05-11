@@ -147,7 +147,6 @@ import "vue3-toastify/dist/index.css";
 import { postPost, getAllDanhMucBaiTin } from "~~/composables/useApiPost";
 import { ref } from "vue";
 import NumberInput from "~~/components/Input/NumberInput.vue";
-import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
