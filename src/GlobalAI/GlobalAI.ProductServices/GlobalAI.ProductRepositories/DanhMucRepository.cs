@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GlobalAI.ProductRepositories
@@ -24,6 +25,7 @@ namespace GlobalAI.ProductRepositories
 
         public DanhMuc Add(DanhMuc input)
         {
+            _logger.LogInformation($"{nameof(Add)}: entity = {JsonSerializer.Serialize(input)}");
             input.CreatedDate = DateTime.Now;
             input.ModifiedDate = DateTime.Now;
             input.Deleted = DeletedBool.NO;
