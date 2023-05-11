@@ -1,3 +1,4 @@
+
 ﻿using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.ThuocTinh;
 using GlobalAI.ProductEntities.Dto.ThuocTinhGiaTri;
@@ -12,6 +13,7 @@ namespace GlobalAI.ProductEntities.Dto.SanPhamChiTiet
 {
     public class GetSanPhamChiTietDto
     {
+
         private string _moTa;
 
         
@@ -23,7 +25,6 @@ namespace GlobalAI.ProductEntities.Dto.SanPhamChiTiet
        
         public int? IdDanhMucThuocTinh { get; set; }
 
-       
         public int SoLuong { get; set; }
         public string MoTa { get => _moTa; set => _moTa = value?.Trim(); }
         public decimal? GiaBan { get; set; }

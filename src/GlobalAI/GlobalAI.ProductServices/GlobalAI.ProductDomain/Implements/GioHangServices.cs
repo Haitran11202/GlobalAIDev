@@ -6,7 +6,7 @@ using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.ProductEntities.Dto.GioHang;
-using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 using GlobalAI.ProductRepositories;
 using GlobalAI.Utils;
 using log4net.Repository.Hierarchy;
@@ -30,10 +30,12 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly string _connectionString;
         private readonly IHttpContextAccessor _httpContext;
         private readonly GioHangRepository _repositoryGioHang;
+        private readonly ISanPhamServices _sanPhamServices;
         private readonly IMapper _mapper;
-        public GioHangServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper) 
+        public GioHangServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper, ISanPhamServices sanPhamServices) 
         {
             _repositoryGioHang = new GioHangRepository(dbContext, logger, mapper);
+            _sanPhamServices = sanPhamServices;
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
             _dbContext = dbContext;
@@ -89,16 +91,26 @@ namespace GlobalAI.ProductDomain.Implements
         /// Lấy ra danh sách sản phẩm trong giỏ hàng của người dùng
         /// </summary>
         /// <returns></returns>
-        public List<GetSanPhamDto> getSanPhamTheoNguoiMua()
+        public List<GetSanPhamChiTietDto> getSanPhamTheoNguoiMua()
         {
             var userId = CommonUtils.GetCurrentUserId(_httpContext);
-            var sanPhams = _repositoryGioHang.GetSanPhamByNguoiMua(userId);
-            return sanPhams;
+            var gioHangs = _repositoryGioHang.GetSanPhamByNguoiMua(userId);
+            var idSanPhams = gioHangs.Select(sp => sp.IdSanPham);
+            var listSanPhamChiTiet = new List<GetSanPhamChiTietDto>();
+            foreach(int idSanPham in idSanPhams)
+            {
+                listSanPhamChiTiet.Add(_sanPhamServices.GetSanPhamChiTiet(idSanPham));
+            }    
+            return listSanPhamChiTiet;
         }
         public GetGioHangDto GetGioHangTheoIdSanPham(int idSanPham)
         {
             
-            var sanPhams = _repositoryGioHang.GetGioHangByIdSanPham(idSanPham);
+            var sanPhams = _repositoryGioHang.GetGioHangByIdSanPhamChiTiet(idSanPham);
+            if(sanPhams == null)
+            {
+                throw new Exception("Không tìm thấy giỏ hàng");
+            }    
             return sanPhams;
         }
     }
