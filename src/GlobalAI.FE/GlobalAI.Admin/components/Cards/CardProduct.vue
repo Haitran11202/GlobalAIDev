@@ -7,16 +7,14 @@
             <h3 class="font-semibold text-lg text-slate-800 uppercase">
               Danh sách sản phẩm
             </h3>
-            <button @click="$router.push('/admin/product/addproduct')" class="btn btn-outline">
+            <button @click="router.push('/admin/product/addproduct')" class="btn btn-outline">
               Thêm sản phẩm
             </button>
           </div>
         </div>
       </div>
-      <EasyDataTable table-class-name="mc-tbl" 
-        class="mx-2 md:mx-0 hover:cursor-pointer mt-2" 
-        :headers="headers"
-        :hide-footer="true" :loading="tblLoading" :items="products" >
+      <EasyDataTable table-class-name="mc-tbl" class="mx-2 md:mx-0 hover:cursor-pointer mt-2" :headers="headers"
+        :hide-footer="true" :loading="tblLoading" :items="products">
         <template #item-tenSanPham="item">
           <div class="flex items-center space-x-3">
             <div class="avatar">

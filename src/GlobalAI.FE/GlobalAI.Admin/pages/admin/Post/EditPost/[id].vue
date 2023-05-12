@@ -150,7 +150,7 @@
             Cập nhật bài tin
           </button>
           <button
-            @click="$router.push('/admin/post')"
+            @click="router.push('/admin/post')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>
