@@ -170,23 +170,22 @@ const removeInputField = (index) => {
 };
 
 function handleCategoryAtt() {
-  const detailsOrderAllData = {
-    idSanPham: idSanPham.value,
-    soLuong: soLuong.value,
-  };
+  const categoryAttData = {};
   const body = {
-    ...detailsOrderAllData,
+    ...categoryAttData,
   };
 
-  postDetailsOrderAll(body)
+  postDanhMucThuocTinhSanPham(body)
     .then((response) => {
       console.log(response);
-      router.push("/admin/detailsorderall");
-      $toast.success("Thêm chi tiết đơn hàng thành công");
+      router.push("/admin/categoryattribute");
+      $toast.success("Thêm danh mục thuộc tính sản phẩm thành công");
     })
     .catch((error) => {
       console.error(error);
-      $toast.error("Thêm chi tiết đơn hàng thất bại. Vui lòng thử lại!");
+      $toast.error(
+        "Thêm danh mục thuộc tính sản phẩm thất bại. Vui lòng thử lại!"
+      );
     });
 }
 </script>
