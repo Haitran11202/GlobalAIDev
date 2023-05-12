@@ -1077,6 +1077,7 @@ const checkOut = () => {
 
     console.log(selectedProductCheckout.value);
 };
+// Xử lý đặt hàng
 const dathang = () => {
     uniIdGstore.value.forEach((idGStore) => {
         const filterdProducts = selectedProducts.value.filter((idsp) => {
@@ -1121,6 +1122,8 @@ const dathang = () => {
 
     handleResetData();
 };
+
+// Các modal 
 const handleUpdateProduct = (id, soLuong, giaBanModal) => {
     isShowModelCart.value = id;
     isShowModalOpacity.value = true;
