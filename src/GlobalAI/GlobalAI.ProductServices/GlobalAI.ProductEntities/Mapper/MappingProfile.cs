@@ -51,6 +51,8 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<GioHang, AddGioHangDto>().ReverseMap();
             CreateMap<GioHang, GetGioHangDto>().ReverseMap();
             CreateMap<GioHang, AddGioHangChiTietDto>().ReverseMap();
+            CreateMap<GioHang, EditGioHangChiTietDto>().ReverseMap();
+            CreateMap<GioHang, GioHang>().ReverseMap();
 
             CreateMap<TraGia, AddTraGiaDto>().ReverseMap();
             CreateMap<TraGia, UpdateTraGiaDto>().ReverseMap();
