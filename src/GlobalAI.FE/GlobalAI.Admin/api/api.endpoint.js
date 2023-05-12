@@ -142,4 +142,6 @@ export const API_ENDPOINT = {
     `/api/product/tra-gia/find-all?IdSanPham=${IdSanPham}&GiaTien=${GiaTien}&status=${status}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
   getIDPayment: (idSanPham) =>
     `/api/product/tra-gia/FindTraGiaBySanPham?idSanPham=${idSanPham}`,
+  getDanhMucThuocTinhById: id => `api/product/danh-muc-thuoc-tinh/${id}`,
+  getListDanhMucThuocTinh: 'api/product/danh-muc-thuoc-tinh?pageSize=100&pageNumber=1',
 };
