@@ -57,10 +57,13 @@ namespace GlobalAI.ProductRepositories
 
             var baiTinQuery = (from baiTin in _dbSet
                                where baiTin.Deleted == DeletedBool.NO
-
+                                && (input.ParentId == null || input.ParentId == baiTin.ParentId)
                                      && (input.Status == null || input.Status == baiTin.Status)
                                select baiTin);
-
+            if (input.IsParent == true)
+            {
+                baiTinQuery = baiTinQuery.Where(baiTin => baiTin.ParentId == null);
+            }
             result.TotalItems = baiTinQuery.Count();
             baiTinQuery = baiTinQuery.OrderByDescending(d => d.Id);
             if (input.PageSize != -1)
