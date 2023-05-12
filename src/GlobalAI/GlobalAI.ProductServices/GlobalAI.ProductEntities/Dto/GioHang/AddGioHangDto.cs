@@ -20,7 +20,7 @@ namespace GlobalAI.ProductEntities.Dto.GioHang
         /// <summary>
         /// Id Sản phảm chi tiết
         /// </summary>
-        public int? IdSanPhamChiTiet { get; set; }
+        public int IdSanPhamChiTiet { get; set; }
         /// <summary>
         /// Số lượng sp
         /// </summary>

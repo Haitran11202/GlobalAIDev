@@ -98,11 +98,12 @@ namespace GlobalAI.ProductDomain.Implements
         {
             var userId = CommonUtils.GetCurrentUserId(_httpContext);
             var gioHangs = _repositoryGioHang.GetSanPhamByNguoiMua(userId);
+
+            //Xử lý từng sản phẩm trong giỏ hàng
             var sanPhams = new List<GetSanPhamChiTietGioHangDto>();
             foreach (var giohang in gioHangs)
             {
                 var sanPham = _sanPhamRepository.FindByIdSanPham(giohang.IdSanPham);
-                
                 var sanPhamChiTietGioHang = new GetSanPhamChiTietGioHangDto()
                 {
                     IdSanPham = giohang.IdSanPham,
@@ -112,8 +113,10 @@ namespace GlobalAI.ProductDomain.Implements
                     GiaChietKhau = sanPham.GiaChietKhau,
                     GiaToiThieu = sanPham.GiaToiThieu,
                     Thumbnail = sanPham.Thumbnail, 
-                    SoLuong = giohang.SoLuong
+                    SoLuong = giohang.SoLuong,
+                    IdGStore = sanPham.IdGStore
                 };
+                // Xử lý lấy ra thuộc tính của sản phẩm 
                 var dict = new Dictionary<String, AddThuocTinhGiaTriDto>();
                 var listDanhMucThuocTinhs = _thuocTinhRepository.FindByIdDanhMucThuocTinh(sanPham.IdDanhMucThuocTinh);
                 var listIdThuocTinhGiaTris = giohang.IdThuocTinhs.ToList();
