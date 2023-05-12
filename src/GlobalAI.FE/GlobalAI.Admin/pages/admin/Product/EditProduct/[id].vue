@@ -34,7 +34,7 @@
         <div class="col-span-1">
           <label for="idDanhMucThuocTinh" class="block uppercase text-slate-600 text-xs font-bold mb-2">Danh mục thuộc
             tính</label>
-          <select v-model="sanPham.idDanhMucThuocTinh" id="idDanhMucThuocTinh"
+          <select v-model="sanPham.idDanhMucThuocTinh" id="idDanhMucThuocTinh" disabled
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
             required>
             <option value="">-- Lựa chọn danh mục --</option>
@@ -69,8 +69,11 @@
           <span class="flex">Quay về</span>
         </button>
       </div>
+
+    </div>
+    <div class="m-auto shadow-2xl p-12 mt-10">
       <!-- CHI TIET SAN PHAM -->
-      <div class="flex flex-row justify-between my-3">
+      <div class="flex flex-row justify-between mb-3">
         <h2 class="card-title inline-block text-emerald-500">Chi tiết sản phẩm</h2>
         <button class="btn btn-primary" type="button" @click="openAddSpChiTiet">Thêm chi tiết sản phẩm</button>
       </div>
@@ -125,18 +128,18 @@
               }}
             </span>
           </template>
-          <template #item-action>
+          <template #item-action="item">
             <div class="btn-group">
-              <button class="btn btn-secondary">Sửa</button>
-              <button class="btn btn-error">Xóa</button>
+              <button class="btn btn-secondary" @click="openModalUpdate(item)">Sửa</button>
+              <button class="btn btn-error" @click="confirmDelete(item)">Xóa</button>
             </div>
           </template>
         </EasyDataTable>
       </div>
-
-
     </div>
     <ModalAddSanPhamChiTietVue name="modalAddSpChiTiet" :sanPham="sanPham" @on-success="initData" />
+    <ModalUpdateSanPhamChiTietVue name="modalUpdateSpChiTiet" :sanPham="sanPham" :sanPhamChiTiet="selectedSpChiTiet"
+      @on-success="initData" />
   </div>
 </template>
 
@@ -151,11 +154,13 @@ import TextEditor from "~~/components/TextEditor/TextEditor.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref, watchEffect } from "vue";
 import ModalAddSanPhamChiTietVue from "~~/components/SanPham/ModalAddSanPhamChiTiet.vue";
+import ModalUpdateSanPhamChiTietVue from "~~/components/SanPham/ModalUpdateSanPhamChiTiet.vue";
 definePageMeta({
   layout: "admin",
   name: "Product",
 });
 
+let selectedSpChiTiet = ref({});
 const productId = ref([]);
 const listDanhMucThuocTinh = ref([]);
 const danhmucsp = ref([]);
@@ -218,6 +223,7 @@ const headers = [
 
 const router = useRouter();
 const config = useRuntimeConfig();
+const { $toast, $swal } = useNuxtApp();
 const baseUrl = config.public.apiEndpoint;
 //Lấy danh mục sản phẩm
 const pageSize = 15;
@@ -285,9 +291,28 @@ const getImageUrl = (imageUrl) => {
   return url;
 };
 
-const toggleDropdown = () => {
-  isOpen.value = !isOpen.value;
-};
+const confirmDelete = (spChiTiet) => {
+  $swal.fire({
+    title: 'Bạn muốn xóa sản phẩm chi tiết này?',
+    showDenyButton: true,
+    confirmButtonText: 'Đồng ý',
+    denyButtonText: `Hủy`,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      useApiDeleteSanPhamChiTiet(spChiTiet.id).then(res => {
+        if (res.data?.code === 200) {
+          $toast.success('Xóa sản phẩm thành công chi tiết');
+          initData();
+        }
+      })
+        .catch(err => {
+          const msg =
+            err?.response?.data?.message || "Có sự cố xảy ra khi xoá sản phẩm chi tiết";
+          $toast.error(msg);
+        })
+    }
+  })
+}
 
 const submitForm = () => {
   const formData = {
@@ -300,18 +325,22 @@ const submitForm = () => {
   };
   updateProduct(productId.value, formData)
     .then((data) => {
-      console.log(data);
-      toast.success("Cập nhật sản phẩm thành công");
+      $toast.success("Cập nhật sản phẩm thành công");
       router.push("/admin/product");
     })
     .catch((error) => {
-      console.log(error);
-      toast.error("Cập nhật sản phẩm thất bại. Vui lòng thử lại!");
+      $toast.error("Cập nhật sản phẩm thất bại. Vui lòng thử lại!");
     });
 };
 
 const openAddSpChiTiet = () => {
   $vfm.show('modalAddSpChiTiet');
+}
+
+const openModalUpdate = (data) => {
+  selectedSpChiTiet.value = { ...data };
+  console.log(111111);
+  $vfm.show('modalUpdateSpChiTiet');
 }
 
 </script>

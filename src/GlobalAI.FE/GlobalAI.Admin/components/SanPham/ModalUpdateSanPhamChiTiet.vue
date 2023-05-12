@@ -1,5 +1,5 @@
 <template>
-    <AppModalBaseVue :name="props.name" title="Thêm sản phẩm chi tiết" @opened="onShowModal"
+    <AppModalBaseVue :name="props.name" title="Cập nhật sản phẩm chi tiết" @opened="onShowModal"
         content-class="modal-content w-full md:w-full md:pt-5 mh max-h-full">
         <template v-slot:content>
             <div class="w-full">
@@ -60,7 +60,7 @@
                     <div v-for="(thuocTinh, index) in listThuocTinh" :key="index" class="col-span-1">
                         <label for="idGiaTri" class="block uppercase text-slate-600 text-xs font-bold mb-2">{{
                             thuocTinh.tenThuocTinh }}</label>
-                        <select id="idGiaTri" v-model="chiTiet.listIdThuocTinhGiaTri[index]"
+                        <select id="idGiaTri" v-model="listCtspThuocTinh[index].idThuocTinhGiaTri"
                             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                             required>
                             <option value="">-- Thuộc tính --</option>
@@ -73,7 +73,7 @@
             </div>
             <div class="flex flex-row justify-end mt-3">
                 <div class="btn-group">
-                    <button class="btn btn-primary" @click="addSanPhamChiTiet">Lưu</button>
+                    <button class="btn btn-primary" @click="update">Lưu</button>
                     <button class="btn btn-outline" @click="close">Đóng</button>
                 </div>
             </div>
@@ -83,7 +83,6 @@
 <script setup>
 import AppModalBaseVue from '../base/AppModalBase.vue';
 import { Form, Field, ErrorMessage } from "vee-validate";
-import { toast } from 'vue3-toastify';
 import { $vfm } from 'vue-final-modal';
 
 const { $toast } = useNuxtApp();
@@ -107,14 +106,16 @@ const props = defineProps({
             luotBan: 0,
             idDanhMucThuocTinh: 0,
         }),
-    }
+    },
+    sanPhamChiTiet: Object,
 });
 
 let file = null;
 const listThuocTinh = ref([]);
+const listCtspThuocTinh = ref([]);
 const chiTiet = ref({
     idSanPham: 0,
-    listIdThuocTinhGiaTri: [],
+    listThuocTinh: [],
     idDanhMucThuocTinh: 0,
     maSanPhamChiTiet: '',
     soLuong: 0,
@@ -126,39 +127,55 @@ const chiTiet = ref({
 });
 
 const onShowModal = () => {
-    getDanhMucThuocTinhById(props.sanPham.idDanhMucThuocTinh).then(res => listThuocTinh.value = res.data?.data.listThuocTinh);
+    chiTiet.value = {
+        ...props.sanPhamChiTiet,
+        listThuocTinh: [...props.sanPhamChiTiet?.listThuocTinh],
+    };
+
+    getDanhMucThuocTinhById(props.sanPham.idDanhMucThuocTinh).then(res => {
+        listThuocTinh.value = res.data?.data.listThuocTinh;
+        listCtspThuocTinh.value = listThuocTinh.value.map(item => {
+            const tt = chiTiet.value.listThuocTinh.find(x => x.idThuocTinh === item.id);
+            return typeof tt !== 'undefined' ? { ...tt } : {
+                id: 0,
+                idSanPhamChiTiet: 0,
+                idThuocTinhGiaTri: 0,
+            }
+        });
+    });
 }
 
 const uploadImage = ($event) => {
     file = $event.target.files[0];
 }
 
-const addSanPhamChiTiet = () => {
+const update = () => {
     const body = {
-        idSanPham: props.sanPham.id,
-        listSanPhamChiTiet: [
-            {
-                ...chiTiet.value,
-                idSanPham: props.sanPham.id,
-                idDanhMucThuocTinh: props.sanPham.idDanhMucThuocTinh,
-                listIdThuocTinhGiaTri: chiTiet.value.listIdThuocTinhGiaTri.filter(x => x > 0),
-            }
-        ]
-    }
+        ...chiTiet.value,
+        listDeleteIdSanPhamChiTietThuocTinh: [],
+        listAddThuocTinhGiaTri: [],
+    };
 
-    postFile(file, 'image').then(res => {
-        body.listSanPhamChiTiet[0].thumbnail = res.data;
-        return useApiAddSanPhamChiTiet(body);
-    })
-    .then(res => {
+    listCtspThuocTinh.value.forEach((newCtspThuocTinh, index) => {
+        const oldCtspThuocTinh = chiTiet.value.listThuocTinh[index];
+        console.log({ newCtspThuocTinh }, { oldCtspThuocTinh });
+        if (newCtspThuocTinh.idThuocTinhGiaTri != oldCtspThuocTinh.idThuocTinhGiaTri) {
+            body.listDeleteIdSanPhamChiTietThuocTinh.push(oldCtspThuocTinh.id);
+            body.listAddThuocTinhGiaTri.push(newCtspThuocTinh.idThuocTinhGiaTri);
+        }
+    });
+
+    console.log({ body });
+
+    useApiUpdateSanPhamChiTiet(body).then(res => {
         if (res?.data.code === 200) {
             emits('on-success');
-            $toast.success('Thêm mới sản phẩm chi tiết thành công');
+            $toast.success('Cập nhật sản phẩm chi tiết thành công');
             close();
         }
     }).catch(err => {
         const msg =
-            err?.response?.data?.message || "Có sự cố xảy ra khi thêm chi tiết sản phẩm";
+            err?.response?.data?.message || "Có sự cố xảy ra khi cập nhật chi tiết sản phẩm";
         $toast.error(msg);
     });
 }
