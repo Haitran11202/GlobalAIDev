@@ -31,64 +31,30 @@
                 <input type="checkbox" class="checkbox" />
               </label>
             </th>
-            <th>ID</th>
-            <th>Mã đơn hàng</th>
-            <th>Ngày hoàn thành</th>
-            <th>Mã Gstore</th>
-            <th>Mã người mua</th>
-            <th>Số tiền</th>
-            <th>Địa chỉ</th>
-            <th>Hình thức thanh toán</th>
+            <th>Mã danh mục thuộc tính sản phẩm</th>
+            <th>Tên danh mục thuộc tính sản phẩm</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
-          <tr class="text-sm" v-for="order in orders" :key="order.id">
+          <tr
+            class="text-sm"
+            v-for="order in categoryAttributes"
+            :key="order.id"
+          >
             <th>
               <label>
                 <input type="checkbox" class="checkbox" />
               </label>
             </th>
-            <td @click="onClickOrderDetails(order.id)">
-              {{ order.id }}
+            <td>
+              {{ order.ma }}
             </td>
 
-            <td @click="onClickOrderDetails(order.id)">
-              {{ order.maDonHang }}
+            <td>
+              {{ order.ten }}
             </td>
 
-            <td @click="onClickOrderDetails(order.id)">
-              {{
-                order.ngayHoanThanh
-                  ? $moment(order.ngayHoanThanh).format("DD/MM/YYYY")
-                  : ""
-              }}
-            </td>
-            <td @click="onClickOrderDetails(order.id)">
-              {{ order.idGStore }}
-            </td>
-            <td @click="onClickOrderDetails(order.id)">
-              {{ order.idNguoiMua }}
-            </td>
-
-            <td @click="onClickOrderDetails(order.id)">
-              {{
-                order.soTien.toLocaleString("vi-VN", {
-                  style: "currency",
-                  currency: "VND",
-                })
-              }}
-            </td>
-            <td
-              class="whitespace-pre-line"
-              @click="onClickOrderDetails(order.id)"
-            >
-              {{ order.diaChi }}
-            </td>
-
-            <td @click="onClickOrderDetails(order.id)">
-              {{ order.hinhThucThanhToan }}
-            </td>
             <td>
               <div class="dropdown dropdown-left dropdown-end">
                 <label
@@ -103,9 +69,8 @@
                   v-if="isOpen"
                   @click="closeDropdown"
                 >
-                  <li @click="onEditButtonClick(order.id)"><a>Sửa</a></li>
+                  <!-- <li @click="onEditButtonClick(order.id)"><a>Sửa</a></li> -->
                   <li @click="onDeleteButtonClick(order.id)"><a>Xoá</a></li>
-                  <li><a>Duyệt</a></li>
                 </ul>
               </div>
             </td>
@@ -165,10 +130,9 @@ export default {
 
 <script setup>
 import {
-  getAllOrder,
-  deleteOrder,
-  getOrderById,
-} from "~~/composables/useApiOrder";
+  getAllDanhMucThuocTinhSanPham,
+  deleteDanhMucThuocTinhSanPham,
+} from "~~/composables/useApiCategoryAttribute";
 import { useRouter } from "vue-router";
 const { $toast } = useNuxtApp();
 
@@ -180,85 +144,78 @@ const pageNumber = ref(1);
 const skip = ref(0);
 
 // Sử dụng biến ref() để tạo các biến reactive
-const orders = ref([]);
-const deletedOrder = ref(null);
-const showAction = ref({});
+const categoryAttributes = ref([]);
+const deletedCategoryAttribute = ref(null);
 
 const previousPage = () => {
   if (pageNumber.value === 1) {
-    // Kiểm tra xem đã đạt trang đầu tiên hay chưa
     return;
   }
   pageNumber.value -= 1;
 };
 
 const nextPage = () => {
-  console.log(1);
-  if (orders.value.length < pageSize) {
-    // Kiểm tra xem có đủ sản phẩm để hiển thị trên trang tiếp theo hay không
+  if (categoryAttributes.value.length < pageSize) {
     return;
   }
   pageNumber.value += 1;
 };
 
 const fetchData = async () => {
-  getAllOrder(pageSize, pageNumber.value, skip.value)
+  getAllDanhMucThuocTinhSanPham(pageSize, pageNumber.value, skip.value)
     .then((res) => {
-      orders.value = res.data.items;
-      console.log(orders.value);
+      categoryAttributes.value = res.data.items;
     })
     .catch((err) => console.error(err));
 };
 
-const onClickOrderDetails = (id) => {
-  router.push({ name: "orderdetails", params: { id: id } });
-  getOrderById(id)
-    .then((res) => {
-      res.data;
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-};
+// const onClickOrderDetails = (id) => {
+//   router.push({ name: "orderdetails", params: { id: id } });
+//   getOrderById(id)
+//     .then((res) => {
+//       res.data;
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//     });
+// };
 
 // // Gọi hàm xóa sản phẩm khi người dùng click vào nút Xóa
 const onDeleteButtonClick = (id) => {
-  deleteOrder(id)
+  deleteDanhMucThuocTinhSanPham(id)
     .then((res) => {
       // Gán giá trị mới vào biến reactive
-      deletedOrder.value = res;
-      $toast.success("Xoá đơn hàng thành công.");
+      deletedCategoryAttribute.value = res;
+      $toast.success("Xoá danh mục thuộc tính sản phẩm thành công thành công.");
     })
     .catch((err) => {
       console.error(err);
-      $toast.error("Xoá đơn hàng thất bại. Vui lòng thử lại!");
+      $toast.error(
+        "Xoá danh mục thuộc tính sản phẩm thất bại. Vui lòng thử lại!"
+      );
     });
 };
 
 // Gọi hàm sửa bắn dữ liệu và form
-const onEditButtonClick = (id) => {
-  router.push({ name: "Order", params: { id: id } });
-  getOrderById(id)
-    .then((res) => {
-      res.data;
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-};
+// const onEditButtonClick = (id) => {
+//   router.push({ name: "Order", params: { id: id } });
+//   getOrderById(id)
+//     .then((res) => {
+//       res.data;
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//     });
+// };
 
 watchEffect(() => {
   fetchData();
 
-  if (deletedOrder.value !== null) {
-    getAllOrder();
-    deletedOrder.value = null;
+  if (deletedCategoryAttribute.value !== null) {
+    getAllDanhMucThuocTinhSanPham();
+    deletedCategoryAttribute.value = null;
   }
 });
-// Show Action Sửa và xoá
-const toggleAction = (id) => {
-  showAction.value[id] = !showAction.value[id];
-};
 
 const isOpen = ref(false);
 

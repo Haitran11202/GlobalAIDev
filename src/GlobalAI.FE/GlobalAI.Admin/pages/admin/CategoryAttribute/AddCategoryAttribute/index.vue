@@ -1,49 +1,65 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <div class="m-auto overflow-y-auto shadow-2xl p-12 h-[670px]">
+    <div
+      v-for="(item, idx) in grListThuocTinhs"
+      :key="idx"
+      class="m-auto overflow-y-auto shadow-2xl p-12 max-h-screen"
+    >
       <div class="flex flex-col gap-5">
         <div>
-          <select
-            @change="onChange($event)"
-            class="select select-bordered w-full max-w-xs"
-          >
-            <option disabled selected>Tên danh mục</option>
-            <option
-              :value="item.ma"
-              v-for="(item, index) in items"
-              :key="index"
-            >
-              {{ item.ten }}
-            </option>
-          </select>
+          <input
+            v-model="item.ma"
+            type="text"
+            placeholder="Mã danh mục sản phẩm"
+            class="input input-bordered w-full max-w-xs"
+          />
         </div>
-        <div
-          v-for="(item, index) in filterListThuocTinhOfItems"
-          :key="index"
-          class="border border-base-300 bg-base-100 rounded-box"
-        >
-          <div class="flex justify-between items-center">
-            <div class="text-xl font-medium m-5">
-              <h1>{{ item.tenThuocTinh }}</h1>
+        <div>
+          <input
+            v-model="item.ten"
+            type="text"
+            placeholder="Tên danh mục sản phẩm"
+            class="input input-bordered w-full max-w-xs"
+          />
+        </div>
+        <div v-for="(thuoctinh, idx) in item.listThuocTinh" :key="idx">
+          <div class="border border-base-300 bg-base-100 rounded-box">
+            <div class="flex justify-between items-center">
+              <div class="text-xl flex flex-col gap-3 font-medium m-5">
+                <div>
+                  <input
+                    :key="idx"
+                    type="text"
+                    placeholder="Tên thuộc tính"
+                    class="input input-bordered input-md w-full max-w-xs"
+                    v-model="thuoctinh.tenThuocTinh"
+                  />
+                </div>
+                <div
+                  v-for="(
+                    giaTriThuocTinh, index
+                  ) in thuoctinh.listThuocTinhGiaTri"
+                  :key="index"
+                  class="flex gap-3 items-center justify-between"
+                >
+                  <input
+                    :key="index"
+                    type="text"
+                    placeholder="Giá trị"
+                    class="input input-bordered input-sm w-full max-w-xs"
+                    v-model="giaTriThuocTinh.giaTri"
+                  />
+
+                  <span
+                    @click="addInputField(thuoctinh.idDanhMucThuocTinh)"
+                    class="text-sm cursor-pointer"
+                    ><font-awesome-icon icon="fa-plus"
+                  /></span>
+                </div>
+              </div>
               <span
-                v-for="(att, index) in item.listThuocTinhGiaTri"
-                :key="index"
-                class="flex items-center"
-              >
-                <input
-                  :value="att.giaTri"
-                  name="tenThuocTinh"
-                  type="text"
-                  placeholder="Type here"
-                  class="input input-bordered input-sm w-full max-w-xs"
-                />
-                <span class="m-5 text-sm cursor-pointer"
-                  ><font-awesome-icon icon="fa-plus"
-                /></span>
-              </span>
-            </div>
-            <div>
-              <span class="m-5 text-2xl cursor-pointer"
+                @click="addgrListThuocTinhs(idx)"
+                class="text-lg m-5 cursor-pointer"
                 ><font-awesome-icon icon="fa-plus"
               /></span>
             </div>
@@ -51,10 +67,16 @@
         </div>
       </div>
       <div class="flex justify-end gap-5 mt-5">
-        <button class="btn btn-outline">
+        <button
+          @click="handlePostDanhMucThuocTinhSanPham"
+          class="btn btn-outline"
+        >
           Thêm danh mục thuộc tính sản phẩm
         </button>
-        <button class="btn btn-outline btn-error">
+        <button
+          @click="this.$router.push('/admin/categoryattribute')"
+          class="btn btn-outline btn-error"
+        >
           <span class="flex">Quay về</span>
         </button>
       </div>
@@ -63,12 +85,15 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 definePageMeta({
   layout: "admin",
 });
+import { ref } from "vue";
+import { postDanhMucThuocTinhSanPham } from "~~/composables/useApiCategoryAttribute";
 
-const items = [
+// const grInputListGiaTris = ref([""]);
+// const grListThuocTinhs = ref([""]);
+const grListThuocTinhs = ref([
   {
     ma: "001",
     ten: "Quần áo",
@@ -91,80 +116,79 @@ const items = [
           },
         ],
       },
-      {
-        idDanhMucThuocTinh: 0,
-        tenThuocTinh: "Kích cỡ",
-        listThuocTinhGiaTri: [
-          {
-            idThuocTinh: 0,
-            giaTri: "S",
-          },
-          {
-            idThuocTinh: 1,
-            giaTri: "M",
-          },
-          {
-            idThuocTinh: 2,
-            giaTri: "L",
-          },
-        ],
-      },
     ],
   },
-  {
-    ma: "002",
-    ten: "Mũ",
-    listThuocTinh: [
-      {
-        idDanhMucThuocTinh: 0,
-        tenThuocTinh: "Màu",
-        listThuocTinhGiaTri: [
-          {
-            idThuocTinh: 0,
-            giaTri: "Vàng",
-          },
-          {
-            idThuocTinh: 1,
-            giaTri: "Đỏ",
-          },
-          {
-            idThuocTinh: 2,
-            giaTri: "Xanh",
-          },
-        ],
-      },
-      {
-        idDanhMucThuocTinh: 0,
-        tenThuocTinh: "Kích cỡ",
-        listThuocTinhGiaTri: [
-          {
-            idThuocTinh: 0,
-            giaTri: "S",
-          },
-          {
-            idThuocTinh: 1,
-            giaTri: "M",
-          },
-          {
-            idThuocTinh: 2,
-            giaTri: "L",
-          },
-        ],
-      },
-    ],
-  },
-];
+]);
+const ma = ref("");
+const ten = ref("");
+const tenThuocTinh = ref("");
+const giaTri = ref("");
 
-let currentId = ref(0);
-let filterListThuocTinhOfItems = ref([]);
-const onChange = (event) => {
-  currentId.value = event.target.value;
-  filterListThuocTinhOfItems.value = items.filter((item) => {
-    if (item.ma == currentId.value) {
-      return item;
-    }
-  })[0].listThuocTinh;
+const handlePostDanhMucThuocTinhSanPham = () => {
+  const dmAttData = grListThuocTinhs.value;
+  const body = {
+    ...dmAttData,
+  };
+  console.log(body);
+
+  postDanhMucThuocTinhSanPham(body)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 };
+
+const addInputField = (index) => {
+  grListThuocTinhs.value[0].listThuocTinh
+    .filter((thuoctinh) => thuoctinh.idDanhMucThuocTinh === index)[0]
+    .listThuocTinhGiaTri.push({
+      idThuocTinh: (index += 2),
+      giaTri: "",
+    });
+};
+
+const addgrListThuocTinhs = (index) => {
+  let previousThuocTinh =
+    grListThuocTinhs.value[0].listThuocTinh[grListThuocTinhs.value.length - 1];
+  let previousIdThuocTinh = previousThuocTinh;
+  grListThuocTinhs.value[0].listThuocTinh.push({
+    idDanhMucThuocTinh: previousThuocTinh.idDanhMucThuocTinh++,
+    tenThuocTinh: "",
+    listThuocTinhGiaTri: [
+      {
+        idThuocTinh: previousIdThuocTinh.idDanhMucThuocTinh++,
+        giaTri: "",
+      },
+    ],
+  });
+};
+
+const removeInputField = (index) => {
+  grInputListGiaTris.value.splice(index, 1);
+};
+
+function handleCategoryAtt() {
+  const detailsOrderAllData = {
+    idSanPham: idSanPham.value,
+    soLuong: soLuong.value,
+  };
+  const body = {
+    ...detailsOrderAllData,
+  };
+
+  postDetailsOrderAll(body)
+    .then((response) => {
+      console.log(response);
+      router.push("/admin/detailsorderall");
+      $toast.success("Thêm chi tiết đơn hàng thành công");
+    })
+    .catch((error) => {
+      console.error(error);
+      $toast.error("Thêm chi tiết đơn hàng thất bại. Vui lòng thử lại!");
+    });
+}
 </script>
 
 <style></style>

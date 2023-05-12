@@ -50,7 +50,8 @@ import {
   faTrash,
   faPenToSquare,
   faPhone,
-  faPlus
+  faPlus,
+  faMinus
 } from "@fortawesome/free-solid-svg-icons";
 /* add icons to the library */
 library.add(
@@ -98,7 +99,8 @@ library.add(
   faTrash,
   faPenToSquare,
   faPhone,
-  faPlus
+  faPlus,
+  faMinus
 );
 
 export default defineNuxtPlugin((nuxtApp) => {

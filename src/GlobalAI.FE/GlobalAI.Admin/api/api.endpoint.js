@@ -137,4 +137,13 @@ export const API_ENDPOINT = {
     `/api/product/tra-gia/find-all?IdSanPham=${IdSanPham}&GiaTien=${GiaTien}&status=${status}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
   getIDPayment: (idSanPham) =>
     `/api/product/tra-gia/FindTraGiaBySanPham?idSanPham=${idSanPham}`,
+
+  // Danh mục thuộc tính sản phẩm
+  getAllDanhMucThuocTinhSanPham: (pageSize, pageNumber, skip) =>
+    `/api/product/danh-muc-thuoc-tinh?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
+  getDanhMucThuocTinhSanPhamById: (id) =>
+    `/api/product/danh-muc-thuoc-tinh/${id}`,
+  postDanhMucThuocTinhSanPham: `/api/product/danh-muc-thuoc-tinh`,
+  deleteDanhMucThuocTinhSanPham: (id) =>
+    `/api/product/danh-muc-thuoc-tinh/${id}`,
 };
