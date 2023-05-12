@@ -149,7 +149,8 @@ export const API_ENDPOINT = {
   getListDanhMucThuocTinh: 'api/product/danh-muc-thuoc-tinh?pageSize=100&pageNumber=1',
   getSanPhamAdminById: id => `api/product/sanpham/admin/${id}`,
   addSanPhamChiTiet: `api/product/san-pham-chi-tiet`,
-
+  updateSanPhamChiTiet: `api/product/san-pham-chi-tiet`,
+  deleteSanPhamChiTiet: id => `api/product/san-pham-chi-tiet/${id}`,
   // Danh mục thuộc tính sản phẩm
   getAllDanhMucThuocTinhSanPham: (pageSize, pageNumber, skip) =>
     `/api/product/danh-muc-thuoc-tinh?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,

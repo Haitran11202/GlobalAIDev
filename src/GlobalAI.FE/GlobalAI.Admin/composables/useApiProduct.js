@@ -321,3 +321,31 @@ export const useApiAddSanPhamChiTiet = async (body) => {
         return Promise.reject(err);
     }
 };
+
+/**
+ * CẬP NHẬT SẢN PHẨM CHI TIẾT
+ * @param {*} body 
+ * @returns 
+ */
+export const useApiUpdateSanPhamChiTiet = async (body) => {
+    try {
+        const res = await http.put(API_ENDPOINT.updateSanPhamChiTiet, body);
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
+
+/**
+ * XÓA SẢN PHẨM CHI TIẾT
+ * @param {*} body 
+ * @returns 
+ */
+export const useApiDeleteSanPhamChiTiet = async (id) => {
+    try {
+        const res = await http.delete(API_ENDPOINT.deleteSanPhamChiTiet(id));
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
