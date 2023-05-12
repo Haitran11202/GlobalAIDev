@@ -103,9 +103,9 @@ export const API_ENDPOINT = {
   putVoucher: `/api/product/voucher/update`,
 
   // Danh mục bài tin
-  getAllPostCategoryPhanTran: (pageSize, pageNumber, skip,isParent) =>
-    `/api/product/danh-muc-bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}&isParent=${isParent}`,
-
+  getAllPostCategoryPhanTran: (pageSize, pageNumber, skip) =>
+    `/api/product/danh-muc-bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
+  
   getAllPostCategoryTree: ()=> `/api/product/danh-muc-bai-tin/find-all-trees`,
 
   getPostCategoryById: (id) => `/api/product/danh-muc-bai-tin/${id}`,
@@ -142,6 +142,4 @@ export const API_ENDPOINT = {
     `/api/product/tra-gia/find-all?IdSanPham=${IdSanPham}&GiaTien=${GiaTien}&status=${status}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
   getIDPayment: (idSanPham) =>
     `/api/product/tra-gia/FindTraGiaBySanPham?idSanPham=${idSanPham}`,
-  getDanhMucThuocTinhById: id => `api/product/danh-muc-thuoc-tinh/${id}`,
-  getListDanhMucThuocTinh: 'api/product/danh-muc-thuoc-tinh?pageSize=100&pageNumber=1',
 };

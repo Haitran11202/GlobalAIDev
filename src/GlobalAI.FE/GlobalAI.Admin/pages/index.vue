@@ -281,7 +281,7 @@
                     <img
                       alt="..."
                       class="align-middle border-none max-w-full h-[320px] shadow-md rounded-lg w-full"
-                      :src="mypham"
+                      :src="item.thumbnail"
                     />
                   </div>
                 </nuxt-link>
@@ -363,14 +363,6 @@ import imgMoRongThiTruong from "../assets/img/Home/mo-rong-thi-truong.png";
 import imgShopping from "../assets/img/Home/dang-nhap-san-thuong-mai-dien-tu.png";
 
 
-import login from "../assets/img/login.jpg";
-import profile from "../assets/img/profile.jpg";
-import landing from "../assets/img/landing.jpg";
-
-import mypham from "../assets/img/mypham.jpg";
-import thoitrang from "../assets/img/thoitrang.jpg";
-import dientu from "../assets/img/dientu.jpg";
-
 const baitin = ref([]);
 const danhmucbaitin = ref([]);
 const pageSize = 3;
@@ -381,13 +373,13 @@ onMounted(() => {
   getBaiTinPhanTrang(pageSize, pageNumber, skip)
     .then((response) => {
       baitin.value = response.data.items;
-      console.log('dsadsa',baitin.value)
+      console.log('1111',baitin.value)
     })
     .catch((err) => {
       console.error(err);
     });
 
-    getAllPostCategoryPhanTran(pageSize, pageNumber, skip,false)
+    getAllPostCategoryPhanTran(pageSize, pageNumber, skip)
     .then((response) => {
       danhmucbaitin.value = response.data.items.reverse();
       console.log('dsadsa',danhmucbaitin.value)
@@ -395,7 +387,6 @@ onMounted(() => {
     .catch((err) => {
       console.error(err);
     });
-
 });
 
 </script>

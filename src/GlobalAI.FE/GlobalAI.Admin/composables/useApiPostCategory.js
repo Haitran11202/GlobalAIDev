@@ -10,7 +10,7 @@ export const getAllPostCategoryPhanTran = async (
 ) => {
   try {
     const response = await http.get(
-      API_ENDPOINT.getAllPostCategoryPhanTran(pageSize, pageNumber, skip, isParent)
+      API_ENDPOINT.getAllPostCategoryPhanTran(pageSize, pageNumber, skip)
     );
     return Promise.resolve(response.data);
   } catch (err) {
