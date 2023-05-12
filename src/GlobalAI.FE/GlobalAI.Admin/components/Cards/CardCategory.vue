@@ -9,7 +9,7 @@
             Danh sách danh mục
           </h3>
           <button
-            @click="this.$router.push('/admin/category/addcategory')"
+            @click="router.push('/admin/category/addcategory')"
             class="btn btn-outline"
           >
             Thêm danh mục

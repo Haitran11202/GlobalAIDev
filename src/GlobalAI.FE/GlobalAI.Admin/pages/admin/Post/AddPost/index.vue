@@ -130,7 +130,7 @@
         <div class="flex justify-end gap-5">
           <button type="submit" class="btn btn-outline">Thêm bài tin</button>
           <button
-            @click="$router.push('/admin/post')"
+            @click="router.push('/admin/post')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>
@@ -148,7 +148,6 @@ import "vue3-toastify/dist/index.css";
 import { postPost, getAllDanhMucBaiTin } from "~~/composables/useApiPost";
 import { ref } from "vue";
 import NumberInput from "~~/components/Input/NumberInput.vue";
-import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";

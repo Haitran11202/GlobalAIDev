@@ -42,7 +42,7 @@
             Cập nhật danh mục bài tin
           </button>
           <button
-            @click="this.$router.push('/admin/postcategory')"
+            @click="router.push('/admin/postcategory')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>
@@ -64,7 +64,6 @@ import {
   updatePostCategory,
 } from "~~/composables/useApiPostCategory.js";
 import { postImage } from "~~/composables/useApiImage";
-import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref, watchEffect } from "vue";
 definePageMeta({

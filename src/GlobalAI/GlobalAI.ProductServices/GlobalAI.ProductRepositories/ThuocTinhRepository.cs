@@ -52,18 +52,11 @@ namespace GlobalAI.ProductRepositories
         {
             _logger.LogInformation($"{nameof(AddGiaTri)}: entity = {JsonSerializer.Serialize(entity)}; username={username}");
 
-            var existedGiaTri = _globalAIDbContext.ThuocTinhGiaTris.AsNoTracking().Any(x => !x.Deleted && x.GiaTri.Equals(entity.GiaTri));
+            entity.CreatedBy = username;
+            entity.CreatedDate = DateTime.Now;
 
-            if (!existedGiaTri)
-            {
-                entity.CreatedBy = username;
-                entity.CreatedDate = DateTime.Now;
-
-                _globalAIDbContext.ThuocTinhGiaTris.Add(entity);
-                return entity;
-            }
-
-            return null;
+            _globalAIDbContext.ThuocTinhGiaTris.Add(entity);
+            return entity;
         }
 
         /// <summary>
