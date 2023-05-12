@@ -244,6 +244,7 @@ namespace GlobalAI.ProductRepositories
                             Id = spcttt.Id,
                             IdSanPhamChiTiet = spcttt.IdSanPhamChiTiet,
                             IdThuocTinhGiaTri = spcttt.IdThuocTinhGiaTri,
+                            IdThuocTinh = tt.Id,
                             TenThuocTinh = tt.TenThuocTinh,
                             GiaTri = gt.GiaTri
                         };
