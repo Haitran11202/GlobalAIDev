@@ -53,7 +53,7 @@
                   alt=""
                 />
                 <span class="mt-[10px] text-[16px] text-[#6c757d]"
-                  >SL : {{ getCartItemQuantity(sanpham.idSanPham) }}</span
+                  >SL : {{ getCartItemQuantity(sanpham.id) }}</span
                 >
               </div>
             </div>
@@ -63,31 +63,12 @@
               >
                 {{ sanpham.tenSanPham }}
               </h2>
-              <div class="flex items-center gap-[10px]">
-                <h2>Phân loại :</h2>
-                <div
-                  v-for="(key, index) in Object.keys(sanpham.thuocTinhs)"
-                  :key="index"
-                  class="flex items-center gap-[5px]"
-                >
-                  <span class="text-[#6C757D]">{{
-                    sanpham.thuocTinhs[key].giaTri
-                  }}</span>
-                  <span
-                    class="w-[5px] text-black"
-                    v-if="index !== Object.keys(sanpham.thuocTinhs).length - 1"
-                    >-</span
-                  >
-                </div>
-              </div>
+              <span class="text-[14px] text-[#6C757D]">Phân loại : Trắng</span>
               <span class="text-left text-[#cc3366] text-[16px] font-[400]"
                 >Tổng giá :
                 {{
                   formatMoneyAll(
-                    getPrice(
-                      getCartItemQuantity(sanpham.idSanPham),
-                      sanpham.giaBan,
-                    ),
+                    getPrice(getCartItemQuantity(sanpham.id), sanpham.giaBan)
                   )
                 }}
               </span>
@@ -95,9 +76,9 @@
                 <p
                   @click="
                     handleUpdateProduct(
-                      sanpham.idSanPham,
-                      getCartItemQuantity(sanpham.idSanPham),
-                      sanpham.giaBan,
+                      sanpham.id,
+                      getCartItemQuantity(sanpham.id),
+                      sanpham.giaBan
                     )
                   "
                   class="cursor-pointer text-[16px] mt-0 font-[600] text-[#3478f6]"
@@ -106,7 +87,7 @@
                 </p>
                 <button
                   class="flex items-center text-[#3478f6]"
-                  @click="handleModalDelete(sanpham.idSanPham)"
+                  @click="handleModalDelete(sanpham.id)"
                 >
                   <svg
                     class="w-8 h-8 rounded-full p-1"
@@ -127,7 +108,7 @@
               </div>
             </div>
             <div
-              v-if="isShowModelCart == sanpham.idSanPham"
+              v-if="isShowModelCart == sanpham.id"
               class="ModalUpdateCart z-50 fixed lg:w-[512px] lg:py-[20px] px-[10px] h-[630px] bg-white top-[50%] rounded-2xl shadow-2xl left-[50%] translate-x-[-50%] translate-y-[-50%]"
             >
               <div class="float-right">
@@ -148,24 +129,9 @@
                     <h1 class="text-[18px] uppercase text-[#384059] font-bold">
                       {{ sanpham.tenSanPham }}
                     </h1>
-                    <div class="flex items-center gap-[10px]">
-                      <h2>Phân loại :</h2>
-                      <div
-                        v-for="(key, index) in Object.keys(sanpham.thuocTinhs)"
-                        :key="index"
-                        class="flex items-center gap-[5px]"
-                      >
-                        <span class="text-[#6C757D]">{{
-                          sanpham.thuocTinhs[key].giaTri
-                        }}</span>
-                        <span
-                          class="w-[5px] text-black"
-                          v-if="
-                            index !== Object.keys(sanpham.thuocTinhs).length - 1
-                          "
-                          >-</span
-                        >
-                      </div>
+                    <div class="flex gap-[20px]">
+                      <h2 class="text-[16px]">Màu sắc</h2>
+                      <span>Trắng</span>
                     </div>
                   </div>
                 </div>
@@ -211,7 +177,7 @@
                     class="px-[10px] flex justify-between items-center py-[8px] rounded-xl border-coolGray-500 border-[1px]"
                   >
                     <button
-                      @click="decrement(sanpham.idSanPham)"
+                      @click="decrement(sanpham.id)"
                       class="w-[20px] h-[20px] hover:bg-black flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
                     >
                       -
@@ -222,7 +188,7 @@
                       :value="soLuongUpdate"
                     />
                     <button
-                      @click="increment(sanpham.idSanPham)"
+                      @click="increment(sanpham.id)"
                       class="w-[20px] h-[20px] hover:bg-black flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
                     >
                       +
@@ -248,13 +214,13 @@
                 <div class="w-full mt-[40px] flex items-center justify-center">
                   <div>
                     <button
-                      @click="handleUpdateNewProductCart(sanpham.idSanPham)"
+                      @click="handleUpdateNewProductCart(sanpham.id)"
                       class="w-[335px] py-[12px] rounded-xl px-[20px] flex justify-center text-[18px] items-center bg-[#cc3366] text-white font-bold"
                     >
                       Cập Nhật
                     </button>
                     <button
-                      @click="handleModalDelete(sanpham.idSanPham)"
+                      @click="handleModalDelete(sanpham.id)"
                       class="w-[335px] mt-[20px] py-[12px] rounded-xl px-[20px] flex justify-center text-[18px] items-center bg-white border-[1px] border-[#cc3366] text-[#cc3366] font-bold"
                     >
                       Xóa Sản Phẩm
@@ -331,10 +297,10 @@
             <h2 class="text-[18px] font-bold">Địa chỉ</h2>
           </div>
           <div class="mb-[10px] flex justify-between items-center">
-            <span>Trương Định , Hà Nội</span>
+            <span>{{ diaChi }}</span>
             <span
               @click="handleShowModalAddress"
-              class="underline text-blue-400 text-[16px] cursor-pointer"
+              class="underline text-blue-400 w-[100px] text-[16px] cursor-pointer"
               >Thay đổi</span
             >
           </div>
@@ -376,16 +342,16 @@
                             Tỉnh / Thành Phố
                             <span class="text-red-500">*</span>
                           </option>
-                          <option value="Hanoi">Hà Nội</option>
-                          <option value="Danang">Đà Nẵng</option>
-                          <option value="Hochiminh">Hồ Chí Minh</option>
-                          <option value="Cantho">Cần Thơ</option>
-                          <option value="Haiphong">Hải Phòng</option>
-                          <option value="Binhphuoc">An Giang</option>
-                          <option value="CaMau">Cà Mau</option>
+                          <option value="Hà Nội">Hà Nội</option>
+                          <option value="Đà Nẵng">Đà Nẵng</option>
+                          <option value="Hồ chí Minh">Hồ Chí Minh</option>
+                          <option value="Cần Thơ">Cần Thơ</option>
+                          <option value="Hải Phòng">Hải Phòng</option>
+                          <option value="An Giang">An Giang</option>
+                          <option value="Cà Mau">Cà Mau</option>
                           <option value="Vinh">Vinh</option>
-                          <option value="Caobang">Cao Bằng</option>
-                          <option value="Bentre">Bến Tre</option>
+                          <option value="Cao Bằng">Cao Bằng</option>
+                          <option value=" Bến Tre">Bến Tre</option>
                         </select>
                       </div>
                       <div>
@@ -399,10 +365,10 @@
                             Quận / Huyện
                             <span class="text-red-500">*</span>
                           </option>
-                          <option value="MyDuc">Mỹ Đức</option>
-                          <option value="DongAnh">Đông Anh</option>
-                          <option value="Gialam">Gia Lâm</option>
-                          <option value="HoaiDuc">Hòai Đức</option>
+                          <option value="Mỹ Đức">Mỹ Đức</option>
+                          <option value="Đông Anh">Đông Anh</option>
+                          <option value="Gia Lâm">Gia Lâm</option>
+                          <option value="Hòai Đức">Hòai Đức</option>
                         </select>
                       </div>
                       <select
@@ -415,10 +381,10 @@
                           Phường / Xã
                           <span class="text-red-500">*</span>
                         </option>
-                        <option value="MyDuc">Hương Sơn</option>
-                        <option value="DangXa">Đặng Xá</option>
-                        <option value="DinhXuyen">Đình Xuyên</option>
-                        <option value="Phuthi">Phú Thị</option>
+                        <option value="Hương Sơn">Hương Sơn</option>
+                        <option value="Đặng Xá">Đặng Xá</option>
+                        <option value="Đình Xuyên">Đình Xuyên</option>
+                        <option value="Phú Thị">Phú Thị</option>
                       </select>
                     </div>
                     <input
@@ -593,20 +559,25 @@
                                 <th class="py-[20px]">Sản Phẩm</th>
                                 <th>Đơn giá</th>
                                 <th>Số Lượng</th>
-                                <th>Phân Loại</th>
                                 <th>Thành Tiền</th>
                               </tr>
                             </thead>
                             <tbody
                               class="border rounded-t-lg"
-                              v-for="donhang in selectedProductCheckout"
+                              v-for="(
+                                donhang, index
+                              ) in selectedProductCheckout"
+                              :key="index"
                             >
                               <td class="p-3 w-auto font-medium">
                                 {{ donhang.donHang.maDonHang }}
                               </td>
                               <tr
                                 class=""
-                                v-for="ct in donhang.chiTietDonHangFullDtos"
+                                v-for="(
+                                  ct, index
+                                ) in donhang.chiTietDonHangFullDtos"
+                                :key="index"
                               >
                                 <td class="flex p-6 gap-4 h-[100%]">
                                   <div>
@@ -624,27 +595,6 @@
                                 </td>
                                 <td>
                                   {{ ct.soLuong }}
-                                </td>
-                                <td>
-                                  <div
-                                    v-for="(key, index) in Object.keys(
-                                      ct.phanLoai,
-                                    )"
-                                    :key="index"
-                                    class="flex items-center gap-[5px]"
-                                  >
-                                    <span class="text-[#6C757D]">{{
-                                      ct.phanLoai[key].giaTri
-                                    }}</span>
-                                    <span
-                                      class="w-[5px] text-black"
-                                      v-if="
-                                        index !==
-                                        Object.keys(ct.phanLoai).length - 1
-                                      "
-                                      >-</span
-                                    >
-                                  </div>
                                 </td>
                                 <td>
                                   {{ formatMoneyAll(ct.thanhTien) }}
@@ -690,6 +640,9 @@ import { getGioHang } from "~~/composables/useApiProduct";
 import { toast } from "vue3-toastify";
 import { useCartStorage } from "~~/stores/giohang";
 import { useRouter } from "vue-router";
+import jwtDecode from "jwt-decode";
+import { useUserStorage } from "~~/stores/user";
+
 const router = useRouter();
 // const router = useRouter();
 definePageMeta({
@@ -718,8 +671,8 @@ const idDelete = ref("");
 const diaChi = ref("");
 const thongTinNguoiMua = ref("");
 const uniIdGstore = ref([]);
-const idAttr = ref([]);
-
+const userInfor = useUserStorage();
+const accessToken = userInfor.$state.accessToken;
 //body call api tạo đơn hàng full
 const bodyData = ref({
   donHang: {
@@ -742,7 +695,7 @@ const getImageUrl = (imageUrl) => {
     return "https://placehold.it/50x50";
   }
   const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl,
+    imageUrl
   )}&download=false`;
   return url;
 };
@@ -752,21 +705,26 @@ const checkAll = ref(false);
 onMounted(async () => {
   if (router.currentRoute.value.query.checkedItem != null) {
     selectedProducts.value.push(
-      Number(router.currentRoute.value.query.checkedItem),
+      Number(router.currentRoute.value.query.checkedItem)
     );
   }
   try {
     const res1 = await getSanPhamByNguoiMua();
-    console.log(res1.data.data);
     products.value = res1?.data?.data;
+    console.log(res1.data.data);
     const res2 = await getGioHang();
-    console.log(res2.data.gioHang);
     datas.value = res2?.data?.gioHang;
     console.log(datas.value);
+    diaChi.value = "112, Trương định, Hà Nội";
   } catch (error) {
     console.log(error);
   }
+  getUserInfor();
 });
+const getUserInfor = () => {
+  var address = jwtDecode(accessToken);
+  console.log(address);
+};
 //lấy số lượng theo sản phẩm
 const getCartItemQuantity = (id, soLuongNew = 0) => {
   const item = datas.value.find((item) => item.idSanPham == id);

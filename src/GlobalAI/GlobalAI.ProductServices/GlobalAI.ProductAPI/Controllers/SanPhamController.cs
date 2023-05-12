@@ -79,6 +79,7 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+
         /// <summary>
         /// Get SanPham Chi tiet
         /// </summary>
