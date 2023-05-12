@@ -11,11 +11,14 @@ namespace GlobalAI.ProductEntities.Dto.DanhMucBaiTin
 {
     public class FilterDanhMucBaiTinDto : PagingRequestBaseDto
     {
+        [FromQuery(Name = "isParent")]
+        public bool IsParent{ get; set; }
         /// <summary>
         /// Trạng thái 
         /// </summary>
         [FromQuery(Name = "status")]
         public int? Status { get; set; }
+        [FromQuery(Name = "parentId")]
         public int? ParentId { get; set; }
     }
 }
