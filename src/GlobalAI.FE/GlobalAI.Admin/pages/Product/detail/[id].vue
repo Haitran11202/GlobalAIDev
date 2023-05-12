@@ -392,10 +392,14 @@ onMounted(() => {
 const handleBuyClick = () => {
   console.log("creating...");
   console.log(productId.value);
-
-  const body = {
+  if (countSelectAttribute.value < ProductAttributtes.value.length) {
+    toast.error("Bạn chưa chọn phân loại");
+  }
+  else{
+    const body = {
     idSanPham: productId.value,
-    soLuong: 1,
+    thuocTinhs: selectedAttributeId.value,
+    soLuong: soLuong.value,
     status: 1,
   };
   createGioHang(body)
@@ -410,6 +414,7 @@ const handleBuyClick = () => {
     query: { checkedItem: productId.value },
     params: { id: productId.value },
   });
+  }
 };
 
 const increment = () => {
