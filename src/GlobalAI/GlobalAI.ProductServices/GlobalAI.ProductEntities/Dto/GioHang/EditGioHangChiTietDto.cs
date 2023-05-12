@@ -10,7 +10,7 @@ namespace GlobalAI.ProductEntities.Dto.GioHang
     public class EditGioHangChiTietDto
     {
         /// <summary>
-        /// Id Sản phẩm chi tiết
+        /// Id Sản phẩm 
         /// </summary>
         [Required(ErrorMessage = "Id sản phẩm không được để trống")]
         public int IdSanPham { get; set; }

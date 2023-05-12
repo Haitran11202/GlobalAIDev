@@ -128,20 +128,19 @@ namespace GlobalAI.ProductRepositories
             {
                 ThrowException(ErrorCode.ProductSpChiTietNotFound);
             }
-            var gioHang = _mapper.Map<GioHang>(newGioHang);
-            
+
             //Kiểm tra thuộc tính giá trị nhập vào tương đương với sản phẩm chi tiết nào 
             for (int i = 0; i < listIdSanPhamChiTiet.Count(); i++)
             {
                 var listThuocTinhGiaTri = _globalAIDbContext.SanPhamChiTietThuocTinhs.Where(spcttt => spcttt.IdSanPhamChiTiet == listIdSanPhamChiTiet[i]).Select(spcttt => spcttt.IdThuocTinhGiaTri).ToList();
                 if (listThuocTinhGiaTri.SequenceEqual(newGioHang.ThuocTinhs))
                 {
-                    gioHang.IdSanPhamChiTiet = listIdSanPhamChiTiet[i];
+                    oldGioHang.IdSanPhamChiTiet = listIdSanPhamChiTiet[i];
                 }
             }
-            gioHang.ModifiedBy = username;
-            gioHang.ModifiedDate = DateTime.Now;
-            _mapper.Map(oldGioHang, newGioHang);
+            _mapper.Map(newGioHang, oldGioHang);
+            oldGioHang.ModifiedBy = username;
+            oldGioHang.ModifiedDate = DateTime.Now;
             return oldGioHang;
         }
         /// <summary>
