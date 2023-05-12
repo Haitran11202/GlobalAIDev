@@ -67,7 +67,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<EditGioHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse EditGioHang([FromRoute]int id,[FromBody] EditGioHangDto newGioHang)
+        public APIResponse EditGioHang([FromRoute]int id,[FromBody] EditGioHangChiTietDto newGioHang)
         {
             try
             {
