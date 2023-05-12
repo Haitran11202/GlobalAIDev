@@ -1,5 +1,5 @@
 <template>
-  <div class="relative h-40">
+  <div class="h-40">
     <ClientOnly>
       <QuillEditor
         toolbar="full"
