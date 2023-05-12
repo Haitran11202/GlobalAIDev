@@ -112,11 +112,15 @@ namespace GlobalAI.ProductDomain.Implements
             //tim tat ca cac nut cha
             var filteredDanhMucBaiTinMap = danhMucBaiTinMap.Where(d => d.ParentId == null).ToList();
 
-            //xu ly cac nut cha
-            foreach (var node in filteredDanhMucBaiTinMap)
+            if(!input.IsParent)
             {
-                node.Children = BuildTree(danhMucBaiTinMap, node.Id, input.ParentId);
+                //xu ly cac nut cha
+                foreach (var node in filteredDanhMucBaiTinMap)
+                {
+                    node.Children = BuildTree(danhMucBaiTinMap, node.Id, input.ParentId);
+                }
             }
+         
 
             return filteredDanhMucBaiTinMap;
         }
