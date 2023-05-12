@@ -78,6 +78,7 @@ namespace GlobalAI.ProductRepositories
             query.ModifiedBy = input.ModifiedBy;
             query.MaDanhMuc = input.MaDanhMuc;
             query.TenDanhMuc = input.TenDanhMuc;
+            query.Thumbnail = input.Thumbnail;
         }
 
     }
