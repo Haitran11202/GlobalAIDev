@@ -20,6 +20,7 @@ export const API_ENDPOINT = {
   getThuocTinhSanPham :(id) => `/api/product/sanpham/san-pham-ct/${id}`,
   //Image
   postImages: "api/filFe/upload?folder=image",
+  postFile: folder => `api/file/upload?folder=${folder}`,
   // Quản lý đơn hàng
   getAllOrder: (pageSize, pageNumber, skip) =>
     `/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
