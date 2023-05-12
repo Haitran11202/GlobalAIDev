@@ -18,7 +18,7 @@ namespace GlobalAI.ProductEntities.Dto.SanPhamChiTiet
         public int IdSanPham { get; set; }
 
        
-        public Dictionary<String, List<AddThuocTinhGiaTriDto>> ThuocTinhs { get; set; }
+        public Dictionary<String, List<ViewThuocTinhGiaTriDto>> ThuocTinhs { get; set; }
 
        
         public int? IdDanhMucThuocTinh { get; set; }

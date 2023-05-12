@@ -369,10 +369,10 @@
                         <h2 class="text-[18px] font-bold">Địa chỉ</h2>
                     </div>
                     <div class="mb-[10px] flex justify-between items-center">
-                        <span>Trương Định , Hà Nội</span>
+                        <span>{{ diaChi }}</span>
                         <span
                             @click="handleShowModalAddress"
-                            class="underline text-blue-400 text-[16px] cursor-pointer"
+                            class="underline text-blue-400 w-[100px] text-[16px] cursor-pointer"
                             >Thay đổi</span
                         >
                     </div>
@@ -419,34 +419,34 @@
                                                             >*</span
                                                         >
                                                     </option>
-                                                    <option value="Hanoi">
+                                                    <option value="Hà Nội">
                                                         Hà Nội
                                                     </option>
-                                                    <option value="Danang">
+                                                    <option value="Đà Nẵng">
                                                         Đà Nẵng
                                                     </option>
-                                                    <option value="Hochiminh">
+                                                    <option value="Hồ chí Minh">
                                                         Hồ Chí Minh
                                                     </option>
-                                                    <option value="Cantho">
+                                                    <option value="Cần Thơ">
                                                         Cần Thơ
                                                     </option>
-                                                    <option value="Haiphong">
+                                                    <option value="Hải Phòng">
                                                         Hải Phòng
                                                     </option>
-                                                    <option value="Binhphuoc">
+                                                    <option value="An Giang">
                                                         An Giang
                                                     </option>
-                                                    <option value="CaMau">
+                                                    <option value="Cà Mau">
                                                         Cà Mau
                                                     </option>
                                                     <option value="Vinh">
                                                         Vinh
                                                     </option>
-                                                    <option value="Caobang">
+                                                    <option value="Cao Bằng">
                                                         Cao Bằng
                                                     </option>
-                                                    <option value="Bentre">
+                                                    <option value=" Bến Tre">
                                                         Bến Tre
                                                     </option>
                                                 </select>
@@ -465,16 +465,16 @@
                                                             >*</span
                                                         >
                                                     </option>
-                                                    <option value="MyDuc">
+                                                    <option value="Mỹ Đức">
                                                         Mỹ Đức
                                                     </option>
-                                                    <option value="DongAnh">
+                                                    <option value="Đông Anh">
                                                         Đông Anh
                                                     </option>
-                                                    <option value="Gialam">
+                                                    <option value="Gia Lâm">
                                                         Gia Lâm
                                                     </option>
-                                                    <option value="HoaiDuc">
+                                                    <option value="Hòai Đức">
                                                         Hòai Đức
                                                     </option>
                                                 </select>
@@ -491,16 +491,16 @@
                                                         >*</span
                                                     >
                                                 </option>
-                                                <option value="MyDuc">
+                                                <option value="Hương Sơn">
                                                     Hương Sơn
                                                 </option>
-                                                <option value="DangXa">
+                                                <option value="Đặng Xá">
                                                     Đặng Xá
                                                 </option>
-                                                <option value="DinhXuyen">
+                                                <option value="Đình Xuyên">
                                                     Đình Xuyên
                                                 </option>
-                                                <option value="Phuthi">
+                                                <option value="Phú Thị">
                                                     Phú Thị
                                                 </option>
                                             </select>
@@ -830,6 +830,9 @@ import { getGioHang } from "~~/composables/useApiProduct";
 import { toast } from "vue3-toastify";
 import { useCartStorage } from "~~/stores/giohang";
 import { useRouter } from "vue-router";
+import jwtDecode from "jwt-decode";
+import { useUserStorage } from "~~/stores/user";
+
 const router = useRouter();
 // const router = useRouter();
 definePageMeta({
@@ -858,7 +861,8 @@ const idDelete = ref("");
 const diaChi = ref("");
 const thongTinNguoiMua = ref("");
 const uniIdGstore = ref([]);
-
+const userInfor = useUserStorage();
+const accessToken = userInfor.$state.accessToken;
 //body call api tạo đơn hàng full
 const bodyData = ref({
     donHang: {
@@ -901,10 +905,16 @@ onMounted(async () => {
         const res2 = await getGioHang();
         datas.value = res2?.data?.gioHang;
         console.log(datas.value);
+        diaChi.value = "112, Trương định, Hà Nội";
     } catch (error) {
         console.log(error);
     }
+    getUserInfor();
 });
+const getUserInfor = () => {
+    var address = jwtDecode(accessToken);
+    console.log(address);
+};
 //lấy số lượng theo sản phẩm
 const getCartItemQuantity = (id, soLuongNew = 0) => {
     const item = datas.value.find((item) => item.idSanPham === id);

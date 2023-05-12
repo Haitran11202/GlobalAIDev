@@ -29,7 +29,6 @@ using GlobalAI.ProductEntities.Dto.DanhMuc;
 using GlobalAI.ProductEntities.Dto.ChiTietTraGia;
 using GlobalAI.ProductEntities.Dto.TraGia;
 using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
-using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 using GlobalAI.ProductEntities.Dto.ThuocTinh;
 using GlobalAI.ProductEntities.Dto.ThuocTinhGiaTri;
 
@@ -158,12 +157,12 @@ namespace GlobalAI.ProductDomain.Implements
                 Thumbnail = sanPham.Thumbnail,
             };
             
-            var dict = new Dictionary<String, List<AddThuocTinhGiaTriDto>>();
+            var dict = new Dictionary<String, List<ViewThuocTinhGiaTriDto>>();
             var listDanhMucThuocTinhs = _thuocTinhRepository.FindByIdDanhMucThuocTinh(sanPham.IdDanhMucThuocTinh);
             for (int i = 0; i < listDanhMucThuocTinhs.Count; i++)
             {
                 var giatritt = _thuocTinhRepository.FindGiaTriByIdThuocTinh(listDanhMucThuocTinhs[i].Id);
-                dict.Add(_mapper.Map<GetThuocTinhDto>(listDanhMucThuocTinhs[i]).TenThuocTinh, _mapper.Map<List<AddThuocTinhGiaTriDto>>(giatritt));
+                dict.Add(_mapper.Map<GetThuocTinhDto>(listDanhMucThuocTinhs[i]).TenThuocTinh, _mapper.Map<List<ViewThuocTinhGiaTriDto>>(giatritt));
             }
             GetSanPhamChiTiet.ThuocTinhs = dict;
             return GetSanPhamChiTiet;
