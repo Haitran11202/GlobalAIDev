@@ -144,4 +144,6 @@ export const API_ENDPOINT = {
     `/api/product/tra-gia/FindTraGiaBySanPham?idSanPham=${idSanPham}`,
   getDanhMucThuocTinhById: id => `api/product/danh-muc-thuoc-tinh/${id}`,
   getListDanhMucThuocTinh: 'api/product/danh-muc-thuoc-tinh?pageSize=100&pageNumber=1',
+  getSanPhamAdminById: id => `api/product/sanpham/admin/${id}`,
+  addSanPhamChiTiet: `api/product/san-pham-chi-tiet`,
 };
