@@ -105,6 +105,8 @@ export const API_ENDPOINT = {
   // Danh mục bài tin
   getAllPostCategoryPhanTran: (pageSize, pageNumber, skip) =>
     `/api/product/danh-muc-bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
+
+  getDanhBaiTinMucNoiBat: () => `/api/product/danh-muc-bai-tin/find-all?isParent=true&pageSize=-1`,
   
   getAllPostCategoryTree: ()=> `/api/product/danh-muc-bai-tin/find-all-trees`,
 

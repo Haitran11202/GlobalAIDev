@@ -17,6 +17,19 @@ export const getAllPostCategoryPhanTran = async (
     return Promise.reject(err);
   }
 };
+
+// Lấy tất cả danh mục bài tin và phân trang
+export const getDanhBaiTinMucNoiBat = async (
+) => {
+  try {
+    const response = await http.get(
+      API_ENDPOINT.getDanhBaiTinMucNoiBat()
+    );
+    return Promise.resolve(response.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
 //
 export const getAllPostCategoryTree = async () => {
   try {

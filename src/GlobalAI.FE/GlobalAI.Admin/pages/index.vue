@@ -281,7 +281,7 @@
                     <img
                       alt="..."
                       class="align-middle border-none max-w-full h-[320px] shadow-md rounded-lg w-full"
-                      :src="item.thumbnail"
+                      :src="`${baseUrl}/${item.thumbnail}`"
                     />
                   </div>
                 </nuxt-link>
@@ -362,6 +362,8 @@ import imgTietKiem from "../assets/img/Home/tiet-kiem.png";
 import imgMoRongThiTruong from "../assets/img/Home/mo-rong-thi-truong.png";
 import imgShopping from "../assets/img/Home/dang-nhap-san-thuong-mai-dien-tu.png";
 
+const config = useRuntimeConfig();
+const baseUrl = config.public.apiEndpoint;
 
 const baitin = ref([]);
 const danhmucbaitin = ref([]);
@@ -369,20 +371,19 @@ const pageSize = 3;
 const pageNumber = 1;
 const skip = 0;
 
+
 onMounted(() => {
   getBaiTinPhanTrang(pageSize, pageNumber, skip)
     .then((response) => {
       baitin.value = response.data.items;
-      console.log('1111',baitin.value)
     })
     .catch((err) => {
       console.error(err);
     });
 
-    getAllPostCategoryPhanTran(pageSize, pageNumber, skip)
+    getDanhBaiTinMucNoiBat()
     .then((response) => {
       danhmucbaitin.value = response.data.items.reverse();
-      console.log('dsadsa',danhmucbaitin.value)
     })
     .catch((err) => {
       console.error(err);
