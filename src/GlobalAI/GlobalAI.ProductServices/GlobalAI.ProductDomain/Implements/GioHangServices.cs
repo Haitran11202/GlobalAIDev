@@ -71,17 +71,19 @@ namespace GlobalAI.ProductDomain.Implements
 
         public GioHang DeleteGiohang(int idGioHang)
         {
-            var result = _repositoryGioHang.DeleteGioHang(idGioHang);
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+            var result = _repositoryGioHang.DeleteGioHang(idGioHang, username);
             _dbContext.SaveChanges();
             return result;
         }
 
-        public GioHang EditGiohang(int idGiohang, EditGioHangDto newGioHang)
+        public GioHang EditGiohang(int idGiohang, EditGioHangChiTietDto newGioHang)
         {
             var gioHang = _repositoryGioHang.FindGioHang(idGiohang);
-            if(gioHang != null)
+            var username = CommonUtils.GetCurrentUsername(_httpContext);
+            if (gioHang != null)
             {
-                _repositoryGioHang.EditGioHang(gioHang, newGioHang);
+                _repositoryGioHang.EditGioHang(gioHang, newGioHang, username);
                 _dbContext.SaveChanges();
             }
             return gioHang;
@@ -96,11 +98,12 @@ namespace GlobalAI.ProductDomain.Implements
         {
             var userId = CommonUtils.GetCurrentUserId(_httpContext);
             var gioHangs = _repositoryGioHang.GetSanPhamByNguoiMua(userId);
+
+            //Xử lý từng sản phẩm trong giỏ hàng
             var sanPhams = new List<GetSanPhamChiTietGioHangDto>();
             foreach (var giohang in gioHangs)
             {
                 var sanPham = _sanPhamRepository.FindByIdSanPham(giohang.IdSanPham);
-                
                 var sanPhamChiTietGioHang = new GetSanPhamChiTietGioHangDto()
                 {
                     IdSanPham = giohang.IdSanPham,
@@ -110,8 +113,10 @@ namespace GlobalAI.ProductDomain.Implements
                     GiaChietKhau = sanPham.GiaChietKhau,
                     GiaToiThieu = sanPham.GiaToiThieu,
                     Thumbnail = sanPham.Thumbnail, 
-                    SoLuong = giohang.SoLuong
+                    SoLuong = giohang.SoLuong,
+                    IdGStore = sanPham.IdGStore
                 };
+                // Xử lý lấy ra thuộc tính của sản phẩm 
                 var dict = new Dictionary<String, AddThuocTinhGiaTriDto>();
                 var listDanhMucThuocTinhs = _thuocTinhRepository.FindByIdDanhMucThuocTinh(sanPham.IdDanhMucThuocTinh);
                 var listIdThuocTinhGiaTris = giohang.IdThuocTinhs.ToList();
