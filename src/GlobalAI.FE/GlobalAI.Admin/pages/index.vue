@@ -387,7 +387,7 @@ onMounted(() => {
       console.error(err);
     });
 
-    getAllPostCategoryPhanTran(pageSize, pageNumber, skip)
+    getAllPostCategoryPhanTran(pageSize, pageNumber, skip,false)
     .then((response) => {
       danhmucbaitin.value = response.data.items.reverse();
       console.log('dsadsa',danhmucbaitin.value)
