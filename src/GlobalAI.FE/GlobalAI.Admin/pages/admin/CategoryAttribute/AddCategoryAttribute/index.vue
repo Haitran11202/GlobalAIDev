@@ -91,7 +91,7 @@ definePageMeta({
 import { ref } from "vue";
 import { postDanhMucThuocTinhSanPham } from "~~/composables/useApiCategoryAttribute";
 import { useRouter } from "vue-router";
-
+const { $toast } = useNuxtApp();
 const router = useRouter();
 
 const grListThuocTinhs = ref([
@@ -118,9 +118,14 @@ const handlePostDanhMucThuocTinhSanPham = () => {
   postDanhMucThuocTinhSanPham(dmAttData)
     .then((response) => {
       console.log(response);
+      router.push("/admin/categoryattribute");
+      $toast.success("Thêm danh mục thuộc tính sản phẩm thành công");
     })
     .catch((error) => {
       console.error(error);
+      $toast.error(
+        "Thêm danh mục thuộc tính sản phẩm thất bại. Vui lòng thử lại!"
+      );
     });
 };
 
