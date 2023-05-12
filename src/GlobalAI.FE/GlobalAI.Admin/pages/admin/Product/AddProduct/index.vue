@@ -1,6 +1,6 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <form class="m-auto shadow-2xl p-12">
+    <div class="m-auto shadow-2xl p-12">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
           <label for="maSanPham" class="block uppercase text-slate-600 text-xs font-bold mb-2">
@@ -151,22 +151,18 @@
           <span class="flex">Quay về</span>
         </button>
       </div>
-      <!--  -->
-    </form>
+    </div>
   </div>
 </template>
 
 <script setup>
 import axios from "axios";
-import Vue3Toastify, { toast } from "vue3-toastify";
-import "vue3-toastify/dist/index.css";
 import { postProduct } from "~~/composables/useApiProduct";
 import { ref } from "vue";
 import NumberInput from "~~/components/Input/NumberInput.vue";
 import TextEditor from "~~/components/TextEditor/TextEditor.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-import { ROUTES } from "~~/lib/routeConfig";
 definePageMeta({
   layout: "admin",
 });
@@ -198,6 +194,7 @@ const listChiTietSp = ref([{
 
 const router = useRouter();
 const config = useRuntimeConfig();
+const { $toast } = useNuxtApp();
 const baseUrl = config.public.apiEndpoint;
 
 //Lấy danh mục sản phẩm
@@ -295,12 +292,16 @@ const handlePostProduct = () => {
   };
 
   postProduct(productData)
-    .then((response) => {
-      toast.success("Thêm sản phẩm thành công");
-      router.push('/admin/product');
+    .then((res) => {
+      if (res?.data.status === 200) {
+        $toast.success("Thêm sản phẩm thành công");
+        router.push('/admin/product');
+      }
     })
-    .catch((error) => {
-      toast.error("Thêm sản phẩm thất bại. Vui lòng thử lại!");
+    .catch((err) => {
+      const msg =
+        err?.response?.data?.message || "Có sự cố xảy ra khi thêm sản phẩm";
+      $toast.error(msg);
     });
 }
 
