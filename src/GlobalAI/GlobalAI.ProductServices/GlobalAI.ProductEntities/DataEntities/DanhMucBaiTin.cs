@@ -48,6 +48,13 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(ParentId))]
         public int? ParentId { get; set; }
 
+        /// <summary>
+        /// Thumbnail
+        /// </summary>
+        [ColumnSnackCase(nameof(Thumbnail), TypeName = "VARCHAR2")]
+        [MaxLength(500)]
+        public string Thumbnail { get; set; }
+
         #region audit
         [MaxLength(50)]
         [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]
