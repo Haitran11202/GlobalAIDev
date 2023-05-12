@@ -53,8 +53,7 @@
                   alt=""
                 />
                 <span class="mt-[10px] text-[16px] text-[#6c757d]"
-                  >SL : {{ getCartItemQuantity(sanpham.idSanPham
-) }}</span
+                  >SL : {{ getCartItemQuantity(sanpham.idSanPham) }}</span
                 >
               </div>
             </div>
@@ -71,7 +70,9 @@
                   :key="index"
                   class="flex items-center gap-[5px]"
                 >
-                  <span class="text-[#6C757D]">{{ sanpham.thuocTinhs[key].giaTri }}</span>
+                  <span class="text-[#6C757D]">{{
+                    sanpham.thuocTinhs[key].giaTri
+                  }}</span>
                   <span
                     class="w-[5px] text-black"
                     v-if="index !== Object.keys(sanpham.thuocTinhs).length - 1"
@@ -83,7 +84,10 @@
                 >Tổng giá :
                 {{
                   formatMoneyAll(
-                    getPrice(getCartItemQuantity(sanpham.idSanPham), sanpham.giaBan),
+                    getPrice(
+                      getCartItemQuantity(sanpham.idSanPham),
+                      sanpham.giaBan,
+                    ),
                   )
                 }}
               </span>
@@ -145,20 +149,24 @@
                       {{ sanpham.tenSanPham }}
                     </h1>
                     <div class="flex items-center gap-[10px]">
-                <h2>Phân loại :</h2>
-                <div
-                  v-for="(key, index) in Object.keys(sanpham.thuocTinhs)"
-                  :key="index"
-                  class="flex items-center gap-[5px]"
-                >
-                  <span class="text-[#6C757D]">{{ sanpham.thuocTinhs[key].giaTri }}</span>
-                  <span
-                    class="w-[5px] text-black"
-                    v-if="index !== Object.keys(sanpham.thuocTinhs).length - 1"
-                    >-</span
-                  >
-                </div>
-              </div>
+                      <h2>Phân loại :</h2>
+                      <div
+                        v-for="(key, index) in Object.keys(sanpham.thuocTinhs)"
+                        :key="index"
+                        class="flex items-center gap-[5px]"
+                      >
+                        <span class="text-[#6C757D]">{{
+                          sanpham.thuocTinhs[key].giaTri
+                        }}</span>
+                        <span
+                          class="w-[5px] text-black"
+                          v-if="
+                            index !== Object.keys(sanpham.thuocTinhs).length - 1
+                          "
+                          >-</span
+                        >
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div
@@ -585,6 +593,7 @@
                                 <th class="py-[20px]">Sản Phẩm</th>
                                 <th>Đơn giá</th>
                                 <th>Số Lượng</th>
+                                <th>Phân Loại</th>
                                 <th>Thành Tiền</th>
                               </tr>
                             </thead>
@@ -615,6 +624,27 @@
                                 </td>
                                 <td>
                                   {{ ct.soLuong }}
+                                </td>
+                                <td>
+                                  <div
+                                    v-for="(key, index) in Object.keys(
+                                      ct.phanLoai,
+                                    )"
+                                    :key="index"
+                                    class="flex items-center gap-[5px]"
+                                  >
+                                    <span class="text-[#6C757D]">{{
+                                      ct.phanLoai[key].giaTri
+                                    }}</span>
+                                    <span
+                                      class="w-[5px] text-black"
+                                      v-if="
+                                        index !==
+                                        Object.keys(ct.phanLoai).length - 1
+                                      "
+                                      >-</span
+                                    >
+                                  </div>
                                 </td>
                                 <td>
                                   {{ formatMoneyAll(ct.thanhTien) }}
@@ -688,7 +718,7 @@ const idDelete = ref("");
 const diaChi = ref("");
 const thongTinNguoiMua = ref("");
 const uniIdGstore = ref([]);
-const idAttr = ref([])
+const idAttr = ref([]);
 
 //body call api tạo đơn hàng full
 const bodyData = ref({
@@ -796,12 +826,12 @@ const checkAllGioHang = () => {
 };
 //lấy giá bán từ id của sản phẩm
 const getGiaBanTuIdSanPham = (idSanPham) => {
-  const product = products.value.find((item) => item.id === idSanPham);
+  const product = products.value.find((item) => item.idSanPham === idSanPham);
   return product ? product.giaBan : 0;
 };
 //lấy giá chiết khấu từ id sản phẩm
 const getGiaChietKhauTuIdSanPham = (idSanPham) => {
-  const product = products.value.find((item) => item.id === idSanPham);
+  const product = products.value.find((item) => item.idSanPham === idSanPham);
   return product ? product.giaChietKhau : 0;
 };
 //xóa giỏ hàng khi click vào icon thùng rác
@@ -837,6 +867,7 @@ const totalPrice = computed(() => {
       let giaChietKhau = getGiaChietKhauTuIdSanPham(item.idSanPham);
       sum += getPrice(item.soLuong, giaBan);
       chietKhau += getPrice(item.soLuong, giaChietKhau);
+      console.log(chietKhau);
       tongThanhToan = sum - chietKhau;
     }
   });
@@ -865,6 +896,7 @@ const checkOut = () => {
     console.log(idSp);
     var chiTiet = products.value.find((p) => p.idSanPham == idSp);
     console.log(chiTiet);
+    console.log(chiTiet.idGStore);
     arrGstore.push(chiTiet.idGStore);
     console.log(arrGstore);
   });
@@ -876,22 +908,23 @@ const checkOut = () => {
   uniqueGstores.forEach((idGStore) => {
     const filterdProducts = selectedProducts.value.filter((idsp) => {
       console.log(idsp);
-      const product = products.value.find((p) => p.id == idsp);
+      const product = products.value.find((p) => p.idSanPham == idsp);
       console.log(product);
       return product.idGStore == idGStore;
     });
 
     // create chi tiet don hang for products with matching idGStore
     const chiTietDonHangFullDtos = filterdProducts.map((idSp) => {
-      const chiTiet = products.value.find((p) => p.id == idSp);
+      const chiTiet = products.value.find((p) => p.idSanPham == idSp);
       console.log(chiTiet);
       console.log(idSp);
 
       return {
-        idSanPham: chiTiet.id,
+        idSanPham: chiTiet.idSanPham,
         tenSanPham: chiTiet.tenSanPham,
         thumbnail: chiTiet.thumbnail,
         soLuong: getCartItemQuantity(idSp),
+        phanLoai: chiTiet.thuocTinhs,
         donGia: chiTiet.giaChietKhau,
         thanhTien: getCartItemQuantity(idSp) * chiTiet.giaChietKhau,
       };
@@ -917,17 +950,17 @@ const checkOut = () => {
 const dathang = () => {
   uniIdGstore.value.forEach((idGStore) => {
     const filterdProducts = selectedProducts.value.filter((idsp) => {
-      const product = products.value.find((p) => p.id == idsp);
+      const product = products.value.find((p) => p.idSanPham == idsp);
       return product.idGStore == idGStore;
     });
 
     // create chi tiet don hang for products with matching idGStore
     const chiTietDonHangFullDtos = filterdProducts.map((idSp) => {
-      const chiTiet = products.value.find((p) => p.id == idSp);
+      const chiTiet = products.value.find((p) => p.idSanPham == idSp);
       console.log(chiTiet);
 
       return {
-        idSanPham: chiTiet.id,
+        idSanPham: chiTiet.idSanPham,
         soLuong: getCartItemQuantity(idSp),
       };
     });
@@ -949,7 +982,7 @@ const dathang = () => {
         toast.success("Tạo đơn hàng thành công");
         // xóa sản phẩm trong giỏ hàng khi thêm đơn hàng thành công
         sendBody.chiTietDonHangFullDtos.map((ct) => {
-          console.log(ct.idSanPham);
+          console.log(ct);
           deleteGh(ct.idSanPham);
         });
       })
@@ -965,7 +998,7 @@ const handleUpdateProduct = (id, soLuong, giaBanModal) => {
   isShowModalOpacity.value = true;
   soLuongUpdate.value = soLuong;
   giaBan.value = giaBanModal;
-  const item = datas.value.find((item) => item.idSanPham === id)
+  const item = datas.value.find((item) => item.idSanPham === id);
   idAttr.value = item.idThuocTinhs;
   console.log(idAttr.value);
 };
@@ -973,11 +1006,11 @@ const handleUpdateNewProductCart = (id) => {
   console.log(id);
   const item = datas.value.find((item) => item.idSanPham === id);
   console.log(item);
-      isShowModalOpacity.value = false;
-      item.soLuong = soLuongUpdate.value;
-      console.log(soLuongUpdate.value);
-      isShowModelCart.value = "";
-      getPrice(getCartItemQuantity(id, item.soLuong), giaBan.value);
+  isShowModalOpacity.value = false;
+  item.soLuong = soLuongUpdate.value;
+  console.log(soLuongUpdate.value);
+  isShowModelCart.value = "";
+  getPrice(getCartItemQuantity(id, item.soLuong), giaBan.value);
 };
 const handleModalDelete = (id) => {
   idDelete.value = id;
