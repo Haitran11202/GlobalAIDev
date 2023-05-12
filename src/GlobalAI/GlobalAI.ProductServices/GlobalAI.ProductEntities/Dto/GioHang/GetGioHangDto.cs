@@ -20,7 +20,10 @@ namespace GlobalAI.ProductEntities.Dto.GioHang
         /// (Lấy giá trị từ id trong bảng user)
         /// </summary>
         public int IdNguoiMua { get; set; }
-        
+        /// <summary>
+        /// Id Gstore
+        /// </summary>
+        public int IdGStore { get; set; }
         /// <summary>
         /// Id Sản phẩm (Có thể trùng nhau)
         /// </summary>

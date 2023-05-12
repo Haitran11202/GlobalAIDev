@@ -13,7 +13,7 @@ namespace GlobalAI.ProductDomain.Interfaces
     {
         public GetFullGioHangDto GetGiohang();
         public GioHang CreateGiohang(AddGioHangChiTietDto input);
-        public GioHang EditGiohang(int idGioHang, EditGioHangDto newGioHang);
+        public GioHang EditGiohang(int idGioHang, EditGioHangChiTietDto newGioHang);
         public GioHang DeleteGiohang(int idGioHang);
         public List<GetSanPhamChiTietGioHangDto> getSanPhamTheoNguoiMua();
         public GetGioHangDto GetGioHangTheoIdSanPham(int idSanPham);

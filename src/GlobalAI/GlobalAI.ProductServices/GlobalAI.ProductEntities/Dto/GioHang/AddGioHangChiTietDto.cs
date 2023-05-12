@@ -16,14 +16,18 @@ namespace GlobalAI.ProductEntities.Dto.GioHang
         /// <summary>
         /// Id Sản phẩm
         /// </summary>
-        public int? IdSanPham { get; set; }
+        [Required(ErrorMessage ="ID sản phẩm không được để trống")]
+        public int IdSanPham { get; set; }
         /// <summary>
         /// List id thuộc tính
         /// </summary>
+        [Required(ErrorMessage ="List ID Thuộc tính sản phẩm không được để trống")]
         public List<int> ThuocTinhs { get; set; }
         /// <summary>
         /// Số lượng sp
         /// </summary>
+        [Required(ErrorMessage = "Số lượng sản phẩm không được để trống")]
+        [Range(0, int.MaxValue)]
         public int SoLuong { get; set; }
 
         /// <summary>

@@ -54,21 +54,41 @@ namespace GlobalAI.ProductRepositories
         public GioHang AddGioHang(AddGioHangChiTietDto dto, int idNguoiMua, string username)
         {
             _logger.LogInformation($"{nameof(GioHangRepository)} -> {nameof(AddGioHang)} : GioHang = {JsonSerializer.Serialize(dto)}, idNguoiMua = {idNguoiMua}");
-            var listIdSanPhamChiTiet = _globalAIDbContext.SanPhamChiTiets.Where(spct => spct.IdSanPham == dto.IdSanPham).Select(spct => spct.Id).ToList();
-            var addGioHangDto = new AddGioHangDto() 
+            var addGioHangDto = new AddGioHangDto()
             {
                 IdSanPham = dto.IdSanPham,
                 SoLuong = dto.SoLuong,
                 Status = dto.Status,
             };
-            for (int i = 0; i < listIdSanPhamChiTiet.Count(); i ++)
+            //Kiểm tra sản phẩm nhập vào có thuộc tính không
+            if (dto.ThuocTinhs.Count() == 0)
             {
-                var listThuocTinhGiaTri = _globalAIDbContext.SanPhamChiTietThuocTinhs.Where(spcttt => spcttt.IdSanPhamChiTiet == listIdSanPhamChiTiet[i]).Select(spcttt => spcttt.IdThuocTinhGiaTri).ToList();
-                if(listThuocTinhGiaTri.SequenceEqual(dto.ThuocTinhs))
+                addGioHangDto.IdSanPhamChiTiet = _globalAIDbContext.SanPhamChiTiets.FirstOrDefault(spct => spct.IdSanPham == spct.IdSanPham).Id;
+            }
+            else
+            {
+                // Lấy ra list id sản phẩm chi tiết của sản phẩm 
+                var listIdSanPhamChiTiet = _globalAIDbContext.SanPhamChiTiets.Where(spct => spct.IdSanPham == dto.IdSanPham).Select(spct => spct.Id).ToList();
+
+                //Kiểm tra thuộc tính giá trị nhập vào tương đương với sản phẩm chi tiết nào 
+                for (int i = 0; i < listIdSanPhamChiTiet.Count(); i++)
                 {
-                    addGioHangDto.IdSanPhamChiTiet = listIdSanPhamChiTiet[i];
-                }    
-            }    
+                    var listThuocTinhGiaTri = _globalAIDbContext.SanPhamChiTietThuocTinhs.Where(spcttt => spcttt.IdSanPhamChiTiet == listIdSanPhamChiTiet[i]).Select(spcttt => spcttt.IdThuocTinhGiaTri).ToList();
+                    //So sánh giá trị thuộc tính nhập có tương đương với sản phẩm chi tiết 
+                    if (listThuocTinhGiaTri.SequenceEqual(dto.ThuocTinhs))
+                    {
+                        addGioHangDto.IdSanPhamChiTiet = listIdSanPhamChiTiet[i];
+                    }
+
+                }
+            }
+            //Kiểm tra sản phẩm chi tiết có tồn tại không 
+            if (addGioHangDto.IdSanPhamChiTiet == null)
+            {
+                ThrowException(ErrorCode.ProductSpChiTietNotFound);
+            }
+
+            //Add sản phẩm 
             var item = _dbSet.FirstOrDefault(g => g.IdSanPhamChiTiet == addGioHangDto.IdSanPhamChiTiet && !g.Deleted && g.IdNguoiMua == idNguoiMua);
             if (item != null)
             {
@@ -84,6 +104,7 @@ namespace GlobalAI.ProductRepositories
             }
             return _mapper.Map<GioHang>(addGioHangDto);
         }
+
         /// <summary>
         /// Tìm sản phẩm cần sửa, xóa
         /// </summary>
@@ -105,10 +126,38 @@ namespace GlobalAI.ProductRepositories
         /// <param name="oldGioHang"></param>
         /// <param name="newGioHang"></param>
         /// <returns></returns>
-        public GioHang EditGioHang(GioHang oldGioHang, EditGioHangDto newGioHang)
+        public GioHang EditGioHang(GioHang oldGioHang, EditGioHangChiTietDto newGioHang, string username)
         {
             _logger.LogInformation($"{nameof(GioHangRepository)}->{nameof(EditGioHang)}: oldGioHang = {JsonSerializer.Serialize(oldGioHang)}, newGiohang = {JsonSerializer.Serialize(newGioHang)}");
+            //Kiểm tra sản phẩm nhập vào có thuộc tính không
+            if (newGioHang.ThuocTinhs.Count() == 0)
+            {
+                oldGioHang.IdSanPhamChiTiet = _globalAIDbContext.SanPhamChiTiets.FirstOrDefault(spct => spct.IdSanPham == spct.IdSanPham).Id;
+            }
+            else
+            {
+                // Lấy ra list id sản phẩm chi tiết của sản phẩm 
+                var listIdSanPhamChiTiet = _globalAIDbContext.SanPhamChiTiets.Where(spct => spct.IdSanPham == newGioHang.IdSanPham).Select(spct => spct.Id).ToList();
+
+                //Kiểm tra thuộc tính giá trị nhập vào tương đương với sản phẩm chi tiết nào 
+                for (int i = 0; i < listIdSanPhamChiTiet.Count(); i++)
+                {
+                    var listThuocTinhGiaTri = _globalAIDbContext.SanPhamChiTietThuocTinhs.Where(spcttt => spcttt.IdSanPhamChiTiet == listIdSanPhamChiTiet[i]).Select(spcttt => spcttt.IdThuocTinhGiaTri).ToList();
+                    if (listThuocTinhGiaTri.SequenceEqual(newGioHang.ThuocTinhs))
+                    {
+                        oldGioHang.IdSanPhamChiTiet = listIdSanPhamChiTiet[i];
+                    }
+                }
+            }
+            //Kiểm tra sản phẩm chi tiết có tồn tại không 
+            if (oldGioHang.IdSanPhamChiTiet == null)
+            {
+                ThrowException(ErrorCode.ProductSpChiTietNotFound);
+            }
+        
             _mapper.Map(newGioHang, oldGioHang);
+            oldGioHang.ModifiedBy = username;
+            oldGioHang.ModifiedDate = DateTime.Now;
             return oldGioHang;
         }
         /// <summary>
@@ -116,10 +165,12 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="idGioHang"></param>
         /// <returns></returns>
-        public GioHang DeleteGioHang( int idGioHang)
+        public GioHang DeleteGioHang( int idGioHang, string username)
         {
             _logger.LogInformation($"{nameof(GioHangRepository)}->{nameof(DeleteGioHang)}: idGioHang = {idGioHang}");
             var sanPhamXoa = FindGioHang(idGioHang);
+            sanPhamXoa.DeletedBy = username;    
+            sanPhamXoa.DeletedDate = DateTime.Now;
             if (sanPhamXoa != null)
             {
                 sanPhamXoa.Deleted = true;
@@ -137,6 +188,8 @@ namespace GlobalAI.ProductRepositories
             _logger.LogInformation($"{nameof(GioHangRepository)} -> {nameof(GetSanPhamByNguoiMua)}: idNguoiMua = {idNguoiMua}");
             var gioHangs = _dbSet.Where(gh => gh.IdNguoiMua == idNguoiMua && !gh.Deleted).ToList();
             var result = _mapper.Map<List<GetGioHangDto>>(gioHangs);
+
+            //lấy ra listid thuộc tình của sản phẩm
             foreach(var gioHang in result)
             {
                 gioHang.IdThuocTinhs = _globalAIDbContext.SanPhamChiTietThuocTinhs.Where(spcttt => spcttt.IdSanPhamChiTiet == gioHang.IdSanPhamChiTiet)
