@@ -317,6 +317,7 @@ watchEffect(() => {
   console.log(productId.value);
   getSanPhamById(productId.value)
     .then((res) => {
+      console.log(res);
       products.value = res?.data?.data;
       console.log(products.value);
       imagelink.value = getImageUrl(products.value.thumbnail);
