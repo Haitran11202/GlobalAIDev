@@ -11,14 +11,14 @@
         >
           <div>
             <img
-              src="https://media.sellycdn.net/files/md_2023_05_08_06_59_38_0700_rdyChyMUmK.jpg"
+              :src="imgAdvise"
               class="object-cover rounded-2xl"
               alt=""
             />
           </div>
           <div>
             <img
-              src="https://media.sellycdn.net/files/md_2023_02_06_11_46_07_0700_jThfOpROmt.jpg"
+              :src="imgComunity"
               class="object-cover rounded-2xl"
               alt=""
             />
@@ -27,7 +27,8 @@
       </div>
 </template>
 <script setup>
-
+import imgAdvise from "~~/assets/img/Home/cong-dong-ban-hang.jpg"
+import imgComunity from "~~/assets/img/Home/tham-gia-cong-dong.jpg"
 </script>
 <style >
     

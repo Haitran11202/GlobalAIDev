@@ -280,5 +280,31 @@ namespace GlobalAI.ProductDomain.Implements
             }
             return null;
         }
+
+        /// <summary>
+        /// Get sp cho admin/gstore theo sp id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ViewAdminSanPhamDto GetAdminSanPhamById(int id)
+        {
+            _logger.LogInformation($"{nameof(GetAdminSanPhamById)}: id={id}");
+
+            var sp = _sanPhamRepository.FindByIdSanPham(id);
+            var result = _mapper.Map<ViewAdminSanPhamDto>(sp);
+
+            var queryListSpChiTiet = _sanPhamChiTietRepository.GetListByIdSanPham(id);
+            var listSpChiTiet = _mapper.Map<List<ViewSanPhamChiTietDto>>(queryListSpChiTiet);
+
+            if (listSpChiTiet.Count > 0)
+            {
+                foreach (var spChiTiet in listSpChiTiet)
+                {
+                    spChiTiet.ListThuocTinh = _sanPhamChiTietRepository.GetListThuocTinhByIdSanPhamChiTiet(spChiTiet.Id);
+                }
+            }
+            result.ListSanPhamChiTiet = listSpChiTiet;
+            return result;
+        }
     }
 }

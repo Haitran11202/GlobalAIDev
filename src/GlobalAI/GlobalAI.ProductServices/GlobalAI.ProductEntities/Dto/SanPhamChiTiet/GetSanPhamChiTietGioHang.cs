@@ -1,5 +1,5 @@
-
-﻿using GlobalAI.ProductEntities.DataEntities;
+﻿
+using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.ThuocTinh;
 using GlobalAI.ProductEntities.Dto.ThuocTinhGiaTri;
 using System;
@@ -11,20 +11,14 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.ProductEntities.Dto.SanPhamChiTiet
 {
-    public class GetSanPhamChiTietDto
+    public class GetSanPhamChiTietGioHangDto
     {
 
         private string _moTa;
-
-        
-        public int IdSanPham { get; set; }
-
-       
-        public Dictionary<String, List<ViewThuocTinhGiaTriDto>> ThuocTinhs { get; set; }
-
-       
+        public int? IdSanPham { get; set; }
+        public string TenSanPham { get; set; }
+        public Dictionary<String, AddThuocTinhGiaTriDto> ThuocTinhs { get; set; }
         public int? IdDanhMucThuocTinh { get; set; }
-
         public int SoLuong { get; set; }
         public string MoTa { get => _moTa; set => _moTa = value?.Trim(); }
         public decimal? GiaBan { get; set; }

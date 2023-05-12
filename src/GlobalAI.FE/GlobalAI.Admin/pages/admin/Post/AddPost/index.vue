@@ -25,22 +25,23 @@
         </div>
         <!-- <div class="col-span-1">
           <label
-            for="idDanhMuc"
+            for="parrentId"
             class="block uppercase text-slate-600 text-xs font-bold mb-2"
             >Danh mục</label
           >
           <select
             v-model="idDanhMuc"
             id="idDanhMuc"
-            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            required
+            class="block px-3 py-3 w-full p-2 mb-6 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            required 
           >
             <option value="">-- Lựa chọn danh mục --</option>
             <option
               v-for="danhmuc in danhmucsp"
               :value="danhmuc.id"
               :key="danhmuc.id"
-            >
+             >
+             <span v-if = "danhmuc.parentId !== null" >--</span>
               {{ danhmuc.tenDanhMuc }}
             </option>
           </select>
@@ -264,7 +265,30 @@ onMounted(() => {
     .catch((error) => {
       console.log(error);
     });
+
+    getAllPostCategoryTree()
+    .then((response) => {
+      danhmucsp.value = flattenData(response.data);
+      console.log('danhmuc',danhmucsp.value)
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
+
+function flattenData(data) {
+  let flattenedData = [];
+  let level = 0;
+  data.forEach((item) => {
+    flattenedData.push(item);
+    if (item.children && item.children.length > 0) {
+      const children = flattenData(item.children);
+      flattenedData = flattenedData.concat(children);
+    }
+  });
+
+  return flattenedData;
+}
 </script>
 
 <style>

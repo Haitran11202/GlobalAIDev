@@ -11,32 +11,23 @@ using System.Threading.Tasks;
 
 namespace GlobalAI.ProductEntities.Dto.GioHang
 {
-    public class GetGioHangDto
+    public class AddGioHangChiTietDto
     {
-        public int Id { get; set; }
-
         /// <summary>
-        /// Id Người mua (Vì gstore và gsaler đều có thể mua hàng)
-        /// (Lấy giá trị từ id trong bảng user)
+        /// Id Sản phẩm
         /// </summary>
-        public int IdNguoiMua { get; set; }
-        
-        /// <summary>
-        /// Id Sản phẩm (Có thể trùng nhau)
-        /// </summary>
+        [Required(ErrorMessage ="ID sản phẩm không được để trống")]
         public int IdSanPham { get; set; }
         /// <summary>
-        /// Id Sản phẩm chi tiết
+        /// List id thuộc tính
         /// </summary>
-        public int IdSanPhamChiTiet { get; set; }
-        
-        /// <summary>
-        /// id Thuộc tính
-        /// </summary>
-        public List<int> IdThuocTinhs { get; set; }
+        [Required(ErrorMessage ="List ID Thuộc tính sản phẩm không được để trống")]
+        public List<int> ThuocTinhs { get; set; }
         /// <summary>
         /// Số lượng sp
         /// </summary>
+        [Required(ErrorMessage = "Số lượng sản phẩm không được để trống")]
+        [Range(0, int.MaxValue)]
         public int SoLuong { get; set; }
 
         /// <summary>
@@ -44,6 +35,5 @@ namespace GlobalAI.ProductEntities.Dto.GioHang
         /// <see cref="TrangThaiGioHang"/>
         /// </summary>
         public int? Status { get; set; }
-        
     }
 }

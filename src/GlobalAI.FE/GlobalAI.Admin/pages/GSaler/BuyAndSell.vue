@@ -9,7 +9,7 @@
           <div class="sm:w-[50%]">
             <div class="sm:px-0 px-4 cursor-pointer grid grid-cols-1">
               <img
-                src="https://media.sellycdn.net/files/md_2023_04_28_10_35_10_0700_sxpUISfAOZ.jpg"
+                :src="ImgTramDonDonHe"
                 class="h-[195px] w-full rounded-2xl object-cover"
                 alt=""
               />
@@ -19,14 +19,14 @@
             >
               <div>
                 <img
-                  src="https://media.sellycdn.net/files/md_2023_04_28_10_37_23_0700_OLvuSNIeab.jpg"
+                  :src="imgChamSocSacDep"
                   class="object-cover rounded-2xl"
                   alt=""
                 />
               </div>
               <div>
                 <img
-                  src="https://media.sellycdn.net/files/md_2023_04_28_10_37_23_0700_OLvuSNIeab.jpg"
+                  :src="imgChamSocSacDep"
                   class="object-cover rounded-2xl"
                   alt=""
                 />
@@ -39,28 +39,28 @@
             >
               <div>
                 <img
-                  src="https://media.sellycdn.net/files/md_2023_04_28_10_37_23_0700_OLvuSNIeab.jpg"
+                  :src="imgChamSocSacDep"
                   class="object-cover rounded-2xl"
                   alt=""
                 />
               </div>
               <div>
                 <img
-                  src="https://media.sellycdn.net/files/md_2023_04_28_10_37_23_0700_OLvuSNIeab.jpg"
+                  :src="imgChamSocSacDep"
                   class="object-cover rounded-2xl"
                   alt=""
                 />
               </div>
               <div>
                 <img
-                  src="https://media.sellycdn.net/files/md_2023_04_28_10_37_23_0700_OLvuSNIeab.jpg"
+                :src="imgChamSocSacDep"
                   class="object-cover rounded-2xl"
                   alt=""
                 />
               </div>
               <div>
                 <img
-                  src="https://media.sellycdn.net/files/md_2023_04_28_10_37_23_0700_OLvuSNIeab.jpg"
+                  :src="imgChamSocSacDep"
                   class="object-cover rounded-2xl"
                   alt=""
                 />
@@ -71,6 +71,8 @@
       </div>
 </template>
 <script setup>
+import ImgTramDonDonHe from "~~/assets/img/Home/thang-5-tram-don-don-he.jpg"
+import imgChamSocSacDep from "~~/assets/img/Home/cham-soc-sac-dep.jpg"
 </script>
 <style >
     
