@@ -657,6 +657,11 @@ namespace GlobalAI.HostConsole.Migrations
                         .HasColumnType("VARCHAR2")
                         .HasColumnName("TEN_DANH_MUC");
 
+                    b.Property<string>("Thumbnail")
+                        .HasMaxLength(500)
+                        .HasColumnType("VARCHAR2")
+                        .HasColumnName("THUMBNAIL");
+
                     b.HasKey("Id");
 
                     b.ToTable("P_DanhMucBaiTin", t =>

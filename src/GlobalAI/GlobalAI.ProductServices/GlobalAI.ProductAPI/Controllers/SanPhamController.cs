@@ -80,6 +80,25 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
         /// <summary>
+        /// Get SanPham Chi tiet
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet("san-pham-ct/{id}")]
+        public APIResponse GetSanPhamChiTiet(int id)
+        {
+            try
+            {
+                var result = _sanPhamServices.GetSanPhamChiTiet(id);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
+        /// <summary>
         /// get danh sach danh muc
         /// </summary>
         /// <param name="input"></param>
@@ -295,6 +314,7 @@ namespace GlobalAI.ProductAPI.Controllers
                 return OkException(ex);
             }
         }
+
         /// <summary>
         /// Lấy sản phẩm theo id Gstore
         /// </summary>
@@ -316,6 +336,25 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
 
+        /// <summary>
+        /// Lấy sp cho gstore/admin theo id sản phẩm
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet("admin/{id}")]
+        [ProducesResponseType(typeof(APIResponse<ViewAdminSanPhamDto>), (int)HttpStatusCode.OK)]
+        public APIResponse GetSanPhamByIdGstore(int id)
+        {
+            try
+            {
+                var result = _sanPhamServices.GetAdminSanPhamById(id);
 
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
     }
 }

@@ -106,7 +106,7 @@
             Cập nhật voucher
           </button>
           <button
-            @click="this.$router.push('/admin/voucher')"
+            @click="router.push('/admin/voucher')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>
@@ -125,7 +125,6 @@ import { useRouter } from "vue-router";
 // import { updateProduct, getProductById } from "~~/composables/useApiProduct.js";
 import { getVoucherById } from "~~/composables/useApiVoucher";
 import { postImage } from "~~/composables/useApiImage";
-import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref, watchEffect } from "vue";
 definePageMeta({

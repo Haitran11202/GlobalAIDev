@@ -14,10 +14,13 @@ namespace GlobalAI.ProductEntities.Dto.GioHang
     public class AddGioHangDto
     {
         /// <summary>
-        /// Id Sản phẩm (Có thể trùng nhau)
+        /// Id Sản phẩm
         /// </summary>
         public int? IdSanPham { get; set; }
-
+        /// <summary>
+        /// Id Sản phảm chi tiết
+        /// </summary>
+        public int IdSanPhamChiTiet { get; set; }
         /// <summary>
         /// Số lượng sp
         /// </summary>

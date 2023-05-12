@@ -91,47 +91,28 @@ definePageMeta({
 import { ref } from "vue";
 import { postDanhMucThuocTinhSanPham } from "~~/composables/useApiCategoryAttribute";
 
-// const grInputListGiaTris = ref([""]);
-// const grListThuocTinhs = ref([""]);
 const grListThuocTinhs = ref([
   {
-    ma: "001",
-    ten: "Quần áo",
+    ma: "",
+    ten: "",
     listThuocTinh: [
       {
         idDanhMucThuocTinh: 0,
-        tenThuocTinh: "Màu",
+        tenThuocTinh: "",
         listThuocTinhGiaTri: [
           {
             idThuocTinh: 0,
-            giaTri: "Vàng",
-          },
-          {
-            idThuocTinh: 1,
-            giaTri: "Đỏ",
-          },
-          {
-            idThuocTinh: 2,
-            giaTri: "Xanh",
+            giaTri: "",
           },
         ],
       },
     ],
   },
 ]);
-const ma = ref("");
-const ten = ref("");
-const tenThuocTinh = ref("");
-const giaTri = ref("");
 
 const handlePostDanhMucThuocTinhSanPham = () => {
-  const dmAttData = grListThuocTinhs.value;
-  const body = {
-    ...dmAttData,
-  };
-  console.log(body);
-
-  postDanhMucThuocTinhSanPham(body)
+  const dmAttData = grListThuocTinhs.value[0];
+  postDanhMucThuocTinhSanPham(dmAttData)
     .then((response) => {
       console.log(response);
     })
@@ -149,7 +130,7 @@ const addInputField = (index) => {
     });
 };
 
-const addgrListThuocTinhs = (index) => {
+const addgrListThuocTinhs = () => {
   let previousThuocTinh =
     grListThuocTinhs.value[0].listThuocTinh[grListThuocTinhs.value.length - 1];
   let previousIdThuocTinh = previousThuocTinh;
@@ -168,26 +149,6 @@ const addgrListThuocTinhs = (index) => {
 const removeInputField = (index) => {
   grInputListGiaTris.value.splice(index, 1);
 };
-
-function handleCategoryAtt() {
-  const categoryAttData = {};
-  const body = {
-    ...categoryAttData,
-  };
-
-  postDanhMucThuocTinhSanPham(body)
-    .then((response) => {
-      console.log(response);
-      router.push("/admin/categoryattribute");
-      $toast.success("Thêm danh mục thuộc tính sản phẩm thành công");
-    })
-    .catch((error) => {
-      console.error(error);
-      $toast.error(
-        "Thêm danh mục thuộc tính sản phẩm thất bại. Vui lòng thử lại!"
-      );
-    });
-}
 </script>
 
 <style></style>

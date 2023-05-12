@@ -10,7 +10,7 @@
           <div class="">
             <div class="sm:px-0 px-4 cursor-pointer grid grid-cols-1">
               <img
-                src="https://media.sellycdn.net/files/md_677382717860_1645628130313.jpg"
+                :src="imgThoiTrangNu"
                 class="h-[195px] w-full rounded-2xl object-cover"
                 alt=""
               />
@@ -20,14 +20,14 @@
             >
               <div>
                 <img
-                  src="https://media.sellycdn.net/files/md_713655879750_1636515644120.jpg"
+                  :src="imgThoiTrangNam"
                   class="object-cover rounded-2xl"
                   alt=""
                 />
               </div>
               <div>
                 <img
-                  src="https://media.sellycdn.net/files/md_2023_04_28_10_37_23_0700_OLvuSNIeab.jpg"
+                  :src="imgTraHat"
                   class="object-cover rounded-2xl"
                   alt=""
                 />
@@ -37,7 +37,7 @@
           <div class="flex-1">
             <div class="sm:px-0 px-4 cursor-pointer grid grid-cols-1">
               <img
-                src="https://media.sellycdn.net/files/md_725481038314_1638238077851.jpg"
+                :src="imgAnVatDacSan"
                 class="h-[195px] w-full rounded-2xl object-cover"
                 alt=""
               />
@@ -47,14 +47,14 @@
             >
               <div>
                 <img
-                  src="https://media.sellycdn.net/files/md_664966263119_1636515820808.jpg"
+                  :src="imgTinhDauNen"
                   class="object-cover rounded-2xl"
                   alt=""
                 />
               </div>
               <div>
                 <img
-                  src="https://media.sellycdn.net/files/md_672336478112_1636516462134.png"
+                  :src="imgMyPhamChinhHang"
                   class="object-cover rounded-2xl"
                   alt=""
                 />
@@ -65,10 +65,13 @@
       </div>
     </div>
 </template>
-<script>
-export default {
-    
-}
+<script setup>
+import imgThoiTrangNu from "~~/assets/img/Home/thoi-trang-nu.jpg"
+import imgAnVatDacSan from "~~/assets/img/Home/an-vat-dac-san.jpg"
+import imgThoiTrangNam from "~~/assets/img/Home/thoi-trang-nam.jpg"
+import imgTraHat from "~~/assets/img/Home/tra-hat.jpg"
+import imgMyPhamChinhHang from "~~/assets/img/Home/my-pham-chinh-hang.jpg"
+import imgTinhDauNen from "~~/assets/img/Home/tinh-dau-nen.png"
 </script>
 <style lang="">
     

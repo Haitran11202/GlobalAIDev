@@ -51,7 +51,8 @@ import {
   faPenToSquare,
   faPhone,
   faPlus,
-  faMinus
+  faMinus,
+  faAngleDown,
 } from "@fortawesome/free-solid-svg-icons";
 /* add icons to the library */
 library.add(
@@ -69,6 +70,7 @@ library.add(
   faCircleXmark,
   faSearch,
   faTruckMoving,
+  faAngleDown,
   faArrowLeft,
   faDoorOpen,
   faClose,

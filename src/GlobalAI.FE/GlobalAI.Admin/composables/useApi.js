@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useUserStorage } from "~~/stores/user";
 import { useApiRefreshToken } from "./useApiAuth";
-import toast from "vue3-toastify";
 
 const instance = axios.create();
 
@@ -32,7 +31,6 @@ instance.interceptors.response.use(
       response.data.code !== 200 &&
       response?.data?.message
     ) {
-      toast.error;
       return response;
     }
 
@@ -66,13 +64,15 @@ instance.interceptors.response.use(
 
     // Xử lý lỗi 401 do api validate các trường dữ liệu
     const deepError = error?.response?.data;
+    console.log(error.response.status, deepError.errors, Object.keys(deepError.errors).length);
     if (
       error.response.status === 400 &&
       deepError.errors &&
       Object.keys(deepError.errors).length > 0
     ) {
       const msg = deepError.errors[Object.keys(deepError.errors)[0]][0];
-      toast.error(msg);
+      const { $toast } = useNuxtApp();
+      $toast.error(msg);
       return Promise.resolve({ status: -1 });
     }
 

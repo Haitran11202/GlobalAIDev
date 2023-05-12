@@ -133,10 +133,6 @@ definePageMeta({
 const userStorage = useUserStorage();
 const { $toast } = useNuxtApp();
 const router = useRouter();
-// const apiUser = useApiUser();
-// const { apiLogin } = useApiAuth();
-// const { apiLogin } = useApiAuth();
-const { login } = useUserStorage();
 
 const loginBody = yup.object({
   username: yup.string().required("Tên đăng nhập không được bỏ trống").trim(),

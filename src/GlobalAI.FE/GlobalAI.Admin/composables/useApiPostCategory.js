@@ -5,7 +5,8 @@ import { API_ENDPOINT } from "~~/api/api.endpoint";
 export const getAllPostCategoryPhanTran = async (
   pageSize,
   pageNumber,
-  skip
+  skip,
+  isParent
 ) => {
   try {
     const response = await http.get(
@@ -17,6 +18,29 @@ export const getAllPostCategoryPhanTran = async (
   }
 };
 
+// Lấy tất cả danh mục bài tin và phân trang
+export const getDanhBaiTinMucNoiBat = async (
+) => {
+  try {
+    const response = await http.get(
+      API_ENDPOINT.getDanhBaiTinMucNoiBat()
+    );
+    return Promise.resolve(response.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+//
+export const getAllPostCategoryTree = async () => {
+  try {
+    const response = await http.get(
+      API_ENDPOINT.getAllPostCategoryTree()
+    );
+    return Promise.resolve(response.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
 // Xoá danh mục bài tin dựa theo id
 export const deletePostCategory = async (id) => {
   try {

@@ -60,6 +60,24 @@ export const getSanPhamByIdGStore = async (pageSize, pageNumber, skip) => {
     }
 };
 
+export const getSanPhamHome = async (SortBy , SortOrder) => {
+    try {
+        const response = await http.get(API_ENDPOINT.getSanPhamTrangHome(SortBy , SortOrder));
+        return Promise.resolve(response.data);
+    } catch (error) {
+        return Promise.reject(error)
+    }
+}
+
+export const getProductAttributes = async (id) => {
+    try{
+        const response = await http.get(API_ENDPOINT.getThuocTinhSanPham(id));
+        return Promise.resolve(response.data)
+    }catch(error){
+        return Promise.reject(error)
+    }
+}
+
 
 // Cương code
 
@@ -242,6 +260,34 @@ export const getGioHangByIdSanPham = async (id) => {
 export const getAllDanhMucBaiTin = async () => {
     try {
         const res = await http.get(API_ENDPOINT.getAllDanhMucBaiTin());
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
+
+/**
+ * LẤY DANH MỤC THUỘC TÍNH THEO ID
+ * @param {*} id 
+ * @returns 
+ */
+export const getDanhMucThuocTinhById = async (id) => {
+    try {
+        const res = await http.get(API_ENDPOINT.getDanhMucThuocTinhById(id));
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
+
+/**
+ * LẤY LIST DANH MỤC THUỘC TÍNH
+ * @param {*} id 
+ * @returns 
+ */
+export const getListDanhMucThuocTinh = async () => {
+    try {
+        const res = await http.get(API_ENDPOINT.getListDanhMucThuocTinh);
         return Promise.resolve(res);
     } catch (err) {
         return Promise.reject(err);

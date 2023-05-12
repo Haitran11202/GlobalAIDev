@@ -10,12 +10,12 @@
         </h1>
         <Sliderncc />
       </div>
-      <card-list-product-short
-        :category="productscategory"
+      <card-list-product-home
+        category="Sản phẩm mới nhất"
         :products="products"
       />
-      <card-list-product-short
-        :category="productSellerCategory"
+      <card-list-product-home
+        category="Sản phẩm bán chạy"
         :products="productsSeller"
       />
       <!-- Mua gì bán đấy -->
@@ -31,58 +31,38 @@
 </template>
 
 <script setup>
+import { getSanPhamHome } from "~~/composables/useApiProduct";
 import EasySell from "./EasySell.vue";
 import BuyAndSell from "./BuyAndSell.vue";
 import NavItemCategory from "./NavItemCategory.vue";
 import Community from "./Community.vue";
 import HighProfitSale from "./HighProfitSale.vue";
-import CardListProductShort from "../../components/Cards/CardListProductShort.vue";
+import CardListProductHome from "~~/components/Cards/CardListProductHome.vue";
 import Sliderncc from "./Sliderncc.vue";
 import Advisement from "./Advisement.vue";
 import toast from "vue3-toastify";
 import { ref } from "vue";
 
 const products = ref([]);
-const productscategory = ref("");
-const productSellerCategory = ref("");
 const productsSeller = ref([]);
-let content = ref("");
-const listDanhMuc = ref([]);
 
-// Lấy tất cả sản phẩm theo danh mục
+const hotProducts = ref({CreatedDate:'CreatedDate' , desc:'desc'})
+const newProducts = ref({LuotBan :'LuotBan' , desc:'desc'})
+
+// Lấy sản phẩm bán chạy và sản phẩm mới nhất
 onMounted(() => {
-  getDanhMucSanPham()
-    .then((res) => {
-      console.log(res.data.data.items);
-      listDanhMuc.value = res.data.data.items.slice(0, 2);
-      console.log(listDanhMuc.value);
-      productscategory.value = listDanhMuc.value[0];
-      productSellerCategory.value = listDanhMuc.value[1];
-      getSanPhamDanhMuc(listDanhMuc.value[0].idDanhMuc)
-        .then((res) => {
-          console.log(res);
-          if (res?.data?.data?.items) {
-            products.value = res.data.data.items;
-            console.log(products.value);
-            return getSanPhamDanhMuc(listDanhMuc.value[1].idDanhMuc);
-          }
-        })
-        .then((res) => {
-          if (res?.data?.data?.items) {
-            productsSeller.value = res.data.data.items;
-            console.log(productsSeller.value);
-          }
-        })
-        .catch((error) => {
-          console.error(error);
-          toast.error("Đã xảy ra lỗi trong quá trình get sản phẩm");
-        });
-    })
-    .catch((error) => {
-      console.error(error);
-      toast.error("Đã xảy ra lỗi trong quá trình get sản phẩm");
-    });
-});
+  console.log(123);
+  getSanPhamHome(hotProducts.value.CreatedDate , hotProducts.value.desc)
+  .then((res) => {
+    console.log(res.data.items);
+    products.value = res.data.items;
+    return getSanPhamHome(newProducts.value.LuotBan , newProducts.value.desc)
+  })
+  .then((res) => {
+    console.log(res.data.items);
+    productsSeller.value =  res.data.items;
+  })
+})
 
 definePageMeta({
   layout: "layout-default",

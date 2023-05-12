@@ -105,14 +105,14 @@
         </div>
         <div class="flex justify-end gap-5">
           <button
-            @click="this.$router.push('/admin/voucher')"
+            @click="router.push('/admin/voucher')"
             type="submit"
             class="btn btn-outline"
           >
             Thêm voucher
           </button>
           <button
-            @click="this.$router.push('/admin/voucher')"
+            @click="router.push('/admin/voucher')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>
@@ -127,7 +127,6 @@
 import axios from "axios";
 import { ref } from "vue";
 import NumberInput from "~~/components/Input/NumberInput.vue";
-import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 import TextEditor from "~~/components/TextEditor/TextEditor.vue";
@@ -145,6 +144,7 @@ const soLuong = ref(0);
 const ngayHetHan = ref("");
 const voucherChiTiets = ref([]);
 
+const router = useRouter();
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 

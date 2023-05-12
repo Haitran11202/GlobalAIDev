@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using GlobalAI.Utils.ConstantVariables.Product;
 using GlobalAI.ProductEntities.Dto.DanhMuc;
 using GlobalAI.Utils;
+using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 
 namespace GlobalAI.ProductRepositories
 {
@@ -82,6 +83,9 @@ namespace GlobalAI.ProductRepositories
             result.Items = sanphamDtos;
             return result;
         }
+
+        
+
         /// <summary>
         /// Lấy demo product phân trang
         /// </summary>
@@ -170,16 +174,19 @@ namespace GlobalAI.ProductRepositories
         public PagingResult<GetSanPhamDto> GetSanPhamByIdGstore(int? idGstore,GetSanPhamIdGstoreDto input)
         {
             _logger.LogInformation($"{nameof(SanPhamRepository)}->{nameof(FindAll)}: input = {JsonSerializer.Serialize(input)}");
+
             PagingResult<GetSanPhamDto> result = new();
-            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.Id).Where(p => p.Deleted == false && (idGstore == null || p.IdGStore == idGstore))
-                .Where(r => (input.Keyword == null || r.TenSanPham.Contains(input.Keyword)));
+            var projectQuery = _dbSet.AsNoTracking().OrderByDescending(p => p.Id).Where(p => !p.Deleted && (idGstore == null || p.IdGStore == idGstore) && (input.Keyword == null || p.TenSanPham.Contains(input.Keyword)));
+
+            result.TotalItems = projectQuery.Count();
             if (input.PageSize != -1)
             {
                 projectQuery = projectQuery.Skip(input.Skip).Take(input.PageSize);
             }
-            result.TotalItems = projectQuery.Count();
+
             var sanphams = projectQuery;
             var sanphamDtos = new List<GetSanPhamDto>();
+
             foreach (var item in sanphams)
             {
                 var getSpDto = _mapper.Map<GetSanPhamDto>(item);
@@ -187,6 +194,7 @@ namespace GlobalAI.ProductRepositories
                 sanphamDtos.Add(getSpDto);
             }
             result.Items = sanphamDtos;
+
             return result;
         }
 

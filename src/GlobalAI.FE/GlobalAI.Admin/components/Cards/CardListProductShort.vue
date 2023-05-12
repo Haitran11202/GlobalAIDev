@@ -2,7 +2,7 @@
   <div class="w-full mt-[40px] cursor-pointer">
     <div class="flex w-full justify-between items-center mb-[20px]">
       <h1 class="lg:text-[24px] sm:pl-0 pl-4 text-[#384059] uppercase font-bold">
-        {{ props.category?.tenDanhMuc}}
+        {{ props?.category}}
       </h1>
       <RouterLink
         :to="`/product/category/${props.category?.idDanhMuc}`"
@@ -121,7 +121,7 @@ const getImageUrl = (imageUrl) => {
 
 const props = defineProps({
   category: {
-    type: Object,
+    type: String,
   },
   products: {
     id: Number,

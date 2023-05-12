@@ -22,6 +22,7 @@
 </template>
 
 <script setup>
+import { getDanhMucSanPham } from "~~/composables/useApiProduct";
 import { ref } from "vue";
 import { defineEmits } from "vue";
 import { useRouter } from "vue-router";

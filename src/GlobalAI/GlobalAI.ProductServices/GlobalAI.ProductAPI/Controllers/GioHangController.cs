@@ -1,6 +1,6 @@
 ﻿using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.Dto.GioHang;
-using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
 using Microsoft.AspNetCore.Authorization;
@@ -46,7 +46,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(typeof(APIResponse<List<AddGioHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse CreateGioHang([FromBody] AddGioHangDto input)
+        public APIResponse CreateGioHang([FromBody] AddGioHangChiTietDto input)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// <returns></returns>
         [HttpPut("{id}")]
         [ProducesResponseType(typeof(APIResponse<List<EditGioHangDto>>), (int)HttpStatusCode.OK)]
-        public APIResponse EditGioHang([FromRoute]int id,[FromBody] EditGioHangDto newGioHang)
+        public APIResponse EditGioHang([FromRoute]int id,[FromBody] EditGioHangChiTietDto newGioHang)
         {
             try
             {
@@ -111,7 +111,7 @@ namespace GlobalAI.ProductAPI.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("sanpham-giohang")]
-        [ProducesResponseType(typeof(APIResponse<List<GetSanPhamDto>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(APIResponse<List<GetSanPhamChiTietDto>>), (int)HttpStatusCode.OK)]
         public APIResponse GetSanPhamGioHang()
         {
             try
@@ -125,11 +125,11 @@ namespace GlobalAI.ProductAPI.Controllers
             }
         }
         /// <summary>
-        /// Lấy ra sản phẩm theo giỏ hàng
+        /// Lấy ra sản phẩm theo giỏ hàng 
         /// </summary>
         /// <returns></returns>
         [HttpGet("giohangByIdSanPham/{id}")]
-        [ProducesResponseType(typeof(APIResponse<List<GetSanPhamDto>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(APIResponse<List<GetSanPhamChiTietDto>>), (int)HttpStatusCode.OK)]
         public APIResponse GetGioHangByIdSanPham([FromRoute] int id)
         {
             try

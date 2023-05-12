@@ -26,21 +26,33 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             // Đưa hết các cấu hình bạn muốn map giữa các object vào đây
             // Thuộc tính FullName trong UserViewModel được kết hợp từ FirstName và LastName trong User
             CreateMap<SanPham, AddSanPhamDto>().ReverseMap();
+            CreateMap<SanPham, GetSanPhamChiTietDto>().ReverseMap();
+            CreateMap<GetSanPhamChiTietDto, SanPham>().ReverseMap();
             CreateMap<SanPham, GetSanPhamDto>().ReverseMap();
+            CreateMap<SanPham, ViewAdminSanPhamDto>().ReverseMap();
+            CreateMap<SanPhamChiTiet, GetSanPhamChiTietDto>().ReverseMap();
+            CreateMap<SanPhamChiTiet, ViewSanPhamChiTietDto>().ReverseMap();
             CreateMap<GetSanPhamDto, SanPham>().ReverseMap();
+
             CreateMap<DonHang, AddDonHangDto>().ReverseMap();
             CreateMap<DonHang, AddDonHangDto>().ReverseMap();
             CreateMap<SanPhamChiTiet, AddSanPhamChiTietDto>().ReverseMap();
             CreateMap<SanPhamChiTiet, SanPhamChiTietDto>().ReverseMap();
+            CreateMap<SanPhamChiTiet, UpdateSanPhamChiTietDto>().ReverseMap();
+            /*CreateMap<SanPhamChiTiet, GetSanPhamChiTietDto>().ReverseMap();*/
             //CreateMap<List<ChiTietDonHang>, List<AddChiTietDonHangDto>>().ReverseMap();
             CreateMap<ChiTietDonHang, AddChiTietDonHangDto>().ReverseMap();
             CreateMap<ChiTietDonHang, EditChiTietDonHangDto>().ReverseMap();
             CreateMap<GetChiTietDonHangDto, ChiTietDonHang>().ReverseMap();
             CreateMap<GetGioHangDto, GioHang>().ReverseMap();
             CreateMap<ChiTietDonHang, GetChiTietDonHangDto>().ReverseMap();
+            //Giỏ hàng
             CreateMap<GioHang, EditGioHangDto>().ReverseMap();
             CreateMap<GioHang, AddGioHangDto>().ReverseMap();
             CreateMap<GioHang, GetGioHangDto>().ReverseMap();
+            CreateMap<GioHang, AddGioHangChiTietDto>().ReverseMap();
+            CreateMap<GioHang, EditGioHangChiTietDto>().ReverseMap();
+            CreateMap<GioHang, GioHang>().ReverseMap();
 
             CreateMap<TraGia, AddTraGiaDto>().ReverseMap();
             CreateMap<TraGia, UpdateTraGiaDto>().ReverseMap();
@@ -77,8 +89,11 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<DanhMucThuocTinh, ViewSingleDanhMucThuocTinhDto>().ReverseMap();
             CreateMap<ThuocTinh, AddThuocTinhDto>().ReverseMap();
             CreateMap<ThuocTinh, ViewThuocTinhDto>().ReverseMap();
+            CreateMap<ThuocTinh, GetThuocTinhDto>().ReverseMap();
             CreateMap<ThuocTinhGiaTri, AddThuocTinhGiaTriDto>().ReverseMap();
             CreateMap<ThuocTinhGiaTri, ViewThuocTinhGiaTriDto>().ReverseMap();
+
+
         }
     }
 }

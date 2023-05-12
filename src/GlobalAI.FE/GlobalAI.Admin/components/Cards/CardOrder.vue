@@ -10,7 +10,7 @@
               Danh sách đơn hàng
             </h3>
             <button
-              @click="this.$router.push('/admin/order/addorder')"
+              @click="router.push('/admin/order/addorder')"
               class="btn btn-outline"
             >
               Thêm đơn hàng

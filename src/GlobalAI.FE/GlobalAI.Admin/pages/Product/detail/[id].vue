@@ -18,29 +18,35 @@
         <p class="text-[18px]">{{ formatMoneyAll(products.giaChietKhau) }}</p>
       </div>
       <div class="flex gap-1 mt-2 text-[#f8ac59] text-[18px] items-center">
-         <div class="flex items-center">
-            <font-awesome-icon :icon="['fas', 'star']" />
-        <font-awesome-icon :icon="['fas', 'star']" />
-        <font-awesome-icon :icon="['fas', 'star']" />
-        <font-awesome-icon :icon="['fas', 'star']" />
-        <font-awesome-icon :icon="['fas', 'star']" />
-         </div>
+        <div class="flex items-center">
+          <font-awesome-icon :icon="['fas', 'star']" />
+          <font-awesome-icon :icon="['fas', 'star']" />
+          <font-awesome-icon :icon="['fas', 'star']" />
+          <font-awesome-icon :icon="['fas', 'star']" />
+          <font-awesome-icon :icon="['fas', 'star']" />
+        </div>
         4.9/5
       </div>
-      <div class="flex items-center mt-[15px]">
-        <h2 class="text-[16px] font-[500] mr-[40px]">Màu Sắc</h2>
-        <div class="flex items-center gap-4">
+      <div
+        v-for="data in ProductAttributtes"
+        :key="data"
+        class="flex items-center mt-[15px]"
+      >
+        <div class="w-[120px]">
+          <h2 class="text-[16px] font-[500]">{{ data.name }}</h2>
+        </div>
+        <div class="grid grid-cols-5 gap-2">
           <button
-            @click="handleSelectColor(color.id)"
-            v-for="color in ListColor"
-            :key="color"
             :class="
-              idColor === color.id
-                ? 'px-[12px] bg-white text-red-500 py-[6px] border-2 rounded-md border-red-400'
-                : 'px-[12px] bg-slate-100 py-[6px] border-2 rounded-md'
+              selectProductAttribute.includes(attribute)
+                ? 'border-[1px] border-red-300 text-red-500 px-[10px] py-[5px] rounded-sm'
+                : 'border-[1px] px-[10px] py-[5px] rounded-sm'
             "
+            @click="handleSelectColor(attribute)"
+            v-for="attribute in data.value"
+            :key="attribute"
           >
-            {{ color.label }}
+            {{ attribute.giaTri }}
           </button>
         </div>
       </div>
@@ -202,9 +208,13 @@
           <h1 class="text-[18px] uppercase text-[#384059] font-bold">
             {{ products.tenSanPham }}
           </h1>
-          <div class="flex gap-[20px]">
-            <h2 class="text-[16px]">Màu sắc</h2>
-            <span>Trắng</span>
+          <div
+            v-for="data in selectProductAttribute"
+            :key="data"
+            class="flex items-center gap-[15px] mt-[5px]"
+          >
+          <h2 class="text-[16px] w-[40px] text-[#384059] font-[500]">{{ data.tenThuocTinh }}</h2>
+          <h3 class="text-[16px] text-[#727789]">{{ data.giaTri }}</h3>
           </div>
         </div>
       </div>
@@ -275,31 +285,8 @@ import { getSanPhamById } from "~/composables/useApiProduct";
 const token = useUserStorage();
 const useCart = useCartStorage();
 const accesstoken = token.accessToken;
-const idColor = ref("");
-
-const ListColor = [
-  {
-    label: "Trắng",
-    id: 1,
-  },
-  {
-    label: "Xanh",
-    id: 2,
-  },
-  {
-    label: "Đỏ",
-    id: 3,
-  },
-];
-const handleSelectColor = (id) => {
-  idColor.value = id;
-};
-
-definePageMeta({
-  layout: "layout-default",
-  name: "ProductDetail",
-});
-
+const idSelected = ref("");
+const ProductAttributtes = ref([]);
 const router = useRouter();
 const productId = ref("");
 const products = ref({});
@@ -309,13 +296,15 @@ const soLuong = ref(1);
 const imagelink = ref("");
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
-const selectProduct = ref([]);
+const selectProductAttribute = ref([]);
+const countSelectAttribute = ref(0);
+const selectedAttributeId = ref([]);
 const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
   }
   const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
+    imageUrl,
   )}&download=false`;
   return url;
 };
@@ -325,12 +314,64 @@ watchEffect(() => {
   console.log(productId.value);
   getSanPhamById(productId.value)
     .then((res) => {
+      console.log(res);
       products.value = res?.data?.data;
       console.log(products.value);
       imagelink.value = getImageUrl(products.value.thumbnail);
+      // Lấy thuộc tính sản phẩm
+      getProductAttributes(productId.value)
+        .then((res) => {
+          console.log(Object.entries(res.data.thuocTinhs));
+          Object.entries(res.data.thuocTinhs).forEach(
+            ([attributeName, attributeValue]) => {
+              ProductAttributtes.value.push({
+                name: attributeName,
+                value: attributeValue,
+              });
+            },
+          );
+          console.log(ProductAttributtes.value);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     })
     .catch(() => {});
 });
+
+const handleSelectColor = (attribute) => {
+  console.log(attribute);
+  const index = selectProductAttribute.value.findIndex(
+    (item) => item.idThuocTinh === attribute.idThuocTinh,
+  );
+  if (index != -1) {
+    const selectAttr = selectProductAttribute.value[index];
+    if (selectAttr.id === attribute.id) {
+      selectProductAttribute.value.splice(index, 1);
+      countSelectAttribute.value--;
+      console.log(selectProductAttribute.value);
+      selectedAttributeId.value = selectProductAttribute.value.map(
+        (item) => item.id,
+      );
+    } else {
+      selectProductAttribute.value.splice(index, 1);
+      countSelectAttribute.value--;
+      selectProductAttribute.value.push(attribute);
+      countSelectAttribute.value++;
+      console.log(selectProductAttribute.value);
+      selectedAttributeId.value = selectProductAttribute.value.map(
+        (item) => item.id,
+      );
+    }
+  } else {
+    selectProductAttribute.value.push(attribute);
+    countSelectAttribute.value++;
+    selectedAttributeId.value = selectProductAttribute.value.map(
+      (item) => item.id,
+    );
+    console.log(selectProductAttribute.value);
+  }
+};
 
 const tongGiaBan = computed(() => {
   return products.value.giaBan * soLuong.value;
@@ -346,15 +387,19 @@ const getUserInfor = () => {
 
 onMounted(() => {
   getUserInfor();
-})
+});
 
 const handleBuyClick = () => {
   console.log("creating...");
   console.log(productId.value);
-
-  const body = {
+  if (countSelectAttribute.value < ProductAttributtes.value.length) {
+    toast.error("Bạn chưa chọn phân loại");
+  }
+  else{
+    const body = {
     idSanPham: productId.value,
-    soLuong: 1,
+    thuocTinhs: selectedAttributeId.value,
+    soLuong: soLuong.value,
     status: 1,
   };
   createGioHang(body)
@@ -369,6 +414,7 @@ const handleBuyClick = () => {
     query: { checkedItem: productId.value },
     params: { id: productId.value },
   });
+  }
 };
 
 const increment = () => {
@@ -392,12 +438,17 @@ const decrement = () => {
 // Thêm sản phẩm vào giỏ hàng
 const handleshowModelCart = () => {
   console.log("Them vao gio hang");
-  isShowModelCart.value = true;
+  if (countSelectAttribute.value < ProductAttributtes.value.length) {
+    toast.error("Bạn chưa chọn phân loại");
+  } else {
+    isShowModelCart.value = true;
+  }
 };
 const handleAddProductCart = async () => {
   try {
     const body = {
       idSanPham: productId.value,
+      thuocTinhs: selectedAttributeId.value,
       soLuong: soLuong.value,
       status: 1,
     };
@@ -425,5 +476,9 @@ const handleCloseBoxChat = () => {
 const toggleTabs = function (tabNumber) {
   openTab.value = tabNumber;
 };
+definePageMeta({
+  layout: "layout-default",
+  name: "ProductDetail",
+});
 </script>
 <style lang=""></style>

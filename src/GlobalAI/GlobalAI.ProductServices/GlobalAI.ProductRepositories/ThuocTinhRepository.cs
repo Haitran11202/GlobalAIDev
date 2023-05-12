@@ -17,7 +17,9 @@ namespace GlobalAI.ProductRepositories
 {
     public class ThuocTinhRepository : BaseEFRepository<ThuocTinh>
     {
-        public ThuocTinhRepository(DbContext dbContext, ILogger logger, string seqName = null) : base(dbContext, logger, seqName)
+        private readonly IMapper _mapper;
+
+        public ThuocTinhRepository(DbContext dbContext, ILogger logger,IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
         {
 
         }
@@ -50,18 +52,11 @@ namespace GlobalAI.ProductRepositories
         {
             _logger.LogInformation($"{nameof(AddGiaTri)}: entity = {JsonSerializer.Serialize(entity)}; username={username}");
 
-            var existedGiaTri = _globalAIDbContext.ThuocTinhGiaTris.AsNoTracking().Any(x => !x.Deleted && x.GiaTri.Equals(entity.GiaTri));
+            entity.CreatedBy = username;
+            entity.CreatedDate = DateTime.Now;
 
-            if (!existedGiaTri)
-            {
-                entity.CreatedBy = username;
-                entity.CreatedDate = DateTime.Now;
-
-                _globalAIDbContext.ThuocTinhGiaTris.Add(entity);
-                return entity;
-            }
-
-            return null;
+            _globalAIDbContext.ThuocTinhGiaTris.Add(entity);
+            return entity;
         }
 
         /// <summary>
@@ -95,7 +90,7 @@ namespace GlobalAI.ProductRepositories
         /// </summary>
         /// <param name="idDanhMucThuoctinh"></param>
         /// <returns></returns>
-        public List<ThuocTinh> FindByIdDanhMucThuocTinh(int idDanhMucThuoctinh)
+        public List<ThuocTinh> FindByIdDanhMucThuocTinh(int? idDanhMucThuoctinh)
         {
             _logger.LogInformation($"{nameof(FindByIdDanhMucThuocTinh)} -> {nameof(List<ThuocTinh>)}: idDanhMucThuoctinh={idDanhMucThuoctinh}");
 
@@ -224,6 +219,6 @@ namespace GlobalAI.ProductRepositories
                 ThrowException(Utils.ErrorCode.ProductThuocTinhGiaTriInUsed);
             }
         }
-
+       
     }
 }
