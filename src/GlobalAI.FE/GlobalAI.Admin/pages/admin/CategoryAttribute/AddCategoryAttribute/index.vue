@@ -118,7 +118,7 @@ const handlePostDanhMucThuocTinhSanPham = () => {
   postDanhMucThuocTinhSanPham(dmAttData)
     .then((response) => {
       console.log(response);
-      router.push("/admin/categoryattribute");
+      router.push("/admin/categoryattribue");
       $toast.success("Thêm danh mục thuộc tính sản phẩm thành công");
     })
     .catch((error) => {

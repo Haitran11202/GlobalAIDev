@@ -39,8 +39,8 @@
         <tbody>
           <tr
             class="text-sm"
-            v-for="order in categoryAttributes"
-            :key="order.id"
+            v-for="categoryAtt in categoryAttributes"
+            :key="categoryAtt.id"
           >
             <th>
               <label>
@@ -48,11 +48,11 @@
               </label>
             </th>
             <td>
-              {{ order.ma }}
+              {{ categoryAtt.ma }}
             </td>
 
             <td>
-              {{ order.ten }}
+              {{ categoryAtt.ten }}
             </td>
 
             <td>
@@ -69,8 +69,10 @@
                   v-if="isOpen"
                   @click="closeDropdown"
                 >
-                  <!-- <li @click="onEditButtonClick(order.id)"><a>Sửa</a></li> -->
-                  <li @click="onDeleteButtonClick(order.id)"><a>Xoá</a></li>
+                  <li @click="onEditButtonClick(categoryAtt.id)"><a>Sửa</a></li>
+                  <li @click="onDeleteButtonClick(categoryAtt.id)">
+                    <a>Xoá</a>
+                  </li>
                 </ul>
               </div>
             </td>
@@ -132,6 +134,7 @@ export default {
 import {
   getAllDanhMucThuocTinhSanPham,
   deleteDanhMucThuocTinhSanPham,
+  getDanhMucThuocTinhSanPhamById,
 } from "~~/composables/useApiCategoryAttribute";
 import { useRouter } from "vue-router";
 const { $toast } = useNuxtApp();
@@ -169,17 +172,6 @@ const fetchData = async () => {
     .catch((err) => console.error(err));
 };
 
-// const onClickOrderDetails = (id) => {
-//   router.push({ name: "orderdetails", params: { id: id } });
-//   getOrderById(id)
-//     .then((res) => {
-//       res.data;
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//     });
-// };
-
 // // Gọi hàm xóa sản phẩm khi người dùng click vào nút Xóa
 const onDeleteButtonClick = (id) => {
   deleteDanhMucThuocTinhSanPham(id)
@@ -196,17 +188,16 @@ const onDeleteButtonClick = (id) => {
     });
 };
 
-// Gọi hàm sửa bắn dữ liệu và form
-// const onEditButtonClick = (id) => {
-//   router.push({ name: "Order", params: { id: id } });
-//   getOrderById(id)
-//     .then((res) => {
-//       res.data;
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//     });
-// };
+const onEditButtonClick = (id) => {
+  router.push({ name: "categoryattribute", params: { id: id } });
+  getDanhMucThuocTinhSanPhamById(id)
+    .then((res) => {
+      res.data;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
 
 watchEffect(() => {
   fetchData();
