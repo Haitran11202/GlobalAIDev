@@ -126,7 +126,7 @@
         </button>
         <button class="btn btn-outline btn-success">Duyệt sản phẩm</button>
         <button
-          @click="this.$router.push('/admin/post')"
+          @click="router.push('/admin/post')"
           class="btn btn-outline btn-error"
         >
           <span class="flex">Quay về</span>
@@ -150,7 +150,7 @@
             Cập nhật bài tin
           </button>
           <button
-            @click="$router.push('/admin/post')"
+            @click="router.push('/admin/post')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>
@@ -169,7 +169,6 @@ import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
 import { getPostById, updatePost } from "~~/composables/useApiPost.js";
 import { postImage } from "~~/composables/useApiImage";
-import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import TextEditor from "~~/components/TextEditor/TextEditor.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 

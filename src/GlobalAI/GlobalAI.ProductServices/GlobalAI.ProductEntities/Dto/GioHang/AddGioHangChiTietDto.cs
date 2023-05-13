@@ -21,7 +21,6 @@ namespace GlobalAI.ProductEntities.Dto.GioHang
         /// <summary>
         /// List id thuộc tính
         /// </summary>
-        [Required(ErrorMessage ="List ID Thuộc tính sản phẩm không được để trống")]
         public List<int> ThuocTinhs { get; set; }
         /// <summary>
         /// Số lượng sp

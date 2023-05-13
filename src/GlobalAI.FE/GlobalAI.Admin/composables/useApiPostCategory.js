@@ -5,11 +5,25 @@ import { API_ENDPOINT } from "~~/api/api.endpoint";
 export const getAllPostCategoryPhanTran = async (
   pageSize,
   pageNumber,
-  skip
+  skip,
+  isParent
 ) => {
   try {
     const response = await http.get(
       API_ENDPOINT.getAllPostCategoryPhanTran(pageSize, pageNumber, skip)
+    );
+    return Promise.resolve(response.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+// Lấy tất cả danh mục bài tin và phân trang
+export const getDanhBaiTinMucNoiBat = async (
+) => {
+  try {
+    const response = await http.get(
+      API_ENDPOINT.getDanhBaiTinMucNoiBat()
     );
     return Promise.resolve(response.data);
   } catch (err) {

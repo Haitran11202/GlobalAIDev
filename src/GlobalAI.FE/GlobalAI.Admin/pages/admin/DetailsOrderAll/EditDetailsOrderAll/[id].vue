@@ -59,7 +59,7 @@
             Cập nhật chi tiết đơn hàng
           </button>
           <button
-            @click="this.$router.push('/admin/detailsorderall')"
+            @click="router.push('/admin/detailsorderall')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>
@@ -80,7 +80,6 @@ import {
   getDetailsOrderAllById,
 } from "~~/composables/useApiDetailsOrderAll";
 import { postImage } from "~~/composables/useApiImage";
-import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref, watchEffect } from "vue";
 definePageMeta({
