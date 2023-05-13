@@ -331,7 +331,10 @@
             <h2 class="text-[18px] font-bold">Địa chỉ</h2>
           </div>
           <div class="mb-[10px] flex justify-between items-center">
-            <span>Trương Định , Hà Nội</span>
+            <span class="text-[16px] w-[250px] leading-[1.3] h-[16*1.3] line-clamp-1 text-ellipsis" v-if="diaChi.length > 0">
+                            {{ diaChi }}
+            </span>
+            <span v-else>Trương Định , Hà Nội</span>
             <span
               @click="handleShowModalAddress"
               class="underline text-blue-400 text-[16px] cursor-pointer"
@@ -827,6 +830,7 @@ const checkAllGioHang = () => {
 //lấy giá bán từ id của sản phẩm
 const getGiaBanTuIdSanPham = (idSanPham) => {
   const product = products.value.find((item) => item.idSanPham === idSanPham);
+  console.log(product);
   return product ? product.giaBan : 0;
 };
 //lấy giá chiết khấu từ id sản phẩm
