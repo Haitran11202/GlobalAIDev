@@ -57,7 +57,6 @@ namespace GlobalAI.ProductRepositories
             var addGioHangDto = new AddGioHangDto()
             {
                 IdSanPham = dto.IdSanPham,
-
                 SoLuong = dto.SoLuong,
                 Status = dto.Status,
             };
@@ -91,7 +90,10 @@ namespace GlobalAI.ProductRepositories
                     {
                         addGioHangDto.IdSanPhamChiTiet = listIdSanPhamChiTiet[i];
                     }
-
+                }
+                if (addGioHangDto.IdSanPhamChiTiet == null)
+                {
+                    ThrowException(ErrorCode.ProductSpChiTietNotFound);
                 }
             }
             

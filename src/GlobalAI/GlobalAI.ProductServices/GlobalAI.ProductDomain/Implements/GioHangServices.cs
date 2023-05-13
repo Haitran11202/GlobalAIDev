@@ -110,6 +110,7 @@ namespace GlobalAI.ProductDomain.Implements
                 var sanPhamChiTietGioHang = new GetSanPhamChiTietGioHangDto()
                 {
                     IdSanPham = giohang.IdSanPham,
+                    IdSanPhamChiTiet = giohang.IdSanPhamChiTiet,
                     TenSanPham = sanPham.TenSanPham,
                     GiaBan = sanPhamChiTiet.GiaBan,
                     MoTa = sanPhamChiTiet.MoTa,
@@ -123,11 +124,7 @@ namespace GlobalAI.ProductDomain.Implements
                 var dict = new Dictionary<String, AddThuocTinhGiaTriDto>();
                 var listDanhMucThuocTinhs = _thuocTinhRepository.FindByIdDanhMucThuocTinh(sanPham.IdDanhMucThuocTinh);
                 var listIdThuocTinhGiaTris = giohang.IdThuocTinhs.ToList();
-<<<<<<< Updated upstream
                 if(listIdThuocTinhGiaTris.Count() != 0)
-=======
-                if(listDanhMucThuocTinhs.Count() != 0)
->>>>>>> Stashed changes
                 {
                     for (int i = 0; i < listDanhMucThuocTinhs.Count; i++)
                     {
