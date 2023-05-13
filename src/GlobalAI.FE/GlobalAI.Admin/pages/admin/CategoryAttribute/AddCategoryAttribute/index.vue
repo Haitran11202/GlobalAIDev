@@ -6,20 +6,30 @@
       class="m-auto overflow-y-auto shadow-2xl p-12 max-h-screen"
     >
       <div class="flex flex-col gap-5">
-        <div>
+        <div class="font-medium">
+          <label class="label font-medium">
+            <span class="label-text text-base uppercase"
+              >Mã danh mục sản phẩm</span
+            >
+          </label>
           <input
             v-model="item.ma"
             type="text"
-            placeholder="Mã danh mục sản phẩm"
-            class="input shadow-sm input-bordered w-full max-w-xs"
+            placeholder="Mã danh mục sản phẩm..."
+            class="input text-sm shadow-sm input-bordered w-full max-w-xs hover:opacity-75"
           />
         </div>
-        <div>
+        <div class="font-medium">
+          <label class="label font-medium">
+            <span class="label-text text-base uppercase"
+              >Tên danh mục sản phẩm</span
+            >
+          </label>
           <input
             v-model="item.ten"
             type="text"
-            placeholder="Tên danh mục sản phẩm"
-            class="input shadow-sm input-bordered w-full max-w-xs"
+            placeholder="Tên danh mục sản phẩm..."
+            class="input text-sm shadow-sm input-bordered w-full max-w-xs hover:opacity-75"
           />
         </div>
         <div v-for="(thuoctinh, idx) in item.listThuocTinh" :key="idx">
@@ -27,11 +37,14 @@
             <div class="flex justify-between items-center">
               <div class="text-xl flex flex-col gap-3 font-medium m-5">
                 <div>
+                  <label class="label">
+                    <span class="label-text uppercase">Thuộc tính</span>
+                  </label>
                   <input
                     :key="idx"
                     type="text"
-                    placeholder="Tên thuộc tính"
-                    class="input shadow-sm input-bordered input-md w-full max-w-xs"
+                    placeholder="Thuộc tính..."
+                    class="input shadow-sm input-bordered input-md w-full max-w-xs hover:opacity-75"
                     v-model="thuoctinh.tenThuocTinh"
                   />
                 </div>
@@ -40,21 +53,28 @@
                     giaTriThuocTinh, index
                   ) in thuoctinh.listThuocTinhGiaTri"
                   :key="index"
-                  class="flex gap-3 items-center justify-between"
+                  class="ml-5"
                 >
-                  <input
-                    :key="index"
-                    type="text"
-                    placeholder="Giá trị"
-                    class="input shadow-sm input-bordered input-sm w-full max-w-xs"
-                    v-model="giaTriThuocTinh.giaTri"
-                  />
+                  <div>
+                    <label class="label">
+                      <span class="label-text uppercase">Giá trị</span>
+                    </label>
+                  </div>
+                  <div class="flex gap-3 items-center justify-between">
+                    <input
+                      :key="index"
+                      type="text"
+                      placeholder="Giá trị..."
+                      class="input shadow-sm input-bordered input-sm w-full max-w-xs hover:opacity-75"
+                      v-model="giaTriThuocTinh.giaTri"
+                    />
 
-                  <span
-                    @click="addInputField(thuoctinh.idDanhMucThuocTinh)"
-                    class="text-sm text-slate-800 hover:opacity-70 cursor-pointer"
-                    ><font-awesome-icon icon="fa-plus"
-                  /></span>
+                    <span
+                      @click="addInputField(thuoctinh.idDanhMucThuocTinh)"
+                      class="text-sm text-slate-800 hover:opacity-70 cursor-pointer"
+                      ><font-awesome-icon icon="fa-plus"
+                    /></span>
+                  </div>
                 </div>
               </div>
               <span

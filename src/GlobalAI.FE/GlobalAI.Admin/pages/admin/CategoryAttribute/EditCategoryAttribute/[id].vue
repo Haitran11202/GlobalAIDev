@@ -2,20 +2,30 @@
   <div class="mt-4 relative bg-white rounded">
     <div class="m-auto overflow-y-auto shadow-2xl p-12 max-h-screen">
       <div class="flex flex-col gap-5">
-        <div>
+        <div class="font-medium">
+          <label class="label font-medium">
+            <span class="label-text text-base uppercase"
+              >Mã danh mục sản phẩm</span
+            >
+          </label>
           <input
             v-model="categoryAttData.ma"
             type="text"
-            placeholder="Mã danh mục sản phẩm"
-            class="input shadow-sm input-bordered w-full max-w-xs"
+            placeholder="Mã danh mục sản phẩm..."
+            class="input text-sm shadow-sm input-bordered w-full max-w-xs hover:opacity-75"
           />
         </div>
-        <div>
+        <div class="font-medium">
+          <label class="label font-medium">
+            <span class="label-text text-base uppercase"
+              >Tên danh mục sản phẩm</span
+            >
+          </label>
           <input
             v-model="categoryAttData.ten"
             type="text"
-            placeholder="Tên danh mục sản phẩm"
-            class="input shadow-sm input-bordered w-full max-w-xs"
+            placeholder="Tên danh mục sản phẩm..."
+            class="input text-sm shadow-sm input-bordered w-full max-w-xs hover:opacity-75"
           />
         </div>
         <div
@@ -26,24 +36,34 @@
             <div class="flex justify-between items-center">
               <div class="text-xl flex flex-col gap-3 font-medium m-5">
                 <div>
+                  <label class="label">
+                    <span class="label-text uppercase">Thuộc tính</span>
+                  </label>
                   <input
                     v-model="listThuocTinh.tenThuocTinh"
                     type="text"
-                    placeholder="Tên thuộc tính"
-                    class="input shadow-sm input-bordered input-md w-full max-w-xs"
+                    placeholder="Tên thuộc tính..."
+                    class="input shadow-sm input-bordered input-md w-full max-w-xs hover:opacity-75"
                   />
                 </div>
                 <div
                   v-for="(listGiaTri, index) in listThuocTinh.listGiaTri"
                   :key="index"
-                  class="flex gap-3 items-center justify-between"
+                  class="ml-5"
                 >
-                  <input
-                    v-model="listGiaTri.giaTri"
-                    type="text"
-                    placeholder="Giá trị"
-                    class="input shadow-sm input-bordered input-sm w-full max-w-xs"
-                  />
+                  <div>
+                    <label class="label">
+                      <span class="label-text uppercase">Giá trị</span>
+                    </label>
+                  </div>
+                  <div class="flex gap-3 items-center justify-between">
+                    <input
+                      v-model="listGiaTri.giaTri"
+                      type="text"
+                      placeholder="Giá trị"
+                      class="input shadow-sm input-bordered input-sm w-full max-w-xs hover:opacity-75"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
