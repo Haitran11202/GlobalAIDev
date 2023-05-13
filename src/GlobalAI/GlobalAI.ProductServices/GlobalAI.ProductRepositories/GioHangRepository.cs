@@ -57,6 +57,7 @@ namespace GlobalAI.ProductRepositories
             var addGioHangDto = new AddGioHangDto()
             {
                 IdSanPham = dto.IdSanPham,
+
                 SoLuong = dto.SoLuong,
                 Status = dto.Status,
             };

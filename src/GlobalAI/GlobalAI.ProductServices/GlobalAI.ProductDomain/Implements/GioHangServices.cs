@@ -123,7 +123,7 @@ namespace GlobalAI.ProductDomain.Implements
                 var dict = new Dictionary<String, AddThuocTinhGiaTriDto>();
                 var listDanhMucThuocTinhs = _thuocTinhRepository.FindByIdDanhMucThuocTinh(sanPham.IdDanhMucThuocTinh);
                 var listIdThuocTinhGiaTris = giohang.IdThuocTinhs.ToList();
-                if(listDanhMucThuocTinhs.Count() != 0)
+                if(listIdThuocTinhGiaTris.Count() != 0)
                 {
                     for (int i = 0; i < listDanhMucThuocTinhs.Count; i++)
                     {
