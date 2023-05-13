@@ -29,7 +29,6 @@ using GlobalAI.ProductEntities.Dto.DanhMuc;
 using GlobalAI.ProductEntities.Dto.ChiTietTraGia;
 using GlobalAI.ProductEntities.Dto.TraGia;
 using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
-using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 using GlobalAI.ProductEntities.Dto.ThuocTinh;
 using GlobalAI.ProductEntities.Dto.ThuocTinhGiaTri;
 
