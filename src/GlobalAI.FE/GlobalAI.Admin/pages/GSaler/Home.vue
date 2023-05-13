@@ -10,11 +10,11 @@
         </h1>
         <Sliderncc />
       </div>
-      <card-list-product-short
+      <card-list-product-home
         category="Sản phẩm mới nhất"
         :products="products"
       />
-      <card-list-product-short
+      <card-list-product-home
         category="Sản phẩm bán chạy"
         :products="productsSeller"
       />
@@ -37,7 +37,7 @@ import BuyAndSell from "./BuyAndSell.vue";
 import NavItemCategory from "./NavItemCategory.vue";
 import Community from "./Community.vue";
 import HighProfitSale from "./HighProfitSale.vue";
-import CardListProductShort from "../../components/Cards/CardListProductShort.vue";
+import CardListProductHome from "~~/components/Cards/CardListProductHome.vue";
 import Sliderncc from "./Sliderncc.vue";
 import Advisement from "./Advisement.vue";
 import toast from "vue3-toastify";

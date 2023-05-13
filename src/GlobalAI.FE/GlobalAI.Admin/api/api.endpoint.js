@@ -106,6 +106,8 @@ export const API_ENDPOINT = {
   getAllPostCategoryPhanTran: (pageSize, pageNumber, skip) =>
     `/api/product/danh-muc-bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
 
+  getDanhBaiTinMucNoiBat: () => `/api/product/danh-muc-bai-tin/find-all?isParent=true&pageSize=-1`,
+  
   getAllPostCategoryTree: ()=> `/api/product/danh-muc-bai-tin/find-all-trees`,
 
   getPostCategoryById: (id) => `/api/product/danh-muc-bai-tin/${id}`,

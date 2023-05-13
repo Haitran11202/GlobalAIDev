@@ -266,3 +266,31 @@ export const getAllDanhMucBaiTin = async () => {
     }
 };
 
+/**
+ * LẤY DANH MỤC THUỘC TÍNH THEO ID
+ * @param {*} id 
+ * @returns 
+ */
+export const getDanhMucThuocTinhById = async (id) => {
+    try {
+        const res = await http.get(API_ENDPOINT.getDanhMucThuocTinhById(id));
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
+
+/**
+ * LẤY LIST DANH MỤC THUỘC TÍNH
+ * @param {*} id 
+ * @returns 
+ */
+export const getListDanhMucThuocTinh = async () => {
+    try {
+        const res = await http.get(API_ENDPOINT.getListDanhMucThuocTinh);
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
+

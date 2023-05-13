@@ -31,6 +31,7 @@ using GlobalAI.ProductEntities.Dto.TraGia;
 using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 using GlobalAI.ProductEntities.Dto.ThuocTinh;
 using GlobalAI.ProductEntities.Dto.ThuocTinhGiaTri;
+using AutoMapper.Internal;
 
 namespace GlobalAI.ProductDomain.Implements
 {
@@ -156,13 +157,23 @@ namespace GlobalAI.ProductDomain.Implements
                 IdDanhMucThuocTinh = sanPham.IdDanhMucThuocTinh,
                 Thumbnail = sanPham.Thumbnail,
             };
-            
             var dict = new Dictionary<String, List<ViewThuocTinhGiaTriDto>>();
+            var sanPhamCt = _dbContext.SanPhamChiTiets.Where(spct => spct.IdSanPham == sanPham.Id).ToList();
+            var listSanPhamCt = new List<int>();
+            for (int i = 0; i < sanPhamCt.Count; i++)
+            {   
+                var thuocTinhGtSanPham = _dbContext.SanPhamChiTietThuocTinhs.Where(spctt => spctt.IdSanPhamChiTiet == sanPhamCt[i].Id).Select(s => s.IdThuocTinhGiaTri).ToList();
+                listSanPhamCt = listSanPhamCt.Concat(thuocTinhGtSanPham).ToList();
+            }
+            
             var listDanhMucThuocTinhs = _thuocTinhRepository.FindByIdDanhMucThuocTinh(sanPham.IdDanhMucThuocTinh);
+            
             for (int i = 0; i < listDanhMucThuocTinhs.Count; i++)
             {
+                
                 var giatritt = _thuocTinhRepository.FindGiaTriByIdThuocTinh(listDanhMucThuocTinhs[i].Id);
-                dict.Add(_mapper.Map<GetThuocTinhDto>(listDanhMucThuocTinhs[i]).TenThuocTinh, _mapper.Map<List<ViewThuocTinhGiaTriDto>>(giatritt));
+                var giatriTT = giatritt.Where(s => listSanPhamCt.Contains(s.Id));
+                dict.Add(_mapper.Map<GetThuocTinhDto>(listDanhMucThuocTinhs[i]).TenThuocTinh, _mapper.Map<List<ViewThuocTinhGiaTriDto>>(giatriTT));
             }
             GetSanPhamChiTiet.ThuocTinhs = dict;
             return GetSanPhamChiTiet;

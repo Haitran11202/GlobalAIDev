@@ -134,7 +134,6 @@
 import axios from "axios";
 import { ref } from "vue";
 import NumberInput from "~~/components/Input/NumberInput.vue";
-import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 import { postPostCategory } from "~~/composables/useApiPostCategory";

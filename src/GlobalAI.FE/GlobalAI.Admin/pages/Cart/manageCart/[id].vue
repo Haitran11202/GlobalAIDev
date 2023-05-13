@@ -37,14 +37,14 @@
                 >
                     <div
                         v-for="sanpham in products"
-                        :key="sanpham.id"
+                        :key="sanpham.idSanPham"
                         class="flex w-full items-start gap-[10px] mb-[30px]"
                     >
                         <div class="flex items-center gap-[20px]">
                             <input
-                                :id="sanpham.id"
+                                :id="sanpham.idSanPham"
                                 class="scale-x-150 scale-y-150"
-                                :value="sanpham.id"
+                                :value="sanpham.idSanPham"
                                 v-model="selectedProducts"
                                 type="checkbox"
                             />
@@ -60,7 +60,9 @@
                                 <span
                                     class="mt-[10px] text-[16px] text-[#6c757d]"
                                     >SL :
-                                    {{ getCartItemQuantity(sanpham.id) }}</span
+                                    {{
+                                        getCartItemQuantity(sanpham.idSanPham)
+                                    }}</span
                                 >
                             </div>
                         </div>
@@ -70,16 +72,39 @@
                             >
                                 {{ sanpham.tenSanPham }}
                             </h2>
-                            <span class="text-[14px] text-[#6C757D]"
-                                >Phân loại : Trắng</span
-                            >
+                            <div class="flex items-center gap-[10px]">
+                                <h2>Phân loại :</h2>
+                                <div
+                                    v-for="(key, index) in Object.keys(
+                                        sanpham.thuocTinhs
+                                    )"
+                                    :key="index"
+                                    class="flex items-center gap-[5px]"
+                                >
+                                    <span class="text-[#6C757D]">{{
+                                        sanpham.thuocTinhs[key].giaTri
+                                    }}</span>
+                                    <span
+                                        class="w-[5px] text-black"
+                                        v-if="
+                                            index !==
+                                            Object.keys(sanpham.thuocTinhs)
+                                                .length -
+                                                1
+                                        "
+                                        >-</span
+                                    >
+                                </div>
+                            </div>
                             <span
                                 class="text-left text-[#cc3366] text-[16px] font-[400]"
                                 >Tổng giá :
                                 {{
                                     formatMoneyAll(
                                         getPrice(
-                                            getCartItemQuantity(sanpham.id),
+                                            getCartItemQuantity(
+                                                sanpham.idSanPham
+                                            ),
                                             sanpham.giaBan
                                         )
                                     )
@@ -89,8 +114,10 @@
                                 <p
                                     @click="
                                         handleUpdateProduct(
-                                            sanpham.id,
-                                            getCartItemQuantity(sanpham.id),
+                                            sanpham.idSanPham,
+                                            getCartItemQuantity(
+                                                sanpham.idSanPham
+                                            ),
                                             sanpham.giaBan
                                         )
                                     "
@@ -100,7 +127,9 @@
                                 </p>
                                 <button
                                     class="flex items-center text-[#3478f6]"
-                                    @click="handleModalDelete(sanpham.id)"
+                                    @click="
+                                        handleModalDelete(sanpham.idSanPham)
+                                    "
                                 >
                                     <svg
                                         class="w-8 h-8 rounded-full p-1"
@@ -121,7 +150,7 @@
                             </div>
                         </div>
                         <div
-                            v-if="isShowModelCart == sanpham.id"
+                            v-if="isShowModelCart == sanpham.idSanPham"
                             class="ModalUpdateCart z-50 fixed lg:w-[512px] lg:py-[20px] px-[10px] h-[630px] bg-white top-[50%] rounded-2xl shadow-2xl left-[50%] translate-x-[-50%] translate-y-[-50%]"
                         >
                             <div class="float-right">
@@ -153,9 +182,35 @@
                                         >
                                             {{ sanpham.tenSanPham }}
                                         </h1>
-                                        <div class="flex gap-[20px]">
-                                            <h2 class="text-[16px]">Màu sắc</h2>
-                                            <span>Trắng</span>
+                                        <div
+                                            class="flex items-center gap-[10px]"
+                                        >
+                                            <h2>Phân loại :</h2>
+                                            <div
+                                                v-for="(
+                                                    key, index
+                                                ) in Object.keys(
+                                                    sanpham.thuocTinhs
+                                                )"
+                                                :key="index"
+                                                class="flex items-center gap-[5px]"
+                                            >
+                                                <span class="text-[#6C757D]">{{
+                                                    sanpham.thuocTinhs[key]
+                                                        .giaTri
+                                                }}</span>
+                                                <span
+                                                    class="w-[5px] text-black"
+                                                    v-if="
+                                                        index !==
+                                                        Object.keys(
+                                                            sanpham.thuocTinhs
+                                                        ).length -
+                                                            1
+                                                    "
+                                                    >-</span
+                                                >
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -208,7 +263,9 @@
                                         class="px-[10px] flex justify-between items-center py-[8px] rounded-xl border-coolGray-500 border-[1px]"
                                     >
                                         <button
-                                            @click="decrement(sanpham.id)"
+                                            @click="
+                                                decrement(sanpham.idSanPham)
+                                            "
                                             class="w-[20px] h-[20px] hover:bg-black flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
                                         >
                                             -
@@ -219,7 +276,9 @@
                                             :value="soLuongUpdate"
                                         />
                                         <button
-                                            @click="increment(sanpham.id)"
+                                            @click="
+                                                increment(sanpham.idSanPham)
+                                            "
                                             class="w-[20px] h-[20px] hover:bg-black flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
                                         >
                                             +
@@ -263,7 +322,7 @@
                                         <button
                                             @click="
                                                 handleUpdateNewProductCart(
-                                                    sanpham.id
+                                                    sanpham.idSanPham
                                                 )
                                             "
                                             class="w-[335px] py-[12px] rounded-xl px-[20px] flex justify-center text-[18px] items-center bg-[#cc3366] text-white font-bold"
@@ -272,7 +331,9 @@
                                         </button>
                                         <button
                                             @click="
-                                                handleModalDelete(sanpham.id)
+                                                handleModalDelete(
+                                                    sanpham.idSanPham
+                                                )
                                             "
                                             class="w-[335px] mt-[20px] py-[12px] rounded-xl px-[20px] flex justify-center text-[18px] items-center bg-white border-[1px] border-[#cc3366] text-[#cc3366] font-bold"
                                         >
@@ -369,10 +430,10 @@
                         <h2 class="text-[18px] font-bold">Địa chỉ</h2>
                     </div>
                     <div class="mb-[10px] flex justify-between items-center">
-                        <span>{{ diaChi }}</span>
+                        <span>Trương Định , Hà Nội</span>
                         <span
                             @click="handleShowModalAddress"
-                            class="underline text-blue-400 w-[100px] text-[16px] cursor-pointer"
+                            class="underline text-blue-400 text-[16px] cursor-pointer"
                             >Thay đổi</span
                         >
                     </div>
@@ -419,34 +480,34 @@
                                                             >*</span
                                                         >
                                                     </option>
-                                                    <option value="Hà Nội">
+                                                    <option value="Hanoi">
                                                         Hà Nội
                                                     </option>
-                                                    <option value="Đà Nẵng">
+                                                    <option value="Danang">
                                                         Đà Nẵng
                                                     </option>
-                                                    <option value="Hồ chí Minh">
+                                                    <option value="Hochiminh">
                                                         Hồ Chí Minh
                                                     </option>
-                                                    <option value="Cần Thơ">
+                                                    <option value="Cantho">
                                                         Cần Thơ
                                                     </option>
-                                                    <option value="Hải Phòng">
+                                                    <option value="Haiphong">
                                                         Hải Phòng
                                                     </option>
-                                                    <option value="An Giang">
+                                                    <option value="Binhphuoc">
                                                         An Giang
                                                     </option>
-                                                    <option value="Cà Mau">
+                                                    <option value="CaMau">
                                                         Cà Mau
                                                     </option>
                                                     <option value="Vinh">
                                                         Vinh
                                                     </option>
-                                                    <option value="Cao Bằng">
+                                                    <option value="Caobang">
                                                         Cao Bằng
                                                     </option>
-                                                    <option value=" Bến Tre">
+                                                    <option value="Bentre">
                                                         Bến Tre
                                                     </option>
                                                 </select>
@@ -465,16 +526,16 @@
                                                             >*</span
                                                         >
                                                     </option>
-                                                    <option value="Mỹ Đức">
+                                                    <option value="MyDuc">
                                                         Mỹ Đức
                                                     </option>
-                                                    <option value="Đông Anh">
+                                                    <option value="DongAnh">
                                                         Đông Anh
                                                     </option>
-                                                    <option value="Gia Lâm">
+                                                    <option value="Gialam">
                                                         Gia Lâm
                                                     </option>
-                                                    <option value="Hòai Đức">
+                                                    <option value="HoaiDuc">
                                                         Hòai Đức
                                                     </option>
                                                 </select>
@@ -491,16 +552,16 @@
                                                         >*</span
                                                     >
                                                 </option>
-                                                <option value="Hương Sơn">
+                                                <option value="MyDuc">
                                                     Hương Sơn
                                                 </option>
-                                                <option value="Đặng Xá">
+                                                <option value="DangXa">
                                                     Đặng Xá
                                                 </option>
-                                                <option value="Đình Xuyên">
+                                                <option value="DinhXuyen">
                                                     Đình Xuyên
                                                 </option>
-                                                <option value="Phú Thị">
+                                                <option value="Phuthi">
                                                     Phú Thị
                                                 </option>
                                             </select>
@@ -721,6 +782,9 @@
                                                                     Số Lượng
                                                                 </th>
                                                                 <th>
+                                                                    Phân Loại
+                                                                </th>
+                                                                <th>
                                                                     Thành Tiền
                                                                 </th>
                                                             </tr>
@@ -774,6 +838,43 @@
                                                                     {{
                                                                         ct.soLuong
                                                                     }}
+                                                                </td>
+                                                                <td>
+                                                                    <div
+                                                                        v-for="(
+                                                                            key,
+                                                                            index
+                                                                        ) in Object.keys(
+                                                                            ct.phanLoai
+                                                                        )"
+                                                                        :key="
+                                                                            index
+                                                                        "
+                                                                        class="flex items-center gap-[5px]"
+                                                                    >
+                                                                        <span
+                                                                            class="text-[#6C757D]"
+                                                                            >{{
+                                                                                ct
+                                                                                    .phanLoai[
+                                                                                    key
+                                                                                ]
+                                                                                    .giaTri
+                                                                            }}</span
+                                                                        >
+                                                                        <span
+                                                                            class="w-[5px] text-black"
+                                                                            v-if="
+                                                                                index !==
+                                                                                Object.keys(
+                                                                                    ct.phanLoai
+                                                                                )
+                                                                                    .length -
+                                                                                    1
+                                                                            "
+                                                                            >-</span
+                                                                        >
+                                                                    </div>
                                                                 </td>
                                                                 <td>
                                                                     {{
@@ -900,16 +1001,15 @@ onMounted(async () => {
     }
     try {
         const res1 = await getSanPhamByNguoiMua();
-        products.value = res1?.data?.data;
         console.log(res1.data.data);
+        products.value = res1?.data?.data;
         const res2 = await getGioHang();
+        console.log(res2.data.gioHang);
         datas.value = res2?.data?.gioHang;
         console.log(datas.value);
-        diaChi.value = "112, Trương định, Hà Nội";
     } catch (error) {
         console.log(error);
     }
-    getUserInfor();
 });
 const getUserInfor = () => {
     var address = jwtDecode(accessToken);
@@ -917,8 +1017,7 @@ const getUserInfor = () => {
 };
 //lấy số lượng theo sản phẩm
 const getCartItemQuantity = (id, soLuongNew = 0) => {
-    const item = datas.value.find((item) => item.idSanPham === id);
-    // return item ? item.soLuong : 0;
+    const item = datas.value.find((item) => item.idSanPham == id);
     return soLuongNew == 0 ? item?.soLuong : soLuongNew;
 };
 //tăng số lượng sản phẩm trong giỏ hàng
@@ -928,6 +1027,7 @@ const increment = (idsp) => {
     const body = {
         idSanPham: idsp,
         soLuong: soLuongUpdate.value,
+        thuocTinhs: idAttr.value,
         status: 1,
     };
     editGioHang(gioHangsanpham.id, body)
@@ -945,6 +1045,7 @@ const decrement = (idsp) => {
     const body = {
         idSanPham: idsp,
         soLuong: soLuongUpdate.value,
+        thuocTinhs: idAttr.value,
         status: 1,
     };
     editGioHang(gioHangsanpham.id, body)
@@ -963,8 +1064,8 @@ const getPriceUpdate = () => {
 const checkAllGioHang = () => {
     if (checkAll.value) {
         products.value.forEach((product) => {
-            if (!selectedProducts.value.includes(product.id)) {
-                selectedProducts.value.push(product.id);
+            if (!selectedProducts.value.includes(product.idSanPham)) {
+                selectedProducts.value.push(product.idSanPham);
             }
         });
     } else {
@@ -973,12 +1074,12 @@ const checkAllGioHang = () => {
 };
 //lấy giá bán từ id của sản phẩm
 const getGiaBanTuIdSanPham = (idSanPham) => {
-    const product = products.value.find((item) => item.id === idSanPham);
+    const product = products.value.find((item) => item.idSanPham === idSanPham);
     return product ? product.giaBan : 0;
 };
 //lấy giá chiết khấu từ id sản phẩm
 const getGiaChietKhauTuIdSanPham = (idSanPham) => {
-    const product = products.value.find((item) => item.id === idSanPham);
+    const product = products.value.find((item) => item.idSanPham === idSanPham);
     return product ? product.giaChietKhau : 0;
 };
 //xóa giỏ hàng khi click vào icon thùng rác
@@ -1008,13 +1109,13 @@ const totalPrice = computed(() => {
     let sum = 0;
     let chietKhau = 0;
     let tongThanhToan = 0;
-    console.log(datas.value);
     datas.value.forEach((item) => {
         if (selectedProducts.value.includes(item.idSanPham)) {
             let giaBan = getGiaBanTuIdSanPham(item.idSanPham);
             let giaChietKhau = getGiaChietKhauTuIdSanPham(item.idSanPham);
             sum += getPrice(item.soLuong, giaBan);
             chietKhau += getPrice(item.soLuong, giaChietKhau);
+            console.log(chietKhau);
             tongThanhToan = sum - chietKhau;
         }
     });
@@ -1041,9 +1142,11 @@ const checkOut = () => {
     console.log(selectedProducts.value);
     selectedProducts.value.map((idSp) => {
         console.log(idSp);
-        var chiTiet = products.value.find((p) => p.id == idSp);
+        var chiTiet = products.value.find((p) => p.idSanPham == idSp);
         console.log(chiTiet);
+        console.log(chiTiet.idGStore);
         arrGstore.push(chiTiet.idGStore);
+        console.log(arrGstore);
     });
     console.log(selectedProducts.value);
     //tạo chi tiet don hang
@@ -1052,20 +1155,24 @@ const checkOut = () => {
     uniIdGstore.value = uniqueGstores;
     uniqueGstores.forEach((idGStore) => {
         const filterdProducts = selectedProducts.value.filter((idsp) => {
-            const product = products.value.find((p) => p.id == idsp);
+            console.log(idsp);
+            const product = products.value.find((p) => p.idSanPham == idsp);
+            console.log(product);
             return product.idGStore == idGStore;
         });
 
         // create chi tiet don hang for products with matching idGStore
         const chiTietDonHangFullDtos = filterdProducts.map((idSp) => {
-            const chiTiet = products.value.find((p) => p.id == idSp);
+            const chiTiet = products.value.find((p) => p.idSanPham == idSp);
             console.log(chiTiet);
+            console.log(idSp);
 
             return {
-                idSanPham: chiTiet.id,
+                idSanPham: chiTiet.idSanPham,
                 tenSanPham: chiTiet.tenSanPham,
                 thumbnail: chiTiet.thumbnail,
                 soLuong: getCartItemQuantity(idSp),
+                phanLoai: chiTiet.thuocTinhs,
                 donGia: chiTiet.giaChietKhau,
                 thanhTien: getCartItemQuantity(idSp) * chiTiet.giaChietKhau,
             };
@@ -1087,20 +1194,21 @@ const checkOut = () => {
 
     console.log(selectedProductCheckout.value);
 };
+// Xử lý đặt hàng
 const dathang = () => {
     uniIdGstore.value.forEach((idGStore) => {
         const filterdProducts = selectedProducts.value.filter((idsp) => {
-            const product = products.value.find((p) => p.id == idsp);
+            const product = products.value.find((p) => p.idSanPham == idsp);
             return product.idGStore == idGStore;
         });
 
         // create chi tiet don hang for products with matching idGStore
         const chiTietDonHangFullDtos = filterdProducts.map((idSp) => {
-            const chiTiet = products.value.find((p) => p.id == idSp);
+            const chiTiet = products.value.find((p) => p.idSanPham == idSp);
             console.log(chiTiet);
 
             return {
-                idSanPham: chiTiet.id,
+                idSanPham: chiTiet.idSanPham,
                 soLuong: getCartItemQuantity(idSp),
             };
         });
@@ -1122,7 +1230,7 @@ const dathang = () => {
                 toast.success("Tạo đơn hàng thành công");
                 // xóa sản phẩm trong giỏ hàng khi thêm đơn hàng thành công
                 sendBody.chiTietDonHangFullDtos.map((ct) => {
-                    console.log(ct.idSanPham);
+                    console.log(ct);
                     deleteGh(ct.idSanPham);
                 });
             })
@@ -1131,23 +1239,30 @@ const dathang = () => {
 
     handleResetData();
 };
+
+// Các modal
 const handleUpdateProduct = (id, soLuong, giaBanModal) => {
     isShowModelCart.value = id;
     isShowModalOpacity.value = true;
     soLuongUpdate.value = soLuong;
     giaBan.value = giaBanModal;
-    console.log(giaBan.value);
+    const item = datas.value.find((item) => item.idSanPham === id);
+    idAttr.value = item.idThuocTinhs;
+    console.log(idAttr.value);
 };
 const handleUpdateNewProductCart = (id) => {
     console.log(id);
     const item = datas.value.find((item) => item.idSanPham === id);
+    console.log(item);
     isShowModalOpacity.value = false;
     item.soLuong = soLuongUpdate.value;
+    console.log(soLuongUpdate.value);
     isShowModelCart.value = "";
     getPrice(getCartItemQuantity(id, item.soLuong), giaBan.value);
 };
 const handleModalDelete = (id) => {
     idDelete.value = id;
+    console.log(id);
     isShowModelCart.value = "";
     isshowModalDelete.value = true;
     isShowModalOpacity.value = true;

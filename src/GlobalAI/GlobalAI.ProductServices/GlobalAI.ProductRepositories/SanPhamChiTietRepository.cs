@@ -263,5 +263,14 @@ namespace GlobalAI.ProductRepositories
                 ThrowException(ErrorCode.ProductSpChiTietDaDuocTaoDonHang);
             }
         }
+        public SanPhamChiTiet GetSanPhamChiTietById(int idSanPhamChiTiet)
+        {
+            var sanPhamChiTiet = _dbSet.FirstOrDefault(spct => spct.Id == idSanPhamChiTiet && !spct.Deleted);
+            if(sanPhamChiTiet == null)
+            {
+                ThrowException(ErrorCode.ProductSpChiTietNotFound);
+            }
+            return sanPhamChiTiet;
+        }
     }
 }

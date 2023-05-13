@@ -42,7 +42,7 @@
             Cập nhật danh mục sản phẩm
           </button>
           <button
-            @click="this.$router.push('/admin/categoryproduct')"
+            @click="router.push('/admin/categoryproduct')"
             class="btn btn-outline btn-error"
           >
             <span class="flex">Quay về</span>
@@ -54,7 +54,6 @@
 </template>
 
 <script setup>
-import axios from "axios";
 import Vue3Toastify, { toast } from "vue3-toastify";
 import "vue3-toastify/dist/index.css";
 import { useRouter } from "vue-router";
@@ -62,7 +61,6 @@ import {
   getCategoryProductById,
   updateCategoryProduct,
 } from "~~/composables/useApiCategoryProduct";
-import Tiptap from "~~/components/TextEditor/Tiptap.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref, watchEffect } from "vue";
 definePageMeta({
