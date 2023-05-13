@@ -263,13 +263,9 @@ const initData = () => {
 
 async function uploadImage(event) {
   try {
-    const formData = new FormData();
-    formData.append("file", event.target.files[0]);
-    postImage(formData)
+    postFile(event.target.files[0], 'image')
       .then((response) => {
-        console.log(response);
-        thumbnailNew.value = response.data.split("=")[2];
-        console.log(response.data);
+        thumbnailNew.value = response.data;
       })
       .catch((error) => {
         console.log(error);
@@ -285,9 +281,7 @@ const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
   }
-  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
-  )}&download=false`;
+  const url = `${baseUrl}/${imageUrl}`;
   return url;
 };
 

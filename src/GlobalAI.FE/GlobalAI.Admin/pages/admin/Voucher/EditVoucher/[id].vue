@@ -3,98 +3,54 @@
     <form @submit.prevent="submitForm" class="m-auto shadow-2xl p-12">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
-          <label
-            for="name"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-          >
+          <label for="name" class="block uppercase text-slate-600 text-xs font-bold mb-2">
             Tên Voucher
           </label>
-          <Field
-            name="name"
-            type="text"
-            v-model="name"
-            placeholder="Mã sản phẩm..."
-            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          />
+          <Field name="name" type="text" v-model="name" placeholder="Mã sản phẩm..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
           <error-message name="name" class="text-red-500" />
         </div>
 
         <div class="col-span-1">
-          <label
-            for="giaTri"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-          >
+          <label for="giaTri" class="block uppercase text-slate-600 text-xs font-bold mb-2">
             Giá trị
           </label>
-          <Field
-            name="giaTri"
-            type="number"
-            v-model="giaTri"
-            placeholder="Tên sản phẩm..."
-            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          />
+          <Field name="giaTri" type="number" v-model="giaTri" placeholder="Tên sản phẩm..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
           <error-message name="giaTri" class="text-red-500" />
         </div>
 
         <div class="col-span-1">
-          <label
-            for="soLuong"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-          >
+          <label for="soLuong" class="block uppercase text-slate-600 text-xs font-bold mb-2">
             Số lượng
           </label>
-          <Field
-            name="soLuong"
-            v-model="soLuong"
-            type="number"
-            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          />
+          <Field name="soLuong" v-model="soLuong" type="number"
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
           <error-message name="soLuong" class="text-red-500" />
         </div>
 
         <div class="col-span-1">
-          <label
-            for="ngayHetHan"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-          >
+          <label for="ngayHetHan" class="block uppercase text-slate-600 text-xs font-bold mb-2">
             Ngày hết hạn
           </label>
-          <Field
-            name="ngayHetHan"
-            type="date"
-            v-model="ngayHetHan"
-            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          />
+          <Field name="ngayHetHan" type="date" v-model="ngayHetHan"
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
           <error-message name="ngayHetHan" class="text-red-500" />
         </div>
         <div class="">
-          <label
-            for="avatar"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Hình ảnh</label
-          >
+          <label for="avatar" class="block uppercase text-slate-600 text-xs font-bold mb-2">Hình ảnh</label>
           <div class="flex items-center justify-between relative">
-            <input
-              type="file"
-              id="avatar"
+            <input type="file" id="avatar"
               class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              @change.prevent="uploadImage"
-            />
-            <img
-              alt="Product Image"
-              class="w-[50px] h-[50px] border absolute right-0 rounded"
-              :src="getImageUrl(avatarNew)"
-            />
+              @change.prevent="uploadImage" />
+            <img alt="Product Image" class="w-[50px] h-[50px] border absolute right-0 rounded"
+              :src="getImageUrl(avatarNew)" />
           </div>
         </div>
       </div>
       <div class="flex flex-col">
         <div class="mb-6">
-          <label
-            for="moTa"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Mô tả</label
-          >
+          <label for="moTa" class="block uppercase text-slate-600 text-xs font-bold mb-2">Mô tả</label>
           <div class="w-full h-[300px]">
             <div class="min-h-screen">
               <TextEditor v-model="moTa" />
@@ -105,10 +61,7 @@
           <button type="submit" class="btn btn-outline float-right">
             Cập nhật voucher
           </button>
-          <button
-            @click="router.push('/admin/voucher')"
-            class="btn btn-outline btn-error"
-          >
+          <button @click="router.push('/admin/voucher')" class="btn btn-outline btn-error">
             <span class="flex">Quay về</span>
           </button>
         </div>
@@ -145,22 +98,14 @@ const router = useRouter();
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
-async function uploadImage(event) {
-  try {
-    const formData = new FormData();
-    formData.append("file", event.target.files[0]);
-    postImage(formData)
-      .then((response) => {
-        console.log(response);
-        avatarNew.value = response.data.split("=")[2];
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  } catch (error) {
-    console.error(error);
-  }
+const uploadImage = (event) => {
+  postFile(event.target.files[0], formData)
+    .then((response) => {
+      avatarNew.value = response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
 // Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
@@ -168,9 +113,7 @@ const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
   }
-  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
-  )}&download=false`;
+  const url = `${baseUrl}/${imageUrl}`;
   return url;
 };
 
