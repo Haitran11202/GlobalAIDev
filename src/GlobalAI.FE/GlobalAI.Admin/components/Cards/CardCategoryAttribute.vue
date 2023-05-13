@@ -202,7 +202,7 @@ watchEffect(() => {
   fetchData();
 
   if (deletedCategoryAttribute.value !== null) {
-    getAllDanhMucThuocTinhSanPham();
+    getAllDanhMucThuocTinhSanPham(pageSize.value, pageNumber.value, skip.value);
     deletedCategoryAttribute.value = null;
   }
 });
