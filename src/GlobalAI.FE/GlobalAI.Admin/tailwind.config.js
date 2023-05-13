@@ -107,7 +107,7 @@ module.exports = {
 		"visited",
 		"disabled",
 	],
-	plugins: [require("daisyui"), require('flowbite/plugin')],
+	plugins: [require("daisyui"), require('flowbite/plugin'), require('@tailwindcss/typography'),],
 	daisyui: {
 		styled: true,
 		themes: true,
