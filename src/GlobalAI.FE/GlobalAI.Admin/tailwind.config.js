@@ -1,15 +1,17 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
-  content: [
-    './assets/**/*.{vue,js,css}',
-    './components/**/*.{vue,js}',
-    './layouts/**/*.vue',
-    './pages/**/*.vue',
-    './plugins/**/*.{js,ts}',
-    './nuxt.config.{js,ts}',
-  ],
-  media: false,
+	content: [
+		'./assets/**/*.{vue,js,css}',
+		'./components/**/*.{vue,js}',
+		'./layouts/**/*.vue',
+		'./pages/**/*.vue',
+		'./plugins/**/*.{js,ts}',
+		'./nuxt.config.{js,ts}',
+		'node_modules/flowbite-vue/**/*.{js,jsx,ts,tsx}',
+		'node_modules/flowbite/**/*.{js,jsx,ts,tsx}'
+	],
+	media: false,
 	theme: {
 		extend: {
 			colors: {
@@ -34,7 +36,7 @@ module.exports = {
 				'login': "url('assets/login-form-background.png')",
 				'footer': "url('assets/footer-background.png')",
 				'list-dichvu': "url('assets/bg/service-background.png')",
-				'user' : "url('assets/user.svg)"
+				'user': "url('assets/user.svg)"
 			},
 			fontSize: {
 				'32px': '32px',
@@ -105,7 +107,7 @@ module.exports = {
 		"visited",
 		"disabled",
 	],
-	plugins: [require("daisyui")],
+	plugins: [require("daisyui"), require('flowbite/plugin')],
 	daisyui: {
 		styled: true,
 		themes: true,
@@ -115,5 +117,5 @@ module.exports = {
 		rtl: false,
 		prefix: "",
 		// darkTheme: "dark",
-	  },
+	},
 };

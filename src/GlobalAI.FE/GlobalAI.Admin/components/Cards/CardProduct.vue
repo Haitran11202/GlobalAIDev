@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="w-full">
     <div class="relative w-full overflow-x-auto">
       <div class="mb-0 rounded-md px-4 py-3 bg-[#fff] border-0">
         <div class="flex flex-wrap items-center">
@@ -13,7 +13,7 @@
           </div>
         </div>
       </div>
-      <EasyDataTable table-class-name="mc-tbl" class="mx-2 md:mx-0 hover:cursor-pointer mt-2" :headers="headers"
+      <EasyDataTable table-class-name="mc-tbl" class="mx-2 md:mx-0 hover:cursor-pointer" :headers="headers"
         :hide-footer="true" :loading="tblLoading" :items="products">
         <template #item-tenSanPham="item">
           <div class="flex items-center space-x-3">
