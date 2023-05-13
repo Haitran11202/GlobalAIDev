@@ -3,19 +3,11 @@
     <form @submit.prevent="submitForm" class="m-auto shadow-2xl p-12 h-[670px]">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
-          <label
-            for="tieuDe"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-          >
+          <label for="tieuDe" class="block uppercase text-slate-600 text-xs font-bold mb-2">
             Tiêu đề
           </label>
-          <Field
-            v-model="tieuDe"
-            name="tieuDe"
-            type="text"
-            placeholder="Tên sản phẩm..."
-            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          />
+          <Field v-model="tieuDe" name="tieuDe" type="text" placeholder="Tên sản phẩm..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
           <error-message name="tieuDe" class="text-red-500" />
         </div>
         <!-- <div>
@@ -49,61 +41,32 @@
           </select>
         </div> -->
         <div class="col-span-1">
-          <label
-            for="idDanhMuc"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Danh mục</label
-          >
-          <select
-            v-model="idDanhMuc"
-            id="idDanhMuc"
+          <label for="idDanhMuc" class="block uppercase text-slate-600 text-xs font-bold mb-2">Danh mục</label>
+          <select v-model="idDanhMuc" id="idDanhMuc"
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            required
-          >
+            required>
             <option value="">-- Lựa chọn danh mục --</option>
-            <option
-              v-for="danhmuc in danhmucsp"
-              :value="danhmuc.id"
-              :key="danhmuc.id"
-            >
+            <option v-for="danhmuc in danhmucsp" :value="danhmuc.id" :key="danhmuc.id">
               {{ danhmuc.tenDanhMuc }}
             </option>
           </select>
         </div>
         <div class="">
-          <label
-            for="image"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Hình ảnh</label
-          >
+          <label for="image" class="block uppercase text-slate-600 text-xs font-bold mb-2">Hình ảnh</label>
           <div class="flex items-center justify-between relative">
-            <input
-              type="file"
-              id="image"
+            <input type="file" id="image"
               class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              @change.prevent="uploadImage"
-            />
-            <img
-              alt="Product Image"
-              :src="getImageUrl(thumbnailNew)"
-              class="w-[50px] h-[50px] border absolute right-0 rounded"
-            />
+              @change.prevent="uploadImage" />
+            <img alt="Product Image" :src="getImageUrl(thumbnailNew)"
+              class="w-[50px] h-[50px] border absolute right-0 rounded" />
           </div>
         </div>
         <div class="col-span-1">
-          <label
-            for="moTa"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-          >
+          <label for="moTa" class="block uppercase text-slate-600 text-xs font-bold mb-2">
             Mô tả
           </label>
-          <Field
-            v-model="moTa"
-            name="moTa"
-            type="text"
-            placeholder="Tên sản phẩm..."
-            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          />
+          <Field v-model="moTa" name="moTa" type="text" placeholder="Tên sản phẩm..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
           <error-message name="moTa" class="text-red-500" />
         </div>
       </div>
@@ -134,11 +97,7 @@
       </div> -->
       <div class="flex flex-col">
         <div class="col-span-1">
-          <label
-            for="noiDung"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Nội dung</label
-          >
+          <label for="noiDung" class="block uppercase text-slate-600 text-xs font-bold mb-2">Nội dung</label>
           <div class="w-full h-[300px]">
             <div class="min-h-screen">
               <TextEditor v-model="noiDung" />
@@ -149,10 +108,7 @@
           <button type="submit" class="btn btn-outline">
             Cập nhật bài tin
           </button>
-          <button
-            @click="router.push('/admin/post')"
-            class="btn btn-outline btn-error"
-          >
+          <button @click="router.push('/admin/post')" class="btn btn-outline btn-error">
             <span class="flex">Quay về</span>
           </button>
         </div>
@@ -189,33 +145,24 @@ const router = useRouter();
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
-async function uploadImage(event) {
-  try {
-    const formData = new FormData();
-    formData.append("file", event.target.files[0]);
-    postImage(formData)
-      .then((response) => {
-        console.log(response);
-        thumbnailNew.value = response.data.split("=")[2];
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  } catch (error) {
-    console.error(error);
-  }
+const uploadImage = (event) => {
+
+  postImage(event.target.files[0], 'image')
+    .then((response) => {
+      thumbnailNew.value = response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
 }
 
 // Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img
 const getImageUrl = (imageUrl) => {
-  console.log(imageUrl);
   if (!imageUrl) {
     return "https://placehold.it/50x50";
   }
-  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
-  )}&download=false`;
+  const url = `${baseUrl}/${imageUrl}`;
   return url;
 };
 
