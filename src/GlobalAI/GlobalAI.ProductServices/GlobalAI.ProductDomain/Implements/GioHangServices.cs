@@ -123,7 +123,11 @@ namespace GlobalAI.ProductDomain.Implements
                 var dict = new Dictionary<String, AddThuocTinhGiaTriDto>();
                 var listDanhMucThuocTinhs = _thuocTinhRepository.FindByIdDanhMucThuocTinh(sanPham.IdDanhMucThuocTinh);
                 var listIdThuocTinhGiaTris = giohang.IdThuocTinhs.ToList();
+<<<<<<< Updated upstream
                 if(listIdThuocTinhGiaTris.Count() != 0)
+=======
+                if(listDanhMucThuocTinhs.Count() != 0)
+>>>>>>> Stashed changes
                 {
                     for (int i = 0; i < listDanhMucThuocTinhs.Count; i++)
                     {
@@ -132,6 +136,7 @@ namespace GlobalAI.ProductDomain.Implements
 
                     }
                 }
+                
                 sanPhamChiTietGioHang.ThuocTinhs = dict;
                 sanPhams.Add(sanPhamChiTietGioHang);
             }
