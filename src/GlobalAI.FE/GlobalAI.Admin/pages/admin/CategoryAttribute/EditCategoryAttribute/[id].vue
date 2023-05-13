@@ -44,17 +44,8 @@
                     placeholder="Giá trị"
                     class="input shadow-sm input-bordered input-sm w-full max-w-xs"
                   />
-
-                  <span
-                    class="text-sm text-slate-800 hover:opacity-70 cursor-pointer"
-                    ><font-awesome-icon icon="fa-plus"
-                  /></span>
                 </div>
               </div>
-              <span
-                class="text-3xl text-slate-800 hover:opacity-70 m-5 cursor-pointer"
-                ><font-awesome-icon icon="fa-plus"
-              /></span>
             </div>
           </div>
         </div>

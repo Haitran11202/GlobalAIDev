@@ -142,7 +142,7 @@ const { $toast } = useNuxtApp();
 const router = useRouter();
 
 // Khởi tạo giá trị mặc định phân trang 5 1 0
-const pageSize = 5;
+const pageSize = ref(5);
 const pageNumber = ref(1);
 const skip = ref(0);
 
@@ -165,7 +165,7 @@ const nextPage = () => {
 };
 
 const fetchData = async () => {
-  getAllDanhMucThuocTinhSanPham(pageSize, pageNumber.value, skip.value)
+  getAllDanhMucThuocTinhSanPham(pageSize.value, pageNumber.value, skip.value)
     .then((res) => {
       categoryAttributes.value = res.data.items;
     })
@@ -176,7 +176,6 @@ const fetchData = async () => {
 const onDeleteButtonClick = (id) => {
   deleteDanhMucThuocTinhSanPham(id)
     .then((res) => {
-      // Gán giá trị mới vào biến reactive
       deletedCategoryAttribute.value = res;
       $toast.success("Xoá danh mục thuộc tính sản phẩm thành công thành công.");
     })
