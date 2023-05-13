@@ -34,6 +34,7 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly GioHangRepository _repositoryGioHang;
         private readonly ThuocTinhRepository _thuocTinhRepository;
         private readonly SanPhamRepository _sanPhamRepository;
+        private readonly SanPhamChiTietRepository _sanPhamChiTietRepository;
         private readonly ISanPhamServices _sanPhamServices;
         private readonly IMapper _mapper;
         public GioHangServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper, ISanPhamServices sanPhamServices) 
@@ -41,6 +42,7 @@ namespace GlobalAI.ProductDomain.Implements
             _repositoryGioHang = new GioHangRepository(dbContext, logger, mapper);
             _thuocTinhRepository = new ThuocTinhRepository(dbContext, logger, mapper);
             _sanPhamRepository = new SanPhamRepository(dbContext, logger, mapper);
+            _sanPhamChiTietRepository = new SanPhamChiTietRepository(dbContext, logger, mapper);
             _sanPhamServices = sanPhamServices;
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
@@ -103,15 +105,16 @@ namespace GlobalAI.ProductDomain.Implements
             var sanPhams = new List<GetSanPhamChiTietGioHangDto>();
             foreach (var giohang in gioHangs)
             {
-                var sanPham = _sanPhamRepository.FindByIdSanPham(giohang.IdSanPham);
+                var sanPham = _sanPhamRepository.GetById(giohang.IdSanPham);
+                var sanPhamChiTiet = _sanPhamChiTietRepository.GetSanPhamChiTietById(giohang.IdSanPhamChiTiet);
                 var sanPhamChiTietGioHang = new GetSanPhamChiTietGioHangDto()
                 {
                     IdSanPham = giohang.IdSanPham,
                     TenSanPham = sanPham.TenSanPham,
-                    GiaBan = sanPham.GiaBan,
-                    MoTa = sanPham.MoTa,
-                    GiaChietKhau = sanPham.GiaChietKhau,
-                    GiaToiThieu = sanPham.GiaToiThieu,
+                    GiaBan = sanPhamChiTiet.GiaBan,
+                    MoTa = sanPhamChiTiet.MoTa,
+                    GiaChietKhau = sanPhamChiTiet.GiaChietKhau,
+                    GiaToiThieu = sanPhamChiTiet.GiaToiThieu,
                     Thumbnail = sanPham.Thumbnail, 
                     SoLuong = giohang.SoLuong,
                     IdGStore = sanPham.IdGStore
@@ -120,10 +123,14 @@ namespace GlobalAI.ProductDomain.Implements
                 var dict = new Dictionary<String, AddThuocTinhGiaTriDto>();
                 var listDanhMucThuocTinhs = _thuocTinhRepository.FindByIdDanhMucThuocTinh(sanPham.IdDanhMucThuocTinh);
                 var listIdThuocTinhGiaTris = giohang.IdThuocTinhs.ToList();
-                for (int i = 0; i < listDanhMucThuocTinhs.Count; i++)
+                if(listDanhMucThuocTinhs.Count() != 0)
                 {
-                    var giatritt = _thuocTinhRepository.FindGiaTriById(listIdThuocTinhGiaTris[i]);
-                    dict.Add(listDanhMucThuocTinhs[i].TenThuocTinh, _mapper.Map<AddThuocTinhGiaTriDto>(giatritt));
+                    for (int i = 0; i < listDanhMucThuocTinhs.Count; i++)
+                    {
+                        var giatritt = _thuocTinhRepository.FindGiaTriById(listIdThuocTinhGiaTris[i]);
+                        dict.Add(listDanhMucThuocTinhs[i].TenThuocTinh, _mapper.Map<AddThuocTinhGiaTriDto>(giatritt));
+
+                    }
                 }
                 sanPhamChiTietGioHang.ThuocTinhs = dict;
                 sanPhams.Add(sanPhamChiTietGioHang);

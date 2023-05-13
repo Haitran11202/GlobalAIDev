@@ -294,3 +294,58 @@ export const getListDanhMucThuocTinh = async () => {
     }
 };
 
+/**
+ * LẤY CHI TIẾT SẢN PHẨM CHO ADMIN
+ * @param {*} id 
+ * @returns 
+ */
+export const getSanPhamAdminById = async (id) => {
+    try {
+        const res = await http.get(API_ENDPOINT.getSanPhamAdminById(id));
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
+
+/**
+ * THÊM SẢN PHẨM CHI TIẾT VÀO SẢN PHẨM
+ * @param {*} body 
+ * @returns 
+ */
+export const useApiAddSanPhamChiTiet = async (body) => {
+    try {
+        const res = await http.post(API_ENDPOINT.addSanPhamChiTiet, body);
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
+
+/**
+ * CẬP NHẬT SẢN PHẨM CHI TIẾT
+ * @param {*} body 
+ * @returns 
+ */
+export const useApiUpdateSanPhamChiTiet = async (body) => {
+    try {
+        const res = await http.put(API_ENDPOINT.updateSanPhamChiTiet, body);
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
+
+/**
+ * XÓA SẢN PHẨM CHI TIẾT
+ * @param {*} body 
+ * @returns 
+ */
+export const useApiDeleteSanPhamChiTiet = async (id) => {
+    try {
+        const res = await http.delete(API_ENDPOINT.deleteSanPhamChiTiet(id));
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};

@@ -1,26 +1,14 @@
 <template>
   <div class="mt-4 relative bg-white rounded">
-    <form
-      @submit.prevent="handlePostPost"
-      :validationSchema="postFormBody"
-      class="m-auto shadow-2xl p-12"
-    >
+    <form @submit.prevent="handlePostPost" :validationSchema="postFormBody" class="m-auto shadow-2xl p-12">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
         <div class="col-span-1">
-          <label
-            for="tieuDe"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-          >
+          <label for="tieuDe" class="block uppercase text-slate-600 text-xs font-bold mb-2">
             Tiêu đề
           </label>
-          <Field
-            v-model="tieuDe"
-            name="tieuDe"
-            type="text"
-            placeholder="Tiêu đề..."
+          <Field v-model="tieuDe" name="tieuDe" type="text" placeholder="Tiêu đề..."
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            required
-          />
+            required />
           <error-message name="tieuDe" class="text-red-500" />
         </div>
         <!-- <div class="col-span-1">
@@ -47,24 +35,13 @@
           </select>
         </div> -->
         <div class="col-span-1">
-          <label
-            for="idDanhMuc"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Danh mục</label
-          >
-          <select
-            v-model="idDanhMuc"
-            id="idDanhMuc"
+          <label for="idDanhMuc" class="block uppercase text-slate-600 text-xs font-bold mb-2">Danh mục</label>
+          <select v-model="idDanhMuc" id="idDanhMuc"
             class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-            required
-          >
+            required>
             <option value="">-- Lựa chọn danh mục --</option>
             <optgroup class="font-bold" label="Danh mục sản phẩm">
-              <option
-                v-for="danhmuc in danhmucsp"
-                :value="danhmuc.id"
-                :key="danhmuc.id"
-              >
+              <option v-for="danhmuc in danhmucsp" :value="danhmuc.id" :key="danhmuc.id">
                 {{ danhmuc.tenDanhMuc }}
               </option>
             </optgroup>
@@ -77,50 +54,27 @@
         </div>
 
         <div class="col-span-1">
-          <label
-            for="image"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Hình ảnh</label
-          >
+          <label for="image" class="block uppercase text-slate-600 text-xs font-bold mb-2">Hình ảnh</label>
           <div class="flex items-center justify-between relative">
-            <Field
-              type="file"
-              id="image"
+            <Field type="file" id="image"
               class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              required
-              @change="uploadImage"
-            />
-            <img
-              alt="Product Image"
-              class="w-[50px] h-[50px] border absolute right-0 rounded"
-              :src="getImageUrl(thumbnail)"
-            />
+              required @change="uploadImage" />
+            <img alt="Product Image" class="w-[50px] h-[50px] border absolute right-0 rounded"
+              :src="getImageUrl(thumbnail)" />
           </div>
         </div>
         <div class="col-span-1">
-          <label
-            for="moTa"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-          >
+          <label for="moTa" class="block uppercase text-slate-600 text-xs font-bold mb-2">
             Mô tả
           </label>
-          <Field
-            v-model="moTa"
-            name="moTa"
-            type="text"
-            placeholder="Mô tả ..."
-            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-          />
+          <Field v-model="moTa" name="moTa" type="text" placeholder="Mô tả ..."
+            class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
           <error-message name="tieuDe" class="text-red-500" />
         </div>
       </div>
       <div class="flex flex-col">
         <div class="col-span-1">
-          <label
-            for="noiDung"
-            class="block uppercase text-slate-600 text-xs font-bold mb-2"
-            >Nội dung</label
-          >
+          <label for="noiDung" class="block uppercase text-slate-600 text-xs font-bold mb-2">Nội dung</label>
           <div class="w-full h-[300px]">
             <div class="min-h-screen">
               <TextEditor v-model="noiDung" />
@@ -129,10 +83,7 @@
         </div>
         <div class="flex justify-end gap-5">
           <button type="submit" class="btn btn-outline">Thêm bài tin</button>
-          <button
-            @click="router.push('/admin/post')"
-            class="btn btn-outline btn-error"
-          >
+          <button @click="router.push('/admin/post')" class="btn btn-outline btn-error">
             <span class="flex">Quay về</span>
           </button>
         </div>
@@ -167,22 +118,16 @@ const router = useRouter();
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 
-async function uploadImage(event) {
-  try {
-    const formData = new FormData();
-    formData.append("file", event.target.files[0]);
-    postImage(formData)
-      .then((response) => {
-        console.log(response);
-        thumbnail.value = response.data;
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  } catch (error) {
-    console.error(error);
-  }
+const uploadImage = (event) => {
+
+  postImage(event.target.files[0], 'image')
+    .then((response) => {
+      thumbnail.value = response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
 }
 
 // Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ
@@ -190,9 +135,7 @@ const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
   }
-  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
-  )}&download=false`;
+  const url = `${baseUrl}/${imageUrl}`;
   return url;
 };
 
@@ -265,10 +208,10 @@ onMounted(() => {
       console.log(error);
     });
 
-    getAllPostCategoryTree()
+  getAllPostCategoryTree()
     .then((response) => {
       danhmucsp.value = flattenData(response.data);
-      console.log('danhmuc',danhmucsp.value)
+      console.log('danhmuc', danhmucsp.value)
     })
     .catch((error) => {
       console.log(error);
@@ -294,16 +237,19 @@ function flattenData(data) {
 /* since nested groupes are not supported we have to use 
          regular css for the nested dropdowns
       */
-li > ul {
+li>ul {
   transform: translatex(100%) scale(0);
 }
-li:hover > ul {
+
+li:hover>ul {
   transform: translatex(101%) scale(1);
 }
-li > button svg {
+
+li>button svg {
   transform: rotate(-90deg);
 }
-li:hover > button svg {
+
+li:hover>button svg {
   transform: rotate(-270deg);
 }
 </style>

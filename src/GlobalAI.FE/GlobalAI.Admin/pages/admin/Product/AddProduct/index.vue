@@ -47,8 +47,8 @@
             <input type="file" id="image"
               class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
               required @change="uploadImage" />
-            <img alt="Product Image" class="w-[50px] h-[50px] border absolute right-0 rounded"
-              :src="getImageUrl(thumbnail)" />
+            <!-- <img alt="Product Image" class="w-[50px] h-[50px] border absolute right-0 rounded"
+              :src="getImageUrl(thumbnail)" /> -->
           </div>
         </div>
       </div>
@@ -87,8 +87,8 @@
                   <input type="file" id="image"
                     class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                     required @change="$event => uploadImage($event, chiTiet.thumbnail)" />
-                  <img alt="Product Image" class="w-[50px] h-[50px] border absolute right-0 rounded"
-                    :src="getImageUrl(chiTiet.thumbnail)" />
+                  <!-- <img alt="Product Image" class="w-[50px] h-[50px] border absolute right-0 rounded"
+                    :src="getImageUrl(chiTiet.thumbnail)" /> -->
                 </div>
               </div>
               <div class="col-span-1">
@@ -238,43 +238,30 @@ const addRowChiTietSp = () => {
   });
 }
 
-async function uploadImage(event, obj) {
-  try {
-    const formData = new FormData();
-    formData.append("file", event.target.files[0]);
-    postImage(formData)
-      .then((response) => {
-        console.log(response);
-        thumbnail.value = response.data.split("=")[2];
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    const response = await axios.post(
-      "http://globalai-staging.huce.edu.vn:8089/api/file/upload?folder=image",
-      formData
-    );
-    console.log(response.data.data.split("=")[2]);
-    if (obj) {
-      obj = response.data.data.split("=")[2];
-    } else {
-      thumbnail.value = response.data.data.split("=")[2];
-    }
-  } catch (error) {
-    console.error(error);
-  }
+const uploadImage = (event, obj) => {
+  console.log({event});
+  postFile(event.target.files[0], 'image')
+    .then((response) => {
+      if (obj) {
+        obj = response.data;
+      } else {
+        thumbnail.value = response.data;
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
-const getImageUrl = (imageUrl) => {
-  if (!imageUrl) {
-    return "https://placehold.it/50x50";
-  }
-  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
-  )}&download=false`;
-  return url;
-};
+// const getImageUrl = (imageUrl) => {
+//   if (!imageUrl) {
+//     return "https://placehold.it/50x50";
+//   }
+//   const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
+//     imageUrl
+//   )}&download=false`;
+//   return url;
+// };
 
 const handlePostProduct = () => {
   const listChiTiet = listChiTietSp.value.map(item => ({

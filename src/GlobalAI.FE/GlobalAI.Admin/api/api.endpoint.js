@@ -14,13 +14,13 @@ export const API_ENDPOINT = {
   getDanhMucSanPham: `/api/product/sanpham/danh-muc?pageSize=-1&pageNumber=1&Skip=0`,
 
   // Get sản phẩm mới nhất
-  getSanPhamTrangHome: (SortBy, SortOrder) =>
-    `/api/product/sanpham/home-page?SortBy=${SortBy}&SortOrder%20=${SortOrder}&pageSize=-1&pageNumber=15&Skip=0`,
+  getSanPhamTrangHome: (SortBy, SortOrder) => `/api/product/sanpham/home-page?SortBy=${SortBy}&SortOrder%20=${SortOrder}&pageSize=-1&pageNumber=15&Skip=0`,
   getSanPhamByIdGStore: (pageSize, pageNumber, skip) =>
     `api/product/sanpham/get-sanpham-gstore?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
   getThuocTinhSanPham: (id) => `/api/product/sanpham/san-pham-ct/${id}`,
   //Image
   postImages: "api/filFe/upload?folder=image",
+  postFile: folder => `api/file/upload?folder=${folder}`,
   // Quản lý đơn hàng
   getAllOrder: (pageSize, pageNumber, skip) =>
     `/api/product/donhang?pageSize=${pageSize}&pageNumber=${pageNumber}&skip=${skip}`,
@@ -107,8 +107,7 @@ export const API_ENDPOINT = {
   getAllPostCategoryPhanTran: (pageSize, pageNumber, skip) =>
     `/api/product/danh-muc-bai-tin/find-all?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,
 
-  getDanhBaiTinMucNoiBat: () =>
-    `/api/product/danh-muc-bai-tin/find-all?isParent=true&pageSize=-1`,
+  getDanhBaiTinMucNoiBat: () => `/api/product/danh-muc-bai-tin/find-all?isParent=true&pageSize=-1`,
 
   getAllPostCategoryTree: () => `/api/product/danh-muc-bai-tin/find-all-trees`,
 
@@ -146,7 +145,12 @@ export const API_ENDPOINT = {
     `/api/product/tra-gia/find-all?IdSanPham=${IdSanPham}&GiaTien=${GiaTien}&status=${status}&pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${Skip}`,
   getIDPayment: (idSanPham) =>
     `/api/product/tra-gia/FindTraGiaBySanPham?idSanPham=${idSanPham}`,
-
+  getDanhMucThuocTinhById: id => `api/product/danh-muc-thuoc-tinh/${id}`,
+  getListDanhMucThuocTinh: 'api/product/danh-muc-thuoc-tinh?pageSize=100&pageNumber=1',
+  getSanPhamAdminById: id => `api/product/sanpham/admin/${id}`,
+  addSanPhamChiTiet: `api/product/san-pham-chi-tiet`,
+  updateSanPhamChiTiet: `api/product/san-pham-chi-tiet`,
+  deleteSanPhamChiTiet: id => `api/product/san-pham-chi-tiet/${id}`,
   // Danh mục thuộc tính sản phẩm
   getAllDanhMucThuocTinhSanPham: (pageSize, pageNumber, skip) =>
     `/api/product/danh-muc-thuoc-tinh?pageSize=${pageSize}&pageNumber=${pageNumber}&Skip=${skip}`,

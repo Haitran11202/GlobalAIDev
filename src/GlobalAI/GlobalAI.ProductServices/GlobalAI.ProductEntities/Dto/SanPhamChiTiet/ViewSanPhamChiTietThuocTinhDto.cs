@@ -30,5 +30,9 @@ namespace GlobalAI.ProductEntities.Dto.SanPhamChiTiet
         /// Id Sản phẩm chi tiết
         /// </summary>
         public int IdSanPhamChiTiet { get; set; }
+        /// <summary>
+        /// Id thuộc tính
+        /// </summary>
+        public int IdThuocTinh { get; set; }
     }
 }
