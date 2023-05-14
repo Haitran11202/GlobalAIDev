@@ -43,6 +43,14 @@
               </option>
             </select>
           </div>
+          <div class="col-span-1">
+            <label for="giaBan" class="block uppercase text-slate-600 text-xs font-bold mb-2">
+              Giá bán
+            </label>
+            <Field v-model.number="giaBan" name="giaBan" type="number"
+              class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+            <error-message name="giaBan" class="text-red-500" />
+          </div>
           <div class="">
             <label for="image" class="block uppercase text-slate-600 text-xs font-bold mb-2">Hình ảnh</label>
             <div class="flex items-center justify-between relative">
@@ -276,6 +284,7 @@ const handlePostProduct = () => {
   const productData = {
     maSanPham: maSanPham.value,
     tenSanPham: tenSanPham.value,
+    giaBan: giaBan.value,
     moTa: moTa.value,
     idDanhMuc: `${idDanhMuc.value}`,
     idDanhMucThuocTinh: idDanhMucThuocTinh.value,
@@ -285,7 +294,8 @@ const handlePostProduct = () => {
 
   postProduct(productData)
     .then((res) => {
-      if (res?.data.code === 200) {
+      console.log({ res });
+      if (res?.code === 200) {
         $toast.success("Thêm sản phẩm thành công");
         router.push('/admin/product');
       }

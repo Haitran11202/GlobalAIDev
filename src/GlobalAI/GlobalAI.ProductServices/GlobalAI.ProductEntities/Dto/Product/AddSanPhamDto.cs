@@ -29,6 +29,11 @@ namespace GlobalAI.ProductEntities.Dto.Product
         public string IdDanhMuc { get; set; }
 
         /// <summary>
+        /// Giá bán
+        /// </summary>
+        public decimal? GiaBan { get; set; }
+
+        /// <summary>
         /// Danh mục thuộc tính
         /// </summary>
         [Required(ErrorMessage = "Danh mục thuộc tính không được bỏ trống")]
