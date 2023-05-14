@@ -33,6 +33,11 @@ namespace GlobalAI.ProductEntities.Dto.Product
         public string MoTa { get; set; } = String.Empty;
 
         /// <summary>
+        /// Giá bán
+        /// </summary>
+        public decimal? GiaBan { get; set; }
+
+        /// <summary>
         /// Id danh mục
         /// </summary>
         public string IdDanhMuc { get; set; }
