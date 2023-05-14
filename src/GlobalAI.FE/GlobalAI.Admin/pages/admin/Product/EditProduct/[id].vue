@@ -54,6 +54,14 @@
               class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
             <error-message name="giaBan" class="text-red-500" />
           </div>
+          <div class="col-span-1">
+            <label for="giaChietKhau" class="block uppercase text-slate-600 text-xs font-bold mb-2">
+              Giá chiết khấu
+            </label>
+            <Field v-model.number="sanPham.giaChietKhau" name="giaChietKhau" type="number"
+              class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+            <error-message name="giaChietKhau" class="text-red-500" />
+          </div>
           <div class="">
             <label for="image" class="block uppercase text-slate-600 text-xs font-bold mb-2">Hình ảnh</label>
             <div class="flex items-center justify-between relative">
@@ -180,6 +188,7 @@ const sanPham = ref({
   maSanPham: '',
   tenSanPham: '',
   giaBan: 0,
+  giaChietKhau: 0,
   moTa: '',
   idDanhMuc: '',
   idGStore: 0,
@@ -322,6 +331,7 @@ const submitForm = () => {
     tenSanPham: sanPham.value.tenSanPham,
     moTa: sanPham.value.moTa,
     giaBan: sanPham.value.giaBan,
+    giaChietKhau: sanPham.value.giaChietKhau,
     idDanhMuc: sanPham.value.idDanhMuc,
     idDanhMucThuocTinh: sanPham.value.idDanhMucThuocTinh,
     thumbnail: sanPham.value.thumbnail,

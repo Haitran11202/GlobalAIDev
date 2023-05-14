@@ -51,6 +51,14 @@
               class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
             <error-message name="giaBan" class="text-red-500" />
           </div>
+          <div class="col-span-1">
+            <label for="giaChietKhau" class="block uppercase text-slate-600 text-xs font-bold mb-2">
+              Giá chiết khấu
+            </label>
+            <Field v-model.number="giaChietKhau" name="giaChietKhau" type="number"
+              class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+            <error-message name="giaChietKhau" class="text-red-500" />
+          </div>
           <div class="">
             <label for="image" class="block uppercase text-slate-600 text-xs font-bold mb-2">Hình ảnh</label>
             <div class="flex items-center justify-between relative">
@@ -252,7 +260,6 @@ const addRowChiTietSp = () => {
 }
 
 const uploadImage = (event, obj) => {
-  console.log({ event });
   postFile(event.target.files[0], 'image')
     .then((response) => {
       if (obj) {
@@ -285,6 +292,7 @@ const handlePostProduct = () => {
     maSanPham: maSanPham.value,
     tenSanPham: tenSanPham.value,
     giaBan: giaBan.value,
+    giaChietKhau: giaChietKhau.value,
     moTa: moTa.value,
     idDanhMuc: `${idDanhMuc.value}`,
     idDanhMucThuocTinh: idDanhMucThuocTinh.value,
