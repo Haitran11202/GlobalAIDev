@@ -90,7 +90,10 @@ namespace GlobalAI.ProductRepositories
                     {
                         addGioHangDto.IdSanPhamChiTiet = listIdSanPhamChiTiet[i];
                     }
-
+                }
+                if (addGioHangDto.IdSanPhamChiTiet == null)
+                {
+                    ThrowException(ErrorCode.ProductSpChiTietNotFound);
                 }
             }
             
