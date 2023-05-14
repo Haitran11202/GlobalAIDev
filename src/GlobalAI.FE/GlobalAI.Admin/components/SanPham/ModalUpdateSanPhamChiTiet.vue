@@ -147,6 +147,18 @@ const onShowModal = () => {
 
 const uploadImage = ($event) => {
     file = $event.target.files[0];
+
+    postFile(file, 'image')
+        .then((response) => {
+            if (obj) {
+                obj = response.data;
+            } else {
+                chiTiet.value.thumbnail = response.data;
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 const update = () => {
