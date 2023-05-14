@@ -285,7 +285,7 @@ const initData = () => {
 const uploadImage = (event) => {
   postFile(event.target.files[0], 'image')
     .then((response) => {
-      thumbnailNew.value = response.data;
+      sanPham.value.thumbnail = response.data;
     })
     .catch((error) => {
       console.log(error);
