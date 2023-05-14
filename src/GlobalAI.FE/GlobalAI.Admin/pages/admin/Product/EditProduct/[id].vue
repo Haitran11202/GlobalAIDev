@@ -46,11 +46,19 @@
               </option>
             </select>
           </div>
+          <div class="col-span-1">
+            <label for="giaBan" class="block uppercase text-slate-600 text-xs font-bold mb-2">
+              Giá bán
+            </label>
+            <Field v-model.number="sanPham.giaBan" name="giaBan" type="number"
+              class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+            <error-message name="giaBan" class="text-red-500" />
+          </div>
           <div class="">
             <label for="image" class="block uppercase text-slate-600 text-xs font-bold mb-2">Hình ảnh</label>
             <div class="flex items-center justify-between relative">
               <input type="file" id="image"
-                class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                class="border placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 @change.prevent="uploadImage" />
               <img alt="Product Image" class="w-[50px] h-[50px] border absolute right-0 rounded"
                 :src="getImageUrl(sanPham.thumbnail)" />
@@ -171,6 +179,7 @@ const sanPham = ref({
   id: 0,
   maSanPham: '',
   tenSanPham: '',
+  giaBan: 0,
   moTa: '',
   idDanhMuc: '',
   idGStore: 0,
@@ -312,6 +321,7 @@ const submitForm = () => {
     maSanPham: sanPham.value.maSanPham,
     tenSanPham: sanPham.value.tenSanPham,
     moTa: sanPham.value.moTa,
+    giaBan: sanPham.value.giaBan,
     idDanhMuc: sanPham.value.idDanhMuc,
     idDanhMucThuocTinh: sanPham.value.idDanhMucThuocTinh,
     thumbnail: sanPham.value.thumbnail,

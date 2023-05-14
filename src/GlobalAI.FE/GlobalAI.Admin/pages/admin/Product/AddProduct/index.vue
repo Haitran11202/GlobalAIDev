@@ -55,7 +55,7 @@
             <label for="image" class="block uppercase text-slate-600 text-xs font-bold mb-2">Hình ảnh</label>
             <div class="flex items-center justify-between relative">
               <input type="file" id="image"
-                class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                class="border placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 required @change="uploadImage" />
               <!-- <img alt="Product Image" class="w-[50px] h-[50px] border absolute right-0 rounded"
               :src="getImageUrl(thumbnail)" /> -->
@@ -95,7 +95,7 @@
                   <label for="image" class="block uppercase text-slate-600 text-xs font-bold mb-2">Hình ảnh</label>
                   <div class="flex items-center justify-between relative">
                     <input type="file" id="image"
-                      class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      class="border placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       required @change="$event => uploadImage($event, chiTiet.thumbnail)" />
                     <!-- <img alt="Product Image" class="w-[50px] h-[50px] border absolute right-0 rounded"
                     :src="getImageUrl(chiTiet.thumbnail)" /> -->
