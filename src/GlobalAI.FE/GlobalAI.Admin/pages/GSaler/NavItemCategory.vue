@@ -97,8 +97,8 @@ const prevPage = () => {
     skip.value = (pageNumber.value - 1) * pageSize;
 };
 const handleClickNavbar = (item) => {
-    categoryId.value = item.idDanhMuc;
-    checkColor.value = item.idDanhMuc;
+    categoryId.value = item.id;
+    checkColor.value = item.id;
 };
 </script>
 <style></style>
