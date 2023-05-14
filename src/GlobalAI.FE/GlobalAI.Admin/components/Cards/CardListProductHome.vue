@@ -30,7 +30,7 @@
       >
         <div class="px-[8px] py-[8px]">
           <img
-            :src="getImageUrl(item.thumbnail)"
+            :src="getImageUrl(item.thumbnailSanPham)"
             class="rounded-md object-cover w-full h-48"
             alt=""
           />
