@@ -27,6 +27,38 @@ namespace GlobalAI.ProductAPI.Controllers
         }
 
         /// <summary>
+        /// get sp chi tiết theo id sản phẩm và thuộc tính giá trị
+        /// </summary>
+        /// <param name="dto"></param>
+        /// <returns></returns>
+        [HttpGet("ct-ttgt")]
+        public APIResponse GetByIdSanPham([FromQuery] FindSanPhamChiTietDto dto)
+        {
+            try
+            {
+                if(dto.Gttt == null)
+                {
+
+                    var result = _sanPhamChiTiet.GetSanPhamChiTietByIdSanPham(dto.IdSanPham);
+                    return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+
+                }
+                else
+                {
+                  
+
+                    List<int> intList = dto.Gttt.Split(',').Select(int.Parse).ToList();
+                    var result = _sanPhamChiTiet.GetSanPhamChiTietByIdSanPhamGttt(dto.IdSanPham, intList);
+                    return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+                }
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
+        }
+
+        /// <summary>
         /// Thêm sp chi tiết vào sp
         /// </summary>
         /// <param name="dto"></param>

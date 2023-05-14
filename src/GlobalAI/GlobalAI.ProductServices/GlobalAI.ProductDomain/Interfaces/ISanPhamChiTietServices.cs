@@ -33,5 +33,7 @@ namespace GlobalAI.ProductDomain.Interfaces
         /// </summary>
         /// <param name="id"></param>
         public void DeleteSanPhamChiTiet(int id);
+        SanPhamChiTietDto GetSanPhamChiTietByIdSanPhamGttt(int idSanPham, List<int> gttt);
+        SanPhamChiTietDto GetSanPhamChiTietByIdSanPham(int idSanPham);
     }
 }

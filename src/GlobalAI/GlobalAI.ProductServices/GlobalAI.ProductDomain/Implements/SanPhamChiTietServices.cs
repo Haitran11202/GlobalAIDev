@@ -52,7 +52,11 @@ namespace GlobalAI.ProductDomain.Implements
             _sanPhamRepository = new SanPhamRepository(dbContext, logger, mapper);
             _sanPhamChiTietRepository = new SanPhamChiTietRepository(dbContext, logger, mapper);
         }
-
+        public SanPhamChiTietDto GetSanPhamChiTietByIdSanPhamGttt(int idSanPham, List<int> gttt)
+        {
+            var result = _sanPhamChiTietRepository.GetSanPhamChiTietBySanPhamtt(idSanPham,gttt);
+            return result;
+        }
         /// <summary>
         /// Thêm sản phẩm chi tiết
         /// </summary>
@@ -136,6 +140,9 @@ namespace GlobalAI.ProductDomain.Implements
             string username = CommonUtils.GetCurrentUsername(_httpContext);
             _sanPhamChiTietRepository.DeleteSanPhamChiTiet(id, username);
             _dbContext.SaveChanges();
+        }
+        public SanPhamChiTietDto GetSanPhamChiTietByIdSanPham(int idSanPham) {
+            var result = _sanPhamChiTietRepository.GetSanPhamChiTietByIdSanPham(idSanPham); return result;
         }
 
     }

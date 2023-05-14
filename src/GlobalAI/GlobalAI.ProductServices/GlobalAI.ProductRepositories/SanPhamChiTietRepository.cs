@@ -273,5 +273,28 @@ namespace GlobalAI.ProductRepositories
             }
             return sanPhamChiTiet;
         }
+        public SanPhamChiTietDto GetSanPhamChiTietBySanPhamtt(int idSanPham, List<int> SanPhamttGiaTri)
+        {
+            var sanPhamChiTiet = _dbSet.Where(s => s.IdSanPham == idSanPham).ToList();
+            var result = new SanPhamChiTietDto();
+            for (int i = 0; i < sanPhamChiTiet.Count; i++)
+            {
+                var listGiatritt = _globalAIDbContext.SanPhamChiTietThuocTinhs.Where(gttt => gttt.IdSanPhamChiTiet == sanPhamChiTiet[i].Id).Select(s => s.IdThuocTinhGiaTri).ToList();
+                var check = SanPhamttGiaTri.OrderBy(s => s).SequenceEqual(listGiatritt.OrderBy(s => s));
+                if(check == true)
+                {
+                    var sanphamct = _dbSet.FirstOrDefault(s => s.Id == sanPhamChiTiet[i].Id);
+                     
+                    return _mapper.Map<SanPhamChiTietDto>(sanphamct);
+                }
+            }
+            throw new Exception("Không tồn tại sản phẩm chi tiết");
+                                         
+        }
+        public SanPhamChiTietDto GetSanPhamChiTietByIdSanPham(int idSanPham)
+        {
+            var result = _dbSet.FirstOrDefault(s => s.IdSanPham == idSanPham);
+            return _mapper.Map<SanPhamChiTietDto>(result);
+        }
     }
 }
