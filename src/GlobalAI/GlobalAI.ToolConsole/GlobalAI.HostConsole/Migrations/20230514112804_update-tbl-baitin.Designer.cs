@@ -3,6 +3,7 @@ using System;
 using GlobalAI.DataAccess.Base;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 
@@ -11,9 +12,11 @@ using Oracle.EntityFrameworkCore.Metadata;
 namespace GlobalAI.HostConsole.Migrations
 {
     [DbContext(typeof(GlobalAIDbContext))]
-    partial class GlobalAIDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230514112804_update-tbl-baitin")]
+    partial class updatetblbaitin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,7 +82,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("C_ROLE", null, t =>
+                    b.ToTable("C_ROLE", t =>
                         {
                             t.HasComment("Bảng role");
                         });
@@ -135,7 +138,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("C_ROLE_PERMISSION", (string)null);
+                    b.ToTable("C_ROLE_PERMISSION");
                 });
 
             modelBuilder.Entity("GlobalAI.CoreEntities.DataEntities.CoreUserRole", b =>
@@ -188,7 +191,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("C_USER_ROLE", (string)null);
+                    b.ToTable("C_USER_ROLE");
                 });
 
             modelBuilder.Entity("GlobalAI.CoreEntities.DataEntities.User", b =>
@@ -325,7 +328,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("USER", null, t =>
+                    b.ToTable("USER", t =>
                         {
                             t.HasComment("User");
                         });
@@ -409,7 +412,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_BaiTin", null, t =>
+                    b.ToTable("P_BaiTin", t =>
                         {
                             t.HasComment("Bảng bài tin");
                         });
@@ -464,7 +467,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_ChiTietDonHang", null, t =>
+                    b.ToTable("P_ChiTietDonHang", t =>
                         {
                             t.HasComment("bảng chi tiết đơn hàng");
                         });
@@ -533,7 +536,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_ChiTietTraGia", null, t =>
+                    b.ToTable("P_ChiTietTraGia", t =>
                         {
                             t.HasComment("Chi tiết trả giá");
                         });
@@ -593,7 +596,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_DanhMuc", null, t =>
+                    b.ToTable("P_DanhMuc", t =>
                         {
                             t.HasComment("Demo bảng danh mục sản phẩm");
                         });
@@ -664,7 +667,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_DanhMucBaiTin", null, t =>
+                    b.ToTable("P_DanhMucBaiTin", t =>
                         {
                             t.HasComment("Bảng danh mục bài tin");
                         });
@@ -721,7 +724,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_DanhMucThuocTinh", null, t =>
+                    b.ToTable("P_DanhMucThuocTinh", t =>
                         {
                             t.HasComment("Demo bảng danh mục thuộc tính");
                         });
@@ -807,7 +810,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_DonHang", null, t =>
+                    b.ToTable("P_DonHang", t =>
                         {
                             t.HasComment("Đơn hàng");
                         });
@@ -875,7 +878,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_GioHang", null, t =>
+                    b.ToTable("P_GioHang", t =>
                         {
                             t.HasComment("Giỏ hàng");
                         });
@@ -985,7 +988,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_SanPham", null, t =>
+                    b.ToTable("P_SanPham", t =>
                         {
                             t.HasComment("bảng sản phẩm");
                         });
@@ -1086,7 +1089,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_SanPhamChiTiet", null, t =>
+                    b.ToTable("P_SanPhamChiTiet", t =>
                         {
                             t.HasComment("bảng sản phẩm chi tiết");
                         });
@@ -1133,7 +1136,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_SanPhamChiTietThuocTinh", null, t =>
+                    b.ToTable("P_SanPhamChiTietThuocTinh", t =>
                         {
                             t.HasComment("bảng nối giữa Sản phẩm chi tiết & Thuộc tính giá trị");
                         });
@@ -1190,7 +1193,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_ThuocTinh", null, t =>
+                    b.ToTable("P_ThuocTinh", t =>
                         {
                             t.HasComment("bảng thuộc tính theo danh mục");
                         });
@@ -1252,7 +1255,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_ThuocTinhGiaTri", null, t =>
+                    b.ToTable("P_ThuocTinhGiaTri", t =>
                         {
                             t.HasComment("bảng giá trị thuộc tính");
                         });
@@ -1329,7 +1332,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_TraGia", null, t =>
+                    b.ToTable("P_TraGia", t =>
                         {
                             t.HasComment("Trả giá");
                         });
@@ -1408,7 +1411,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_Voucher", null, t =>
+                    b.ToTable("P_Voucher", t =>
                         {
                             t.HasComment("Voucher");
                         });
@@ -1496,7 +1499,7 @@ namespace GlobalAI.HostConsole.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("P_Voucher_ChiTiet", null, t =>
+                    b.ToTable("P_Voucher_ChiTiet", t =>
                         {
                             t.HasComment("Voucher chi tiết");
                         });
