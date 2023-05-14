@@ -18,7 +18,9 @@ export const getAllDanhMucThuocTinhSanPham = async (
 
 export const getDanhMucThuocTinhSanPhamById = async (id) => {
   try {
-    const response = await http.get(API_ENDPOINT.getDanhMucThuocTinhById(id));
+    const response = await http.get(
+      API_ENDPOINT.getDanhMucThuocTinhSanPhamById(id)
+    );
     return Promise.resolve(response.data);
   } catch (err) {
     return Promise.reject(err);
@@ -43,6 +45,19 @@ export const deleteDanhMucThuocTinhSanPham = async (id) => {
       API_ENDPOINT.deleteDanhMucThuocTinhSanPham(id)
     );
     return Promise.resolve(response.data);
+  } catch (err) {
+    return Promise.reject(err);
+  }
+};
+
+export const updateDanhMucThuocTinhSanPham = async (dmAttData) => {
+  try {
+    const res = await http.put(
+      API_ENDPOINT.putDanhMucThuocTinhSanPham,
+      dmAttData
+    );
+    console.log(res);
+    return Promise.resolve(res.data);
   } catch (err) {
     return Promise.reject(err);
   }

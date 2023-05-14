@@ -39,8 +39,8 @@
         <tbody>
           <tr
             class="text-sm"
-            v-for="order in categoryAttributes"
-            :key="order.id"
+            v-for="categoryAtt in categoryAttributes"
+            :key="categoryAtt.id"
           >
             <th>
               <label>
@@ -48,11 +48,11 @@
               </label>
             </th>
             <td>
-              {{ order.ma }}
+              {{ categoryAtt.ma }}
             </td>
 
             <td>
-              {{ order.ten }}
+              {{ categoryAtt.ten }}
             </td>
 
             <td>
@@ -69,8 +69,10 @@
                   v-if="isOpen"
                   @click="closeDropdown"
                 >
-                  <!-- <li @click="onEditButtonClick(order.id)"><a>Sửa</a></li> -->
-                  <li @click="onDeleteButtonClick(order.id)"><a>Xoá</a></li>
+                  <li @click="onEditButtonClick(categoryAtt.id)"><a>Sửa</a></li>
+                  <li @click="onDeleteButtonClick(categoryAtt.id)">
+                    <a>Xoá</a>
+                  </li>
                 </ul>
               </div>
             </td>
@@ -132,6 +134,7 @@ export default {
 import {
   getAllDanhMucThuocTinhSanPham,
   deleteDanhMucThuocTinhSanPham,
+  getDanhMucThuocTinhSanPhamById,
 } from "~~/composables/useApiCategoryAttribute";
 import { useRouter } from "vue-router";
 const { $toast } = useNuxtApp();
@@ -139,7 +142,7 @@ const { $toast } = useNuxtApp();
 const router = useRouter();
 
 // Khởi tạo giá trị mặc định phân trang 5 1 0
-const pageSize = 5;
+const pageSize = ref(5);
 const pageNumber = ref(1);
 const skip = ref(0);
 
@@ -162,29 +165,17 @@ const nextPage = () => {
 };
 
 const fetchData = async () => {
-  getAllDanhMucThuocTinhSanPham(pageSize, pageNumber.value, skip.value)
+  getAllDanhMucThuocTinhSanPham(pageSize.value, pageNumber.value, skip.value)
     .then((res) => {
       categoryAttributes.value = res.data.items;
     })
     .catch((err) => console.error(err));
 };
 
-// const onClickOrderDetails = (id) => {
-//   router.push({ name: "orderdetails", params: { id: id } });
-//   getOrderById(id)
-//     .then((res) => {
-//       res.data;
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//     });
-// };
-
 // // Gọi hàm xóa sản phẩm khi người dùng click vào nút Xóa
 const onDeleteButtonClick = (id) => {
   deleteDanhMucThuocTinhSanPham(id)
     .then((res) => {
-      // Gán giá trị mới vào biến reactive
       deletedCategoryAttribute.value = res;
       $toast.success("Xoá danh mục thuộc tính sản phẩm thành công thành công.");
     })
@@ -196,23 +187,22 @@ const onDeleteButtonClick = (id) => {
     });
 };
 
-// Gọi hàm sửa bắn dữ liệu và form
-// const onEditButtonClick = (id) => {
-//   router.push({ name: "Order", params: { id: id } });
-//   getOrderById(id)
-//     .then((res) => {
-//       res.data;
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//     });
-// };
+const onEditButtonClick = (id) => {
+  router.push({ name: "categoryattribute", params: { id: id } });
+  getDanhMucThuocTinhSanPhamById(id)
+    .then((res) => {
+      res.data;
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
 
 watchEffect(() => {
   fetchData();
 
   if (deletedCategoryAttribute.value !== null) {
-    getAllDanhMucThuocTinhSanPham();
+    getAllDanhMucThuocTinhSanPham(pageSize.value, pageNumber.value, skip.value);
     deletedCategoryAttribute.value = null;
   }
 });

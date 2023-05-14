@@ -5,7 +5,7 @@
     ></div>
     <div class="min-h-screen flex justify-center items-center">
       <div
-        class="flex-col p-0 flex self-center p-10 sm:max-w-5xl xl:max-w-2xl z-10"
+        class="flex-col p-0 flex self-center sm:max-w-5xl xl:max-w-2xl z-10"
       >
         <div class="self-start hidden lg:flex flex-col text-white">
           <img src="" class="mb-3" />
@@ -150,7 +150,6 @@ const logInFunc = (data) => {
   useApiLogin(body)
     .then((res) => {
       if (res.status === 200) {
-        $toast.success("Đăng nhập thành công");
 
         userStorage.login({
           accessToken: res.data.access_token,
