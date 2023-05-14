@@ -56,12 +56,13 @@ namespace GlobalAI.ProductRepositories
                     case "LuotBan":
                         if (input.SortOrder.ToLower() == "asc")
                         {
-                            sanPhamChiTietQuery = sanPhamChiTietQuery.OrderBy(x => x.LuotBan);
+                            sanPhamChiTietQuery = sanPhamChiTietQuery.Where(x => x.LuotBan != null && x.LuotBan != 0).OrderBy(x => x.LuotBan);
                         }
                         else
                         {
-                            sanPhamChiTietQuery = sanPhamChiTietQuery.OrderByDescending(x => x.LuotBan);
+                            sanPhamChiTietQuery = sanPhamChiTietQuery.Where(x => x.LuotBan != null && x.LuotBan != 0).OrderByDescending(x => x.LuotBan);
                         }
+                        result.TotalItems = sanPhamChiTietQuery.Count();
                         break;
                     // Các trường hợp sắp xếp theo các trường khác có thể được thêm vào ở đây
                     default:
