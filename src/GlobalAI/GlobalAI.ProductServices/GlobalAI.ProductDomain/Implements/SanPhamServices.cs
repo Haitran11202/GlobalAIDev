@@ -31,6 +31,7 @@ using GlobalAI.ProductEntities.Dto.TraGia;
 using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
 using GlobalAI.ProductEntities.Dto.ThuocTinh;
 using GlobalAI.ProductEntities.Dto.ThuocTinhGiaTri;
+using AutoMapper.Internal;
 
 namespace GlobalAI.ProductDomain.Implements
 {
@@ -67,18 +68,19 @@ namespace GlobalAI.ProductDomain.Implements
             string usertype = CommonUtils.GetCurrentRole(_httpContext);
 
             var result = new PagingResult<SanPhamChiTietDto>();
-            var query = _sanPhamChiTietRepository.FindAll(input);
+            var query = _sanPhamChiTietRepository.FindAllProduct(input);
 
             result.Items = _mapper.Map<List<SanPhamChiTietDto>>(query.Items);
             result.TotalItems = query.TotalItems;
             foreach (var item in result.Items)
             {;
-                var sanPham = _sanPhamRepository.GetById(item.IdSanPham);
-                item.MaSanPham = sanPham.MaSanPham;
-                item.TenSanPham = sanPham.TenSanPham;
-                item.MoTaSanPham = sanPham.MoTa;
-                item.IdDanhMuc = sanPham.IdDanhMuc;
-                item.ThumbnailSanPham = sanPham.Thumbnail;
+  
+                item.IdSanPham = item.Id;
+                item.MaSanPham = item.MaSanPham;
+                item.TenSanPham = item.TenSanPham;
+                item.MoTaSanPham = item.MoTa;
+                item.IdDanhMuc = item.IdDanhMuc;
+                item.ThumbnailSanPham = item.Thumbnail;
             }
             return result;
         }
@@ -156,13 +158,25 @@ namespace GlobalAI.ProductDomain.Implements
                 IdDanhMucThuocTinh = sanPham.IdDanhMucThuocTinh,
                 Thumbnail = sanPham.Thumbnail,
             };
-            
             var dict = new Dictionary<String, List<ViewThuocTinhGiaTriDto>>();
+            var sanPhamCt = _dbContext.SanPhamChiTiets.Where(spct => spct.IdSanPham == sanPham.Id).ToList();
+            //Check xem có id san phảm chi tiết chưa 
+            var listSanPhamCt = new List<int>();
+            for (int i = 0; i < sanPhamCt.Count; i++)
+            {   
+                var thuocTinhGtSanPham = _dbContext.SanPhamChiTietThuocTinhs.Where(spctt => spctt.IdSanPhamChiTiet == sanPhamCt[i].Id).Select(s => s.IdThuocTinhGiaTri).ToList();
+                listSanPhamCt = listSanPhamCt.Concat(thuocTinhGtSanPham).ToList();
+            }
+            
             var listDanhMucThuocTinhs = _thuocTinhRepository.FindByIdDanhMucThuocTinh(sanPham.IdDanhMucThuocTinh);
+            
             for (int i = 0; i < listDanhMucThuocTinhs.Count; i++)
             {
+                
                 var giatritt = _thuocTinhRepository.FindGiaTriByIdThuocTinh(listDanhMucThuocTinhs[i].Id);
-                dict.Add(_mapper.Map<GetThuocTinhDto>(listDanhMucThuocTinhs[i]).TenThuocTinh, _mapper.Map<List<ViewThuocTinhGiaTriDto>>(giatritt));
+                //chỉ lấy ra những thuộc tính giá trị có spct 
+                var giatriTT = giatritt.Where(s => listSanPhamCt.Contains(s.Id));
+                dict.Add(_mapper.Map<GetThuocTinhDto>(listDanhMucThuocTinhs[i]).TenThuocTinh, _mapper.Map<List<ViewThuocTinhGiaTriDto>>(giatriTT));
             }
             GetSanPhamChiTiet.ThuocTinhs = dict;
             return GetSanPhamChiTiet;

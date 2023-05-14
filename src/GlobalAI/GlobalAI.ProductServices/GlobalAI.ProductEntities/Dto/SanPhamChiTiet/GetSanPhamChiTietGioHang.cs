@@ -16,6 +16,7 @@ namespace GlobalAI.ProductEntities.Dto.SanPhamChiTiet
 
         private string _moTa;
         public int? IdSanPham { get; set; }
+        public int? IdSanPhamChiTiet { get; set; }
         public string TenSanPham { get; set; }
         public Dictionary<String, AddThuocTinhGiaTriDto> ThuocTinhs { get; set; }
         public int IdGStore { get; set; }

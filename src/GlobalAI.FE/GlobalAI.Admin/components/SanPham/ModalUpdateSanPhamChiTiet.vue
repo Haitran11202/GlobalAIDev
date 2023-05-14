@@ -16,7 +16,7 @@
                         <label for="image" class="block uppercase text-slate-600 text-xs font-bold mb-2">Hình ảnh</label>
                         <div class="flex items-center justify-between relative">
                             <input type="file" id="image"
-                                class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                                class="border placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                                 required @change="$event => uploadImage($event)" />
                             <!-- <img alt="Product Image" class="w-[50px] h-[50px] border absolute right-0 rounded"
                                 :src="getImageUrl(chiTiet.thumbnail)" /> -->
@@ -145,8 +145,23 @@ const onShowModal = () => {
     });
 }
 
-const uploadImage = ($event) => {
+const uploadImage = ($event, obj) => {
     file = $event.target.files[0];
+
+    postFile(file, 'image')
+        .then((response) => {
+            console.log({response});
+            if (obj) {
+                console.log(1);
+                obj = response.data;
+            } else {
+                console.log(2);
+                chiTiet.value.thumbnail = response.data;
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 const update = () => {
@@ -158,14 +173,13 @@ const update = () => {
 
     listCtspThuocTinh.value.forEach((newCtspThuocTinh, index) => {
         const oldCtspThuocTinh = chiTiet.value.listThuocTinh[index];
-        console.log({ newCtspThuocTinh }, { oldCtspThuocTinh });
+        
         if (newCtspThuocTinh.idThuocTinhGiaTri != oldCtspThuocTinh.idThuocTinhGiaTri) {
             body.listDeleteIdSanPhamChiTietThuocTinh.push(oldCtspThuocTinh.id);
             body.listAddThuocTinhGiaTri.push(newCtspThuocTinh.idThuocTinhGiaTri);
         }
     });
 
-    console.log({ body });
 
     useApiUpdateSanPhamChiTiet(body).then(res => {
         if (res?.data.code === 200) {

@@ -110,6 +110,7 @@ namespace GlobalAI.ProductDomain.Implements
                 var sanPhamChiTietGioHang = new GetSanPhamChiTietGioHangDto()
                 {
                     IdSanPham = giohang.IdSanPham,
+                    IdSanPhamChiTiet = giohang.IdSanPhamChiTiet,
                     TenSanPham = sanPham.TenSanPham,
                     GiaBan = sanPhamChiTiet.GiaBan,
                     MoTa = sanPhamChiTiet.MoTa,
@@ -123,7 +124,7 @@ namespace GlobalAI.ProductDomain.Implements
                 var dict = new Dictionary<String, AddThuocTinhGiaTriDto>();
                 var listDanhMucThuocTinhs = _thuocTinhRepository.FindByIdDanhMucThuocTinh(sanPham.IdDanhMucThuocTinh);
                 var listIdThuocTinhGiaTris = giohang.IdThuocTinhs.ToList();
-                if(listDanhMucThuocTinhs.Count() != 0)
+                if(listIdThuocTinhGiaTris.Count() != 0)
                 {
                     for (int i = 0; i < listDanhMucThuocTinhs.Count; i++)
                     {
@@ -132,6 +133,7 @@ namespace GlobalAI.ProductDomain.Implements
 
                     }
                 }
+                
                 sanPhamChiTietGioHang.ThuocTinhs = dict;
                 sanPhams.Add(sanPhamChiTietGioHang);
             }

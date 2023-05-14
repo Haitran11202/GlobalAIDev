@@ -226,9 +226,7 @@ const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
   }
-  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
-  )}&download=false`;
+  const url = `${baseUrl}/${imageUrl}`;
   return url;
 };
 //biến lưu giá trị hình thức thanh toán

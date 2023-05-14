@@ -150,7 +150,6 @@ const logInFunc = (data) => {
   useApiLogin(body)
     .then((res) => {
       if (res.status === 200) {
-        $toast.success("Đăng nhập thành công");
 
         userStorage.login({
           accessToken: res.data.access_token,

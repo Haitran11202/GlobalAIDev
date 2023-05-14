@@ -41,7 +41,7 @@ namespace GlobalAI.ProductEntities.DataEntities
         /// Mô tả
         /// </summary>
         [ColumnSnackCase(nameof(MoTa), TypeName = "VARCHAR2")]
-        [MaxLength(250)]
+        [MaxLength(1000)]
         public string MoTa { get; set; }
 
         /// <summary>
