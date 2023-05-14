@@ -86,7 +86,7 @@ namespace GlobalAI.ProductRepositories
                 {
                     var listThuocTinhGiaTri = _globalAIDbContext.SanPhamChiTietThuocTinhs.Where(spcttt => spcttt.IdSanPhamChiTiet == listIdSanPhamChiTiet[i] && !spcttt.Deleted).Select(spcttt => spcttt.IdThuocTinhGiaTri).ToList();
                     //So sánh giá trị thuộc tính nhập có tương đương với sản phẩm chi tiết 
-                    if (listThuocTinhGiaTri.OrderBy(s => s).SequenceEqual(dto.ThuocTinhs.OrderBy(s => s)));
+                    if (listThuocTinhGiaTri.OrderBy(s => s).SequenceEqual(dto.ThuocTinhs.OrderBy(s => s)))
                     {
                         addGioHangDto.IdSanPhamChiTiet = listIdSanPhamChiTiet[i];
                     }
