@@ -68,18 +68,19 @@ namespace GlobalAI.ProductDomain.Implements
             string usertype = CommonUtils.GetCurrentRole(_httpContext);
 
             var result = new PagingResult<SanPhamChiTietDto>();
-            var query = _sanPhamChiTietRepository.FindAll(input);
+            var query = _sanPhamChiTietRepository.FindAllProduct(input);
 
             result.Items = _mapper.Map<List<SanPhamChiTietDto>>(query.Items);
             result.TotalItems = query.TotalItems;
             foreach (var item in result.Items)
             {;
-                var sanPham = _sanPhamRepository.GetById(item.IdSanPham);
-                item.MaSanPham = sanPham.MaSanPham;
-                item.TenSanPham = sanPham.TenSanPham;
-                item.MoTaSanPham = sanPham.MoTa;
-                item.IdDanhMuc = sanPham.IdDanhMuc;
-                item.ThumbnailSanPham = sanPham.Thumbnail;
+  
+                item.IdSanPham = item.Id;
+                item.MaSanPham = item.MaSanPham;
+                item.TenSanPham = item.TenSanPham;
+                item.MoTaSanPham = item.MoTa;
+                item.IdDanhMuc = item.IdDanhMuc;
+                item.ThumbnailSanPham = item.Thumbnail;
             }
             return result;
         }
