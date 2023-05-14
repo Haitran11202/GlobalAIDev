@@ -181,7 +181,7 @@
                                 block: openTab === 1,
                             }"
                         >
-                            <p>{{ products.moTa }}</p>
+                            <p v-html="products.moTa"></p>
                         </div>
                         <div
                             :class="{
