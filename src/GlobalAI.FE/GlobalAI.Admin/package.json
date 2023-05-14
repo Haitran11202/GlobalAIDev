@@ -38,6 +38,7 @@
     "quill-html-edit-button": "^2.2.12",
     "quill-image-resize-vue": "^1.0.4",
     "quill-image-uploader": "^1.2.4",
+    "sweetalert2": "^11.7.5",
     "vee-validate": "^4.8.4",
     "vue-final-modal": "^3.4.11",
     "vue3-easy-data-table": "^1.5.42",

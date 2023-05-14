@@ -159,6 +159,7 @@ namespace GlobalAI.ProductDomain.Implements
             };
             var dict = new Dictionary<String, List<ViewThuocTinhGiaTriDto>>();
             var sanPhamCt = _dbContext.SanPhamChiTiets.Where(spct => spct.IdSanPham == sanPham.Id).ToList();
+            //Check xem có id san phảm chi tiết chưa 
             var listSanPhamCt = new List<int>();
             for (int i = 0; i < sanPhamCt.Count; i++)
             {   
@@ -172,6 +173,7 @@ namespace GlobalAI.ProductDomain.Implements
             {
                 
                 var giatritt = _thuocTinhRepository.FindGiaTriByIdThuocTinh(listDanhMucThuocTinhs[i].Id);
+                //chỉ lấy ra những thuộc tính giá trị có spct 
                 var giatriTT = giatritt.Where(s => listSanPhamCt.Contains(s.Id));
                 dict.Add(_mapper.Map<GetThuocTinhDto>(listDanhMucThuocTinhs[i]).TenThuocTinh, _mapper.Map<List<ViewThuocTinhGiaTriDto>>(giatriTT));
             }

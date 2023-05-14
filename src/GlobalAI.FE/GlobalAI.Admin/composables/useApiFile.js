@@ -3,7 +3,7 @@ import { API_ENDPOINT } from "~~/api/api.endpoint";
 
 export const postFile = async (file, folder = 'test') => {
   try {
-    const api = `${API_ENDPOINT.postImages}?folder=${folder}`;
+    const api = `${API_ENDPOINT.postFile(folder)}`;
 
     const formData = new FormData();
     formData.append('file', file, file?.name);

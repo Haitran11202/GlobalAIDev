@@ -37,14 +37,17 @@
                 >
                     <div
                         v-for="sanpham in products"
-                        :key="sanpham.idSanPham"
+                        :key="sanpham.idSanPhamChiTiet"
                         class="flex w-full items-start gap-[10px] mb-[30px]"
                     >
                         <div class="flex items-center gap-[20px]">
                             <input
-                                :id="sanpham.idSanPham"
+                                :id="sanpham.idSanPhamChiTiet"
                                 class="scale-x-150 scale-y-150"
-                                :value="sanpham.idSanPham"
+                                :value="
+                                    sanpham.idSanPhamChiTiet ||
+                                    sanpham.idSanPham
+                                "
                                 v-model="selectedProducts"
                                 type="checkbox"
                             />
@@ -61,7 +64,9 @@
                                     class="mt-[10px] text-[16px] text-[#6c757d]"
                                     >SL :
                                     {{
-                                        getCartItemQuantity(sanpham.idSanPham)
+                                        getCartItemQuantity(
+                                            sanpham.idSanPhamChiTiet
+                                        )
                                     }}</span
                                 >
                             </div>
@@ -103,7 +108,7 @@
                                     formatMoneyAll(
                                         getPrice(
                                             getCartItemQuantity(
-                                                sanpham.idSanPham
+                                                sanpham.idSanPhamChiTiet
                                             ),
                                             sanpham.giaBan
                                         )
@@ -114,9 +119,9 @@
                                 <p
                                     @click="
                                         handleUpdateProduct(
-                                            sanpham.idSanPham,
+                                            sanpham.idSanPhamChiTiet,
                                             getCartItemQuantity(
-                                                sanpham.idSanPham
+                                                sanpham.idSanPhamChiTiet
                                             ),
                                             sanpham.giaBan
                                         )
@@ -128,7 +133,9 @@
                                 <button
                                     class="flex items-center text-[#3478f6]"
                                     @click="
-                                        handleModalDelete(sanpham.idSanPham)
+                                        handleModalDelete(
+                                            sanpham.idSanPhamChiTiet
+                                        )
                                     "
                                 >
                                     <svg
@@ -150,7 +157,7 @@
                             </div>
                         </div>
                         <div
-                            v-if="isShowModelCart == sanpham.idSanPham"
+                            v-if="isShowModelCart == sanpham.idSanPhamChiTiet"
                             class="ModalUpdateCart z-50 fixed lg:w-[512px] lg:py-[20px] px-[10px] h-[630px] bg-white top-[50%] rounded-2xl shadow-2xl left-[50%] translate-x-[-50%] translate-y-[-50%]"
                         >
                             <div class="float-right">
@@ -264,7 +271,9 @@
                                     >
                                         <button
                                             @click="
-                                                decrement(sanpham.idSanPham)
+                                                decrement(
+                                                    sanpham.idSanPhamChiTiet
+                                                )
                                             "
                                             class="w-[20px] h-[20px] hover:bg-black flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
                                         >
@@ -277,7 +286,9 @@
                                         />
                                         <button
                                             @click="
-                                                increment(sanpham.idSanPham)
+                                                increment(
+                                                    sanpham.idSanPhamChiTiet
+                                                )
                                             "
                                             class="w-[20px] h-[20px] hover:bg-black flex items-center font-medium justify-center rounded-[50%] bg-black text-white"
                                         >
@@ -322,7 +333,7 @@
                                         <button
                                             @click="
                                                 handleUpdateNewProductCart(
-                                                    sanpham.idSanPham
+                                                    sanpham.idSanPhamChiTiet
                                                 )
                                             "
                                             class="w-[335px] py-[12px] rounded-xl px-[20px] flex justify-center text-[18px] items-center bg-[#cc3366] text-white font-bold"
@@ -332,7 +343,7 @@
                                         <button
                                             @click="
                                                 handleModalDelete(
-                                                    sanpham.idSanPham
+                                                    sanpham.idSanPhamChiTiet
                                                 )
                                             "
                                             class="w-[335px] mt-[20px] py-[12px] rounded-xl px-[20px] flex justify-center text-[18px] items-center bg-white border-[1px] border-[#cc3366] text-[#cc3366] font-bold"
@@ -430,7 +441,7 @@
                         <h2 class="text-[18px] font-bold">Địa chỉ</h2>
                     </div>
                     <div class="mb-[10px] flex justify-between items-center">
-                        <span>Trương Định , Hà Nội</span>
+                        <span>{{ diaChi }}</span>
                         <span
                             @click="handleShowModalAddress"
                             class="underline text-blue-400 text-[16px] cursor-pointer"
@@ -480,34 +491,34 @@
                                                             >*</span
                                                         >
                                                     </option>
-                                                    <option value="Hanoi">
+                                                    <option value="Hà Nội">
                                                         Hà Nội
                                                     </option>
-                                                    <option value="Danang">
+                                                    <option value="Đà Nẵng">
                                                         Đà Nẵng
                                                     </option>
-                                                    <option value="Hochiminh">
+                                                    <option value="Hồ Chí Minh">
                                                         Hồ Chí Minh
                                                     </option>
-                                                    <option value="Cantho">
+                                                    <option value="Cần Thơ">
                                                         Cần Thơ
                                                     </option>
-                                                    <option value="Haiphong">
+                                                    <option value="Hải Phòng">
                                                         Hải Phòng
                                                     </option>
-                                                    <option value="Binhphuoc">
+                                                    <option value="An Giang">
                                                         An Giang
                                                     </option>
-                                                    <option value="CaMau">
+                                                    <option value="Cà Mau">
                                                         Cà Mau
                                                     </option>
                                                     <option value="Vinh">
                                                         Vinh
                                                     </option>
-                                                    <option value="Caobang">
+                                                    <option value="Cao Bằng">
                                                         Cao Bằng
                                                     </option>
-                                                    <option value="Bentre">
+                                                    <option value="Bến Tre">
                                                         Bến Tre
                                                     </option>
                                                 </select>
@@ -526,16 +537,16 @@
                                                             >*</span
                                                         >
                                                     </option>
-                                                    <option value="MyDuc">
+                                                    <option value="Mỹ Đức">
                                                         Mỹ Đức
                                                     </option>
-                                                    <option value="DongAnh">
+                                                    <option value="Đông Anh">
                                                         Đông Anh
                                                     </option>
-                                                    <option value="Gialam">
+                                                    <option value="Gia Lâm">
                                                         Gia Lâm
                                                     </option>
-                                                    <option value="HoaiDuc">
+                                                    <option value="Hòai Đức">
                                                         Hòai Đức
                                                     </option>
                                                 </select>
@@ -552,16 +563,16 @@
                                                         >*</span
                                                     >
                                                 </option>
-                                                <option value="MyDuc">
+                                                <option value="Hương Sơn">
                                                     Hương Sơn
                                                 </option>
-                                                <option value="DangXa">
+                                                <option value="Đặng Xá">
                                                     Đặng Xá
                                                 </option>
-                                                <option value="DinhXuyen">
+                                                <option value="Đình Xuyê">
                                                     Đình Xuyên
                                                 </option>
-                                                <option value="Phuthi">
+                                                <option value="Phú Thị">
                                                     Phú Thị
                                                 </option>
                                             </select>
@@ -807,7 +818,7 @@
                                                                 v-for="ct in donhang.chiTietDonHangFullDtos"
                                                             >
                                                                 <td
-                                                                    class="flex p-6 gap-4 h-[100%]"
+                                                                    class="flex p-6 gap-4 h-[80px]"
                                                                 >
                                                                     <div>
                                                                         <img
@@ -827,7 +838,9 @@
                                                                         }}
                                                                     </div>
                                                                 </td>
-                                                                <td>
+                                                                <td
+                                                                    class="h-[80px]"
+                                                                >
                                                                     {{
                                                                         formatMoneyAll(
                                                                             ct.donGia
@@ -839,7 +852,9 @@
                                                                         ct.soLuong
                                                                     }}
                                                                 </td>
-                                                                <td>
+                                                                <td
+                                                                    class="flex p-5"
+                                                                >
                                                                     <div
                                                                         v-for="(
                                                                             key,
@@ -860,8 +875,8 @@
                                                                                     key
                                                                                 ]
                                                                                     .giaTri
-                                                                            }}</span
-                                                                        >
+                                                                            }}
+                                                                        </span>
                                                                         <span
                                                                             class="w-[5px] text-black"
                                                                             v-if="
@@ -952,6 +967,7 @@ const giaBan = ref(0);
 const useCart = useCartStorage();
 const isshowModalDelete = ref(false);
 const isShowModalOpacity = ref(false);
+const idAttr = ref([]);
 const selectedOption1 = ref("");
 const selectedOption2 = ref("");
 const selectedOption3 = ref("");
@@ -959,7 +975,7 @@ const addressText = ref("");
 const nameText = ref("");
 const phoneText = ref("");
 const idDelete = ref("");
-const diaChi = ref("");
+const diaChi = ref("146, Trương định, Hà Nội");
 const thongTinNguoiMua = ref("");
 const uniIdGstore = ref([]);
 const userInfor = useUserStorage();
@@ -1013,16 +1029,18 @@ onMounted(async () => {
 });
 const getUserInfor = () => {
     var address = jwtDecode(accessToken);
-    console.log(address);
+    thongTinNguoiMua.value = `${address.name}`;
+    console.log(thongTinNguoiMua.value);
 };
 //lấy số lượng theo sản phẩm
 const getCartItemQuantity = (id, soLuongNew = 0) => {
-    const item = datas.value.find((item) => item.idSanPham == id);
+    const item = datas.value.find((item) => item.idSanPhamChiTiet == id);
     return soLuongNew == 0 ? item?.soLuong : soLuongNew;
 };
 //tăng số lượng sản phẩm trong giỏ hàng
 const increment = (idsp) => {
-    const gioHangsanpham = datas.value.find((s) => s.idSanPham == idsp);
+    const gioHangsanpham = datas.value.find((s) => s.idSanPhamChiTiet == idsp);
+    console.log(gioHangsanpham);
     soLuongUpdate.value++;
     const body = {
         idSanPham: idsp,
@@ -1030,13 +1048,13 @@ const increment = (idsp) => {
         thuocTinhs: idAttr.value,
         status: 1,
     };
-    editGioHang(gioHangsanpham.id, body)
-        .then((res) => console.log(res))
-        .catch(() => {});
+    // editGioHang(gioHangsanpham.id, body)
+    //     .then((res) => console.log(res))
+    //     .catch(() => {});
 };
 //giảm số lượng trong giỏ hàng
 const decrement = (idsp) => {
-    const gioHangsanpham = datas.value.find((s) => s.idSanPham == idsp);
+    const gioHangsanpham = datas.value.find((s) => s.idSanPhamChiTiet == idsp);
     if (soLuongUpdate.value <= 1) {
         soLuongUpdate.value = 1;
     } else {
@@ -1064,8 +1082,8 @@ const getPriceUpdate = () => {
 const checkAllGioHang = () => {
     if (checkAll.value) {
         products.value.forEach((product) => {
-            if (!selectedProducts.value.includes(product.idSanPham)) {
-                selectedProducts.value.push(product.idSanPham);
+            if (!selectedProducts.value.includes(product.idSanPhamChiTiet)) {
+                selectedProducts.value.push(product.idSanPhamChiTiet);
             }
         });
     } else {
@@ -1073,18 +1091,22 @@ const checkAllGioHang = () => {
     }
 };
 //lấy giá bán từ id của sản phẩm
-const getGiaBanTuIdSanPham = (idSanPham) => {
-    const product = products.value.find((item) => item.idSanPham === idSanPham);
+const getGiaBanTuIdSanPham = (idSanPhamChiTiet) => {
+    const product = products.value.find(
+        (item) => item.idSanPhamChiTiet === idSanPhamChiTiet
+    );
     return product ? product.giaBan : 0;
 };
 //lấy giá chiết khấu từ id sản phẩm
-const getGiaChietKhauTuIdSanPham = (idSanPham) => {
-    const product = products.value.find((item) => item.idSanPham === idSanPham);
+const getGiaChietKhauTuIdSanPham = (idSanPhamChiTiet) => {
+    const product = products.value.find(
+        (item) => item.idSanPhamChiTiet === idSanPhamChiTiet
+    );
     return product ? product.giaChietKhau : 0;
 };
 //xóa giỏ hàng khi click vào icon thùng rác
 const deleteGh = (idsp) => {
-    const gioHangsanpham = datas.value.find((s) => s.idSanPham == idsp);
+    const gioHangsanpham = datas.value.find((s) => s.idSanPhamChiTiet == idsp);
     selectedProducts.value = selectedProducts.value.filter((id) => id !== idsp);
     console.log("gio hang được chọn", selectedProducts.value);
     console.log(gioHangsanpham.id);
@@ -1110,9 +1132,11 @@ const totalPrice = computed(() => {
     let chietKhau = 0;
     let tongThanhToan = 0;
     datas.value.forEach((item) => {
-        if (selectedProducts.value.includes(item.idSanPham)) {
-            let giaBan = getGiaBanTuIdSanPham(item.idSanPham);
-            let giaChietKhau = getGiaChietKhauTuIdSanPham(item.idSanPham);
+        if (selectedProducts.value.includes(item.idSanPhamChiTiet)) {
+            let giaBan = getGiaBanTuIdSanPham(item.idSanPhamChiTiet);
+            let giaChietKhau = getGiaChietKhauTuIdSanPham(
+                item.idSanPhamChiTiet
+            );
             sum += getPrice(item.soLuong, giaBan);
             chietKhau += getPrice(item.soLuong, giaChietKhau);
             console.log(chietKhau);
@@ -1137,12 +1161,13 @@ const removeDuplicates = (arr) => {
 //tạo đơn hàng
 const checkOut = () => {
     var arrGstore = [];
+    getUserInfor();
     //lấy ra idgstore
     console.log("CheckOut");
     console.log(selectedProducts.value);
     selectedProducts.value.map((idSp) => {
         console.log(idSp);
-        var chiTiet = products.value.find((p) => p.idSanPham == idSp);
+        var chiTiet = products.value.find((p) => p.idSanPhamChiTiet == idSp);
         console.log(chiTiet);
         console.log(chiTiet.idGStore);
         arrGstore.push(chiTiet.idGStore);
@@ -1156,14 +1181,18 @@ const checkOut = () => {
     uniqueGstores.forEach((idGStore) => {
         const filterdProducts = selectedProducts.value.filter((idsp) => {
             console.log(idsp);
-            const product = products.value.find((p) => p.idSanPham == idsp);
+            const product = products.value.find(
+                (p) => p.idSanPhamChiTiet == idsp
+            );
             console.log(product);
             return product.idGStore == idGStore;
         });
 
         // create chi tiet don hang for products with matching idGStore
         const chiTietDonHangFullDtos = filterdProducts.map((idSp) => {
-            const chiTiet = products.value.find((p) => p.idSanPham == idSp);
+            const chiTiet = products.value.find(
+                (p) => p.idSanPhamChiTiet == idSp
+            );
             console.log(chiTiet);
             console.log(idSp);
 
@@ -1198,13 +1227,17 @@ const checkOut = () => {
 const dathang = () => {
     uniIdGstore.value.forEach((idGStore) => {
         const filterdProducts = selectedProducts.value.filter((idsp) => {
-            const product = products.value.find((p) => p.idSanPham == idsp);
+            const product = products.value.find(
+                (p) => p.idSanPhamChiTiet == idsp
+            );
             return product.idGStore == idGStore;
         });
 
         // create chi tiet don hang for products with matching idGStore
         const chiTietDonHangFullDtos = filterdProducts.map((idSp) => {
-            const chiTiet = products.value.find((p) => p.idSanPham == idSp);
+            const chiTiet = products.value.find(
+                (p) => p.idSanPhamChiTiet == idSp
+            );
             console.log(chiTiet);
 
             return {
@@ -1227,11 +1260,37 @@ const dathang = () => {
         console.log(sendBody);
         createFullDonHang(sendBody)
             .then((res) => {
+                console.log(res.data);
+                console.log(sendBody);
                 toast.success("Tạo đơn hàng thành công");
                 // xóa sản phẩm trong giỏ hàng khi thêm đơn hàng thành công
                 sendBody.chiTietDonHangFullDtos.map((ct) => {
-                    console.log(ct);
-                    deleteGh(ct.idSanPham);
+                    console.log(products.value);
+                    const idSanPhamCt = products.value.find(
+                        (sp) => sp.idSanPham == ct.idSanPham
+                    );
+                    console.log(idSanPhamCt);
+                    const gioHangsanpham = datas.value.find(
+                        (s) =>
+                            s.idSanPhamChiTiet == idSanPhamCt.idSanPhamChiTiet
+                    );
+                    deleteGioHang(gioHangsanpham.id)
+                        .then((res) => {
+                            console.log(res.data);
+                            useCart.getGioHang();
+                            getSanPhamByNguoiMua()
+                                .then(
+                                    (res) => (products.value = res?.data?.data)
+                                )
+                                .catch(() => {});
+                            getGioHang()
+                                .then(
+                                    (res) =>
+                                        (datas.value = res?.data?.data.gioHang)
+                                )
+                                .catch(() => {});
+                        })
+                        .catch(() => {});
                 });
             })
             .catch(() => {});
@@ -1246,13 +1305,14 @@ const handleUpdateProduct = (id, soLuong, giaBanModal) => {
     isShowModalOpacity.value = true;
     soLuongUpdate.value = soLuong;
     giaBan.value = giaBanModal;
-    const item = datas.value.find((item) => item.idSanPham === id);
+    console.log(id);
+    const item = datas.value.find((item) => item.idSanPhamChiTiet === id);
     idAttr.value = item.idThuocTinhs;
     console.log(idAttr.value);
 };
 const handleUpdateNewProductCart = (id) => {
     console.log(id);
-    const item = datas.value.find((item) => item.idSanPham === id);
+    const item = datas.value.find((item) => item.idSanPhamChiTiet === id);
     console.log(item);
     isShowModalOpacity.value = false;
     item.soLuong = soLuongUpdate.value;
@@ -1286,7 +1346,7 @@ const handleDelete = () => {
     isShowModalOpacity.value = false;
     isshowModalDelete.value = false;
     const gioHangsanpham = datas.value.find(
-        (s) => s.idSanPham == idDelete.value
+        (s) => s.idSanPhamChiTiet == idDelete.value
     );
     console.log(selectedProducts);
     console.log(idDelete.value);
@@ -1335,7 +1395,7 @@ const handleSubmitFormAddress = () => {
         };
         console.log(bodyForm);
 
-        const diaChiString = `Tỉnh ${bodyForm.Tinh}, Quận ${bodyForm.Quan}, Phường ${bodyForm.Phuong}, số nhà ${bodyForm.SoNha}`;
+        const diaChiString = `${bodyForm.Tinh}, Quận ${bodyForm.Quan}, Phường ${bodyForm.Phuong}, số nhà ${bodyForm.SoNha}`;
         diaChi.value = diaChiString;
         const ttNguoiMua = `${bodyForm.Ten} (+84) ${bodyForm.SoDienThoai}`;
         thongTinNguoiMua.value = ttNguoiMua;

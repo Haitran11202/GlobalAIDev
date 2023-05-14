@@ -42,13 +42,13 @@ export const getFullSanPham = async (id) => {
 };
 
 export const getDanhMucSanPham = async () => {
-  const res = await http.get(API_ENDPOINT.getDanhMucSanPham)
-  try {
-   return Promise.resolve(res)
-  } catch (error) {
-    return Promise.reject(error)
-  }
-}
+    const res = await http.get(API_ENDPOINT.getDanhMucSanPham);
+    try {
+        return Promise.resolve(res);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
 export const getSanPhamByIdGStore = async (pageSize, pageNumber, skip) => {
     try {
         const response = await http.get(
@@ -60,24 +60,25 @@ export const getSanPhamByIdGStore = async (pageSize, pageNumber, skip) => {
     }
 };
 
-export const getSanPhamHome = async (SortBy , SortOrder) => {
+export const getSanPhamHome = async (SortBy, SortOrder) => {
     try {
-        const response = await http.get(API_ENDPOINT.getSanPhamTrangHome(SortBy , SortOrder));
+        const response = await http.get(
+            API_ENDPOINT.getSanPhamTrangHome(SortBy, SortOrder)
+        );
         return Promise.resolve(response.data);
     } catch (error) {
-        return Promise.reject(error)
+        return Promise.reject(error);
     }
-}
+};
 
 export const getProductAttributes = async (id) => {
-    try{
+    try {
         const response = await http.get(API_ENDPOINT.getThuocTinhSanPham(id));
-        return Promise.resolve(response.data)
-    }catch(error){
-        return Promise.reject(error)
+        return Promise.resolve(response.data);
+    } catch (error) {
+        return Promise.reject(error);
     }
-}
-
+};
 
 // Cương code
 
@@ -268,8 +269,8 @@ export const getAllDanhMucBaiTin = async () => {
 
 /**
  * LẤY DANH MỤC THUỘC TÍNH THEO ID
- * @param {*} id 
- * @returns 
+ * @param {*} id
+ * @returns
  */
 export const getDanhMucThuocTinhById = async (id) => {
     try {
@@ -282,8 +283,8 @@ export const getDanhMucThuocTinhById = async (id) => {
 
 /**
  * LẤY LIST DANH MỤC THUỘC TÍNH
- * @param {*} id 
- * @returns 
+ * @param {*} id
+ * @returns
  */
 export const getListDanhMucThuocTinh = async () => {
     try {
@@ -294,3 +295,69 @@ export const getListDanhMucThuocTinh = async () => {
     }
 };
 
+/**
+ * LẤY CHI TIẾT SẢN PHẨM CHO ADMIN
+ * @param {*} id
+ * @returns
+ */
+export const getSanPhamAdminById = async (id) => {
+    try {
+        const res = await http.get(API_ENDPOINT.getSanPhamAdminById(id));
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
+
+/**
+ * THÊM SẢN PHẨM CHI TIẾT VÀO SẢN PHẨM
+ * @param {*} body
+ * @returns
+ */
+export const useApiAddSanPhamChiTiet = async (body) => {
+    try {
+        const res = await http.post(API_ENDPOINT.addSanPhamChiTiet, body);
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
+
+/**
+ * CẬP NHẬT SẢN PHẨM CHI TIẾT
+ * @param {*} body
+ * @returns
+ */
+export const useApiUpdateSanPhamChiTiet = async (body) => {
+    try {
+        const res = await http.put(API_ENDPOINT.updateSanPhamChiTiet, body);
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
+
+/**
+ * XÓA SẢN PHẨM CHI TIẾT
+ * @param {*} body
+ * @returns
+ */
+export const useApiDeleteSanPhamChiTiet = async (id) => {
+    try {
+        const res = await http.delete(API_ENDPOINT.deleteSanPhamChiTiet(id));
+        return Promise.resolve(res);
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
+
+export const getIdSanPhamCtByIdSanPhamAndTTGT = async (idSanPham, gttt) => {
+    try {
+        const response = await http.get(
+            API_ENDPOINT.getIdSanPhamCtByIdSanPhamAndTTGT(idSanPham, gttt)
+        );
+        return Promise.resolve(response.data);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
