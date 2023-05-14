@@ -64,7 +64,7 @@
                                 <font-awesome-icon :icon="['fas', 'star']" />
                                 <font-awesome-icon :icon="['fas', 'star']" />
                             </div>
-                            Đã bán : 85
+                            Đã bán : {{ item.luotBan || 0 }}
                         </div>
                     </div>
                     <div
@@ -157,10 +157,14 @@ const detail = (id) => {
     });
 };
 const formatMoneyAll = (money) => {
-    return money.toLocaleString("vi-VN", {
-        style: "currency",
-        currency: "VND",
-    });
+    if (money != null) {
+        return money.toLocaleString("vi-VN", {
+            style: "currency",
+            currency: "VND",
+        });
+    } else {
+        return money;
+    }
 };
 </script>
 <style lang="css">
