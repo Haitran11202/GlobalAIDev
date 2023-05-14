@@ -161,7 +161,7 @@
         <div class="px-4 py-5 flex-auto">
           <div class="tab-content tab-space">
             <div :class="{ hidden: openTab !== 1, block: openTab === 1 }">
-              <p>{{ products.moTa }}</p>
+              <p v-html="products.moTa"></p>
             </div>
             <div :class="{ hidden: openTab !== 2, block: openTab === 2 }">
               <p>
@@ -213,8 +213,10 @@
             :key="data"
             class="flex items-center gap-[15px] mt-[5px]"
           >
-          <h2 class="text-[16px] w-[40px] text-[#384059] font-[500]">{{ data.tenThuocTinh }}</h2>
-          <h3 class="text-[16px] text-[#727789]">{{ data.giaTri }}</h3>
+            <h2 class="text-[16px] w-[40px] text-[#384059] font-[500]">
+              {{ data.tenThuocTinh }}
+            </h2>
+            <h3 class="text-[16px] text-[#727789]">{{ data.giaTri }}</h3>
           </div>
         </div>
       </div>
@@ -304,7 +306,7 @@ const getImageUrl = (imageUrl) => {
     return "https://placehold.it/50x50";
   }
   const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl,
+    imageUrl
   )}&download=false`;
   return url;
 };
@@ -328,7 +330,7 @@ watchEffect(() => {
                 name: attributeName,
                 value: attributeValue,
               });
-            },
+            }
           );
           console.log(ProductAttributtes.value);
         })
@@ -342,7 +344,7 @@ watchEffect(() => {
 const handleSelectColor = (attribute) => {
   console.log(attribute);
   const index = selectProductAttribute.value.findIndex(
-    (item) => item.idThuocTinh === attribute.idThuocTinh,
+    (item) => item.idThuocTinh === attribute.idThuocTinh
   );
   if (index != -1) {
     const selectAttr = selectProductAttribute.value[index];
@@ -351,7 +353,7 @@ const handleSelectColor = (attribute) => {
       countSelectAttribute.value--;
       console.log(selectProductAttribute.value);
       selectedAttributeId.value = selectProductAttribute.value.map(
-        (item) => item.id,
+        (item) => item.id
       );
     } else {
       selectProductAttribute.value.splice(index, 1);
@@ -360,14 +362,14 @@ const handleSelectColor = (attribute) => {
       countSelectAttribute.value++;
       console.log(selectProductAttribute.value);
       selectedAttributeId.value = selectProductAttribute.value.map(
-        (item) => item.id,
+        (item) => item.id
       );
     }
   } else {
     selectProductAttribute.value.push(attribute);
     countSelectAttribute.value++;
     selectedAttributeId.value = selectProductAttribute.value.map(
-      (item) => item.id,
+      (item) => item.id
     );
     console.log(selectProductAttribute.value);
   }
@@ -394,26 +396,25 @@ const handleBuyClick = () => {
   console.log(productId.value);
   if (countSelectAttribute.value < ProductAttributtes.value.length) {
     toast.error("Bạn chưa chọn phân loại");
-  }
-  else{
+  } else {
     const body = {
-    idSanPham: productId.value,
-    thuocTinhs: selectedAttributeId.value,
-    soLuong: soLuong.value,
-    status: 1,
-  };
-  createGioHang(body)
-    .then((res) => {
-      useCart.getGioHang();
-      console.log(res);
-    })
-    .catch(() => {});
-  const userId = getUserInfor().user_id;
-  router.push({
-    name: "ManageCart",
-    query: { checkedItem: productId.value },
-    params: { id: productId.value },
-  });
+      idSanPham: productId.value,
+      thuocTinhs: selectedAttributeId.value,
+      soLuong: soLuong.value,
+      status: 1,
+    };
+    createGioHang(body)
+      .then((res) => {
+        useCart.getGioHang();
+        console.log(res);
+      })
+      .catch(() => {});
+    const userId = getUserInfor().user_id;
+    router.push({
+      name: "ManageCart",
+      query: { checkedItem: productId.value },
+      params: { id: productId.value },
+    });
   }
 };
 
