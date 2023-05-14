@@ -28,13 +28,12 @@ namespace GlobalAI.ProductRepositories
             
         }
 
-        public PagingResult<SanPhamChiTiet> FindAll(FilterSanPhamChiTietDto input)
+        public PagingResult<SanPham> FindAllProduct(FilterSanPhamChiTietDto input)
         {
-            PagingResult<SanPhamChiTiet> result = new();
+            PagingResult<SanPham> result = new();
 
-            var sanPhamChiTietQuery = (from sanPhamChiTiet in _dbSet
+            var sanPhamChiTietQuery = (from sanPhamChiTiet in _globalAIDbContext.SanPhams
                                where sanPhamChiTiet.Deleted == DeletedBool.NO
-                               //&& (input.IdSanPham == null || input.IdSanPham == sanPhamChiTiet.IdSanPham)
                                && (input.Status == null || input.Status == sanPhamChiTiet.Status)
                                select sanPhamChiTiet);
 
@@ -43,17 +42,6 @@ namespace GlobalAI.ProductRepositories
             {
                 switch (input.SortBy)
                 {
-                    case "SoLuong":
-                        if (input.SortOrder.ToLower() == "asc")
-                        {
-                            sanPhamChiTietQuery = sanPhamChiTietQuery.OrderBy(x => x.SoLuong);
-                        }
-                        else
-                        {
-                            sanPhamChiTietQuery = sanPhamChiTietQuery.OrderByDescending(x => x.SoLuong);
-                        }
-                        break;
-
                     case "CreatedDate":
                         if (input.SortOrder.ToLower() == "asc")
                         {
