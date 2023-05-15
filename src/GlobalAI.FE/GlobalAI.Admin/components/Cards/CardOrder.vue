@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div class="overflow-x-auto relative w-full">
-      <div class="mb-0 rounded-md px-4 py-3 bg-[#fff] border-0">
+  <div class="w-full">
+    <div class="relative w-full overflow-x-auto">
+      <div class="mb-0 rounded-t-md px-4 py-3 bg-[#fff] border-0">
         <div class="flex flex-wrap items-center">
           <div
             class="relative w-full px-4 max-w-full flex justify-between items-center"
@@ -18,96 +18,77 @@
           </div>
         </div>
       </div>
-      <table class="table w-full mt-2">
-        <!-- head -->
-        <thead>
-          <tr>
-            <th>
-              <label>
-                <input type="checkbox" class="checkbox" />
-              </label>
-            </th>
-            <th>ID</th>
-            <th>Mã đơn hàng</th>
-            <th>Ngày hoàn thành</th>
-            <th>Mã Gstore</th>
-            <th>Mã người mua</th>
-            <th>Số tiền</th>
-            <th>Địa chỉ</th>
-            <th>Hình thức thanh toán</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="text-sm" v-for="order in orders" :key="order.id">
-            <th>
-              <label>
-                <input type="checkbox" class="checkbox" />
-              </label>
-            </th>
-            <td @click="onClickOrderDetails(order.id)">
-              {{ order.id }}
-            </td>
-
-            <td @click="onClickOrderDetails(order.id)">
-              {{ order.maDonHang }}
-            </td>
-
-            <td @click="onClickOrderDetails(order.id)">
-              {{
-                order.ngayHoanThanh
-                  ? $moment(order.ngayHoanThanh).format("DD/MM/YYYY")
-                  : ""
-              }}
-            </td>
-            <td @click="onClickOrderDetails(order.id)">
-              {{ order.idGStore }}
-            </td>
-            <td @click="onClickOrderDetails(order.id)">
-              {{ order.idNguoiMua }}
-            </td>
-
-            <td @click="onClickOrderDetails(order.id)">
-              {{
-                order.soTien.toLocaleString("vi-VN", {
-                  style: "currency",
-                  currency: "VND",
-                })
-              }}
-            </td>
-            <td
-              class="whitespace-pre-line"
-              @click="onClickOrderDetails(order.id)"
-            >
-              {{ order.diaChi }}
-            </td>
-
-            <td @click="onClickOrderDetails(order.id)">
-              {{ order.hinhThucThanhToan }}
-            </td>
-            <td>
-              <div class="dropdown dropdown-left dropdown-end">
-                <label
-                  tabindex="0"
-                  class="btn m-1 btn-outline"
-                  @click="toggleDropdown"
-                  >...</label
-                >
-                <ul
-                  tabindex="0"
-                  class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-                  v-if="isOpen"
-                  @click="closeDropdown"
-                >
-                  <li @click="onEditButtonClick(order.id)"><a>Sửa</a></li>
-                  <li @click="onDeleteButtonClick(order.id)"><a>Xoá</a></li>
-                  <li><a>Duyệt</a></li>
-                </ul>
+      <EasyDataTable
+        table-class-name="mc-tbl"
+        class="mx-2 md:mx-0 hover:cursor-pointer"
+        :headers="headers"
+        :hide-footer="true"
+        :loading="tblLoading"
+        :items="orders"
+      >
+        <template #item-maDonHang="item">
+          <div class="flex items-center space-x-3">
+            <div @click="onClickOrderDetails(item.id)">
+              <div class="font-bold">
+                {{ item.maDonHang }}
               </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </div>
+          </div>
+        </template>
+        <template #item-ngayHoanThanh="item">
+          <span>
+            {{
+              item?.ngayHoanThanh
+                ? $moment(item.ngayHoanThanh).format("DD/MM/YYYY")
+                : ""
+            }}
+          </span>
+        </template>
+        <template #item-soTien="item">
+          <span>
+            {{
+              item?.soTien.toLocaleString("vi-VN", {
+                style: "currency",
+                currency: "VND",
+              })
+            }}
+          </span>
+        </template>
+        <template #item-diaChi="item">
+          <span>
+            {{
+              item.diaChi.length > 30
+                ? item.diaChi.slice(0, 30) + "..."
+                : item.diaChi
+            }}
+          </span>
+        </template>
+        <template #item-hinhThucThanhToan="item">
+          <span>
+            {{ item.hinhThucThanhToan }}
+          </span>
+        </template>
+        <template #item-action="item">
+          <div class="dropdown dropdown-left dropdown-end">
+            <label
+              tabindex="0"
+              class="btn m-1 btn-outline"
+              @click="toggleDropdown"
+              >...</label
+            >
+            <ul
+              tabindex="0"
+              class="dropdown-content menu z-50 p-2 shadow bg-base-100 rounded-box w-52"
+              v-if="isOpen"
+              @click="closeDropdown"
+            >
+              <li @click="onEditButtonClick(item.id)"><a>Sửa</a></li>
+              <li @click="onDeleteButtonClick(item.id)"><a>Xoá</a></li>
+              <li><a>Duyệt</a></li>
+            </ul>
+          </div>
+        </template>
+      </EasyDataTable>
     </div>
     <div class="btn-group flex justify-center mt-2">
       <button @click="previousPage" class="btn">«</button>
@@ -166,12 +147,22 @@ import {
   getOrderById,
 } from "~~/composables/useApiOrder";
 import { useRouter } from "vue-router";
+import Pagination from "../Pagination/Pagination.vue";
 const { $toast } = useNuxtApp();
+
+const headers = [
+  { text: "MÃ", value: "maDonHang" },
+  { text: "NGÀY HOÀN THÀNH", value: "ngayHoanThanh" },
+  { text: "SỐ TIỀN", value: "soTien" },
+  { text: "ĐỊA CHỈ", value: "diaChi" },
+  { text: "HÌNH THỨC THANH TOÁN", value: "hinhThucThanhToan" },
+  { text: "", value: "action" },
+];
 
 const router = useRouter();
 
-// Khởi tạo giá trị mặc định phân trang 5 1 0
-const pageSize = 5;
+const pageSize = ref(5);
+const pageTotalItems = ref(1);
 const pageNumber = ref(1);
 const skip = ref(0);
 
@@ -179,6 +170,7 @@ const skip = ref(0);
 const orders = ref([]);
 const deletedOrder = ref(null);
 const showAction = ref({});
+let tblLoading = ref(false);
 
 const previousPage = () => {
   if (pageNumber.value === 1) {
@@ -198,9 +190,10 @@ const nextPage = () => {
 };
 
 const fetchData = async () => {
-  getAllOrder(pageSize, pageNumber.value, skip.value)
+  getAllOrder(pageSize.value, pageNumber.value, skip.value)
     .then((res) => {
       orders.value = res.data.items;
+      pageTotalItems.value = res.data.totalItems;
       console.log(orders.value);
     })
     .catch((err) => console.error(err));
@@ -210,7 +203,7 @@ const onClickOrderDetails = (id) => {
   router.push({ name: "orderdetails", params: { id: id } });
   getOrderById(id)
     .then((res) => {
-      res.data;
+      console.log(res);
     })
     .catch((err) => {
       console.error(err);
@@ -247,7 +240,7 @@ watchEffect(() => {
   fetchData();
 
   if (deletedOrder.value !== null) {
-    getAllOrder();
+    getAllOrder(pageSize.value, pageNumber.value, skip.value);
     deletedOrder.value = null;
   }
 });

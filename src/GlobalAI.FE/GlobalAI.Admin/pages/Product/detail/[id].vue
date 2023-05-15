@@ -170,7 +170,7 @@
                 block: openTab === 1,
               }"
             >
-              <p v-html="products.moTa"></p>
+              <p>{{ products.moTa }}</p>
             </div>
             <div
               :class="{
@@ -329,19 +329,14 @@ const getImageUrl = (imageUrl) => {
   if (!imageUrl) {
     return "https://placehold.it/50x50";
   }
-  const url = `${baseUrl}/api/file/get?folder=image&file=${encodeURIComponent(
-    imageUrl
-  )}&download=false`;
+  const url = `${baseUrl}/${imageUrl}`;
   return url;
-    if (!imageUrl) {
-        return "https://placehold.it/50x50";
-    }
-    const url = `${baseUrl}/${imageUrl}`;
-    return url;
 };
 
 watchEffect(() => {
   productId.value = router.currentRoute.value.params.id;
+  console.log(router.currentRoute.value.query.idSanPhamCt);
+
   console.log(productId.value);
   getSanPhamById(productId.value)
     .then((res) => {
@@ -368,37 +363,32 @@ watchEffect(() => {
         });
     })
     .catch(() => {});
-    productId.value = router.currentRoute.value.params.id;
-    console.log(router.currentRoute.value.query.idSanPhamCt);
-
-    console.log(productId.value);
-    getSanPhamById(productId.value)
-        .then((res) => {
-            console.log(res);
-            products.value = res?.data?.data;
-            console.log(products.value);
-            imagelink.value = getImageUrl(products.value.thumbnail);
-            // Lấy thuộc tính sản phẩm
-            getProductAttributes(productId.value)
-                .then((res) => {
-                    console.log(Object.entries(res.data.thuocTinhs));
-                    Object.entries(res.data.thuocTinhs).forEach(
-                        ([attributeName, attributeValue]) => {
-                            ProductAttributtes.value.push({
-                                name: attributeName,
-                                value: attributeValue,
-                            });
-                        }
-                    );
-                    console.log(ProductAttributtes.value);
-                })
-                .catch((err) => {
-                    console.error(err);
-                });
-        })
-        .catch(() => {});
 });
 
+const handleSelectColor = (attribute) => {
+  console.log(attribute);
+  const index = selectProductAttribute.value.findIndex(
+    (item) => item.idThuocTinh === attribute.idThuocTinh
+  );
+  if (index != -1) {
+    const selectAttr = selectProductAttribute.value[index];
+    if (selectAttr.id === attribute.id) {
+      selectProductAttribute.value.splice(index, 1);
+      countSelectAttribute.value--;
+      console.log(selectProductAttribute.value);
+      selectedAttributeId.value = selectProductAttribute.value.map(
+        (item) => item.id
+      );
+    } else {
+      selectProductAttribute.value.splice(index, 1);
+      countSelectAttribute.value--;
+      selectProductAttribute.value.push(attribute);
+      countSelectAttribute.value++;
+      console.log(selectProductAttribute.value);
+      selectedAttributeId.value = selectProductAttribute.value.map(
+        (item) => item.id
+      );
+    }
   } else {
     selectProductAttribute.value.push(attribute);
     countSelectAttribute.value++;
@@ -407,53 +397,22 @@ watchEffect(() => {
     );
     console.log(selectProductAttribute.value);
   }
-    console.log(attribute);
-    const index = selectProductAttribute.value.findIndex(
-        (item) => item.idThuocTinh === attribute.idThuocTinh
-    );
-    if (index != -1) {
-        const selectAttr = selectProductAttribute.value[index];
-        if (selectAttr.id === attribute.id) {
-            selectProductAttribute.value.splice(index, 1);
-            countSelectAttribute.value--;
-            console.log(selectProductAttribute.value);
-            selectedAttributeId.value = selectProductAttribute.value.map(
-                (item) => item.id
-            );
-        } else {
-            selectProductAttribute.value.splice(index, 1);
-            countSelectAttribute.value--;
-            selectProductAttribute.value.push(attribute);
-            countSelectAttribute.value++;
-            console.log(selectProductAttribute.value);
-            selectedAttributeId.value = selectProductAttribute.value.map(
-                (item) => item.id
-            );
-        }
-    } else {
-        selectProductAttribute.value.push(attribute);
-        countSelectAttribute.value++;
-        selectedAttributeId.value = selectProductAttribute.value.map(
-            (item) => item.id
-        );
-        console.log(selectProductAttribute.value);
-    }
 };
 
 const tongGiaBan = computed(() => {
-    return products.value.giaBan * soLuong.value;
+  return products.value.giaBan * soLuong.value;
 });
 
 let openTab = ref(1);
 
 const getUserInfor = () => {
-    const userInfor = jwt_decode(accesstoken);
-    console.log(userInfor);
-    return userInfor;
+  const userInfor = jwt_decode(accesstoken);
+  console.log(userInfor);
+  return userInfor;
 };
 
 onMounted(() => {
-    getUserInfor();
+  getUserInfor();
 });
 
 const handleBuyClick = () => {
@@ -462,125 +421,101 @@ const handleBuyClick = () => {
   if (countSelectAttribute.value < ProductAttributtes.value.length) {
     toast.error("Bạn chưa chọn phân loại");
   } else {
+    console.log(selectedAttributeId.value);
+    var listTT = selectedAttributeId.value.join(",");
+
+    console.log(productId.value, listTT);
+    getIdSanPhamCtByIdSanPhamAndTTGT(productId.value, listTT)
+      .then((res) => {
+        console.log(res.data);
+        SanPhamChiTiet.value = res.data;
+        const body = {
+          idSanPham: productId.value,
+          thuocTinhs: selectedAttributeId.value,
+          soLuong: soLuong.value,
+          status: 1,
+        };
+        console.log(body);
+        console.log(SanPhamChiTiet.value.id);
+        createGioHang(body)
+          .then((res) => {
+            useCart.getGioHang();
+            console.log(res);
+          })
+          .catch(() => {});
+        const userId = getUserInfor().user_id;
+        router.push({
+          name: "ManageCart",
+          query: { checkedItem: SanPhamChiTiet.value.id },
+          params: { id: productId.value },
+        });
+      })
+      .catch(() => {});
+  }
+};
+
+const increment = () => {
+  soLuong.value++;
+};
+
+const formatMoneyAll = (money) => {
+  money = Number(money);
+  return money.toLocaleString("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  });
+};
+const decrement = () => {
+  if (soLuong.value <= 1) {
+    soLuong.value = 1;
+  } else {
+    soLuong.value--;
+  }
+};
+// Thêm sản phẩm vào giỏ hàng
+const handleshowModelCart = () => {
+  console.log("Them vao gio hang");
+  if (countSelectAttribute.value < ProductAttributtes.value.length) {
+    toast.error("Bạn chưa chọn phân loại");
+  } else {
+    isShowModelCart.value = true;
+  }
+};
+const handleAddProductCart = async () => {
+  try {
     const body = {
       idSanPham: productId.value,
       thuocTinhs: selectedAttributeId.value,
       soLuong: soLuong.value,
       status: 1,
     };
-    createGioHang(body)
-      .then((res) => {
-        useCart.getGioHang();
-        console.log(res);
-      })
-      .catch(() => {});
-    const userId = getUserInfor().user_id;
-    router.push({
-      name: "ManageCart",
-      query: { checkedItem: productId.value },
-      params: { id: productId.value },
+    console.log(body);
+
+    // Send a POST request to create a new item in the cart
+    const res = await createGioHang(body);
+    console.log(res);
+    // Update the cart and display a success message on successful response
+    await useCart.getGioHang();
+    isShowModelCart.value = false;
+    toast.success("Thêm sản phẩm vào giỏ hàng thành công !", {
+      autoClose: 1000,
     });
+    // router.push({ name: "ManageCart" });
+  } catch (error) {
+    toast.error("Thêm sản phẩm vào giỏ hàng thất bại");
   }
-    console.log("creating...");
-    console.log(productId.value);
-    if (countSelectAttribute.value < ProductAttributtes.value.length) {
-        toast.error("Bạn chưa chọn phân loại");
-    } else {
-        console.log(selectedAttributeId.value);
-        var listTT = selectedAttributeId.value.join(",");
-
-        console.log(productId.value, listTT);
-        getIdSanPhamCtByIdSanPhamAndTTGT(productId.value, listTT)
-            .then((res) => {
-                console.log(res.data);
-                SanPhamChiTiet.value = res.data;
-                const body = {
-                    idSanPham: productId.value,
-                    thuocTinhs: selectedAttributeId.value,
-                    soLuong: soLuong.value,
-                    status: 1,
-                };
-                console.log(body);
-                console.log(SanPhamChiTiet.value.id);
-                createGioHang(body)
-                    .then((res) => {
-                        useCart.getGioHang();
-                        console.log(res);
-                    })
-                    .catch(() => {});
-                const userId = getUserInfor().user_id;
-                router.push({
-                    name: "ManageCart",
-                    query: { checkedItem: SanPhamChiTiet.value.id },
-                    params: { id: productId.value },
-                });
-            })
-            .catch(() => {});
-    }
-};
-
-const increment = () => {
-    soLuong.value++;
-};
-
-const formatMoneyAll = (money) => {
-    money = Number(money);
-    return money.toLocaleString("vi-VN", {
-        style: "currency",
-        currency: "VND",
-    });
-};
-const decrement = () => {
-    if (soLuong.value <= 1) {
-        soLuong.value = 1;
-    } else {
-        soLuong.value--;
-    }
-};
-// Thêm sản phẩm vào giỏ hàng
-const handleshowModelCart = () => {
-    console.log("Them vao gio hang");
-    if (countSelectAttribute.value < ProductAttributtes.value.length) {
-        toast.error("Bạn chưa chọn phân loại");
-    } else {
-        isShowModelCart.value = true;
-    }
-};
-const handleAddProductCart = async () => {
-    try {
-        const body = {
-            idSanPham: productId.value,
-            thuocTinhs: selectedAttributeId.value,
-            soLuong: soLuong.value,
-            status: 1,
-        };
-        console.log(body);
-
-        // Send a POST request to create a new item in the cart
-        const res = await createGioHang(body);
-        console.log(res);
-        // Update the cart and display a success message on successful response
-        await useCart.getGioHang();
-        isShowModelCart.value = false;
-        toast.success("Thêm sản phẩm vào giỏ hàng thành công !", {
-            autoClose: 1000,
-        });
-        // router.push({ name: "ManageCart" });
-    } catch (error) {
-        toast.error("Thêm sản phẩm vào giỏ hàng thất bại");
-    }
 };
 
 const handleCloseBoxChat = () => {
-    isCheckedChat.value = false;
+  isCheckedChat.value = false;
 };
 
 const toggleTabs = function (tabNumber) {
-    openTab.value = tabNumber;
+  openTab.value = tabNumber;
 };
 definePageMeta({
-    layout: "layout-default",
-    name: "ProductDetail",
+  layout: "layout-default",
+  name: "ProductDetail",
 });
 </script>
 <style lang=""></style>
