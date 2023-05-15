@@ -54,6 +54,11 @@
             }}
           </span>
         </template>
+        <template #item-hinhThucThanhToan="item">
+          <span>
+            {{ item.hinhThucThanhToan }}
+          </span>
+        </template>
         <template #item-diaChi="item">
           <span>
             {{
@@ -63,11 +68,7 @@
             }}
           </span>
         </template>
-        <template #item-hinhThucThanhToan="item">
-          <span>
-            {{ item.hinhThucThanhToan }}
-          </span>
-        </template>
+
         <template #item-action="item">
           <div class="dropdown dropdown-left dropdown-end">
             <label
@@ -154,8 +155,8 @@ const headers = [
   { text: "MÃ", value: "maDonHang" },
   { text: "NGÀY HOÀN THÀNH", value: "ngayHoanThanh" },
   { text: "SỐ TIỀN", value: "soTien" },
+  { text: "THANH TOÁN", value: "hinhThucThanhToan" },
   { text: "ĐỊA CHỈ", value: "diaChi" },
-  { text: "HÌNH THỨC THANH TOÁN", value: "hinhThucThanhToan" },
   { text: "", value: "action" },
 ];
 
