@@ -7,7 +7,7 @@
       <div v-for="(item, idx) in listDanhMuc" :key="idx" class="overflow-hidden inline-flex  ml-2 mt-2 uppercase bg-white rounded-xl">
         <RouterLink
         class="py-[10px] px-[20px] w-full"
-        :to="`/product/category/${item.idDanhMuc}`"
+        :to="`/product/category/${item.id}`"
         
         :style="{ 'color': colors[idx % colors.length]}"
         :key="idx"

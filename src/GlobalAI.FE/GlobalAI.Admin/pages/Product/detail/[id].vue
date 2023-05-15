@@ -98,7 +98,7 @@
                 </div>
             </div>
             <div
-                class="flex lg:gap-[15px] lg:justify-start justify-between mt-[20px] lg:relative fixed z-3 w-full bottom-0 left-0 bg-white"
+                class="flex lg:gap-[15px] lg:justify-start justify-between mt-[20px] lg:relative fixed z-50 w-full bottom-0 left-0 bg-white"
             >
                 <button
                     @click="handleshowModelCart"
@@ -120,7 +120,7 @@
                 </button>
                 <div
                     v-if="isCheckedChat"
-                    class="fixed bottom-0 right-[5%] bg-white border-[1px] shadow-md rounded-t-md px-[15px] py-[15px]"
+                    class="fixed bottom-0 z-50 right-[5%] bg-white border-[1px] shadow-md rounded-t-md px-[15px] py-[15px]"
                 >
                     <Chatbox
                         v-on:close-box="handleCloseBoxChat"
@@ -181,7 +181,7 @@
                                 block: openTab === 1,
                             }"
                         >
-                            <p>{{ products.moTa }}</p>
+                            <p v-html="products.moTa"></p>
                         </div>
                         <div
                             :class="{
@@ -336,7 +336,7 @@ const products = ref({});
 const isCheckedChat = ref(false);
 const isShowModelCart = ref(false);
 const soLuong = ref(1);
-const imagelink = ref("");
+const imagelink = ref();
 const config = useRuntimeConfig();
 const baseUrl = config.public.apiEndpoint;
 const selectProductAttribute = ref([]);
@@ -352,14 +352,11 @@ const getImageUrl = (imageUrl) => {
 
 watchEffect(() => {
     productId.value = router.currentRoute.value.params.id;
-    console.log(router.currentRoute.value.query.idSanPhamCt);
-
     console.log(productId.value);
     getSanPhamById(productId.value)
         .then((res) => {
             console.log(res);
             products.value = res?.data?.data;
-            console.log(products.value);
             imagelink.value = getImageUrl(products.value.thumbnail);
             // Lấy thuộc tính sản phẩm
             getProductAttributes(productId.value)
@@ -376,10 +373,12 @@ watchEffect(() => {
                     console.log(ProductAttributtes.value);
                 })
                 .catch((err) => {
-                    console.error(err);
+                    console.error('Lỗi ở đây' , err);
                 });
         })
-        .catch(() => {});
+        .catch((err) => {
+            console.log('Lỗi ở đây' , err);
+        });
 });
 
 const handleSelectColor = (attribute) => {

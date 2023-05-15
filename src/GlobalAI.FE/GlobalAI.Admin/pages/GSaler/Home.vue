@@ -45,7 +45,6 @@ import { ref } from "vue";
 
 const products = ref([]);
 const productsSeller = ref([]);
-
 const hotProducts = ref({CreatedDate:'CreatedDate' , desc:'desc'})
 const newProducts = ref({LuotBan :'LuotBan' , desc:'desc'})
 
