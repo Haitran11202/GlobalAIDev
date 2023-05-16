@@ -16,7 +16,7 @@
               nhà cung cấp và các nhà phân phối mua bán hàng hóa và dịch vụ với
               số lượng lớn và giá chiết khấu cao.
             </p>
-            <div class="mt-12">
+            <div class="mt-12" v-if="!isLoggedIn">
               <nuxt-link
                 to="/auth/registermaster"
                 class="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-slate-700 active:bg-slate-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
@@ -209,7 +209,7 @@
           <div
             class="mx-auto mt-5 grid max-w-2xl grid-cols-1 gap-y-16 gap-x-8 border-t border-gray-200 pt-10 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3"
           >
-            <article v-for="item in baitin" class="flex max-w-xl flex-col items-start justify-between">
+            <article v-for="(item, index) in baitin" class="flex max-w-xl flex-col items-start justify-between" :key="index">
               <div class="flex items-center gap-x-4 text-xs">
                 <time datetime="2020-03-16" class="text-gray-500"
                   >Mar 16, 2023</time
@@ -272,7 +272,7 @@
         <div class="justify-center flex flex-wrap">
           <div class="w-full lg:w-12/12 px-4 -mt-24">
             <div class="flex flex-wrap">
-              <div v-for="item in danhmucbaitin" class="w-full lg:w-4/12 px-4">
+              <div v-for="(item, index) in danhmucbaitin" class="w-full lg:w-4/12 px-4" :key="index">
                 <nuxt-link :to="`/post/postdanhmuc/${ item.id }`">
                 <h5 class="text-xl font-semibold pb-4 text-center">{{ item.tenDanhMuc }}</h5>
                   <div
@@ -361,8 +361,10 @@ import imgTangTinhCanhTranh from "../assets/img/Home/tang-tinh-canh-tranh.png";
 import imgTietKiem from "../assets/img/Home/tiet-kiem.png";
 import imgMoRongThiTruong from "../assets/img/Home/mo-rong-thi-truong.png";
 import imgShopping from "../assets/img/Home/dang-nhap-san-thuong-mai-dien-tu.png";
+import { useUserStorage } from "~~/stores/user";
 
 const config = useRuntimeConfig();
+const userStorage = useUserStorage();
 const baseUrl = config.public.apiEndpoint;
 
 const baitin = ref([]);
@@ -371,6 +373,7 @@ const pageSize = 3;
 const pageNumber = 1;
 const skip = 0;
 
+const isLoggedIn = computed(() => userStorage.isLoggedIn);
 
 onMounted(() => {
   getBaiTinPhanTrang(pageSize, pageNumber, skip)
