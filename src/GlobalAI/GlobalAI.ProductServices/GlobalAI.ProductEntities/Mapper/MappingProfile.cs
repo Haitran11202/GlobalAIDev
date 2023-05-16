@@ -37,7 +37,7 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<DonHang, AddDonHangDto>().ReverseMap();
             CreateMap<DonHang, AddDonHangDto>().ReverseMap();
             CreateMap<SanPhamChiTiet, AddSanPhamChiTietDto>().ReverseMap();
-            CreateMap<SanPhamChiTiet, SanPhamChiTietDto>().ReverseMap();
+            CreateMap<SanPham, SanPhamChiTietDto>().ReverseMap();
             CreateMap<SanPhamChiTiet, UpdateSanPhamChiTietDto>().ReverseMap();
             /*CreateMap<SanPhamChiTiet, GetSanPhamChiTietDto>().ReverseMap();*/
             //CreateMap<List<ChiTietDonHang>, List<AddChiTietDonHangDto>>().ReverseMap();

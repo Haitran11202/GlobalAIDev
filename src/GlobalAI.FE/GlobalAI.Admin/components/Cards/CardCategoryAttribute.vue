@@ -11,9 +11,7 @@
             </h3>
             <button
               @click="
-                this.$router.push(
-                  '/admin/categoryattribute/addcategoryattribute'
-                )
+                router.push('/admin/categoryattribute/addcategoryattribute')
               "
               class="btn btn-outline"
             >

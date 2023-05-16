@@ -43,11 +43,35 @@
               </option>
             </select>
           </div>
+          <div class="col-span-1">
+            <label for="giaBan" class="block uppercase text-slate-600 text-xs font-bold mb-2">
+              Giá bán
+            </label>
+            <Field v-model.number="giaBan" name="giaBan" type="number"
+              class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+            <error-message name="giaBan" class="text-red-500" />
+          </div>
+          <div class="col-span-1">
+            <label for="giaChietKhau" class="block uppercase text-slate-600 text-xs font-bold mb-2">
+              Giá chiết khấu
+            </label>
+            <Field v-model.number="giaChietKhau" name="giaChietKhau" type="number"
+              class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+            <error-message name="giaChietKhau" class="text-red-500" />
+          </div>
+          <div class="col-span-1">
+            <label for="giaToiThieu" class="block uppercase text-slate-600 text-xs font-bold mb-2">
+              Giá tối thiểu
+            </label>
+            <Field v-model.number="giaToiThieu" name="giaToiThieu" type="number"
+              class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+            <error-message name="giaToiThieu" class="text-red-500" />
+          </div>
           <div class="">
             <label for="image" class="block uppercase text-slate-600 text-xs font-bold mb-2">Hình ảnh</label>
             <div class="flex items-center justify-between relative">
               <input type="file" id="image"
-                class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                class="border placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                 required @change="uploadImage" />
               <!-- <img alt="Product Image" class="w-[50px] h-[50px] border absolute right-0 rounded"
               :src="getImageUrl(thumbnail)" /> -->
@@ -87,7 +111,7 @@
                   <label for="image" class="block uppercase text-slate-600 text-xs font-bold mb-2">Hình ảnh</label>
                   <div class="flex items-center justify-between relative">
                     <input type="file" id="image"
-                      class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                      class="border placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       required @change="$event => uploadImage($event, chiTiet.thumbnail)" />
                     <!-- <img alt="Product Image" class="w-[50px] h-[50px] border absolute right-0 rounded"
                     :src="getImageUrl(chiTiet.thumbnail)" /> -->
@@ -176,6 +200,7 @@ const tenSanPham = ref("");
 const moTa = ref("");
 const giaBan = ref(0);
 const giaChietKhau = ref(0);
+const giaToiThieu = ref(0);
 const idDanhMucThuocTinh = ref(0);
 const idDanhMuc = ref("");
 const thumbnail = ref("");
@@ -244,7 +269,6 @@ const addRowChiTietSp = () => {
 }
 
 const uploadImage = (event, obj) => {
-  console.log({ event });
   postFile(event.target.files[0], 'image')
     .then((response) => {
       if (obj) {
@@ -276,6 +300,9 @@ const handlePostProduct = () => {
   const productData = {
     maSanPham: maSanPham.value,
     tenSanPham: tenSanPham.value,
+    giaBan: giaBan.value,
+    giaChietKhau: giaChietKhau.value,
+    giaToiThieu: giaToiThieu.value,
     moTa: moTa.value,
     idDanhMuc: `${idDanhMuc.value}`,
     idDanhMucThuocTinh: idDanhMucThuocTinh.value,
@@ -285,7 +312,7 @@ const handlePostProduct = () => {
 
   postProduct(productData)
     .then((res) => {
-      if (res?.data.code === 200) {
+      if (res?.code === 200) {
         $toast.success("Thêm sản phẩm thành công");
         router.push('/admin/product');
       }
