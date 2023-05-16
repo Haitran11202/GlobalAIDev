@@ -16,7 +16,7 @@
               nhà cung cấp và các nhà phân phối mua bán hàng hóa và dịch vụ với
               số lượng lớn và giá chiết khấu cao.
             </p>
-            <div class="mt-12">
+            <div class="mt-12" v-if="!isLoggedIn">
               <nuxt-link
                 to="/auth/registermaster"
                 class="github-star ml-1 text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-slate-700 active:bg-slate-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
@@ -369,8 +369,10 @@ import imgTangTinhCanhTranh from "../assets/img/Home/tang-tinh-canh-tranh.png";
 import imgTietKiem from "../assets/img/Home/tiet-kiem.png";
 import imgMoRongThiTruong from "../assets/img/Home/mo-rong-thi-truong.png";
 import imgShopping from "../assets/img/Home/dang-nhap-san-thuong-mai-dien-tu.png";
+import { useUserStorage } from "~~/stores/user";
 
 const config = useRuntimeConfig();
+const userStorage = useUserStorage();
 const baseUrl = config.public.apiEndpoint;
 
 const baitin = ref([]);
@@ -378,6 +380,8 @@ const danhmucbaitin = ref([]);
 const pageSize = 3;
 const pageNumber = 1;
 const skip = 0;
+
+const isLoggedIn = computed(() => userStorage.isLoggedIn);
 
 onMounted(() => {
   getBaiTinPhanTrang(pageSize, pageNumber, skip)
