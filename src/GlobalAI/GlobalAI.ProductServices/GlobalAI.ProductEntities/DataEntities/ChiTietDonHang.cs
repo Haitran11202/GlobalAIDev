@@ -41,6 +41,12 @@ namespace GlobalAI.ProductEntities.DataEntities
         [ColumnSnackCase(nameof(SoLuong))]
         public int SoLuong { get; set; }
 
+        /// <summary>
+        /// Gpoint
+        /// </summary>
+        [ColumnSnackCase(nameof(GPoint))]
+        public decimal? GPoint { get; set; }
+
         #region audit
         [MaxLength(50)]
         [ColumnSnackCase(nameof(CreatedBy), TypeName = "VARCHAR2")]
