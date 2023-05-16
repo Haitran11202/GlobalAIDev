@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -164,6 +165,12 @@ namespace GlobalAI.CoreEntities.DataEntities
         /// </summary>
         [ColumnSnackCase(nameof(Policy), TypeName = "CLOB")]
         public string Policy { get; set; }
+
+        /// <summary>
+        /// Gpoint
+        /// </summary>
+        [ColumnSnackCase(nameof(GPoint))]
+        public decimal? GPoint { get; set; }
 
         #region audit
         [MaxLength(50)]
