@@ -23,6 +23,12 @@
                     {{ formatMoneyAll(products.giaChietKhau) }}
                 </p>
             </div>
+            <div class="flex items-center gap-[10px]">
+                <span>Giá tối thiểu : </span>
+                <p class="text-[18px]">
+                    {{ formatMoneyAll(products.giaToiThieu) }}
+                </p>
+            </div>
             <div
                 class="flex gap-1 mt-2 text-[#f8ac59] text-[18px] items-center"
             >
@@ -181,7 +187,7 @@
                                 block: openTab === 1,
                             }"
                         >
-                            <p>{{ products.moTa }}</p>
+                            <p v-html="products.moTa"></p>
                         </div>
                         <div
                             :class="{

@@ -52,6 +52,10 @@
                             Giá chiết khấu :
                             {{ formatMoneyAll(item.giaChietKhau) }}
                         </p>
+                        <p class="text-[13px]">
+                            Giá tối thiểu :
+                            {{ formatMoneyAll(item.giaToiThieu) }}
+                        </p>
                         <div
                             class="text-[12px] mt-3 flex justify-between items-center"
                         >
@@ -64,7 +68,7 @@
                                 <font-awesome-icon :icon="['fas', 'star']" />
                                 <font-awesome-icon :icon="['fas', 'star']" />
                             </div>
-                            Đã bán : 85
+                            Đã bán : {{ item.luotBan || 0 }}
                         </div>
                     </div>
                     <div
@@ -155,10 +159,14 @@ const detail = (id) => {
     });
 };
 const formatMoneyAll = (money) => {
-    return money.toLocaleString("vi-VN", {
-        style: "currency",
-        currency: "VND",
-    });
+    if (money != null) {
+        return money.toLocaleString("vi-VN", {
+            style: "currency",
+            currency: "VND",
+        });
+    } else {
+        return money;
+    }
 };
 </script>
 <style lang="css">
