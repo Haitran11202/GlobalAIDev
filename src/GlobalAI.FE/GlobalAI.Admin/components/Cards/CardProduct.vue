@@ -3,31 +3,45 @@
     <div class="relative w-full overflow-x-auto">
       <div class="mb-0 rounded-md px-4 py-3 bg-[#fff] border-0">
         <div class="flex flex-wrap items-center">
-          <div class="relative w-full px-4 max-w-full flex justify-between items-center">
+          <div
+            class="relative w-full px-4 max-w-full flex justify-between items-center"
+          >
             <h3 class="font-semibold text-lg text-slate-800 uppercase">
               Danh sách sản phẩm
             </h3>
-            <button @click="router.push('/admin/product/addproduct')" class="btn btn-outline">
+            <button
+              @click="router.push('/admin/product/addproduct')"
+              class="btn btn-outline"
+            >
               Thêm sản phẩm
             </button>
           </div>
         </div>
       </div>
-      <EasyDataTable table-class-name="mc-tbl" class="mx-2 md:mx-0 hover:cursor-pointer" :headers="headers"
-        :hide-footer="true" :loading="tblLoading" :items="products">
+      <EasyDataTable
+        table-class-name="mc-tbl"
+        class="mx-2 md:mx-0 hover:cursor-pointer"
+        :headers="headers"
+        :hide-footer="true"
+        :loading="tblLoading"
+        :items="products"
+      >
         <template #item-tenSanPham="item">
           <div class="flex items-center space-x-3">
             <div class="avatar">
               <div class="mask mask-squircle w-12 h-12">
-                <img :src="getImageUrl(item.thumbnail)" alt="Avatar Tailwind CSS Component" />
+                <img
+                  :src="getImageUrl(item.thumbnail)"
+                  alt="Avatar Tailwind CSS Component"
+                />
               </div>
             </div>
             <div>
               <div class="font-bold">
                 {{
                   item.tenSanPham.length > 30
-                  ? item.tenSanPham.slice(0, 30) + "..."
-                  : item.tenSanPham
+                    ? item.tenSanPham.slice(0, 30) + "..."
+                    : item.tenSanPham
                 }}
               </div>
             </div>
@@ -57,16 +71,25 @@
           <span>
             {{
               item?.ngayDangKi
-              ? $moment(item.ngayDangKi).format("DD/MM/YYYY")
-              : ""
+                ? $moment(item.ngayDangKi).format("DD/MM/YYYY")
+                : ""
             }}
           </span>
         </template>
         <template #item-action="item">
           <div class="dropdown dropdown-left dropdown-end">
-            <label tabindex="0" class="btn m-1 btn-outline" @click="toggleDropdown">...</label>
-            <ul tabindex="0" class="dropdown-content menu z-50 p-2 shadow bg-base-100 rounded-box w-52" v-if="isOpen"
-              @click="closeDropdown">
+            <label
+              tabindex="0"
+              class="btn m-1 btn-outline"
+              @click="toggleDropdown"
+              >...</label
+            >
+            <ul
+              tabindex="0"
+              class="dropdown-content menu z-50 p-2 shadow bg-base-100 rounded-box w-52"
+              v-if="isOpen"
+              @click="closeDropdown"
+            >
               <li @click="onEditButtonClick(item.id)"><a>Sửa</a></li>
               <li @click="onDeleteButtonClick(item.id)"><a>Xoá</a></li>
               <li><a>Duyệt</a></li>
@@ -76,14 +99,18 @@
       </EasyDataTable>
     </div>
     <div class="btn-group flex justify-center mt-2">
-      <Pagination v-model="pageNumber" @page-change="fetchData" :page-count="pageTotalItems / pageSize" />
+      <Pagination
+        v-model="pageNumber"
+        @page-change="fetchData"
+        :page-count="pageTotalItems / pageSize"
+      />
     </div>
   </div>
 </template>
 
 <script setup>
 import TableDropdown from "../Dropdowns/TableDropdown.vue";
-import Pagination from '../Pagination/Pagination.vue';
+import Pagination from "../Pagination/Pagination.vue";
 import { ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 
@@ -104,8 +131,7 @@ const products = ref([]);
 const deletedProduct = ref(null);
 const showAction = ref({});
 const showMore = ref({});
-let tblLoading = ref(false)
-
+let tblLoading = ref(false);
 
 const headers = [
   { text: "MÃ", value: "id" },
@@ -134,11 +160,11 @@ const fetchData = () => {
     })
     .finally(() => {
       tblLoading.value = false;
-    })
+    });
 };
 
 const headerItemClassNameFunction = (header, columnNumber) => {
-  return 'text-';
+  return "text-";
 };
 
 // Hàm này sẽ lấy đường dẫn của ảnh từ server và bind vào thuộc tính src của thẻ img

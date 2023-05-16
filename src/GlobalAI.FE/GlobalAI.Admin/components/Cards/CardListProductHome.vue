@@ -52,6 +52,10 @@
                             Giá chiết khấu :
                             {{ formatMoneyAll(item.giaChietKhau) }}
                         </p>
+                        <p class="text-[13px]">
+                            Giá tối thiểu :
+                            {{ formatMoneyAll(item.giaToiThieu) }}
+                        </p>
                         <div
                             class="text-[12px] mt-3 flex justify-between items-center"
                         >

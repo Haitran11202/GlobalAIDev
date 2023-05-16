@@ -392,54 +392,7 @@ const getImageUrl = (imageUrl) => {
   return url;
 };
 
-const orderProducts = [
-  {
-    id: 1,
-    name: "Áo thun nam",
-    price: 150000,
-    description: "Áo thun nam cao cấp, chất liệu cotton 100%",
-    image:
-      "https://hinhgaixinh.com/wp-content/uploads/2021/11/hinh-anh-gai-xinh-deo-mat-kinh-dep-nhat-the-gioi.jpg",
-  },
-  {
-    id: 2,
-    name: "Quần jean nam",
-    price: 350000,
-    description: "Quần jean nam hàng hiệu, chất liệu denim",
-    image:
-      "https://hinhgaixinh.com/wp-content/uploads/2021/11/hinh-anh-gai-xinh-deo-mat-kinh-dep-nhat-the-gioi.jpg",
-  },
-  {
-    id: 3,
-    name: "Váy đầm nữ",
-    price: 250000,
-    description: "Váy đầm nữ thời trang, chất liệu chiffon",
-    image:
-      "https://hinhgaixinh.com/wp-content/uploads/2021/11/hinh-anh-gai-xinh-deo-mat-kinh-dep-nhat-the-gioi.jpg",
-  },
-  {
-    id: 4,
-    name: "Giày sneaker nam",
-    price: 450000,
-    description: "Giày sneaker nam thể thao, chất liệu da",
-    image:
-      "https://hinhgaixinh.com/wp-content/uploads/2021/11/hinh-anh-gai-xinh-deo-mat-kinh-dep-nhat-the-gioi.jpg",
-  },
-  {
-    id: 5,
-    name: "Túi xách nữ",
-    price: 550000,
-    description: "Túi xách nữ cao cấp, chất liệu da bò",
-    image:
-      "https://hinhgaixinh.com/wp-content/uploads/2021/11/hinh-anh-gai-xinh-deo-mat-kinh-dep-nhat-the-gioi.jpg",
-  },
-];
 const ConfirmOrder = () => {
-  // const body = {
-  //   id : id,
-  //   status:2
-  // }
-  // // Gọi API xác nhận đơn hàng
   toast.success("Đơn hàng đã được xác nhận");
   isStatus.value = 2;
 };

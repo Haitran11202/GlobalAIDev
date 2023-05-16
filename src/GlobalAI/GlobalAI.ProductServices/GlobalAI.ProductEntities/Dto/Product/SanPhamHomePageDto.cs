@@ -16,6 +16,7 @@ namespace GlobalAI.ProductEntities.Dto.Product
         public string? MoTa { get; set; }
         public decimal? GiaBan { get; set; }
         public decimal? GiaChietKhau { get; set; }
+        public decimal? GiaToiThieu { get; set; }
         public string IdDanhMuc { get; set; }
         public string thumbnail { get; set; }
         public int IdGStore { get; set; }

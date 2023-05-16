@@ -1,20 +1,24 @@
 <template lang="">
-  <div :class="showColor ? '#f2f1f2' : 'bg-slate-100'">
-    <header-default />
-    <sidebar
-      v-if="useSideBar.getShowSideBar"
-      v-on:category-clicked="handleCategoryClick"
-    />
-    <div :class="checkContainer ? 'container mx-auto lg:px-[185px]' : 'container'">
-      <div class="flex-1 lg:px-1 flex-col">
-        <!-- Slot tượng trưng cho từng layout trong trang web -->
-        <NuxtPage :category="selectedCategory" />
-      </div>
+    <div :class="showColor ? '#f2f1f2' : 'bg-slate-100'">
+        <header-default />
+        <sidebar
+            v-if="useSideBar.getShowSideBar"
+            v-on:category-clicked="handleCategoryClick"
+        />
+        <div
+            :class="
+                checkContainer ? 'container mx-auto lg:px-[185px]' : 'container'
+            "
+        >
+            <div class="flex-1 lg:px-1 flex-col">
+                <!-- Slot tượng trưng cho từng layout trong trang web -->
+                <NuxtPage :category="selectedCategory" />
+            </div>
+        </div>
+        <div class="mt-5">
+            <footer-admin />
+        </div>
     </div>
-    <div class="mt-5">
-      <footer-admin />
-    </div>
-  </div>
 </template>
 <script setup>
 import AdminNavbar from "../components/Navbars/AdminNavbar.vue";
@@ -26,7 +30,7 @@ const router = useRouter();
 const useSideBar = useSideBarStorage();
 const selectedCategory = ref("");
 const showColor = ref(false);
-const checkContainer = ref(true)
+const checkContainer = ref(true);
 const changeSideBarShow = () => {
   if (
     router.currentRoute.value.name !== "ManageCart" &&
@@ -50,20 +54,20 @@ const changeWidthContainer = () => {
 }
 
 watchEffect(() => {
-  changeSideBarShow();
-  changeWidthContainer();
+    changeSideBarShow();
+    changeWidthContainer();
 });
 const handleCategoryClick = (category) => {
-  console.log(category);
-  selectedCategory.value = category;
-  console.log(selectedCategory.value);
+    console.log(category);
+    selectedCategory.value = category;
+    console.log(selectedCategory.value);
 };
 
 watchEffect(() => {
-  if (router.currentRoute.value.name == "ProductDetail") {
-    showColor.value = true;
-  } else {
-    showColor.value = false;
-  }
+    if (router.currentRoute.value.name == "ProductDetail") {
+        showColor.value = true;
+    } else {
+        showColor.value = false;
+    }
 });
 </script>

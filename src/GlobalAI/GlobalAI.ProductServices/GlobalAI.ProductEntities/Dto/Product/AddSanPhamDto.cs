@@ -39,6 +39,11 @@ namespace GlobalAI.ProductEntities.Dto.Product
         public decimal? GiaChietKhau { get; set; }
 
         /// <summary>
+        /// Giá tối thiểu
+        /// </summary>
+        public decimal? GiaToiThieu { get; set; }
+
+        /// <summary>
         /// Danh mục thuộc tính
         /// </summary>
         [Required(ErrorMessage = "Danh mục thuộc tính không được bỏ trống")]
