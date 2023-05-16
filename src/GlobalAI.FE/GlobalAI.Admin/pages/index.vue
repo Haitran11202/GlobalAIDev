@@ -82,7 +82,7 @@
             <div
               class="hover:scale-90 text-slate-800 p-3 w-32 h-32 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
             >
-              <img :src="imgUyTin"/>
+              <img :src="imgUyTin" />
             </div>
             <h6 class="text-xl mt-5 font-semibold text-white">Uy tín</h6>
             <p class="mt-2 mb-4 text-slate-400">
@@ -93,7 +93,7 @@
             <div
               class="hover:scale-90 text-slate-800 p-3 w-32 h-32 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
             >
-            <img :src="imgMoRongThiTruong"/>
+              <img :src="imgMoRongThiTruong" />
             </div>
             <h6 class="text-xl mt-5 font-semibold text-white">
               Mở rộng thị trường
@@ -106,7 +106,7 @@
             <div
               class="hover:scale-90 text-slate-800 p-3 w-32 h-32 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
             >
-            <img :src="imgChiPhiThap"/>
+              <img :src="imgChiPhiThap" />
             </div>
             <h6 class="text-xl mt-5 font-semibold text-white">Chi phí thấp</h6>
             <p class="mt-2 mb-4 text-slate-400">
@@ -117,7 +117,7 @@
             <div
               class="hover:scale-90 text-slate-800 p-3 w-32 h-32 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
             >
-            <img :src="imgDeDangQuanLy"/>
+              <img :src="imgDeDangQuanLy" />
             </div>
             <h6 class="text-xl mt-5 font-semibold text-white">
               Dễ dàng quản lý
@@ -130,7 +130,7 @@
             <div
               class="hover:scale-90 text-slate-800 p-3 w-32 h-32 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
             >
-            <img :src="imgTangTinhCanhTranh"/>
+              <img :src="imgTangTinhCanhTranh" />
             </div>
             <h5 class="text-xl mt-5 font-semibold text-white">
               Tăng tính cạnh tranh
@@ -143,7 +143,7 @@
             <div
               class="hover:scale-90 text-slate-800 p-3 w-32 h-32 shadow-lg rounded-full bg-white inline-flex items-center justify-center"
             >
-            <img :src="imgTietKiem"/>
+              <img :src="imgTietKiem" />
             </div>
             <h5 class="text-xl mt-5 font-semibold text-white">Tiết kiệm</h5>
             <p class="mt-2 mb-4 text-slate-400">
@@ -160,10 +160,10 @@
         >
           <div class="lg:w-6/12 px-4 py-2.5 float-right">
             <nuxt-link to="/gsaler/home">
-            <img class="mx-auto" :src="imgShopping" alt="free shoping" />
-          </nuxt-link>
+              <img class="mx-auto" :src="imgShopping" alt="free shoping" />
+            </nuxt-link>
           </div>
-          <div class="w-full lg:w-6/12 px-4 py-2.5 flex flex-col ">
+          <div class="w-full lg:w-6/12 px-4 py-2.5 flex flex-col">
             <h2 class="sm:text-4xl lg:text-6xl font-bold my-4">
               Global AI mang lại những gì cho người dùng?
             </h2>
@@ -182,10 +182,9 @@
                 to="/gsaler/home"
                 class="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-[#3192cd] hover:bg-emerald-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
               >
-               Đi đến trang mua bán >>>
+                Đi đến trang mua bán >>>
               </nuxt-link>
             </div>
-            
           </div>
         </div>
       </section>
@@ -196,12 +195,12 @@
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
           <div class="mx-auto max-w-2xl lg:mx-0">
             <a href="/post/postdanhmuc/1">
-            <h2
-              class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
-            >
-              Blog
-            </h2>
-          </a>
+              <h2
+                class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl"
+              >
+                Blog
+              </h2>
+            </a>
             <p class="mt-2 text-lg leading-8 text-gray-600">
               Làm thế nào để kinh doanh hiệu quả?
             </p>
@@ -209,7 +208,11 @@
           <div
             class="mx-auto mt-5 grid max-w-2xl grid-cols-1 gap-y-16 gap-x-8 border-t border-gray-200 pt-10 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3"
           >
-            <article v-for="item in baitin" class="flex max-w-xl flex-col items-start justify-between">
+            <article
+              v-for="(item, index) in baitin"
+              :key="index"
+              class="flex max-w-xl flex-col items-start justify-between"
+            >
               <div class="flex items-center gap-x-4 text-xs">
                 <time datetime="2020-03-16" class="text-gray-500"
                   >Mar 16, 2023</time
@@ -224,9 +227,9 @@
                 <h3
                   class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600"
                 >
-                  <a :href="`/post/postdetail/${item.slug }`">
+                  <a :href="`/post/postdetail/${item.slug}`">
                     <span class="absolute inset-0"></span>
-                   {{ item.tieuDe }}
+                    {{ item.tieuDe }}
                   </a>
                 </h3>
                 <p class="mt-5 text-sm leading-6 text-gray-600 line-clamp-3">
@@ -251,7 +254,6 @@
               </div>
             </article>
 
-
             <!-- More posts... -->
           </div>
         </div>
@@ -272,9 +274,15 @@
         <div class="justify-center flex flex-wrap">
           <div class="w-full lg:w-12/12 px-4 -mt-24">
             <div class="flex flex-wrap">
-              <div v-for="item in danhmucbaitin" class="w-full lg:w-4/12 px-4">
-                <nuxt-link :to="`/post/postdanhmuc/${ item.id }`">
-                <h5 class="text-xl font-semibold pb-4 text-center">{{ item.tenDanhMuc }}</h5>
+              <div
+                v-for="(item, index) in danhmucbaitin"
+                class="w-full lg:w-4/12 px-4"
+                :key="index"
+              >
+                <nuxt-link :to="`/post/postdanhmuc/${item.id}`">
+                  <h5 class="text-xl font-semibold pb-4 text-center">
+                    {{ item.tenDanhMuc }}
+                  </h5>
                   <div
                     class="hover:-mt-4 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg ease-linear transition-all duration-150"
                   >
@@ -285,7 +293,7 @@
                     />
                   </div>
                 </nuxt-link>
-              </div>    
+              </div>
             </div>
           </div>
         </div>
@@ -371,7 +379,6 @@ const pageSize = 3;
 const pageNumber = 1;
 const skip = 0;
 
-
 onMounted(() => {
   getBaiTinPhanTrang(pageSize, pageNumber, skip)
     .then((response) => {
@@ -381,7 +388,7 @@ onMounted(() => {
       console.error(err);
     });
 
-    getDanhBaiTinMucNoiBat()
+  getDanhBaiTinMucNoiBat()
     .then((response) => {
       danhmucbaitin.value = response.data.items.reverse();
     })
@@ -389,5 +396,4 @@ onMounted(() => {
       console.error(err);
     });
 });
-
 </script>
