@@ -37,9 +37,9 @@ import { getSanPhamDanhMucPhanTrang } from "~~/composables/useApiProduct";
 const checkColor = ref("1");
 
 // Get Sản phẩm theo Navbar danh mục
-const pageSize = 1;
+const pageSize = 15;
 const navItems = ref([]);
-const pageNumber = ref(15);
+const pageNumber = ref(1);
 const skip = ref(0);
 const categoryId = ref("1");
 const productNavbar = ref([]);
