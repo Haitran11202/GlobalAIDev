@@ -31,7 +31,7 @@ const changeSideBarShow = () => {
   if (
     router.currentRoute.value.name !== "ManageCart" &&
     router.currentRoute.value.name !== "ProductDetail" && router.currentRoute.value.name !== "BoxChat" && router.currentRoute.value.name !== "BoxChatID" && router.currentRoute.value.name !== "SupplierPage"
-    && router.currentRoute.value.name !== "OrderLayout"
+    && router.currentRoute.value.name !== "OrderLayout" && router.currentRoute.value.name !== "FirstPage"
   ) {
     console.log(1);
     console.log(router.currentRoute.value.name);
