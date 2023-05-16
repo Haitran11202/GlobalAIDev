@@ -31,6 +31,7 @@ const changeSideBarShow = () => {
   if (
     router.currentRoute.value.name !== "ManageCart" &&
     router.currentRoute.value.name !== "ProductDetail" && router.currentRoute.value.name !== "BoxChat" && router.currentRoute.value.name !== "BoxChatID" && router.currentRoute.value.name !== "SupplierPage"
+    && router.currentRoute.value.name !== "OrderLayout"
   ) {
     console.log(1);
     console.log(router.currentRoute.value.name);
@@ -41,7 +42,7 @@ const changeSideBarShow = () => {
 };
 
 const changeWidthContainer = () => {
-  if(router.currentRoute.value.name !== "SupplierPage"){
+  if(router.currentRoute.value.name !== "SupplierPage" && router.currentRoute.value.name !== "OrderLayout"){
     checkContainer.value = true;
   }else{
     checkContainer.value = false;

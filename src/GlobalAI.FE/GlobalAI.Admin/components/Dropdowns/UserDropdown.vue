@@ -46,6 +46,12 @@
         </span>
         <hr />
         <span
+        @click="handleOrderLayout"
+        class="text-sm cursor-pointer font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
+        >
+          Đơn hàng
+        </span>
+        <span
           @click="handleLogout"
           class="text-sm cursor-pointer font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
         >
@@ -111,5 +117,8 @@ const handleChatDetail = () => {
   else{
     router.push(`/BoxChat/Chat`);
   }
+};
+const handleOrderLayout = () => {
+  router.push(`/Gsaler/Order/Order`);
 };
 </script>
