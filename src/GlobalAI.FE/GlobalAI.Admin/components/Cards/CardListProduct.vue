@@ -10,7 +10,7 @@
                 <div
                     v-for="(item, idx) in products"
                     :key="idx"
-                    class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] bg-white rounded-[10px] overflow-hidden"
+                    class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] bg-white rounded-[10px] h-[400px] overflow-hidden"
                     @click="detail(item.id)"
                 >
                     <div class="px-[8px] py-[8px]">
@@ -21,8 +21,10 @@
                         />
                     </div>
                     <div class="bg-white flex flex-col gap-[4px] pt-2">
-                        <div class="px-[10px]">
-                            <h2 class="text-[18px] uppercase text-[#384059]">
+                        <div class="px-[10px] h-[147px] flex flex-col">
+                            <h2
+                                class="text-[18px] h-[54px] uppercase text-ellipsis line-clamp-2 text-[#384059]"
+                            >
                                 {{ item.tenSanPham }}
                             </h2>
                             <p class="text-[12px] text-[#384059]">
@@ -34,6 +36,10 @@
                             <p class="text-[12px]">
                                 Giá chiết khấu :
                                 {{ formatMoneyAll(item.giaChietKhau) }}
+                            </p>
+                            <p class="text-[12px]">
+                                Giá tối thiểu :
+                                {{ formatMoneyAll(item.giaToiThieu) }}
                             </p>
                             <div
                                 class="text-[12px] mt-3 flex justify-between items-center"
