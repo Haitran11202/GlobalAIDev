@@ -59,6 +59,14 @@
               class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
             <error-message name="giaChietKhau" class="text-red-500" />
           </div>
+          <div class="col-span-1">
+            <label for="giaToiThieu" class="block uppercase text-slate-600 text-xs font-bold mb-2">
+              Giá tối thiểu
+            </label>
+            <Field v-model.number="giaToiThieu" name="giaToiThieu" type="number"
+              class="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150" />
+            <error-message name="giaToiThieu" class="text-red-500" />
+          </div>
           <div class="">
             <label for="image" class="block uppercase text-slate-600 text-xs font-bold mb-2">Hình ảnh</label>
             <div class="flex items-center justify-between relative">
@@ -192,6 +200,7 @@ const tenSanPham = ref("");
 const moTa = ref("");
 const giaBan = ref(0);
 const giaChietKhau = ref(0);
+const giaToiThieu = ref(0);
 const idDanhMucThuocTinh = ref(0);
 const idDanhMuc = ref("");
 const thumbnail = ref("");
@@ -293,6 +302,7 @@ const handlePostProduct = () => {
     tenSanPham: tenSanPham.value,
     giaBan: giaBan.value,
     giaChietKhau: giaChietKhau.value,
+    giaToiThieu: giaToiThieu.value,
     moTa: moTa.value,
     idDanhMuc: `${idDanhMuc.value}`,
     idDanhMucThuocTinh: idDanhMucThuocTinh.value,
@@ -302,7 +312,6 @@ const handlePostProduct = () => {
 
   postProduct(productData)
     .then((res) => {
-      console.log({ res });
       if (res?.code === 200) {
         $toast.success("Thêm sản phẩm thành công");
         router.push('/admin/product');
