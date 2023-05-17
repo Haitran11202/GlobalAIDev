@@ -4,9 +4,7 @@
       class="absolute bg-gradient-to-b from-green-500 to-green-400 opacity-75 inset-0 z-0"
     ></div>
     <div class="min-h-screen flex justify-center items-center">
-      <div
-        class="flex-col p-0 flex self-center sm:max-w-5xl xl:max-w-2xl z-10"
-      >
+      <div class="flex-col p-0 flex self-center sm:max-w-5xl xl:max-w-2xl z-10">
         <div class="self-start hidden lg:flex flex-col text-white">
           <img src="" class="mb-3" />
           <h1 class="mb-3 font-bold text-5xl">Xin chào trở lại</h1>
@@ -150,7 +148,6 @@ const logInFunc = (data) => {
   useApiLogin(body)
     .then((res) => {
       if (res.status === 200) {
-
         userStorage.login({
           accessToken: res.data.access_token,
           refreshToken: res.data.refresh_token,
@@ -164,7 +161,7 @@ const logInFunc = (data) => {
     .then((res) => {
       if (res.status === 200) {
         $toast.success("Đăng nhập thành công");
-        router.push("/gsaler/home");
+        router.push("/gsaler/firstpage");
       } else {
         $toast.error("Có sự cố xảy ra khi đăng nhập");
       }
