@@ -39,13 +39,15 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<SanPhamChiTiet, AddSanPhamChiTietDto>().ReverseMap();
             CreateMap<SanPham, SanPhamChiTietDto>().ReverseMap();
             CreateMap<SanPhamChiTiet, UpdateSanPhamChiTietDto>().ReverseMap();
-            /*CreateMap<SanPhamChiTiet, GetSanPhamChiTietDto>().ReverseMap();*/
-            //CreateMap<List<ChiTietDonHang>, List<AddChiTietDonHangDto>>().ReverseMap();
+            CreateMap<SanPhamChiTietDto, SanPhamChiTiet>().ReverseMap();
+
             CreateMap<ChiTietDonHang, AddChiTietDonHangDto>().ReverseMap();
             CreateMap<ChiTietDonHang, EditChiTietDonHangDto>().ReverseMap();
             CreateMap<GetChiTietDonHangDto, ChiTietDonHang>().ReverseMap();
             CreateMap<GetGioHangDto, GioHang>().ReverseMap();
             CreateMap<ChiTietDonHang, GetChiTietDonHangDto>().ReverseMap();
+            CreateMap<ChiTietDonHang, DonHangChiTietDto>().ReverseMap();
+            CreateMap<DonHang, DonHangDto>().ReverseMap();
             //Giỏ hàng
             CreateMap<GioHang, EditGioHangDto>().ReverseMap();
             CreateMap<GioHang, AddGioHangDto>().ReverseMap();
@@ -81,8 +83,8 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<VoucherChiTiet, VoucherChiTietDto>().ReverseMap();
             CreateMap<VoucherChiTiet, UpdateVoucherChiTietDto>().ReverseMap();
             CreateMap<VoucherChiTiet, CreateVoucherDto>().ReverseMap();
-            CreateMap<DanhMuc, CreateDanhMucDto>().ReverseMap();
 
+            CreateMap<DanhMuc, CreateDanhMucDto>().ReverseMap();
             CreateMap<DanhMucThuocTinh, AddDanhMucThuocTinhDto>().ReverseMap();
             CreateMap<DanhMucThuocTinh, ViewDanhMucThuocTinhDto>().ReverseMap();
             CreateMap<DanhMucThuocTinh, UpdateDanhMucThuocTinhDto>().ReverseMap();
@@ -93,7 +95,7 @@ namespace GlobalAI.ProductEntities.DataEntities.Mapper
             CreateMap<ThuocTinhGiaTri, AddThuocTinhGiaTriDto>().ReverseMap();
             CreateMap<ThuocTinhGiaTri, ViewThuocTinhGiaTriDto>().ReverseMap();
             CreateMap<ThuocTinhGiaTri, SanPhamChiTietThuocTinh>().ReverseMap();
-            CreateMap<SanPhamChiTietDto, SanPhamChiTiet>().ReverseMap();
+
 
 
 

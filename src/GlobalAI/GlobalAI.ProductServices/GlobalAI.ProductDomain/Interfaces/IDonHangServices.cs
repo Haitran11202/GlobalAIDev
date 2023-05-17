@@ -15,17 +15,15 @@ namespace GlobalAI.ProductDomain.Interfaces
 {
     public interface IDonHangServices
     {
+        public PagingResult<DonHangDto> FindAll(FilterDonHangDto input);
         public PagingResult<GetDonHangDto> FindAll(FindDonHangDto input);
         public DonHang CreateDonhang(AddDonHangDto input);
         public DonHang EditDonhang(int id, AddDonHangDto newDonHang);
-
-
         public void DeleteDonHangById(int id);
 
         public DonHangFullDto GetDonHangFull(int maDonHang);
         public List<GetDonHangDto> GetDonHangByIdGstore(int idGstore);
         public void CreateDonHangFull(AddDonHangFullDto donHangFullDto);
-
         public DonHang UpdateStatusDonHang(UpdateStatusDonHangDto updateDonHangDto);
         DonHang GetDonhangById(int id);
     }

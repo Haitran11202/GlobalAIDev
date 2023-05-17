@@ -12,6 +12,8 @@ using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.Utils.ConstantVariables.Product;
 using System.ServiceModel;
 using GlobalAI.Utils;
+using GlobalAI.ProductEntities.Dto.Voucher;
+using System.Linq;
 
 namespace GlobalAI.ProductRepositories
 
@@ -22,6 +24,32 @@ namespace GlobalAI.ProductRepositories
         public DonHangRepository(DbContext dbContext, ILogger logger,IMapper mapper, string seqName = null) : base(dbContext, logger, seqName)
         {
             _mapper = mapper;
+        }
+
+        /// <summary>
+        /// lay don hang cua nguoi mua
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public PagingResult<DonHang> GetAll(FilterDonHangDto input, int? userId)
+        {
+            PagingResult<DonHang> result = new();
+
+            var query = (from donHang in _dbSet
+                         where donHang.Deleted == DeletedBool.NO
+                               && (userId == donHang.IdNguoiMua)
+                               && (input.Status == null || input.Status == donHang.Status)
+                         select donHang);
+
+            result.TotalItems = query.Count();
+            query = query.OrderByDescending(d => d.Id);
+            if (input.PageSize != -1)
+            {
+                query = query.Skip(input.Skip).Take(input.PageSize);
+            }
+            result.Items = query;
+            return result;
         }
 
         //Summary

@@ -15,6 +15,8 @@ using GlobalAI.Utils.ConstantVariables.Product;
 using GlobalAI.ProductEntities.Dto.DanhMuc;
 using GlobalAI.Utils;
 using GlobalAI.ProductEntities.Dto.SanPhamChiTiet;
+using GlobalAI.ProductEntities.Dto.Voucher;
+using System.Linq;
 
 namespace GlobalAI.ProductRepositories
 {

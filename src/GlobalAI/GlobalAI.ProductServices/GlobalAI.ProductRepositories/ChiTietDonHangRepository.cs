@@ -23,6 +23,12 @@ namespace GlobalAI.ProductRepositories
         {
             _mapper = mapper;
         }
+
+        public List<ChiTietDonHang> GetAllByDonHangId(int idDonHang)
+        {
+            var result = _dbSet.Where(e => e.IdDonHang == idDonHang);
+            return result.ToList();
+        }
         /// <summary>
         /// Get Chi tiết đơn hàng
         /// </summary>

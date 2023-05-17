@@ -1,7 +1,9 @@
-﻿using GlobalAI.ProductDomain.Interfaces;
+﻿using GlobalAI.ProductDomain.Implements;
+using GlobalAI.ProductDomain.Interfaces;
 using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductEntities.Dto.Voucher;
 using GlobalAI.Utils;
 using GlobalAI.Utils.Controllers;
 using Microsoft.AspNetCore.Authorization;
@@ -20,6 +22,26 @@ namespace GlobalAI.ProductAPI.Controllers
         public DonHangController(IDonHangServices donHangServices)
         {
             _donHangServices = donHangServices;
+        }
+
+        /// <summary>
+        /// danh sach don hang theo nguoi dung
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [HttpGet("purchase")]
+        [ProducesResponseType(typeof(APIResponse<List<DonHangDto>>), (int)HttpStatusCode.OK)]
+        public APIResponse FindAll([FromQuery] FilterDonHangDto input)
+        {
+            try
+            {
+                var result = _donHangServices.FindAll(input);
+                return new APIResponse(Utils.StatusCode.Success, result, 200, "Ok");
+            }
+            catch (Exception ex)
+            {
+                return OkException(ex);
+            }
         }
         /// <summary>
         /// Lấy ra tất cả đơn hàng có phân trang
