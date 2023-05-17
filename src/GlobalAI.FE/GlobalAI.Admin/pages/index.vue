@@ -14,7 +14,7 @@
               Sàn thương mại điện tử Global AI là một nền tảng trực tuyến kết
               nối các nhà cung cấp và các nhà phân phối với nhau, cho phép các
               nhà cung cấp và các nhà phân phối mua bán hàng hóa và dịch vụ với
-              số lượng lớn và giá chiết khấu cao.
+              số lượng lớn và giá chiết khấu cao. 
             </p>
             <div class="mt-12" v-if="!isLoggedIn">
               <nuxt-link
