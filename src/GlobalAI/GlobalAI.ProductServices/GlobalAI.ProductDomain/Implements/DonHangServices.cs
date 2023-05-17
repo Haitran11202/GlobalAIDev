@@ -34,12 +34,14 @@ namespace GlobalAI.ProductDomain.Implements
         private readonly DonHangRepository _repositoryDonHang;
         private readonly SanPhamRepository _repositorySanPham;
         private readonly ChiTietDonHangRepository _repositoryChiTietDonHang;
+        private readonly SanPhamChiTietRepository _repositorySanPhamChiTietRepository;
         private readonly IMapper _mapper;
         public DonHangServices(GlobalAIDbContext dbContext, IHttpContextAccessor httpContext, DatabaseOptions databaseOptions, ILogger<SanPhamServices> logger, IMapper mapper)
         {
             _repositoryDonHang = new DonHangRepository(dbContext, logger, mapper);
             _repositorySanPham = new SanPhamRepository(dbContext, logger, mapper);
             _repositoryChiTietDonHang = new ChiTietDonHangRepository(dbContext, logger, mapper);
+            _repositorySanPhamChiTietRepository = new SanPhamChiTietRepository(dbContext, logger, mapper);
             _connectionString = databaseOptions.ConnectionString;
             _logger = logger;
             _dbContext = dbContext;
@@ -110,10 +112,10 @@ namespace GlobalAI.ProductDomain.Implements
             // Save DonHang
             var resultDh = _repositoryDonHang.GetDonHang(maDonHang);
 
-            
+
             // Save ChiTietDonHang
             var resultChiTiet = _repositoryChiTietDonHang.GetListChiTietDonHang(maDonHang);
-            
+
 
             DonhangFull.ChiTietDonHangFullDtos = _mapper.Map<List<GetChiTietDonHangDto>>(resultChiTiet);
             DonhangFull.donHang = _mapper.Map<GetDonHangDto>(resultDh);
@@ -134,34 +136,52 @@ namespace GlobalAI.ProductDomain.Implements
         {
             using (IDbContextTransaction transaction = _dbContext.Database.BeginTransaction())
             {
-                try
+ 
+            try
+            {
+            var idNguoiMua = CommonUtils.GetCurrentUserId(_httpContext);
+            var gPoint = CommonUtils.GetCurrentGPoint(_httpContext);
+            if (gPoint <= 0 || gPoint == null)
+            {
+                throw new Exception("Điểm GPoint của bạn đã hết");
+            }
+            donHangFullDto.donHang.IdNguoiMua = idNguoiMua;
+            // Save DonHang
+            var resultDh = CreateDonhang(donHangFullDto.donHang);
+            resultDh.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);
+            resultDh.CreatedDate = DateTime.Now;
+            _dbContext.SaveChanges();
+            var idDonHang = resultDh.Id;
+            var giaChietKhau = donHangFullDto.donHang.SoTien;
+            double priceCheck = 0;
+            // Save ChiTietDonHang
+            foreach (var item in donHangFullDto.ChiTietDonHangFullDtos)
+            {
+                if (item.IdSanPhamChiTiet != null)
                 {
-                    var idNguoiMua = CommonUtils.GetCurrentUserId(_httpContext);
-                    donHangFullDto.donHang.IdNguoiMua = idNguoiMua;
-                    // Save DonHang
-                    var resultDh = CreateDonhang(donHangFullDto.donHang);
-                    resultDh.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);
-                    resultDh.CreatedDate = DateTime.Now;
-                    _dbContext.SaveChanges();
-                    var idDonHang = resultDh.Id;
-                    // Save ChiTietDonHang
-                    foreach (var item in donHangFullDto.ChiTietDonHangFullDtos)
-                    {
-                        var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(item));
-                        ctDonhang.IdDonHang = idDonHang;
-                        ctDonhang.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);
-                        ctDonhang.CreatedDate = DateTime.Now;
+                    var sanPhamChiTiet = _repositorySanPhamChiTietRepository.GetSanPhamChiTietById(item.IdSanPhamChiTiet);
+                    priceCheck += (double)((sanPhamChiTiet.GiaBan - sanPhamChiTiet.GiaChietKhau) * item.SoLuong);
+                }
 
-                    }
-                    _dbContext.SaveChanges();
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                }
+                var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(item));
+                ctDonhang.IdDonHang = idDonHang;
+                ctDonhang.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);
+                ctDonhang.CreatedDate = DateTime.Now;
 
             }
+            if (gPoint < priceCheck)
+            {
+                throw new Exception("Điểm GPoint của bạn không đủ để thực hiện giao dịch này");
+            }
+            _dbContext.SaveChanges();
+            transaction.Commit();
+        }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+            }
+
+}
         }
         /// <summary>
         /// Cập nhật trạng thái đơn hàng

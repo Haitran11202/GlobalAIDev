@@ -13,6 +13,7 @@ namespace GlobalAI.Utils.ConstantVariables.Shared
         public const string UserType = "user_type";
         public const string UserId = "user_id";
         public const string Role = "role";
+        public const string GPoint = "g_point";
         public const string Username = "username";
         public const string DisplayName = "display_name";
         public const string Email = "email";

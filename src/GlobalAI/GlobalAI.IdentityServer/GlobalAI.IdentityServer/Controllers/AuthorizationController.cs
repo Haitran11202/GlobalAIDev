@@ -135,6 +135,7 @@ namespace GlobalAI.IdentityServer.Controllers
             .SetClaim(Claims.Name, $"{user.FirstName} {user.LastName}")
                     .SetClaims(Claims.Role, userRole.ToImmutableArray())
                     .SetClaim(Shared.ClaimTypes.UserId, $"{user.UserId}")
+                    .SetClaim(Shared.ClaimTypes.GPoint, $"{user.GPoint}")
                     .SetClaims(Shared.ClaimTypes.UserType, (new List<string> { user.UserType }).ToImmutableArray());
 
             // Set the list of scopes granted to the client application.
