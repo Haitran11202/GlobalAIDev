@@ -38,7 +38,7 @@
         </div>
         <span
           @click="router.push('/gsaler/profile')"
-          class="text-sm cursor-pointer font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
+          class="text-sm cursor-pointer font-medium py-3  px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
         >
           Hồ sơ
         </span>

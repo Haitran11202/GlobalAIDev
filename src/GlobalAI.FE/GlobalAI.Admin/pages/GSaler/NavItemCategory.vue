@@ -7,7 +7,7 @@
                 @click="handleClickNavbar(item)"
                 :key="item"
                 :class="
-                    checkColor === item.idDanhMuc
+                    checkColor === item.id
                         ? 'px-[20px] text-[#cc3366] hover:border-[#cc3366] transition ease-in-out delay-100 cursor-pointer whitespace-nowrap border-[#cc3366] border-b-[3px] py-[15px]'
                         : 'px-[20px] text-[#384059] hover:border-[#cc3366] hover:text-[#cc3366] hover:border-b-[3px] transition ease-in-out delay-100 cursor-pointer whitespace-nowrap  py-[15px]'
                 "
@@ -34,7 +34,7 @@ import CardListProductShort from "../../components/Cards/CardListProductShort.vu
 import CardListProduct from "../../components/Cards/CardListProduct.vue";
 import CardPagination from "~~/components/Cards/CardPagination.vue";
 import { getSanPhamDanhMucPhanTrang } from "~~/composables/useApiProduct";
-const checkColor = ref("1");
+const checkColor = ref();
 
 // Get Sản phẩm theo Navbar danh mục
 const pageSize = 15;
@@ -76,6 +76,9 @@ onMounted(() => {
     getDanhMucSanPham()
         .then((res) => {
             navItems.value = res?.data?.data.items;
+            // Dữ liệu mặc định
+            checkColor.value = res?.data?.data.items[0].id
+            categoryId.value = res?.data?.data.items[0].id;
         })
         .catch((error) => {
             console.log(error);

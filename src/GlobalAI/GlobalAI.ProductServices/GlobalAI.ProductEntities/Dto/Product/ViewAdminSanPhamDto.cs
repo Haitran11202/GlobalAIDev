@@ -43,6 +43,12 @@ namespace GlobalAI.ProductEntities.Dto.Product
         public decimal? GiaChietKhau { get; set; }
 
         /// <summary>
+        /// Giá tối thiểu
+        /// </summary>
+        public decimal? GiaToiThieu { get; set; }
+
+
+        /// <summary>
         /// Id danh mục
         /// </summary>
         public string IdDanhMuc { get; set; }
