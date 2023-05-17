@@ -55,7 +55,8 @@ const getTongSanPham = (categoryId) => {
 }
 
 watchEffect(() => {
-  categoryId.value = props.category.idDanhMuc ? props.category.idDanhMuc : router.currentRoute.value.params.id;
+  console.log(props);
+  categoryId.value = props.category.id ? props.category.id : router.currentRoute.value.params.id;
   updateProducts(categoryId.value);
   getTongSanPham(categoryId.value)
 });

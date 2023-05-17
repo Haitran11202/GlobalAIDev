@@ -32,9 +32,16 @@
           block: dropdownPopoverShow,
         }"
       >
+       <div class="flex gap-[10px] cursor-pointer px-4 py-3 items-center hover:bg-slate-100 border-b-[1px] border-slate-100">
+           <img :src="image" class="w-[45px] h-[45px] rounded-full object-cover" alt="">
+           <div>
+            <p class="text-[16px] font-medium">{{ getUserInfor().name }}</p>
+             <p class="text-[12px] font-normal">{{ getUserInfor().user_type }}</p>
+            </div>
+       </div>
         <span
           @click="router.push('/gsaler/profile')"
-          class="text-sm cursor-pointer font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
+          class="text-sm cursor-pointer font-medium py-3  px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
         >
           Hồ sơ
         </span>
@@ -44,7 +51,13 @@
         >
           Chat chi tiết
         </span>
-        <hr />
+        <span
+        @click="handleOrderLayout"
+        class="text-sm cursor-pointer font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
+        >
+          Đơn hàng
+        </span>
+        <hr/>
         <span
           @click="handleLogout"
           class="text-sm cursor-pointer font-medium py-3 px-4 block w-full whitespace-nowrap bg-transparent text-blueGray-700 hover:bg-slate-100"
@@ -111,5 +124,8 @@ const handleChatDetail = () => {
   else{
     router.push(`/BoxChat/Chat`);
   }
+};
+const handleOrderLayout = () => {
+  router.push(`/Gsaler/Order/Order`);
 };
 </script>

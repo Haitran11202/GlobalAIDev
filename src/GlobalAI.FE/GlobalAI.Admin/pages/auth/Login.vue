@@ -164,7 +164,7 @@ const logInFunc = (data) => {
     .then((res) => {
       if (res.status === 200) {
         $toast.success("Đăng nhập thành công");
-        router.push("/gsaler/home");
+        router.push("/gsaler/FirstPage");
       } else {
         $toast.error("Có sự cố xảy ra khi đăng nhập");
       }

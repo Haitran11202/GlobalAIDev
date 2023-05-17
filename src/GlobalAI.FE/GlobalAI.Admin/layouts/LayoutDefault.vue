@@ -32,28 +32,26 @@ const selectedCategory = ref("");
 const showColor = ref(false);
 const checkContainer = ref(true);
 const changeSideBarShow = () => {
-    if (
-        router.currentRoute.value.name !== "ManageCart" &&
-        router.currentRoute.value.name !== "ProductDetail" &&
-        router.currentRoute.value.name !== "BoxChat" &&
-        router.currentRoute.value.name !== "BoxChatID" &&
-        router.currentRoute.value.name !== "SupplierPage"
-    ) {
-        console.log(1);
-        console.log(router.currentRoute.value.name);
-        useSideBar.changeShowSideBar(true);
-    } else {
-        useSideBar.changeShowSideBar(false);
-    }
+  if (
+    router.currentRoute.value.name !== "ManageCart" &&
+    router.currentRoute.value.name !== "ProductDetail" && router.currentRoute.value.name !== "BoxChat" && router.currentRoute.value.name !== "BoxChatID" && router.currentRoute.value.name !== "SupplierPage"
+    && router.currentRoute.value.name !== "OrderLayout" && router.currentRoute.value.name !== "FirstPage"
+  ) {
+    console.log(1);
+    console.log(router.currentRoute.value.name);
+    useSideBar.changeShowSideBar(true);
+  } else {
+    useSideBar.changeShowSideBar(false);
+  }
 };
 
 const changeWidthContainer = () => {
-    if (router.currentRoute.value.name !== "SupplierPage") {
-        checkContainer.value = true;
-    } else {
-        checkContainer.value = false;
-    }
-};
+  if(router.currentRoute.value.name !== "SupplierPage" && router.currentRoute.value.name !== "OrderLayout"){
+    checkContainer.value = true;
+  }else{
+    checkContainer.value = false;
+  }
+}
 
 watchEffect(() => {
     changeSideBarShow();

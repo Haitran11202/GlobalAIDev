@@ -6,7 +6,7 @@
             >
                 {{ props?.category }}
             </h1>
-            <RouterLink
+            <!-- <RouterLink
                 :to="`/product/category/${props.category?.idDanhMuc}`"
                 class="font-[500] sm:pr-0 pr-4 flex gap-2 items-center justify-center text-[#384059] lg:text-[16px]"
             >
@@ -17,7 +17,7 @@
                         :icon="['fas', 'angle-right']"
                     />
                 </span>
-            </RouterLink>
+            </RouterLink> -->
         </div>
         <div
             class="grid grid-cols-1 sm:px-0 px-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"
