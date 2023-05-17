@@ -30,6 +30,16 @@
                 Đăng nhập
               </nuxt-link>
             </div>
+            <div v-else>
+            <div class="py-10 flex flex-row justify-center w-full">
+              <nuxt-link
+                to="/gsaler/firstpage"
+                class="get-started text-white font-bold px-6 py-4 rounded outline-none focus:outline-none mr-1 mb-1 bg-[#3192cd] hover:bg-emerald-600 uppercase text-sm shadow hover:shadow-lg ease-linear transition-all duration-150"
+              >
+               Xem Thêm >>>
+              </nuxt-link>
+            </div>
+          </div>
           </div>
         </div>
       </div>
