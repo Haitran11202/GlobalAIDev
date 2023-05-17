@@ -9,6 +9,8 @@ using GlobalAI.ProductEntities.DataEntities;
 using GlobalAI.ProductEntities.Dto.ChiTietDonHang;
 using GlobalAI.ProductEntities.Dto.DonHang;
 using GlobalAI.ProductEntities.Dto.Product;
+using GlobalAI.ProductEntities.Dto.Voucher;
+using GlobalAI.ProductEntities.Dto.VoucherChiTiet;
 using GlobalAI.ProductRepositories;
 using GlobalAI.Utils;
 using Microsoft.AspNetCore.Http;
@@ -48,6 +50,29 @@ namespace GlobalAI.ProductDomain.Implements
             _httpContext = httpContext;
             _mapper = mapper;
 
+        }
+
+        /// <summary>
+        /// Danh sach don hang cua nguoi dung
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public PagingResult<DonHangDto> FindAll(FilterDonHangDto input)
+        {
+
+            int? userId = CommonUtils.GetCurrentUserId(_httpContext);
+            var usertype = CommonUtils.GetCurrentRole(_httpContext);
+
+            var result = new PagingResult<DonHangDto>();
+            var query = _repositoryDonHang.GetAll(input, userId);
+
+            result.Items = _mapper.Map<List<DonHangDto>>(query.Items);
+            result.TotalItems = query.TotalItems;
+            foreach (var item in result.Items)
+            {
+                item.DonHangChiTiets = _mapper.Map<List<DonHangChiTietDto>>(_repositoryChiTietDonHang.GetAllByDonHangId(item.Id));
+            }
+            return result;
         }
 
         /// <summary>
@@ -156,18 +181,17 @@ namespace GlobalAI.ProductDomain.Implements
             double priceCheck = 0;
             // Save ChiTietDonHang
             foreach (var item in donHangFullDto.ChiTietDonHangFullDtos)
-            {
-                if (item.IdSanPhamChiTiet != null)
-                {
-                    var sanPhamChiTiet = _repositorySanPhamChiTietRepository.GetSanPhamChiTietById(item.IdSanPhamChiTiet);
-                    priceCheck += (double)((sanPhamChiTiet.GiaBan - sanPhamChiTiet.GiaChietKhau) * item.SoLuong);
-                }
-
+            {  
                 var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(item));
+            
+                var sanPhamChiTiet = _repositorySanPhamChiTietRepository.GetSanPhamChiTietById(item.IdSanPhamChiTiet);
+                priceCheck += (double)((sanPhamChiTiet.GiaBan - sanPhamChiTiet.GiaChietKhau) * item.SoLuong);
+
                 ctDonhang.IdDonHang = idDonHang;
+                ctDonhang.IdSanPhamChiTiet = item.IdSanPhamChiTiet;
                 ctDonhang.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);
                 ctDonhang.CreatedDate = DateTime.Now;
-
+                ctDonhang.GPoint = (decimal)((sanPhamChiTiet.GiaBan - sanPhamChiTiet.GiaChietKhau) * item.SoLuong);
             }
             if (gPoint < priceCheck)
             {
