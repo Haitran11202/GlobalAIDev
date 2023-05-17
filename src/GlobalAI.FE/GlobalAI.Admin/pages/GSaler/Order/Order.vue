@@ -6,7 +6,9 @@
       <div class="pt-[20px] bg-white">
         <!-- navbar-one -->
         <div class="flex px-[20px] items-center justify-between">
-          <h1 class="text-[24px] text-[#384059] w-[15%] font-semibold">Đơn Hàng</h1>
+          <h1 class="text-[24px] text-[#384059] w-[15%] font-semibold">
+            Đơn Hàng
+          </h1>
           <div
             class="px-[20px] py-[10px] flex-1 rounded-md bg-slate-100 flex justify-between"
           >
@@ -81,10 +83,12 @@
           </div>
         </div>
         <div class="flex-1 relative min-h-[100vh]">
-            <!-- video quảng cáo -->
-            <div class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
-               <h1>Giới thiệu GlobalAI</h1>
-            </div>
+          <!-- video quảng cáo -->
+          <div
+            class="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]"
+          >
+            <h1>Giới thiệu GlobalAI</h1>
+          </div>
         </div>
       </div>
     </div>

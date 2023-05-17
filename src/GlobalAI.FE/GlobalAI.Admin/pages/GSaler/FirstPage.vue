@@ -13,7 +13,10 @@
       <div
         class="flex grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 gap-[50px] mt-[40px]"
       >
-        <router-link to="/gsaler/home" class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]">
+        <router-link
+          to="/gsaler/home"
+          class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]"
+        >
           <img
             :src="imgMyPham"
             class="w-[100px] h-[100px] object-cover"
@@ -21,7 +24,10 @@
           />
           <span class="text-[16px] font-medium"> Mỹ Phẩm</span></router-link
         >
-        <router-link to="/gsaler/home" class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]">
+        <router-link
+          to="/gsaler/home"
+          class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]"
+        >
           <img
             :src="imgDuocPham"
             class="w-[100px] h-[100px] object-cover"
@@ -29,7 +35,10 @@
           />
           <span class="text-[16px] font-medium"> Dược Phẩm</span></router-link
         >
-        <router-link to="/gsaler/home" class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]">
+        <router-link
+          to="/gsaler/home"
+          class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]"
+        >
           <img
             :src="imgThoiTrang"
             class="w-[100px] h-[100px] object-cover"
@@ -37,7 +46,10 @@
           />
           <span class="text-[16px] font-medium"> Thời Trang</span></router-link
         >
-        <router-link to="/gsaler/home" class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]">
+        <router-link
+          to="/gsaler/home"
+          class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]"
+        >
           <img
             :src="imgDienMay"
             class="w-[100px] h-[100px] object-cover"
@@ -47,7 +59,10 @@
             Điện Máy , Điện Tử</span
           ></router-link
         >
-        <router-link to="/gsaler/home" class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]">
+        <router-link
+          to="/gsaler/home"
+          class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]"
+        >
           <img
             :src="imgGiaoDuc"
             class="w-[100px] h-[100px] object-cover"
@@ -55,7 +70,10 @@
           />
           <span class="text-[16px] font-medium">Giáo Dục</span></router-link
         >
-        <router-link to="/gsaler/home" class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]">
+        <router-link
+          to="/gsaler/home"
+          class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]"
+        >
           <img
             :src="imgDuLich"
             class="w-[100px] h-[100px] object-cover"
@@ -63,7 +81,10 @@
           />
           <span class="text-[16px] font-medium"> Du Lịch</span></router-link
         >
-        <router-link to="/gsaler/home" class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]">
+        <router-link
+          to="/gsaler/home"
+          class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]"
+        >
           <img
             :src="imgTaiChinh"
             class="w-[100px] h-[100px] object-cover"
@@ -73,7 +94,10 @@
             Tài chính Ngân Hàng</span
           ></router-link
         >
-        <router-link to="/gsaler/home" class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]">
+        <router-link
+          to="/gsaler/home"
+          class="hover:shadow-[0px_0px_10px_rgba(0,0,0,0.4)] flex flex-col items-center gap-[15px]"
+        >
           <img
             :src="imgThuongMaiDienTu"
             class="w-[100px] h-[100px] object-cover"
