@@ -39,6 +39,7 @@ const checkColor = ref();
 
 // Get Sản phẩm theo Navbar danh mục
 const pageSize = 15;
+const navItems = ref([]);
 const pageNumber = ref(1);
 const skip = ref(0);
 const categoryId = ref("1");
