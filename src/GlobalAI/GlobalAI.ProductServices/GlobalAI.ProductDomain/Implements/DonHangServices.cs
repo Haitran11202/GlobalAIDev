@@ -156,18 +156,16 @@ namespace GlobalAI.ProductDomain.Implements
             double priceCheck = 0;
             // Save ChiTietDonHang
             foreach (var item in donHangFullDto.ChiTietDonHangFullDtos)
-            {
-                if (item.IdSanPhamChiTiet != null)
-                {
-                    var sanPhamChiTiet = _repositorySanPhamChiTietRepository.GetSanPhamChiTietById(item.IdSanPhamChiTiet);
-                    priceCheck += (double)((sanPhamChiTiet.GiaBan - sanPhamChiTiet.GiaChietKhau) * item.SoLuong);
-                }
-
+            {  
                 var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(item));
+            
+                var sanPhamChiTiet = _repositorySanPhamChiTietRepository.GetSanPhamChiTietById(item.IdSanPhamChiTiet);
+                priceCheck += (double)((sanPhamChiTiet.GiaBan - sanPhamChiTiet.GiaChietKhau) * item.SoLuong);
+
                 ctDonhang.IdDonHang = idDonHang;
                 ctDonhang.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);
                 ctDonhang.CreatedDate = DateTime.Now;
-
+                ctDonhang.GPoint = (decimal)((sanPhamChiTiet.GiaBan - sanPhamChiTiet.GiaChietKhau) * item.SoLuong);
             }
             if (gPoint < priceCheck)
             {
