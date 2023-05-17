@@ -48,10 +48,10 @@ const changeSideBarShow = () => {
 const changeWidthContainer = () => {
   if(router.currentRoute.value.name !== "SupplierPage" && router.currentRoute.value.name !== "OrderLayout"){
     checkContainer.value = true;
-  }else{
+  } else {
     checkContainer.value = false;
   }
-}
+};
 
 watchEffect(() => {
     changeSideBarShow();
