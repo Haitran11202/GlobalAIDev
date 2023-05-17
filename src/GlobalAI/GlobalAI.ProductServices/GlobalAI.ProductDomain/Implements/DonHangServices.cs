@@ -134,9 +134,16 @@ namespace GlobalAI.ProductDomain.Implements
         {
             using (IDbContextTransaction transaction = _dbContext.Database.BeginTransaction())
             {
+                // code sieu lom
                 try
                 {
                     var idNguoiMua = CommonUtils.GetCurrentUserId(_httpContext);
+                    var gPoint = CommonUtils.GetCurrentGPoint(_httpContext);
+                    if (gPoint <= 0 || gPoint == null)
+                    {
+                        throw new Exception("Điểm GPoint của bạn đã hết");
+                    }
+
                     donHangFullDto.donHang.IdNguoiMua = idNguoiMua;
                     // Save DonHang
                     var resultDh = CreateDonhang(donHangFullDto.donHang);
@@ -144,9 +151,17 @@ namespace GlobalAI.ProductDomain.Implements
                     resultDh.CreatedDate = DateTime.Now;
                     _dbContext.SaveChanges();
                     var idDonHang = resultDh.Id;
+                    var giaChietKhau = donHangFullDto.donHang.SoTien;
+
                     // Save ChiTietDonHang
                     foreach (var item in donHangFullDto.ChiTietDonHangFullDtos)
                     {
+                        if(item.IdSanPhamChiTiet != null)
+                        {
+                            var sanPhamChiTiet = _repositoryChiTietDonHang.GetChiTietDonHangById(item.IdSanPhamChiTiet);
+                            //sanPhamChiTiet.
+                        }
+                   
                         var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(item));
                         ctDonhang.IdDonHang = idDonHang;
                         ctDonhang.CreatedBy = CommonUtils.GetCurrentUsername(_httpContext);

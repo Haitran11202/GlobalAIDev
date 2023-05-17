@@ -86,6 +86,19 @@ namespace GlobalAI.Utils
             return userId;
         }
 
+        public static int GetCurrentGPoint(IHttpContextAccessor httpContextAccessor)
+        {
+            var claims = httpContextAccessor.HttpContext?.User?.Identity as ClaimsIdentity;
+            var claim = claims?.FindFirst(Shared.ClaimTypes.GPoint);
+            if (claim == null)
+            {
+                throw new FaultException(new FaultReason($"Tài khoản không chứa claim \"{Shared.ClaimTypes.GPoint}\""),
+                    new FaultCode(((int)ErrorCode.NotHaveClaim).ToString()), "");
+            }
+            int userId = int.Parse(claim.Value);
+            return userId;
+        }
+
         public static string GetCurrentRole(IHttpContextAccessor httpContextAccessor)
         {
             var claims = httpContextAccessor.HttpContext?.User?.Identity as ClaimsIdentity;

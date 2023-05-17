@@ -16,5 +16,6 @@ namespace GlobalAI.ProductEntities.Dto.ChiTietDonHang
        
         public int IdSanPham { get; set; }
         public int SoLuong { get; set; }
+        public int IdSanPhamChiTiet { get; set; }
     }
 }
