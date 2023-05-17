@@ -1240,6 +1240,7 @@ const dathang = () => {
 
             return {
                 idSanPham: chiTiet.idSanPham,
+                idSanPhamChiTiet: chiTiet.idSanPhamChiTiet,
                 soLuong: getCartItemQuantity(idSp),
             };
         });
