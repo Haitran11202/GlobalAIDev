@@ -159,17 +159,19 @@ namespace GlobalAI.ProductDomain.Implements
         /// <param name="ctDto"></param>
         public void CreateDonHangFull(AddDonHangFullDto donHangFullDto)
         {
-            using (IDbContextTransaction transaction = _dbContext.Database.BeginTransaction())
-            {
- 
-            try
-            {
+            //using (IDbContextTransaction transaction = _dbContext.Database.BeginTransaction())
+            //{
+
+            //try
+            //{
+
             var idNguoiMua = CommonUtils.GetCurrentUserId(_httpContext);
             var gPoint = CommonUtils.GetCurrentGPoint(_httpContext);
             if (gPoint <= 0 || gPoint == null)
             {
                 throw new Exception("Điểm GPoint của bạn đã hết");
             }
+            var transaction = _dbContext.Database.BeginTransaction();
             donHangFullDto.donHang.IdNguoiMua = idNguoiMua;
             // Save DonHang
             var resultDh = CreateDonhang(donHangFullDto.donHang);
@@ -181,9 +183,9 @@ namespace GlobalAI.ProductDomain.Implements
             double priceCheck = 0;
             // Save ChiTietDonHang
             foreach (var item in donHangFullDto.ChiTietDonHangFullDtos)
-            {  
+            {
                 var ctDonhang = _repositoryChiTietDonHang.CreateChiTietDonHang(_mapper.Map<ChiTietDonHang>(item));
-            
+
                 var sanPhamChiTiet = _repositorySanPhamChiTietRepository.GetSanPhamChiTietById(item.IdSanPhamChiTiet);
                 priceCheck += (double)((sanPhamChiTiet.GiaBan - sanPhamChiTiet.GiaChietKhau) * item.SoLuong);
 
@@ -199,13 +201,13 @@ namespace GlobalAI.ProductDomain.Implements
             }
             _dbContext.SaveChanges();
             transaction.Commit();
-        }
-            catch (Exception ex)
-            {
-                transaction.Rollback();
-            }
+            //}
+            //    catch (Exception ex)
+            //    {
+            //        transaction.Rollback();
+            //    }
 
-}
+            //}
         }
         /// <summary>
         /// Cập nhật trạng thái đơn hàng
