@@ -27,6 +27,8 @@ namespace GlobalAI.CoreAPI.Controllers
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        /// 
+        [AllowAnonymous]
         [HttpPost("register")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         public APIResponse Add([FromBody] AddUserDto input)
