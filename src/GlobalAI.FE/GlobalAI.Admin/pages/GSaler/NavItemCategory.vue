@@ -34,7 +34,6 @@ import CardListProductShort from "../../components/Cards/CardListProductShort.vu
 import CardListProduct from "../../components/Cards/CardListProduct.vue";
 import CardPagination from "~~/components/Cards/CardPagination.vue";
 import { getSanPhamDanhMucPhanTrang } from "~~/composables/useApiProduct";
-const navItems = ref([]);
 const checkColor = ref();
 
 // Get Sản phẩm theo Navbar danh mục
